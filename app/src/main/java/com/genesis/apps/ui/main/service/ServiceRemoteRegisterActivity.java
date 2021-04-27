@@ -439,10 +439,17 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     }
                     break;
                 }
-                case ERROR: {
+                default: {
                     showProgressDialog(false);
                     // 통신 오류 안내.
-                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    }
                     break;
                 }
             }
@@ -450,24 +457,29 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         rmtViewModel.getRES_RMT_1002().observe(this, result -> {
             switch (result.status) {
-                case LOADING: {
+                case LOADING:
                     showProgressDialog(true);
                     break;
-                }
-                case SUCCESS: {
+                case SUCCESS:
                     // 원격 진단 신청 완료 - 해당 Activity 종료
                     showProgressDialog(false);
-                    exitPage(new Intent().putExtra(KeyNames.KEY_NAME_VIN, vin)
-                                    .putExtra(KeyNames.KEY_NAME_IS_SHOW_COMPLETE, true)
-                            , ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode());
-                    break;
-                }
-                case ERROR: {
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(BaseResponse.RETURN_CODE_SUCC)) {
+                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_VIN, vin)
+                                        .putExtra(KeyNames.KEY_NAME_IS_SHOW_COMPLETE, true)
+                                , ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode());
+                        break;
+                    }
+                default:
                     showProgressDialog(false);
-                    // 통신 오류 안내.
-                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
-                }
             }
         });
         //2021-03-02 이후로 RMT1006을 사용하지 않음
@@ -526,7 +538,14 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 case ERROR: {
                     showProgressDialog(false);
                     // 통신 오류 안내.
-                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    }
                     break;
                 }
             }
@@ -564,7 +583,14 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 case ERROR: {
                     showProgressDialog(false);
                     // 통신 오류 안내.
-                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    }
                     break;
                 }
             }

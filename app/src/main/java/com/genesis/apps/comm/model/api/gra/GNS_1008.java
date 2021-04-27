@@ -37,14 +37,22 @@ public class GNS_1008 extends BaseData {
         @Expose
         @SerializedName("imgFilNm")
         private String imgFilNm;
+        @Expose
+        @SerializedName("imgFilNm2")
+        private String imgFilNm2;
+
 
         private File file;
         private String imageKeyName="imgFil";
+        private File imgFil2;
+        private String imageKeyName2="imgFil2";
 
-        public Request(String menuId, String vin, String imgFilNm, File file){
+        public Request(String menuId, String vin, String imgFilNm, File file, String imgFilNm2, File imgFil2){
             this.vin = vin;
             this.imgFilNm = imgFilNm;
             this.file = file;
+            this.imgFilNm2 = imgFilNm2;
+            this.imgFil2 = imgFil2;
             setData(APIInfo.GRA_GNS_1008.getIfCd(), menuId);
         }
     }

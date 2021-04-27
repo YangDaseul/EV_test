@@ -238,7 +238,7 @@ public class HttpRequestUtil {
         return toJsonObject(statusCode, body);
     }
 
-    public JsonObject part(HttpRequest request, HashMap<String, String> params, String name, String filename, String contentType, File part) throws NetException {
+    public JsonObject part(HttpRequest request, HashMap<String, String> params, String name, String filename, String contentType, File part, String name2, String filename2, File part2) throws NetException {
         Log.v(TAG_LOG, "form request : " + request.toString());
 
         if (params != null) {
@@ -253,7 +253,7 @@ public class HttpRequestUtil {
             Log.v(TAG_LOG, "part Params [" + sb.toString() + "]");
         }
 
-        request.part(params, name, filename, contentType, part);
+        request.part(params, name, filename, contentType, part, name2, filename2, part2);
         int statusCode = request.code();
         Log.v(TAG_LOG, "form statusCode [" + statusCode + "]");
         String body = request.body();
@@ -328,7 +328,7 @@ public class HttpRequestUtil {
         return r;
     }
 
-    public JsonObject upload(String accessToken, String url, HashMap<String, String> params, String name, String filename, File targetFIle) throws NetException {
+    public JsonObject upload(String accessToken, String url, HashMap<String, String> params, String name, String filename, File targetFIle, String name2, String filename2, File targetFIle2) throws NetException {
         HttpRequest request = getPostRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + accessToken);
         request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
@@ -336,7 +336,7 @@ public class HttpRequestUtil {
         if (targetFIle != null) {
             Log.d(TAG_LOG, "upload targetFile : " + targetFIle.getAbsolutePath());
         }
-        return part(request, params, name, filename, null, targetFIle);
+        return part(request, params, name, filename, null, targetFIle, name2, filename2, targetFIle2);
     }
 
     public String getJson(JsonObject jsonObject, String key) {

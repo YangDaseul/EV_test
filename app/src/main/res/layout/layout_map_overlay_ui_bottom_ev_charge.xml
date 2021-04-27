@@ -41,12 +41,45 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="현대EV스테이션 스테이션 강남 1.1km | 예약가능" />
 
+        <!--충전소 거리-->
+        <TextView
+            android:id="@+id/tv_dist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_charge_station_name"
+            tools:text="0.8km" />
+
+        <!--예약 가능 상태-->
+        <TextView
+            android:id="@+id/tv_book_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:drawableStart="@drawable/bar_525252_height_10"
+            android:drawablePadding="8.3dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_996449"
+            android:textSize="16dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/tv_dist"
+            app:layout_constraintTop_toTopOf="@id/tv_dist"
+            tools:text="예약가능"
+            tools:visibility="visible" />
+
         <!-- 주소 -->
         <TextView
             android:id="@+id/tv_map_select_address"
             style="@style/MapOverlayWhite.RegularText"
             android:layout_width="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:includeFontPadding="false"
             android:textColor="@color/x_666666"
             app:layout_constrainedWidth="true"
@@ -55,7 +88,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_charge_station_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_dist"
             app:layout_constraintVertical_bias="1"
             tools:text="서울특별시 금천구 어딘가에  333 (가산동)" />
 
@@ -64,7 +97,7 @@
             android:id="@+id/tv_time"
             style="@style/MapOverlayWhite.RegularText"
             android:layout_width="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="21dp"
             android:includeFontPadding="false"
             android:textColor="@color/x_666666"
             app:layout_constrainedWidth="true"
