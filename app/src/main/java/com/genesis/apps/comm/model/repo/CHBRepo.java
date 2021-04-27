@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
-import com.genesis.apps.comm.model.api.gra.CHB_1001;
 import com.genesis.apps.comm.model.api.gra.CHB_1002;
 import com.genesis.apps.comm.model.api.gra.CHB_1003;
 import com.genesis.apps.comm.model.api.gra.CHB_1004;
@@ -19,7 +18,6 @@ import com.genesis.apps.comm.model.api.gra.CHB_1013;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
-import com.genesis.apps.comm.model.api.gra.CHB_1018;
 import com.genesis.apps.comm.model.api.gra.CHB_1019;
 import com.genesis.apps.comm.model.api.gra.CHB_1020;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
@@ -41,7 +39,6 @@ public class CHBRepo {
 
     NetCaller netCaller;
 
-    public final MutableLiveData<NetUIResponse<CHB_1001.Response>> RES_CHB_1001 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1002.Response>> RES_CHB_1002 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1003.Response>> RES_CHB_1003 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1004.Response>> RES_CHB_1004 = new MutableLiveData<>();
@@ -58,7 +55,6 @@ public class CHBRepo {
     public final MutableLiveData<NetUIResponse<CHB_1016.Response>> RES_CHB_1016 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1017.Response>> RES_CHB_1017 = new MutableLiveData<>();
 
-    public final MutableLiveData<NetUIResponse<CHB_1018.Response>> RES_CHB_1018 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1019.Response>> RES_CHB_1019 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1020.Response>> RES_CHB_1020 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1021.Response>> RES_CHB_1021 = new MutableLiveData<>();
@@ -72,37 +68,6 @@ public class CHBRepo {
     @Inject
     public CHBRepo(NetCaller netCaller) {
         this.netCaller = netCaller;
-    }
-
-    public MutableLiveData<NetUIResponse<CHB_1001.Response>> REQ_CHB_1001(final CHB_1001.Request reqData) {
-        RES_CHB_1001.setValue(NetUIResponse.loading(null));
-        netCaller.reqDataToGRA(new NetResultCallback() {
-            @Override
-            public void onSuccess(String object) {
-                RES_CHB_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1001.Response.class)));
-
-//                RES_CHB_1001.setValue(NetUIResponse.success(new Gson().fromJson("{\n" +
-//                        "  \"rtCd\": \"0000\",\n" +
-//                        "  \"rtMsg\": \"Success\",\n" +
-//                        "  \"status\": \"Y\",\n" +
-//                        "  \"statusNm\": \"예약완료\",\n" +
-//                        "}", CHB_1001.Response.class)));
-
-            }
-
-            @Override
-            public void onFail(NetResult e) {
-                RES_CHB_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_CHB_1001.setValue(NetUIResponse.success(TestCode.CHB_1001));
-            }
-
-            @Override
-            public void onError(NetResult e) {
-                RES_CHB_1001.setValue(NetUIResponse.error(R.string.error_msg_4, null));
-            }
-        }, APIInfo.GRA_CHB_1001, reqData);
-
-        return RES_CHB_1001;
     }
 
     public MutableLiveData<NetUIResponse<CHB_1002.Response>> REQ_CHB_1002(final CHB_1002.Request reqData) {
@@ -438,29 +403,6 @@ public class CHBRepo {
          */
 
         return RES_CHB_1017;
-    }
-
-    public MutableLiveData<NetUIResponse<CHB_1018.Response>> REQ_CHB_1018(final CHB_1018.Request reqData) {
-        RES_CHB_1018.setValue(NetUIResponse.loading(null));
-        netCaller.reqDataToGRA(new NetResultCallback() {
-            @Override
-            public void onSuccess(String object) {
-                RES_CHB_1018.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1018.Response.class)));
-            }
-
-            @Override
-            public void onFail(NetResult e) {
-                RES_CHB_1018.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_CHB_1018.setValue(NetUIResponse.success(TestCode.CHB_1018));
-            }
-
-            @Override
-            public void onError(NetResult e) {
-                RES_CHB_1018.setValue(NetUIResponse.error(R.string.error_msg_4, null));
-            }
-        }, APIInfo.GRA_CHB_1018, reqData);
-
-        return RES_CHB_1018;
     }
 
     public MutableLiveData<NetUIResponse<CHB_1019.Response>> REQ_CHB_1019(final CHB_1019.Request reqData) {

@@ -213,7 +213,7 @@ public enum APIInfo {
     GRA_CHB_1015("service + 결제수단 조회", "CHB-1015", HttpRequest.METHOD_POST, "/graapi/chb/easyPayLookUp.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1016("service + 주카드 등록", "CHB-1016", HttpRequest.METHOD_POST, "/graapi/chb/mainCardReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1017("service + 결제수단 삭제", "CHB-1017", HttpRequest.METHOD_POST, "/graapi/chb/easyPayDelete.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CHB_1018("service + 추가예상비용안내", "CHB-1018", HttpRequest.METHOD_POST, "/graapi/chb/addCostGuide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1018("service + 추가예상비용안내 >> 삭제", "CHB-1018", HttpRequest.METHOD_POST, "/graapi/chb/addCostGuide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1019("service + 리뷰문구 요청", "CHB-1019", HttpRequest.METHOD_POST, "/graapi/chb/reviewReq.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1020("service + 리뷰 평가", "CHB-1020", HttpRequest.METHOD_POST, "/graapi/chb/reviewEval.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1021("service + 픽업앤충전 서비스 신청현황/예약 조회", "CHB-1021", HttpRequest.METHOD_POST, "/graapi/chb/aplctStatusGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

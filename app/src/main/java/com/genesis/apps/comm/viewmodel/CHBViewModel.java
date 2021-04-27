@@ -20,7 +20,6 @@ import com.genesis.apps.comm.model.api.gra.CHB_1013;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
-import com.genesis.apps.comm.model.api.gra.CHB_1018;
 import com.genesis.apps.comm.model.api.gra.CHB_1019;
 import com.genesis.apps.comm.model.api.gra.CHB_1020;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
@@ -70,7 +69,6 @@ class CHBViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CHB_1015.Response>> RES_CHB_1015;
     private MutableLiveData<NetUIResponse<CHB_1016.Response>> RES_CHB_1016;
     private MutableLiveData<NetUIResponse<CHB_1017.Response>> RES_CHB_1017;
-    private MutableLiveData<NetUIResponse<CHB_1018.Response>> RES_CHB_1018;
 
     private MutableLiveData<NetUIResponse<CHB_1019.Response>> RES_CHB_1019;
     private MutableLiveData<NetUIResponse<CHB_1020.Response>> RES_CHB_1020;
@@ -113,7 +111,6 @@ class CHBViewModel extends ViewModel {
         RES_CHB_1015 = repository.RES_CHB_1015;
         RES_CHB_1016 = repository.RES_CHB_1016;
         RES_CHB_1017 = repository.RES_CHB_1017;
-        RES_CHB_1018 = repository.RES_CHB_1018;
 
         RES_CHB_1019 = repository.RES_CHB_1019;
         RES_CHB_1020 = repository.RES_CHB_1020;
@@ -171,9 +168,6 @@ class CHBViewModel extends ViewModel {
     }
     public void reqCHB1017(final CHB_1017.Request reqData) {
         repository.REQ_CHB_1017(reqData);
-    }
-    public void reqCHB1018(final CHB_1018.Request reqData) {
-        repository.REQ_CHB_1018(reqData);
     }
 
     public void reqCHB1019(final CHB_1019.Request reqData) {
