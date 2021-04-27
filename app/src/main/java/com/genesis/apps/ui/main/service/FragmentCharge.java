@@ -493,7 +493,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         if (termVO != null) {
             ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
                     .putExtra(VariableType.KEY_NAME_TERM_VO, termVO)
-                    .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, termVO.getTermNm())
+//                    .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, termVO.getTermNm()) //2021-04-27 자세히보기로 노출 결정
                     , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                     , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         }
