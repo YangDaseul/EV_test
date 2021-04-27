@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1010;
+import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -363,6 +364,25 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     break;
             }
         });
+
+        chbViewModel.getRES_CHB_1015().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null) {
+                        contentsVO.setSignInYN(result.data.getSignInYN());
+                        contentsVO.setCardList(result.data.getCardList());
+                        setLayoutCardItem();
+                    }
+                    break;
+                default:
+                        showProgressDialog(false);
+                    break;
+            }
+        });
     }
 
     @Override
@@ -535,6 +555,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
             exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
+        } else if(resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+            chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
         }
     }
 
