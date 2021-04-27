@@ -63,7 +63,7 @@ public class EPTRepo {
         RES_EPT_1002.setValue(NetUIResponse.loading(null));
 
         // TODO 테스트 데이터. API가 정상 작동시 삭제 필요.
-        String dummyData = "";
+        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"testmsg\",\"chgInfo\":{\"spid\":\"11\",\"csid\":\"12345678\",\"espid\":\"123\",\"ecsid\":\"1234567890123456789012345678901234567\",\"csnm\":\"양평충전소\",\"dist\":\"11.11\",\"lat\":\"\",\"lot\":\"\",\"daddr\":\"서울특별시 금천구 시흥대로 333(가산동)\",\"addrDtl\":\"홈플러스 3층\",\"spnm\":\"현대자동차\",\"useYn\":\"Y\",\"useTime\":\"00:00-24:00\",\"spcall\":\"00-0000-0000\",\"reservYn\":\"Y\",\"gcpYn\":\"Y\",\"genYn\":\"Y\",\"superSpeedCnt\":\"1\",\"highSpeedCnt\":\"11\",\"slowSpeedCnt\":\"3\"},\"chgrList\":[{\"cpid\":\"1234567890123456789012345678901234567\",\"cpnm\":\"충전기명\",\"chargeUcost\":\"10000\",\"chargeDiv\":\"SUPER\",\"useYn\":\"Y\",\"statusCd\":\"AVAILABLE\",\"reservYn\":\"Y\",\"payType\":[\"GCP\",\"STP\",\"CRT\"]}]}";
         RES_EPT_1002.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, EPT_1002.Response.class)));
 
         /*
