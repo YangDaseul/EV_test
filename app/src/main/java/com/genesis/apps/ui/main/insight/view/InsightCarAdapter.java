@@ -184,7 +184,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 getBinding().chart.getAxisRight().setSpaceBottom(0f);
                 getBinding().chart.getAxisLeft().setSpaceTop(0f);
                 getBinding().chart.getAxisRight().setSpaceTop(0f);
-                getBinding().chart.setExtraOffsets(0, 0, 0, 12);
+                getBinding().chart.setExtraOffsets(0, 20, 0, 12);
                 getBinding().chart.setAutoScaleMinMaxEnabled(false);
                 //차트의 기본 패딩을 초기화
                 getBinding().chart.setMinOffset(0f);
