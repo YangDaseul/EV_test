@@ -168,7 +168,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 requestPossibleTime();
                 break;
             case R.id.btn_question:
-//                startActivitySingleTop(new Intent(this, ServiceSOSPayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceChargeBtrInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_next://다음
                 doNext();

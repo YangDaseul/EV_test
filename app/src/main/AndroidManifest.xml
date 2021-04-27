@@ -672,6 +672,12 @@
             android:windowSoftInputMode="adjustResize" /> <!-- 픽업앤충전 서비스 신청 -->
 
         <activity
+            android:name=".ui.main.service.ServiceChargeBtrInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 픽업앤충전 서비스 안내 -->
+
+        <activity
             android:name=".ui.main.service.ServiceChargeBtrCheckActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"

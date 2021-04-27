@@ -441,6 +441,7 @@ public class VariableType {
         }
     }
 
+    public static final String SERVICE_CHARGE_BTR_SVC_CD = "CHRGBTR";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
     public static final String SERVICE_CHARGE_BTR_LOT_TYPE_STRT = "STRT";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
 
     public static final String SERVICE_CHARGE_BTR_IN_TYPE_CD = "I";         // 내외부 구분 코드, 실내
