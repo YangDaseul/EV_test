@@ -21,6 +21,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAirport2ApplyBinding> {
 
     private RepairTypeVO repairTypeVO;
+    private VehicleVO mainVehicle=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAir
 
     private void initView() {
         ui.lRpar.tvRparTypNm.setText(repairTypeVO!=null&&!TextUtils.isEmpty(repairTypeVO.getRparTypNm()) ? repairTypeVO.getRparTypNm() : "--");
+        ui.tvContentsSub6.setVisibility(mainVehicle!=null&&mainVehicle.isEV() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -58,7 +60,6 @@ public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAir
 
     @Override
     public void getDataFromIntent() {
-        VehicleVO mainVehicle=null;
         try {
             mainVehicle = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
             repairTypeVO = (RepairTypeVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
