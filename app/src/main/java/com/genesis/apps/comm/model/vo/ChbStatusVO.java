@@ -31,6 +31,7 @@ import lombok.EqualsAndHashCode;
  * 딜리버리 중 (뺏지표시)
  * 이용완료 (뺏지표시 안함)
  * 예약취소  (뺏지표시 안함)
+ * @see #stMbrYn 에스트래픽 회원 여부
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -48,4 +49,7 @@ class ChbStatusVO extends BaseData {
     @Expose
     @SerializedName("statusNm")
     private String statusNm;
+    @Expose
+    @SerializedName("stMbrYn")
+    private String stMbrYn;
 }

@@ -41,12 +41,16 @@ public class IST_1002 extends BaseData {
         @Expose
         @SerializedName("vin")
         private String vin;
+        @Expose
+        @SerializedName("evCd")
+        private String evCd;
 
 
-        public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd, String vin){
+        public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd, String vin, String evCd){
             this.lgrCatAreaCd = lgrCatAreaCd;
             this.smlCatAreaCd = smlCatAreaCd;
             this.vin = vin;
+            this.evCd = evCd;
             setData(APIInfo.GRA_IST_1002.getIfCd(), menuId);
         }
     }

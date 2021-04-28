@@ -32,4 +32,8 @@ class CreditVO extends BaseData {
     @Expose
     @SerializedName("balance")
     private String balance;
+
+    @Expose
+    @SerializedName("carNo")
+    private String carNo;
 }

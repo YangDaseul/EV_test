@@ -427,6 +427,10 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                         ui.tvPartHomeCnt.setText(cnt);
                         ui.tvTitlePartHome.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_15) : couponVO.getItemNm()));
                         break;
+                    case VariableType.COUPON_CODE_ICE://TODO 2021-04-27 PARK 냉각수 코드 확인 후 변경 필요. 임의로 지정한 상태
+                        ui.tvPartIceCnt.setText(cnt);
+                        ui.tvTitlePartIce.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_14_2) : couponVO.getItemNm()));
+                        break;
                     case VariableType.COUPON_CODE_SONAKS:
                     default:
                         //처리안함
@@ -442,6 +446,17 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             ui.tvPartWiperCnt.setText(cnt);
             ui.tvPartBreakCnt.setText(cnt);
             ui.tvPartHomeCnt.setText(cnt);
+            ui.tvPartIceCnt.setText(cnt);
+        }
+
+        if(getCurrentVehicleVO().isEV()){
+            ui.lPartEngine.setVisibility(View.GONE);
+            ui.lPartBreakPad.setVisibility(View.GONE);
+            ui.lPartIce.setVisibility(View.VISIBLE);
+        }else{
+            ui.lPartEngine.setVisibility(View.VISIBLE);
+            ui.lPartBreakPad.setVisibility(View.VISIBLE);
+            ui.lPartIce.setVisibility(View.GONE);
         }
 
         if(!TextUtils.isEmpty(itemDate)){

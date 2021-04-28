@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * @brief 차계부 금액 정보 (단위 : 원)
  * @author hjpark
  * @see #totUseAmt   총사용금액
- * @see #oilAmt	    주유/충전금액
+ * @see #oilAmt	    주유금액
  * @see #rparAmt	정비금액
  * @see #etcAmt	    기타금액
  */
@@ -36,11 +36,9 @@ class ISTAmtVO extends BaseData {
     @Expose
     @SerializedName("etcAmt")
     private String etcAmt;
-
-    //TODO 2021-04-25 PARK 인터페이스 설계서가 나오지 않아 임의로 추가한 데이터. 추후 변경 필요
     @Expose
-    @SerializedName("chgCretAmt")
-    private String chgCretAmt;
+    @SerializedName("cretAmt")
+    private String cretAmt;
     @Expose
     @SerializedName("chgAmt")
     private String chgAmt;

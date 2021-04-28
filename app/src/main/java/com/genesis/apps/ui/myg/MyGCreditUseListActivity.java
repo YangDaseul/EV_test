@@ -285,7 +285,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     private void setViewCreditPoint() {
         String chgCreditAmout = "0";
         try{
-            chgCreditAmout = stcViewModel.getRES_STC_2001().getValue().data.getChgCreditAmout();
+            chgCreditAmout = stcViewModel.getRES_STC_2001().getValue().data.getCretTotAmount();
             if(TextUtils.isEmpty(chgCreditAmout)){
                 chgCreditAmout = "0";
             }

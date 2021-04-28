@@ -110,44 +110,30 @@
                 android:id="@+id/l_chg_name"
                 layout="@layout/item_rpar_status"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 app:title="@{@string/sm_evsb02_3}"
-                app:msg="@{data.chgName ?? ``}"
                 app:isLeft="@{true}"
                 app:maxLine="@{Integer.MAX_VALUE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_chg_name"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_chg_name"/>
+                app:layout_constraintTop_toBottomOf="@+id/l_reserv_dtm"/>
 
-            <TextView
+            <include
                 android:id="@+id/tv_chg_name"
-                android:layout_width="0dp"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="1dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:background="@color/x_ffffff"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="10dp"
-                android:textColor="@color/x_262626"
-                android:textSize="14dp"
-                android:gravity="center_vertical"
-                android:text="@{data.chgName ?? ``}"
+                android:layout_marginEnd="15dp"
                 android:onClick="@{(view)->listener.onSingleClick(view)}"
-                android:drawablePadding="10dp"
-                android:includeFontPadding="true"
-                app:layout_constraintStart_toStartOf="parent"
+                app:btnNm="@{data.chgName ?? ``}"
+                android:layout_marginStart="115dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_reserv_dtm"
-                tools:text="양평충전소 이름이 긴 충전소인 경우 다음과 같이 진행"
-                app:drawableEndCompat="@drawable/btn_arrow_open_r_g" />
-
-
+                app:layout_constraintStart_toStartOf="@id/l_chg_name"
+                app:layout_constraintTop_toTopOf="@+id/l_chg_name"
+                app:layout_constraintBottom_toBottomOf="@id/l_chg_name"/>
 
             <include
                 android:id="@+id/l_csupport"
@@ -160,7 +146,7 @@
                 app:isLeft="@{true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_chg_name"/>
+                app:layout_constraintTop_toBottomOf="@+id/l_chg_name"/>
 
             <include
                 android:id="@+id/l_chg_amt"
