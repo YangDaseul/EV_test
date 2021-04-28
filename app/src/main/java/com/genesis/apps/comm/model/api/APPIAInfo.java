@@ -317,7 +317,7 @@ public enum APPIAInfo {
     SM_EVSB01_P01("SM_EVSB01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약희망일 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSB01_P02("SM_EVSB01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약완료 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    SM_EVSB02("SM_EVSB02", ChargeReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_OV, "충전소 예약 내역", VariableType.QUICK_MENU_CATEGORY_SERVICE, VariableType.VEHICLE_CODE_EV),
+    SM_EVSB02("SM_EVSB02", ChargeReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약 내역", VariableType.QUICK_MENU_CATEGORY_NONE, ""),
 
     SM_CGRV01("SM_CGRV01", null, VariableType.QUICK_MENU_CODE_NONE, "픽업앤충전 서비스", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
     SM_CGRV01_P01("SM_CGRV01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 이용 동의 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
@@ -369,7 +369,7 @@ public enum APPIAInfo {
     MG_MEMBER02("MG_MEMBER02", MyGMembershipUseCaseActivity.class, VariableType.QUICK_MENU_CODE_NV, "포인트 사용 제휴처 안내",VariableType.QUICK_MENU_CATEGORY_MYG,""),
     MG_MEMBER01_P02("MG_MEMBER01_P02", MyGMembershipInfoActivity.class, VariableType.QUICK_MENU_CODE_NONE, "멤버십 카드 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     MG_MEMBER04("MG_MEMBER04", MyGMembershipUseListActivity.class, VariableType.QUICK_MENU_CODE_NV, "포인트 사용 내역",VariableType.QUICK_MENU_CATEGORY_MYG,""),
-    MG_CP01("MG_CP01", MyGCreditUseListActivity.class, VariableType.QUICK_MENU_CODE_CV, "충전 크레딧 사용 내역",VariableType.QUICK_MENU_CATEGORY_MYG, VariableType.VEHICLE_CODE_EV),
+    MG_CP01("MG_CP01", MyGCreditUseListActivity.class, VariableType.QUICK_MENU_CODE_NONE, "충전 크레딧 사용 내역",VariableType.QUICK_MENU_CODE_NONE, ""),
 
     MG_MEMBER03("MG_MEMBER03", MyGMembershipCardPasswordActivity.class, VariableType.QUICK_MENU_CODE_NONE, "카드 비밀번호 변경",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     MG_BF01("MG_BF01", MyGCouponActivity.class, VariableType.QUICK_MENU_CODE_NONE, "혜택/쿠폰",VariableType.QUICK_MENU_CATEGORY_NONE,""), //2021-03-04 요청으로 메뉴 제거
