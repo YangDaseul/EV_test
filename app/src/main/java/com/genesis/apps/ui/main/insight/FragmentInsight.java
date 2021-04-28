@@ -377,7 +377,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         try {
             switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()) {
                 case VariableType.MAIN_VEHICLE_TYPE_OV://소유
-                    istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.TM01.getId(), "INSGT", "CBK", mainVehicleInfo.getVin()));
+                    istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.TM01.getId(), "INSGT", "CBK", mainVehicleInfo.getVin(), mainVehicleInfo.getEvCd()));
                     istViewModel.reqIST1004(new IST_1004.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-02", mainVehicleInfo.getVin()));
                     reqCommonCall();
                     break;

@@ -148,7 +148,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
                 xAxis.setValueFormatter(new EvAxisValueFormatter());
                 values.add(new BarEntry(0, getValue(item.getChgAmt())));
-                values.add(new BarEntry(1, getValue(item.getChgCretAmt())));
+                values.add(new BarEntry(1, getValue(item.getCretAmt())));
                 values.add(new BarEntry(2, getValue(item.getRparAmt())));
                 values.add(new BarEntry(3, getValue(item.getCarWshAmt())));
                 values.add(new BarEntry(4, getValue(item.getEtcAmt())));
@@ -300,7 +300,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 list.add(TextUtils.isEmpty(istAmtVO.getEtcAmt()) ? 0 : Float.parseFloat(istAmtVO.getEtcAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getCarWshAmt()) ? 0 : Float.parseFloat(istAmtVO.getCarWshAmt()));
                 if(isEv) {
-                    list.add(TextUtils.isEmpty(istAmtVO.getChgCretAmt()) ? 0 : Float.parseFloat(istAmtVO.getChgCretAmt()));
+                    list.add(TextUtils.isEmpty(istAmtVO.getCretAmt()) ? 0 : Float.parseFloat(istAmtVO.getCretAmt()));
                     list.add(TextUtils.isEmpty(istAmtVO.getChgAmt()) ? 0 : Float.parseFloat(istAmtVO.getChgAmt()));
                 }else{
                     list.add(TextUtils.isEmpty(istAmtVO.getOilAmt()) ? 0 : Float.parseFloat(istAmtVO.getOilAmt()));
