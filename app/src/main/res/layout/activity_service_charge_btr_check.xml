@@ -145,7 +145,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_arrow_image"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="25,000원" />
 
                     <ImageView
@@ -198,7 +197,6 @@
                         android:textSize="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="16,000원" />
 
                     <ImageView
@@ -238,7 +236,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_credit_point_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_credit_point_tit"
-                        android:text="@{StringUtil.getDiscountString(data.productPrice)}"
                         tools:text="-16,000원" />
 
                     <!-- 충전 크레딧 보유 포인트 정보 -->
@@ -279,7 +276,6 @@
                             android:textSize="15dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="@{StringUtil.getPriceString(data.productPrice) + (@string/service_charge_btr_word_41)}"
                             tools:text="1,000,000원 보유" />
 
                         <ImageView
@@ -288,19 +284,18 @@
                             android:layout_height="20dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/mark_666666"
-                            app:layout_constraintEnd_toStartOf="@+id/tv_info_1"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_credit_point_info"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
+                            app:layout_constraintTop_toTopOf="@+id/tv_credit_point_info" />
 
                         <TextView
-                            android:id="@+id/tv_info_1"
+                            android:id="@+id/tv_credit_point_info"
                             style="@style/ServiceRemote.TextView_Font_RGSTG"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginStart="6dp"
                             android:gravity="center_vertical|start"
-                            android:text="@{String.format(@string/service_charge_btr_msg_04, StringUtil.getDigitGrouping(data.productPrice))}"
                             android:textColor="@color/x_666666"
                             android:textSize="14dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -346,7 +341,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_paymt_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_delivery_paymt_tit"
-                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="20,000원" />
 
                     <ImageView
@@ -566,7 +560,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_paymt_amt_arrow"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="25,000원" />
 
                     <ImageView
@@ -606,14 +599,11 @@
                         <include
                             android:id="@+id/l_charge_price"
                             layout="@layout/item_service_charge_btr_paymt_info"
-                            app:content="@{data.productPrice}"
                             app:title="@{@string/service_charge_btr_word_12}" />
 
                         <include
                             android:id="@+id/l_credit_point"
                             layout="@layout/item_service_charge_btr_paymt_info"
-                            app:discount="@{true}"
-                            app:content="@{data.productPrice}"
                             app:title="@{@string/service_charge_btr_word_19}" />
 
                         <include
@@ -624,6 +614,7 @@
                         <include
                             android:id="@+id/l_carwash_price"
                             layout="@layout/item_service_charge_btr_paymt_info"
+                            app:content="@{@string/service_charge_btr_word_42}"
                             app:title="@{@string/service_charge_btr_word_14}" />
                     </LinearLayout>
 

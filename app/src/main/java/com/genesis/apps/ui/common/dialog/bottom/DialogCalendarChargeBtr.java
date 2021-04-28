@@ -53,7 +53,9 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
     private List<BookingDateVO> bookingDateVOList;
     private boolean isRemoveWeekends = false;
 
-    private BookingDateVO selectBookingDate = new BookingDateVO();
+    private String selectBookingDay = null;
+    private String selectBookingTime = null;
+
     private OnSingleClickListener onSingleClickListener;
 
     public DialogCalendarChargeBtr(@NonNull Context context, int theme, OnSingleClickListener onSingleClickListener) {
@@ -100,9 +102,8 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
             @Override
             public void onSingleClick(View v) {
                 if (ui.calendarView.getSelectedDate() != null
-                        && selectBookingDate != null
-                        && !TextUtils.isEmpty(selectBookingDate.getBookingDate())
-                        && !TextUtils.isEmpty(selectBookingDate.getSelectBookingTime())) {
+                        && !TextUtils.isEmpty(selectBookingDay)
+                        && !TextUtils.isEmpty(selectBookingTime)) {
                     calendar = Calendar.getInstance(Locale.getDefault());
                     ui.calendarView.getSelectedDate().copyTo(calendar);
                     dismiss();
@@ -149,12 +150,18 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
     }
 
     private void initSelectedDay() {
-        if (getBookingDateVOList() != null && getBookingDateVOList().size() > 0) {
+        String selectedDay = getSelectBookingDay();
 
-            BookingDateVO firstDate = getBookingDateVOList().stream().min(Comparator.comparingInt(data -> Integer.parseInt(data.getBookingDate()))).orElse(null);
+        if (TextUtils.isEmpty(selectedDay)) {
+            if (getBookingDateVOList() != null && getBookingDateVOList().size() > 0) {
 
-            ui.calendarView.setSelectedDate(DateUtil.getDefaultDateFormat(firstDate.getBookingDate(), DateUtil.DATE_FORMAT_yyyyMMdd));
+                BookingDateVO firstDate = getBookingDateVOList().stream().min(Comparator.comparingInt(data -> Integer.parseInt(data.getBookingDate()))).orElse(null);
+                selectedDay = firstDate.getBookingDate();
+
+            }
         }
+
+        ui.calendarView.setSelectedDate(DateUtil.getDefaultDateFormat(selectedDay, DateUtil.DATE_FORMAT_yyyyMMdd));
     }
 
     private void initTimeAdapter() {
@@ -172,8 +179,8 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
 
 
     private void selectRsvtDt(String yyyyMMdd) {
-        selectBookingDate.setBookingDate(yyyyMMdd);
-        selectBookingDate.setSelectBookingTime("");//예약가능시간 초기화
+        selectBookingDay = yyyyMMdd;
+        selectBookingTime = null; // 예약가능시간 초기화
         ui.tvRsvthopetm.setVisibility(View.INVISIBLE);
 
         serviceChargeBtrReserveTimeHorizontalAdapter.initSelectItem();
@@ -204,7 +211,7 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
         } finally {
             if (postion > -1 && bookingTimeVO != null) {
                 serviceChargeBtrReserveTimeHorizontalAdapter.setSelectItem(postion);
-                selectBookingDate.setSelectBookingTime(bookingTimeVO.getBookingTime());
+                selectBookingTime = bookingTimeVO.getBookingTime();
             }
         }
     };
@@ -237,8 +244,20 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
         this.bookingDateVOList = bookingDateVOList;
     }
 
-    public BookingDateVO getSelectBookingDate() {
-        return selectBookingDate;
+    public String getSelectBookingDay() {
+        return selectBookingDay;
+    }
+
+    public void setSelectBookingDay(String selectBookingDay) {
+        this.selectBookingDay = selectBookingDay;
+    }
+
+    public String getSelectBookingTime() {
+        return selectBookingTime;
+    }
+
+    public void setSelectBookingTime(String selectBookingTime) {
+        this.selectBookingTime = selectBookingTime;
     }
 
     public final void showProgressDialog(final boolean show) {

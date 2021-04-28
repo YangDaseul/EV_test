@@ -1181,6 +1181,29 @@ public class MiddleDialog {
         );
     }
 
+    /**
+     *
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 블루월넛 회원가입 안내 팝업
+     */
+    public static void dialogBlueWalnutSingIn(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.pop03_1,
+                        R.string.service_charge_btr_popup_msg_03,
+                        R.string.dialog_common_7,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
 
     //R.layout.dialog_middle_two_button 쓰는 거 상당수를 이걸로 통합 가능할 듯..
     private static CustomDialog getTwoButtonDialog(

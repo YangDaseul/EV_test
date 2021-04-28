@@ -20,4 +20,5 @@
     <item name="tag_term_vo" type="id"/>
     <item name="item_sos" type="id"/>
     <item name="item" type="id"/>
+    <item name="dtl_opened" type="id"/>
 </resources>

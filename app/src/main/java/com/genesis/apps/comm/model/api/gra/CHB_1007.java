@@ -14,7 +14,7 @@ public class CHB_1007 extends BaseData {
     /**
      * @brief CHB_1007 요청 항목
      * @see #address 픽업 주소
-     * @see #addressDetail 픽업 상세 주소
+     * @see #addressDetail 픽업 상세 주소(선택)
      * @see #latitude 고객좌표 위도
      * @see #longitude 고객좌표 경도
      * @see #buildingName 건물명(선택)

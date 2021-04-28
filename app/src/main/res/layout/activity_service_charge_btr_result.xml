@@ -11,7 +11,7 @@
 
         <variable
             name="activity"
-            type="com.genesis.apps.ui.main.service.ServiceRepair4ResultActivity" />
+            type="com.genesis.apps.ui.main.service.ServiceChargeBtrResultActivity" />
 
     </data>
 

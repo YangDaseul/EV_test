@@ -48,6 +48,13 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class PaymtCardVO extends BaseData {
+
+    public PaymtCardVO(String cardId, String cardNo, String cardCoCode) {
+        this.cardId = cardId;
+        this.cardNo = cardNo;
+        this.cardCoCode = cardCoCode;
+    }
+
     @Expose
     @SerializedName("cardType")
     private String cardType;

@@ -19,7 +19,6 @@ import lombok.EqualsAndHashCode;
  * KT_BLL : 블루링크(픽업앤충전 사용하지 않늠)
  * KT_FOB : 실물키
  *
- * @see #sameLocationYN 고객과 차량 동일 위치 여부(선택)
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -31,7 +30,4 @@ class ReqInfoVO extends BaseData {
     @Expose
     @SerializedName("keyTransferType")
     private String keyTransferType;
-    @Expose
-    @SerializedName("sameLocationYN")
-    private String sameLocationYN;
 }

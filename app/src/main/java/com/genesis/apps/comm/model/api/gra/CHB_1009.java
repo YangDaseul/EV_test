@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.vo.carlife.BlueInfoVO;
+import com.genesis.apps.comm.model.vo.carlife.LotVO;
 import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.model.vo.carlife.StrafficInfoVO;
@@ -22,6 +23,7 @@ public class CHB_1009 extends BaseData {
      * @see #vin        차대번호
      * @see #carCode    차종코드
      * @see #bookingDtm 예약일시    YYYYMMDDHH24MISS
+     * @see #locationInfo 위치 정
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -36,11 +38,15 @@ public class CHB_1009 extends BaseData {
         @Expose
         @SerializedName("bookingDtm")
         private String bookingDtm;
+        @Expose
+        @SerializedName("locationInfo")
+        private LotVO locationInfo;
 
-        public Request(String menuId, String vin, String carCode, String bookingDtm){
+        public Request(String menuId, String vin, String carCode, String bookingDtm, LotVO locationInfo){
             this.vin = vin;
             this.carCode = carCode;
             this.bookingDtm = bookingDtm;
+            this.locationInfo = locationInfo;
             setData(APIInfo.GRA_CHB_1009.getIfCd(), menuId);
         }
     }

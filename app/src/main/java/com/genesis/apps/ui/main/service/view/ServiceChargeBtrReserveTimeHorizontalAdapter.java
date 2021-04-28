@@ -14,7 +14,10 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerViewAdapter2<BookingTimeVO> {
 
+    // Item의 클릭 상태를 저장할 array 객체
+    private SparseBooleanArray selectedItems = new SparseBooleanArray();
     private static View.OnClickListener onClickListener;
+
 
     public ServiceChargeBtrReserveTimeHorizontalAdapter(View.OnClickListener onClickListener) {
         ServiceChargeBtrReserveTimeHorizontalAdapter.onClickListener = onClickListener;
@@ -26,7 +29,6 @@ public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerVi
         View itemView = getView(parent, R.layout.item_service_charge_reserve_time);
         ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
         layoutParams.width = (int) (parent.getWidth() * 0.5);
-//        layoutParams.width = (int) DeviceUtil.dip2Pixel(parent.getContext(), 150f);
         itemView.setLayoutParams(layoutParams);
 
         return new ItemChargeBtrReserveTime(itemView);
@@ -34,29 +36,28 @@ public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerVi
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
-        holder.onBindView(getItem(position), position);
+        holder.onBindView(getItem(position), position, selectedItems);
 
     }
 
     public void setSelectItem(int pos){
-        for(int i=0; i<getItemCount(); i++){
-            BookingTimeVO item = ((BookingTimeVO)getItem(i));
-            if(i==pos){
-                item.setSelect(true);
-            }else{
-                item.setSelect(false);
-            }
-            setRow(i, item);
+
+        for (int i = 0; i < selectedItems.size(); i++) {
+            if (selectedItems.get(i))
+                selectedItems.delete(i);
         }
+
+        selectedItems.put(pos, true);
+
         notifyDataSetChanged();
     }
 
-    public void initSelectItem(){
-        for(int i=0; i<getItemCount(); i++){
-            BookingTimeVO item = ((BookingTimeVO)getItem(i));
-            item.setSelect(false);
-            setRow(i, item);
+    public void initSelectItem() {
+        for (int i = 0; i < selectedItems.size(); i++) {
+            if (selectedItems.get(i))
+                selectedItems.delete(i);
         }
+
         notifyDataSetChanged();
     }
 
@@ -73,15 +74,15 @@ public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerVi
 
         @Override
         public void onBindView(BookingTimeVO item, final int pos) {
-            getBinding().setData(item);
-            getBinding().btnTime.setTag(R.id.item, item);
-            getBinding().btnTime.setTag(R.id.position, pos);
-            Paris.style(getBinding().btnTime).apply(item.isSelect() ? R.style.BtrFilterEnable2 : R.style.BtrFilterDisable2);
+
         }
 
         @Override
         public void onBindView(BookingTimeVO item, int pos, SparseBooleanArray selectedItems) {
-
+            getBinding().setData(item);
+            getBinding().btnTime.setTag(R.id.item, item);
+            getBinding().btnTime.setTag(R.id.position, pos);
+            Paris.style(getBinding().btnTime).apply(selectedItems.get(pos) ? R.style.BtrFilterEnable2 : R.style.BtrFilterDisable2);
         }
 
     }
