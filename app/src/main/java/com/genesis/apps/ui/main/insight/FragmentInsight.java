@@ -422,7 +422,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
     private void reqCommonCall(){
         istViewModel.reqIST1003(new IST_1003.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-01"));
-        istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo.getVin(), mainVehicleInfo.getMdlNm()));
+        istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo!=null ? mainVehicleInfo.getVin() : "", mainVehicleInfo!=null ? mainVehicleInfo.getMdlNm() : "", mainVehicleInfo!=null ? mainVehicleInfo.getEvCd() : ""));
         me.ivInfo1.setVisibility(View.GONE);
         me.ivInfo2.setVisibility(View.GONE);
         me.rvInsight.setVisibility(View.VISIBLE);
