@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.TextUtils" />
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="content"
+            type="String" />
+
+        <variable
+            name="btnTermNm"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{title}" />
+
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center_vertical|start"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            android:text="@{content}"
+            tools:text="픽업앤충전 이용을 위해\n개인정보 제3자 제공 약관 동의가 필요합니다.\n동의하시겠습니까?"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <include
+            android:id="@+id/btn_term"
+            layout="@layout/item_btn_underline_mark_gold"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:btnNm="@{TextUtils.isEmpty(btnTermNm) ? @string/msg_ga_9 : btnTermNm}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:showDividers="middle"
+            android:divider="@drawable/divider_10"
+            app:layout_constraintTop_toBottomOf="@+id/btn_term"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tv_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textSize="16dp"
+                android:text="@string/dialog_common_1"
+                android:textColor="@color/x_000000"
+                android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+                app:elevation="10dp" />
+
+            <TextView
+                android:id="@+id/tv_yes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textSize="16dp"
+                android:text="@string/dialog_common_2"
+                android:textColor="@color/x_ffffff"
+                android:background="@drawable/ripple_bg_000000"
+                app:elevation="10dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

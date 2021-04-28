@@ -1,5 +1,11 @@
 package com.genesis.apps.comm.viewmodel;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
+
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1003;
@@ -16,6 +22,7 @@ import com.genesis.apps.comm.model.api.gra.SOS_3007;
 import com.genesis.apps.comm.model.api.gra.SOS_3008;
 import com.genesis.apps.comm.model.api.gra.SOS_3011;
 import com.genesis.apps.comm.model.api.gra.SOS_3013;
+import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.SOSRepo;
@@ -30,11 +37,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 public @Data
@@ -255,4 +257,52 @@ class SOSViewModel extends ViewModel {
         return list;
     }
 
+    // 픽업앤충전 정보제공동의 유무
+    public boolean isPrvcyInfoAgmtYn() {
+        return isValidSOS3001() &&
+                RES_SOS_3001.getValue().data.getChbStus() != null &&
+                StringUtil.isValidString(RES_SOS_3001.getValue().data.getChbStus().getPrvcyInfoAgmtYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+    }
+
+    public String getChbTermCont() {
+        String termCont = null;
+        if (isValidSOS3001() && RES_SOS_3001.getValue().data.getChbStus() != null) {
+            try {
+                termCont = RES_SOS_3001.getValue().data.getChbStus().getScrnCntn();
+            } catch (Exception e) {
+                termCont = null;
+            }
+        }
+        return termCont;
+    }
+
+    // 픽업앤충전 신청 유무
+    public boolean isChbApplyYn() {
+
+        if (isValidSOS3001() && RES_SOS_3001.getValue().data.getChbStus() != null) {
+            ChargeBtrStatus status = ChargeBtrStatus.findCode(StringUtil.isValidString(RES_SOS_3001.getValue().data.getChbStus().getStatus()));
+            switch (status) {
+                case STATUS_0000:
+                case STATUS_5000:
+                case STATUS_6000:
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    // 픽업앤충전 신청 상태 정보
+    public String getChbStusCd() {
+        String chbStusCd = "";
+
+        if (isValidSOS3001() && RES_SOS_3001.getValue().data.getChbStus() != null) {
+            try {
+                chbStusCd = RES_SOS_3001.getValue().data.getChbStus().getStatus();
+            } catch (Exception e) {
+                chbStusCd = "";
+            }
+        }
+        return chbStusCd;
+    }
 }

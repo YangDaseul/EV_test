@@ -48,6 +48,36 @@
                 tools:visibility="invisible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_inout_cd"
+            style="@style/CommonSpinnerLayout"
+            android:visibility="gone"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt">
+
+            <TextView
+                android:id="@+id/tv_title_inout_cd"
+                style="@style/CommonSpinnerTitle"
+                android:text="@string/service_charge_btr_txt_21"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tv_inout_cd"
+                style="@style/CommonSpinnerItemDisable"
+                android:text="@string/service_charge_btr_txt_21"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_inout_cd" />
+
+
+            <TextView
+                android:id="@+id/tv_error_inout_cd"
+                style="@style/CommonSpinnerError"
+                app:layout_constraintTop_toBottomOf="@+id/tv_inout_cd"
+                tools:visibility="invisible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_addr_dtl"
@@ -55,7 +85,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tv_msg"
             app:layout_constraintStart_toStartOf="@+id/tv_msg"
-            app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt">
+            app:layout_constraintTop_toBottomOf="@+id/l_inout_cd">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_addr_dtl"

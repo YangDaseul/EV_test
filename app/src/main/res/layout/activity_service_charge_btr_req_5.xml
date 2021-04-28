@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:id="@+id/tv_msg"
+            style="@style/CommonTextMsg"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/service_charge_btr_txt_07" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_rsvt_hope_dt"
+            style="@style/CommonSpinnerLayout"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg">
+
+            <TextView
+                android:id="@+id/tv_title_rsvt_hope_dt"
+                style="@style/CommonSpinnerTitle"
+                android:text="@string/service_charge_btr_txt_06"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_rsvt_hope_dt"
+                style="@style/CommonSpinnerItemCalendarDisable"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:paddingEnd="12dp"
+                android:text="@string/service_charge_btr_txt_06"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_rsvt_hope_dt" />
+
+            <TextView
+                android:id="@+id/tv_error_rsvt_hope_dt"
+                style="@style/CommonSpinnerError"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rsvt_hope_dt"
+                tools:visibility="invisible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_inout_cd"
+            style="@style/CommonSpinnerLayout"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt">
+
+            <TextView
+                android:id="@+id/tv_title_inout_cd"
+                style="@style/CommonSpinnerTitle"
+                android:text="@string/service_charge_btr_txt_21"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tv_inout_cd"
+                style="@style/CommonSpinnerItemDisable"
+                android:text="@string/service_charge_btr_txt_21"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_inout_cd" />
+
+
+            <TextView
+                android:id="@+id/tv_error_inout_cd"
+                style="@style/CommonSpinnerError"
+                app:layout_constraintTop_toBottomOf="@+id/tv_inout_cd"
+                tools:visibility="invisible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/l_addr_dtl"
+            style="@style/CommonTextInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_inout_cd">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_addr_dtl"
+                style="@style/CommonTextInputEditText"
+                android:hint="@string/service_charge_btr_txt_04" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_addr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_addr_dtl">
+
+            <TextView
+                android:id="@+id/tv_addr"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+                android:drawableEnd="@drawable/btn_arrow_open_r"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:gravity="start|center_vertical"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/service_charge_btr_txt_02"
+                android:textColor="@color/x_aaabaf"
+                android:textSize="15dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_error_addr"
+                style="@style/CommonSpinnerError"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addr"
+                tools:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/tv_title_addr"
+                style="@style/CommonSpinnerTitle"
+                android:text="@string/service_charge_btr_txt_02"
+                android:visibility="visible" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_addr_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ripple_bg_ffffff_stroke_000000"
+                android:paddingStart="15dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="20dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_addr">
+
+
+                <TextView
+                    android:id="@+id/tv_addr_info_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="15dp"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="우림 라이온스밸리 a동" />
+
+
+                <TextView
+                    android:id="@+id/tv_addr_info_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="15dp"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_addr_info_1"
+                    tools:text="서울특별시 금천구 가산동 440-4" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btn_open_r"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_key_delivery_cd"
+            style="@style/CommonSpinnerLayout"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_addr">
+
+            <TextView
+                android:id="@+id/tv_title_key_delivery_cd"
+                style="@style/CommonSpinnerTitle"
+                android:text="@string/service_charge_btr_txt_08"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tv_key_delivery_cd"
+                style="@style/CommonSpinnerItemDisable"
+                android:text="@string/service_charge_btr_txt_08"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_key_delivery_cd" />
+
+
+            <TextView
+                android:id="@+id/tv_error_key_delivery_cd"
+                style="@style/CommonSpinnerError"
+                app:layout_constraintTop_toBottomOf="@+id/tv_key_delivery_cd"
+                tools:visibility="invisible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/l_car_reg_no"
+            style="@style/CommonTextInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_key_delivery_cd">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_car_reg_no"
+                style="@style/CommonTextInputEditText"
+                android:hint="@string/service_charge_btr_txt_17" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/l_cel_ph_no"
+            style="@style/CommonTextInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg"
+            app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_cel_ph_no"
+                style="@style/CommonTextInputEditText"
+                android:hint="@string/service_charge_btr_txt_18"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_line_1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/x_f4f4f4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_cel_ph_no" />
+
+        <TextView
+            android:id="@+id/tv_msg_bottom"
+            style="@style/ViewMsgInputTile"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/service_charge_btr_info_00"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+
+        <ImageView
+            android:id="@+id/btn_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_question"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_msg_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_msg_bottom"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_msg_sub_bottom"
+            style="@style/ViewMsgInputSub2"
+            android:layout_marginTop="10dp"
+            android:text="@string/service_charge_btr_info_01"
+            app:layout_constraintEnd_toEndOf="@+id/btn_question"
+            app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg_bottom" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

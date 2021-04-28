@@ -28,6 +28,12 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class OptionVO extends BaseData {
+
+    public OptionVO(String optionCode, int optionApplyCount){
+        this.optionCode = optionCode;
+        this.optionApplyCount = optionApplyCount;
+    }
+
     @Expose
     @SerializedName("optionCode")
     private String optionCode;

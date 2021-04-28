@@ -34,6 +34,14 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class OrderVO extends BaseData {
+
+    public OrderVO(String productCode, int estimatedPaymentAmount, int optionCount, List<OptionVO> optionList) {
+        this.productCode = productCode;
+        this.estimatedPaymentAmount = estimatedPaymentAmount;
+        this.optionCount = optionCount;
+        this.optionList = optionList;
+    }
+
     @Expose
     @SerializedName("productCode")
     private String productCode;

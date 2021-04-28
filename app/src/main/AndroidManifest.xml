@@ -672,11 +672,28 @@
             android:windowSoftInputMode="adjustResize" /> <!-- 픽업앤충전 서비스 신청 -->
 
         <activity
+            android:name=".ui.main.service.ServiceChargeBtrInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 픽업앤충전 서비스 안내 -->
+
+        <activity
             android:name=".ui.main.service.ServiceChargeBtrCheckActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /><!-- 픽업앤충전 결제 정보 확인 -->
 
+        <activity
+            android:name=".ui.main.service.ServiceChargeBtrResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 픽업앤충전 신청 완료 -->
+
+        <activity
+            android:name=".ui.main.service.ServiceChargeBtrReserveHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 픽업앤충전 예약 현황/내역 -->
 
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
