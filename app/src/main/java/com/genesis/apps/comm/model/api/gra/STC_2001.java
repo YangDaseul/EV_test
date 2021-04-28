@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.vo.CreditPointVO;
+import com.genesis.apps.comm.model.vo.CreditVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -69,17 +70,20 @@ public class STC_2001 extends BaseData {
     /**
      * @author hjpark
      * @brief STC_2001 응답 항목
-     * @see #chgCreditAmout 충전 보유 잔액
+     * @see #cretTotAmount 총크레딧잔액
      * @see #creditList 충전포인트리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
         @Expose
-        @SerializedName("chgCreditAmout")
-        private String chgCreditAmout;
+        @SerializedName("cretTotAmount")
+        private String cretTotAmount;
         @Expose
         @SerializedName("creditList")
         private List<CreditPointVO> creditList;
+        @Expose
+        @SerializedName("carCretList")
+        private List<CreditVO> carCretList;
     }
 } // end of class STC_2001
