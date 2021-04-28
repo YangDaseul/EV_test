@@ -55,6 +55,8 @@ public class MYP_0001 extends BaseData {
      * 형식 :  1 -> 동의채널  0-> 미동의채널
      * SMS(1) + 이메일(1) + 우편(1) + 전화(1)
      * ex) 1010 : SMS와 우편은 동의했지만 그 외는 미동의
+     * @see #stMbrYn 에스트래픽회원여부
+     * 'Y: 에스트래픽회원  N: 미가입회원
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -99,5 +101,9 @@ public class MYP_0001 extends BaseData {
         @Expose
         @SerializedName("prvcyDate")
         private String prvcyDate;
+
+        @Expose
+        @SerializedName("stMbrYn")
+        private String stMbrYn;
     }
 }
