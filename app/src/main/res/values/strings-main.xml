@@ -178,6 +178,7 @@
     <string name="sm_cg_sm02_14">앱으로 신청</string>
     <string name="sm_cg_sm02_15"><![CDATA[배터리 : <font color="#996449">%d&#36;</font> (주행 가능 거리 : %s)]]></string>
     <string name="sm_cg_sm02_16"><![CDATA[배터리 : <font color="#996449">%d&#36;</font> (주행 가능 거리 : %s)\n가까운 충전소를 이용해 주세요.]]></string>
+    <string name="sm_cg_sm02_16_2"><![CDATA[배터리 : <font color="#996449">-&#36;</font> (주행 가능 거리 : -km)\n<font color="#ce2d2d">연결에 실패하였습니다.     </font><u>다시 시도</u>]]></string>
     <string name="sm_cg_sm02_17"><![CDATA[<font color="#996449">충전 중</font>입니다.\n(충전 잔여시간 : %s / 100&#36; 충전기준)]]></string>
     <string name="sm_cg_sm02_18"><![CDATA[<font color="#996449">충전이 완료</font>되었습니다.\n충전 커넥터를 제거해 주세요.]]></string>
     <string name="sm_cg_sm02_19">신청 가능한 잔여 횟수가 없습니다.</string>

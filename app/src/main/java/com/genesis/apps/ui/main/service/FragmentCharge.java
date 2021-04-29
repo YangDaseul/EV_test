@@ -189,7 +189,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     }
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    me.tvChargeStatus.setVisibility(View.GONE);
+                    me.tvChargeStatus.setVisibility(View.VISIBLE);
+                    me.tvChargeStatus.setText(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT));
 //                    batteryCharge = false;
 //                    soc = -1;
 //                    setViewEvBattery();

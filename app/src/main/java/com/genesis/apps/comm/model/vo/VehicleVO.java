@@ -172,7 +172,8 @@ class VehicleVO extends BaseData {
 //            return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
 //        }
         //TODO 2021-04-28 PARK 서버에서 EV차량을 내려 줄 경우 변경 필요
-        return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+        return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV)
+                &&(getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)||getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_CV));
     }
 
     public boolean isSP(){
