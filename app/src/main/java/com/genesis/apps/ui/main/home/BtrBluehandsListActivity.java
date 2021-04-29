@@ -85,6 +85,9 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
                     case R.string.bt06_23://cs우수인증
                         msg = btrVO.getPrimCsSvcSbc();
                         break;
+                    case R.string.bt06_23_2://전기차 전담
+                        msg = btrVO.getEvSvcSbc();
+                        break;
                     default:
                         return;
                 }

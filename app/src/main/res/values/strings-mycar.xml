@@ -14,10 +14,10 @@
     <string name="gm_carlst_01_12">12개월 이상 제네시스 차량을 렌트/리스로 이용 하는 개인/법인 실운행자</string>
     <string name="gm_carlst_01_13">단, 렌트/리스 이용 법인은 최초 가입 시 지점/대리점 방문 가입 필요</string>
     <string name="gm_carlst_01_14">대상 차종</string>
-    <string name="gm_carlst_01_15">GV80, GV70, G70, G80, G90, EQ900</string>
+    <string name="gm_carlst_01_15">GV80, GV70, G70, G80, G90, Electrified G80, EQ900</string>
     <string name="gm_carlst_01_16">2013년 12월 1일 이후 제작증 발급된 차량부터 적용됩니다.</string>
     <string name="gm_carlst_01_17">차량 등록 혜택</string>
-    <string name="gm_carlst_01_18">렌트/리스 이용 법인 또는 개인 모두 차종별 정액이 적립됩니다. (금액 동일)\n\n- G90/EQ900 : 20만\n- GV80/G80 : 15만\n- GV70/G70 : 10만</string>
+    <string name="gm_carlst_01_18">렌트/리스 이용 법인 또는 개인 모두 차종별 정액이 적립됩니다. (금액 동일)\n\n- G90/EQ900 : 20만\n- GV80/G80/Electrified G80 : 15만\n- GV70/G70 : 10만</string>
     <string name="gm_carlst_01_19"></string>
     <string name="gm_carlst_01_20">렌트/리스 이용 법인에 연결된 실운행자(법인임직원)는 포인트가 적립 되지 않습니다.\n단, 블루 기본 점검은 제공됩니다.</string>
     <string name="gm_carlst_01_21">유의사항</string>
@@ -161,6 +161,7 @@
     <string name="gm_carlst_04_12">브레이크 패드(앞)</string>
     <string name="gm_carlst_04_13">와이퍼 블레이드</string>
     <string name="gm_carlst_04_14">브레이크 오일</string>
+    <string name="gm_carlst_04_14_2">냉각수</string>
     <string name="gm_carlst_04_15">홈투홈 서비스</string>
     <string name="gm_carlst_04_16"> 회</string>
     <string name="gm_carlst_04_17">프리빌리지</string>

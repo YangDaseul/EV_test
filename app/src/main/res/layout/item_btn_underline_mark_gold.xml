@@ -36,9 +36,11 @@
             android:text="@{btnNm}"
             android:paddingBottom="2dp"
             android:background="@{underLineColor==0 ? @drawable/bg_00000000_underline_000000 : @drawable/bg_00000000_underline_ffffff }"
-
-
             android:visibility="visible"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@+id/iv_mark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="버튼 텍스트"/>
@@ -51,8 +53,10 @@
             android:layout_marginStart="2dp"
             android:visibility="visible"
             android:tint="@{textColor==0 ? @color/x_996449 : textColor}"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/btn_nm"
             app:layout_constraintTop_toTopOf="@+id/btn_nm"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/btn_nm"/>
 
 

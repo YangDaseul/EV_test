@@ -377,7 +377,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         try {
             switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()) {
                 case VariableType.MAIN_VEHICLE_TYPE_OV://소유
-                    istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.TM01.getId(), "INSGT", "CBK", mainVehicleInfo.getVin()));
+                    istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.TM01.getId(), "INSGT", "CBK", mainVehicleInfo.getVin(), mainVehicleInfo.getEvCd()));
                     istViewModel.reqIST1004(new IST_1004.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-02", mainVehicleInfo.getVin()));
                     reqCommonCall();
                     break;
@@ -422,7 +422,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
     private void reqCommonCall(){
         istViewModel.reqIST1003(new IST_1003.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-01"));
-        istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo.getVin(), mainVehicleInfo.getMdlNm()));
+        istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo!=null ? mainVehicleInfo.getVin() : "", mainVehicleInfo!=null ? mainVehicleInfo.getMdlNm() : "", mainVehicleInfo!=null ? mainVehicleInfo.getEvCd() : ""));
         me.ivInfo1.setVisibility(View.GONE);
         me.ivInfo2.setVisibility(View.GONE);
         me.rvInsight.setVisibility(View.VISIBLE);

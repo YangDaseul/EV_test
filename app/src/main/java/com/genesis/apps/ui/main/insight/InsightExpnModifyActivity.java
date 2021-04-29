@@ -181,6 +181,15 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
                     if(!TextUtils.isEmpty(vehicleName)){
                         selectVehicle = cbkViewModel.getVehicleList().getValue().get(getVehiclePosition(vehicleName));
                         ui.tvVehicle.setText(vehicleName);
+                        if(selectVehicle.isEV()&&expnDivCd.equalsIgnoreCase(VariableType.INSIGHT_EXPN_DIV_CODE_1000)){
+                            //ev차량인데 주유로 선택되어 있는 경우 충전으로 변경
+                            expnDivCd = VariableType.INSIGHT_EXPN_DIV_CODE_1100;
+                            ui.tvExpnDivCd.setText(VariableType.getExpnDivNM(expnDivCd));
+                        }else if(!selectVehicle.isEV()&&expnDivCd.equalsIgnoreCase(VariableType.INSIGHT_EXPN_DIV_CODE_1100)){
+                            //내연기관 차량인데 충전으로 선택되어 있는 경우 주유로 변경
+                            expnDivCd = VariableType.INSIGHT_EXPN_DIV_CODE_1000;
+                            ui.tvExpnDivCd.setText(VariableType.getExpnDivNM(expnDivCd));
+                        }
                     }
                 });
                 break;

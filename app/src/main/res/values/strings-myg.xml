@@ -223,6 +223,6 @@
     <string name="mg_bf01_02_2">사용 가능한 쿠폰이 없습니다.</string>
 
 
-    <string name="mg_cp_01_1">충전 크레딧 포인트 사용 내역</string>
-    <string name="mg_cp_01_2">충전 크레딧 포인트</string>
+    <string name="mg_cp_01_1">충전 크레딧 사용 내역</string>
+    <string name="mg_cp_01_2">충전 크레딧</string>
 </resources>

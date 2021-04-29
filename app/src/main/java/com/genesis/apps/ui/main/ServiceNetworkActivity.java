@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -574,6 +573,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                     case R.string.bt06_23://cs우수인증
                         msg = btrVO.getPrimCsSvcSbc();
+                        break;
+                    case R.string.bt06_23_2://전기차 전담
+                        msg = btrVO.getEvSvcSbc();
                         break;
                     default:
                         return;
@@ -1216,6 +1218,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_17 : 0
                     , !TextUtils.isEmpty(btrVO.getPrimTechYn()) && btrVO.getPrimTechYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_18 : 0
                     , !TextUtils.isEmpty(btrVO.getPrimCsYn()) && btrVO.getPrimCsYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_23 : 0
+                    , !TextUtils.isEmpty(btrVO.getEvYn()) && btrVO.getEvYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_23_2 : 0
             };
         }
         //인증 뷰 초기화

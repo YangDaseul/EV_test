@@ -360,7 +360,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         */
 
         if (data != null) {
-            home2DataMilesAdapter.setReplacements(carId, result.data);
+            home2DataMilesAdapter.setReplacements(carId, result.data, vehicleVO.isEV());
             home2DataMilesAdapter.notifyDataSetChanged();
         }
     }

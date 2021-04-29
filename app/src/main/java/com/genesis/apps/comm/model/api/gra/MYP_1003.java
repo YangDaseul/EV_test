@@ -41,6 +41,7 @@ public class MYP_1003 extends BaseData {
      * 회원 : Y, 비회원 : N
      * @see #cretPntTot 크레딧포인트 합계
      * @see #cretPntList 크레딧 포인트리스트
+     * @see #stMbrYn 에스트래픽회원여부
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -60,5 +61,8 @@ public class MYP_1003 extends BaseData {
         @Expose
         @SerializedName("cretPntList")
         private List<CreditVO> cretPntList;
+        @Expose
+        @SerializedName("stMbrYn")
+        private String stMbrYn;
     }
 }

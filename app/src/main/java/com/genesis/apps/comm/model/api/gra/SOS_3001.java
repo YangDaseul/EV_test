@@ -40,6 +40,8 @@ public class SOS_3001 extends BaseData {
      * @brief SOS_3001 응답 항목
      * @see #sosStus 긴급충전출동 상태정보
      * @see #chbStus 픽업앤충전 상태정보
+     * @see #reservYn 충전소예약여부
+     * Y: 예약중 N:미예약
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -50,5 +52,8 @@ public class SOS_3001 extends BaseData {
         @Expose
         @SerializedName("chbStus")
         private ChbStatusVO chbStus;
+        @Expose
+        @SerializedName("reservYn")
+        private String reservYn;
     }
 }

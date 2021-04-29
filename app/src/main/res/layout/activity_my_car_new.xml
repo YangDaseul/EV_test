@@ -537,8 +537,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
-                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_engine">
 
 
@@ -587,8 +587,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
-                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_air_conditioner_filter">
 
 
@@ -636,8 +636,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
-                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break_pad">
 
 
@@ -686,8 +686,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
-                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_wiper">
 
 
@@ -731,15 +731,65 @@
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_ice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/bg_ffffff_underline_e4e4e4"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_break">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_ice"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:ellipsize="end"
+                            android:background="@color/x_f8f8f8"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_14_2"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_part_ice_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            tools:text="0 회"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/l_part_home"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:layout_marginBottom="50dp"
                         android:background="@drawable/bg_ffffff_underline_e4e4e4"
-                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
-                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
-                        app:layout_constraintTop_toBottomOf="@+id/l_part_break"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_ice"
                         app:layout_constraintBottom_toBottomOf="parent">
 
 
