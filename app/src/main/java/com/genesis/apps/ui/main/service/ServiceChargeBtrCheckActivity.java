@@ -33,6 +33,8 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrCheckBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarChargeBtr;
@@ -336,16 +338,11 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null) {
-                        Intent intent = new Intent(this, ServiceChargeBtrResultActivity.class);
-                        intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, carNo);
-                        intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
-                        intent.putExtra(KeyNames.KEY_NAME_CHB_ADDRESS, lotVO.getAddress());
-
-                        if(ui.cbCarwashOption.isChecked())
-                            intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2);
-
-                        startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                    if (result.data != null && result.data.getPaymentFormData() != null) {
+                        startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data.getPaymentFormData())
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:
@@ -553,10 +550,20 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
             exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
-        } else if(resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
             chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
+        } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode()) {
+            Intent intent = new Intent(this, ServiceChargeBtrResultActivity.class);
+            intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, carNo);
+            intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
+            intent.putExtra(KeyNames.KEY_NAME_CHB_ADDRESS, lotVO.getAddress());
+
+            if (ui.cbCarwashOption.isChecked())
+                intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2);
+
+            startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
         }
     }
 
