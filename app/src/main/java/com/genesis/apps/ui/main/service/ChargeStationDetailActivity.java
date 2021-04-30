@@ -167,7 +167,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ChargeEptInfoVO chargeEptInfoVO = data.getChgInfo();
 
         // 상단 타이틀 - 충전소 이름, 거리 표시.
-        ui.lTitle.title.setText(chargeEptInfoVO.getCsnm() + " " + chargeEptInfoVO.getDist() + "km");
+        ui.lTitle.setValue(chargeEptInfoVO.getCsnm() + " " + chargeEptInfoVO.getDist() + "km");
 
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
