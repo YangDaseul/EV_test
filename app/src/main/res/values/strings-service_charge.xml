@@ -58,6 +58,15 @@
     <string name="sm_evss04_06">신용카드</string>
     <string name="sm_evss04_07">충전 크레딧</string>
     <string name="sm_evss04_08">제네시스 카페이</string>
+    <string name="sm_evss04_09">공휴일일 경우 충전 시간에 따라 실제 충전가격이 변경될 수 있습니다.</string>
+    <string name="sm_evss04_10">예약</string>
+    <string name="sm_evss04_11"><![CDATA[초고속 <font color="#996449">%d</font>대]]></string>
+    <string name="sm_evss04_12"><![CDATA[고속 <font color="#996449">%d</font>대]]></string>
+    <string name="sm_evss04_13"><![CDATA[완속 <font color="#996449">%d</font>대]]></string>
+    <string name="sm_evss04_15">사용가능</string>
+    <string name="sm_evss04_16">원/kw</string>
+    <string name="sm_evss04_17">점검중</string>
+    <string name="sm_evss04_18">사용중</string>
 
 
 </resources>

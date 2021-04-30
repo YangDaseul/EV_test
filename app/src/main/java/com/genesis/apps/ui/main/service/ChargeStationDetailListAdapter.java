@@ -55,7 +55,7 @@ public class ChargeStationDetailListAdapter extends BaseRecyclerViewAdapter2<Cha
         holder.onBindView(getItem(position), position);
     }
 
-    public static class ViewHolder extends BaseViewHolder<ItemVO, ItemChargeStationDetailBinding> {
+    private static class ViewHolder extends BaseViewHolder<ItemVO, ItemChargeStationDetailBinding> {
         public ViewHolder(View itemView) {
             super(itemView);
         }

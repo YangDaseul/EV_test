@@ -8,7 +8,6 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
@@ -17,6 +16,7 @@ import com.genesis.apps.comm.model.api.gra.EPT_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeStationDetailBinding;
@@ -145,9 +145,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .commitAllowingStateLoss();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeStationDetailActivity.this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        ui.rvStationDetail.setLayoutManager(layoutManager);
+        ui.rvStationDetail.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
+        ui.rvChargerList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
 
         try {
             mainVehicleVO = reqViewModel.getMainVehicle();
@@ -166,6 +165,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
     private void updateStation(EPT_1002.Response data) {
         ChargeEptInfoVO chargeEptInfoVO = data.getChgInfo();
+
+        // 상단 타이틀 - 충전소 이름, 거리 표시.
+        ui.lTitle.title.setText(chargeEptInfoVO.getCsnm() + " " + chargeEptInfoVO.getDist() + "km");
+
+        // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, chargeEptInfoVO.getDaddr() + "\n" + chargeEptInfoVO.getAddrDtl()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeEptInfoVO.getUseTime()));
@@ -180,10 +184,56 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             payStringBuilder.append("\n")
                     .append(getString(R.string.sm_evss04_08));
         }
-
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
+
+        // 충전소 상세 표시
         ChargeStationDetailListAdapter adapter = new ChargeStationDetailListAdapter();
         adapter.setRows(list);
         ui.rvStationDetail.setAdapter(adapter);
+
+        // 충전기 사용가능 총 가능 대수 표시
+        int superSpeedCnt = 0;
+        int highSpeedCnt = 0;
+        int slowSpeedCnt = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            superSpeedCnt = Integer.parseInt(chargeEptInfoVO.getSuperSpeedCnt());
+        } catch (Exception ignored) {
+        }
+        try {
+            highSpeedCnt = Integer.parseInt(chargeEptInfoVO.getHighSpeedCnt());
+        } catch (Exception ignored) {
+        }
+        try {
+            slowSpeedCnt = Integer.parseInt(chargeEptInfoVO.getSlowSpeedCnt());
+        } catch (Exception ignored) {
+        }
+
+        if (superSpeedCnt > 0) {
+            stringBuilder.append(String.format(getString(R.string.sm_evss04_11), superSpeedCnt));
+        }
+        if (highSpeedCnt > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(String.format(getString(R.string.sm_evss04_12), highSpeedCnt));
+        }
+        if (slowSpeedCnt > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(String.format(getString(R.string.sm_evss04_13), slowSpeedCnt));
+        }
+        if (stringBuilder.length() > 0) {
+            stringBuilder.append(" ").append(getString(R.string.sm_evss04_15));
+            ui.tvChargerCount.setText(DeviceUtil.fromHtml(stringBuilder.toString()));
+        }
+
+        // 조회시간 표시 - TODO 전문에 해당 필드 추가되면 적용
+//        ui.tvDate.setText();
+
+        ChargerListAdapter chargerListAdapter = new ChargerListAdapter();
+        chargerListAdapter.setRows(data.getChgrList());
+        ui.rvChargerList.setAdapter(chargerListAdapter);
     }
 } // end of class ChargeStationDetailActivity
