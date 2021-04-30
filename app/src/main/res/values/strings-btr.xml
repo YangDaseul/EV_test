@@ -71,6 +71,7 @@
     <string name="bt06_21">종합 블루핸즈</string>
     <string name="bt06_22">전문 블루핸즈</string>
     <string name="bt06_23">CS 우수 인증</string>
+    <string name="bt06_23_2">전기차 전담</string>
     <string name="bt06_24">신청하기</string>
     <string name="bt06_25">대표 가격 보기</string>
     <string name="bt06_26">정비 예약하기</string>
@@ -79,6 +80,7 @@
     <string name="bt06_29">HEALING ZONE</string>
     <string name="bt06_30">고객용 PC</string>
     <string name="bt06_31">우수한 자동차 정비 기술 인력(HMCP Lv3 이상)을 보유한 블루핸즈</string>
+    <string name="bt06_32">전기차 정비를 위한 인력/장비/시설 등의 역량을 보유한 우수 블루핸즈\n※ 일부 작업에 제한이 있을 수 있어, 세부 내용은 당사 예약센터로 문의 바랍니다.</string>
 
     <string name="bt06_02_1">블루핸즈 찾기</string>
     <string name="bt06_02_2">검색 결과</string>

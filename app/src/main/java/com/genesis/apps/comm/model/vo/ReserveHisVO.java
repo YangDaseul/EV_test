@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
  * @author Ki-man Kim
  * @brief service + S-트래픽 충전기 예약신청내역
  * @see #sid 충전소ID
+ * @see #cid 충전기ID
  * @see #chgName 충전소명
  * @see #csupport 충전기지원타입
  * @see #reservNo 예약번호
@@ -26,6 +27,9 @@ class ReserveHisVO extends BaseData {
     @Expose
     @SerializedName("sid")
     private String sid;
+    @Expose
+    @SerializedName("cid")
+    private String cid;
     @Expose
     @SerializedName("chgName")
     private String chgName;

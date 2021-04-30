@@ -9,6 +9,9 @@
     <string name="service_charge_btr_05">결제 정보 확인</string>
     <string name="service_charge_btr_06">취소 안내</string>
     <string name="service_charge_btr_07">결제 수단 선택</string>
+    <string name="service_charge_btr_08">사진 보기</string>
+    <string name="service_charge_btr_09">픽업앤충전</string>
+    <string name="service_charge_btr_10">개인정보 제3자 제공 동의</string>
 
     <!-- 문구 -->
     <string name="service_charge_btr_txt_00">필수 입력 사항입니다.</string>
@@ -32,6 +35,8 @@
     <string name="service_charge_btr_txt_17">차량번호 (예 : 12가3456)</string>
     <string name="service_charge_btr_txt_18">휴대폰 번호</string>
     <string name="service_charge_btr_txt_19">(잔여 예약 수 : %s)</string>
+    <string name="service_charge_btr_txt_20">주차 장소를\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_21">주차 장소</string>
 
 
     <!-- 에러 메시지 -->
@@ -48,6 +53,7 @@
     <string name="service_charge_btr_err_11">충전 현황 / 예약 내역이 없습니다.</string>
     <string name="service_charge_btr_err_12">충전 이력이 없습니다.</string>
     <string name="service_charge_btr_err_13">서비스 이용 가능 지역이 아닙니다.</string>
+    <string name="service_charge_btr_err_14">주차 장소를 선택해 주세요.</string>
 
 
     <!-- 픽업앤충전 서비스 안내 메시 -->
@@ -59,6 +65,7 @@
     <string name="service_charge_btr_popup_msg_01">픽업앤충전 예약이 취소되었습니다.</string>
     <string name="service_charge_btr_popup_msg_02">픽업앤충전 예약을\n취소하시겠습니까?</string>
     <string name="service_charge_btr_popup_msg_03">간편결제 서비스를 이용하시려면\n회원가입이 필요합니다.\n\n간편결제 서비스 회원가입 하시겠습니까?</string>
+    <string name="service_charge_btr_popup_msg_04">픽업앤충전 이용을 위해\n개인정보 제3자 제공 약관 동의가 필요합니다.\n동의하시겠습니까?</string>
 
 
     <!-- 픽업앤충전 서비스 상태 값 -->
@@ -94,7 +101,7 @@
     <string name="service_charge_btr_word_16">결제금액</string>
     <string name="service_charge_btr_word_17">예약 내역</string>
     <string name="service_charge_btr_word_18">선결제</string>
-    <string name="service_charge_btr_word_19">충전 크레딧 포인트</string>
+    <string name="service_charge_btr_word_19">충전 크레딧</string>
     <string name="service_charge_btr_word_20">기사 정보</string>
     <string name="service_charge_btr_word_21">전화번호</string>
     <string name="service_charge_btr_word_22">업체정보</string>
@@ -105,8 +112,8 @@
     <string name="service_charge_btr_word_27">전화 연결</string>
     <string name="service_charge_btr_word_28">변경</string>
     <string name="service_charge_btr_word_29">서비스 금액</string>
-    <string name="service_charge_btr_word_30"></string>
-    <string name="service_charge_btr_word_31"></string>
+    <string name="service_charge_btr_word_30">사용불가</string>
+    <string name="service_charge_btr_word_31">담당 : %s 님</string>
     <string name="service_charge_btr_word_32"></string>
     <string name="service_charge_btr_word_33"></string>
     <string name="service_charge_btr_word_34">세차서비스</string>
@@ -115,8 +122,8 @@
     <string name="service_charge_btr_word_37">관리</string>
     <string name="service_charge_btr_word_38">결제 상세</string>
     <string name="service_charge_btr_word_39">신청하기</string>
-    <string name="service_charge_btr_word_40"></string>
-    <string name="service_charge_btr_word_41"> 보유</string>
+    <string name="service_charge_btr_word_40">└ </string>
+    <string name="service_charge_btr_word_41">%s 보유</string>
     <string name="service_charge_btr_word_42">0원</string>
 
 

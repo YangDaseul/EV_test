@@ -104,13 +104,21 @@ class BtrVO extends BaseData {
     @Expose
     @SerializedName("primCsSvcSbc")
     private String primCsSvcSbc;
-
     @Expose
     @SerializedName("primTechYn")
     private String primTechYn;
     @Expose
     @SerializedName("primTechSvcSbc")
     private String primTechSvcSbc;
+
+    //TODO 2021-04-28 전기차 전담 항목 및 메시지 임의로 추가 . 인터페이스 설계서 나오면 반영 필요
+    @Expose
+    @SerializedName("evYn")
+    private String evYn;
+    @Expose
+    @SerializedName("evSvcSbc")
+    private String evSvcSbc;
+
 
     @Expose
     @SerializedName("genLngYn")

@@ -1,4 +1,17 @@
-//package com.genesis.apps.comm.model.constants;
+package com.genesis.apps.comm.model.constants;
+
+import com.genesis.apps.comm.model.api.gra.CHB_1007;
+import com.genesis.apps.comm.model.api.gra.CHB_1008;
+import com.genesis.apps.comm.model.api.gra.CHB_1009;
+import com.genesis.apps.comm.model.api.gra.CHB_1010;
+import com.genesis.apps.comm.model.api.gra.CHB_1021;
+import com.genesis.apps.comm.model.api.gra.CHB_1022;
+import com.genesis.apps.comm.model.api.gra.CHB_1023;
+import com.genesis.apps.comm.model.api.gra.CHB_1024;
+import com.genesis.apps.comm.model.api.gra.CHB_1025;
+import com.genesis.apps.comm.model.api.gra.CHB_1026;
+import com.google.gson.Gson;
+
 //
 //import com.genesis.apps.comm.model.api.gra.BAR_1001;
 //import com.genesis.apps.comm.model.api.gra.BTR_1001;
@@ -96,7 +109,7 @@
 //import com.genesis.apps.comm.model.vo.RentStatusVO;
 //import com.google.gson.Gson;
 //
-//public class TestCode {
+public class TestCode {
 //
 //    public static REQ_1017.Response REQ_1017 = new Gson().fromJson("{\n" +
 //            "  \"rtCd\": \"0000\",\n" +
@@ -4113,4 +4126,411 @@
 //            "  ]\n" +
 //            "}",REQ_1018.Response.class);
 //
-//}
+
+    public static CHB_1007.Response CHB_1007 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"useYn\": \"Y\"\n" +
+            "}", CHB_1007.Response.class);
+
+    public static CHB_1008.Response CHB_1008 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"dailyBookingSlotList\": [\n" +
+            "    {\n" +
+            "      \"bookingDate\": \"20210422\",\n" +
+            "      \"slotList\": [\n" +
+            "           {\n" +
+            "           \"bookingTime\": \"1400\",\n" +
+            "           \"remainCount\": 3\n" +
+            "           }\n" +
+            "       ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"bookingDate\": \"20210423\",\n" +
+            "      \"slotList\": [\n" +
+            "       ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"bookingDate\": \"20210426\",\n" +
+            "      \"slotList\": [\n" +
+            "           {\n" +
+            "           \"bookingTime\": \"1100\",\n" +
+            "           \"remainCount\": 4\n" +
+            "           },\n" +
+            "           {\n" +
+            "           \"bookingTime\": \"1130\",\n" +
+            "           \"remainCount\": 2\n" +
+            "           },\n" +
+            "           {\n" +
+            "           \"bookingTime\": \"1300\",\n" +
+            "           \"remainCount\": 1\n" +
+            "           }\n" +
+            "       ]\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",CHB_1008.Response.class);
+
+    public static CHB_1009.Response CHB_1009 = new Gson().fromJson("{\n" +
+            "\"rtCd\" : \"0000\",\n" +
+            "\"rtMst\" : \"정상\",\n" +
+            "\"txid\" : \"GRA\",\n" +
+            "\"expireDtm\" : \"20210414160300\",\n" +
+            "\"productCode\" : \"string\",\n" +
+            "\"productName\" : \"string\",\n" +
+            "\"productPrice\" : 0,\n" +
+            "\"optionList\" : [\n" +
+            "      {\n" +
+            "        \"optionCode\": \"DV\",\n" +
+            "        \"optionType\": \"OT01\",\n" +
+            "        \"optionName\": \"탁송\",\n" +
+            "        \"optionPrice\": 20000,\n" +
+            "        \"optionApplyCount\": 1\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"optionCode\": \"DV\",\n" +
+            "        \"optionType\": \"OT02\",\n" +
+            "        \"optionName\": \"세차\",\n" +
+            "        \"optionPrice\": 5000,\n" +
+            "        \"optionApplyCount\": 1\n" +
+            "      }\n" +
+            "],\n" +
+            "\"strafficInfo\" : \n" +
+            "   {\n" +
+            "      \"cardNo\" : \"\",\n" +
+            "      \"cardName\" : \"\",\n" +
+            "      \"availableYN\" : \"\",\n" +
+            "      \"balance\" : 0\n" +
+            "   },\n" +
+            "\"blueInfo\" : \n" +
+            "   {\n" +
+            "      \"blueSignInYN\" : \"\",\n" +
+            "      \"blueBalance\" : 0\n" +
+            "   },\n" +
+            "\"signInYN\" : \"Y\",\n" +
+            "\"cardList\" : [\n" +
+            "   {\n" +
+            "      \"cardType\" : \"C\",\n" +
+            "      \"cardId\" : \"cardId1\",\n" +
+            "      \"cardCoCode\" : \"C001\",\n" +
+            "      \"cardNo\" : \"123454321\",\n" +
+            "      \"cardName\" : \"BC카드_1\",\n" +
+            "      \"mainCardYN\" : \"N\",\n" +
+            "      \"registerDt\" : \"20210103110000\",\n" +
+            "      \"cardImageUrl\" : \"\",\n" +
+            "      \"lastUsedCardYN\" : \"Y\",\n" +
+            "      \"oneCardCode\" : \"N\",\n" +
+            "      \"plccYN\" : \"N\"\n" +
+            "   },\n" +
+            "   {\n" +
+            "      \"cardType\" : \"H\",\n" +
+            "      \"cardId\" : \"cardId2\",\n" +
+            "      \"cardCoCode\" : \"PHON\",\n" +
+            "      \"cardNo\" : \"123454321\",\n" +
+            "      \"cardName\" : \"휴대폰\",\n" +
+            "      \"mainCardYN\" : \"N\",\n" +
+            "      \"registerDt\" : \"20210103110000\",\n" +
+            "      \"cardImageUrl\" : \"\",\n" +
+            "      \"lastUsedCardYN\" : \"Y\",\n" +
+            "      \"oneCardCode\" : \"N\",\n" +
+            "      \"plccYN\" : \"N\"\n" +
+            "   },\n" +
+            "   {\n" +
+            "      \"cardType\" : \"C\",\n" +
+            "      \"cardId\" : \"cardId3\",\n" +
+            "      \"cardCoCode\" : \"C004\",\n" +
+            "      \"cardNo\" : \"123454321\",\n" +
+            "      \"cardName\" : \"삼성카드_1\",\n" +
+            "      \"mainCardYN\" : \"Y\",\n" +
+            "      \"registerDt\" : \"20210103110000\",\n" +
+            "      \"cardImageUrl\" : \"\",\n" +
+            "      \"lastUsedCardYN\" : \"Y\",\n" +
+            "      \"oneCardCode\" : \"N\",\n" +
+            "      \"plccYN\" : \"N\"\n" +
+            "   }\n" +
+            "]\n" +
+            "}", CHB_1009.Response.class);
+
+    public static CHB_1010.Response CHB_1010 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}", CHB_1010.Response.class);
+
+    public static CHB_1021.Response CHB_1021 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"orderId\": \"string\",\n" +
+            "  \"status\": \"2000\",\n" +
+            "  \"statusNm\": \"픽업 중\",\n" +
+            "  \"requestDt\": \"20210407042507\",\n" +
+            "  \"bookingDt\": \"20210415151600\",\n" +
+            "  \"cancelableYN\": \"Y\",\n" +
+            "  \"keyTransferType\": \"KT_DKC\",\n" +
+            "  \"workerAssignYn\": \"string\",\n" +
+            "  \"carInfo\": {\n" +
+            "    \"vin\": \"string\",\n" +
+            "    \"carNo\": \"27저 1234\",\n" +
+            "    \"carCode\": \"string\"\n" +
+            "  },\n" +
+            "  \"sameLocationYN\": \"string\",\n" +
+            "  \"locationCount\": 1,\n" +
+            "  \"locationList\": [\n" +
+            "    {\n" +
+            "      \"locationType\": \"STRT\",\n" +
+            "      \"inOutType\": \"I\",\n" +
+            "      \"latitude\": 0,\n" +
+            "      \"longitude\": 0,\n" +
+            "      \"address\": \"서울특별시 금천구 가산디지털1로\",\n" +
+            "      \"addressDetail\": \"string\",\n" +
+            "      \"buildingName\": \"string\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"orderInfo\": {\n" +
+            "    \"estimatedPaymentAmount\": 0,\n" +
+            "    \"paymentAmount\": 16000,\n" +
+            "    \"productCode\": \"string\",\n" +
+            "    \"productName\": \"string\",\n" +
+            "    \"productPrice\": 16000,\n" +
+            "    \"productSalePrice\": 0,\n" +
+            "    \"optionCount\": 1,\n" +
+            "    \"optionList\": [\n" +
+            "      {\n" +
+            "        \"optionCode\": \"string\",\n" +
+            "        \"optionType\": \"string\",\n" +
+            "        \"optionName\": \"탁송\",\n" +
+            "        \"optionPrice\": 20000,\n" +
+            "        \"optionApplyCount\": 0\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    \"membershipCount\": 0,\n" +
+            "    \"membershipList\": [\n" +
+            "      {\n" +
+            "        \"membershipCode\": \"STRFF\",\n" +
+            "        \"membershipNo\": \"string\",\n" +
+            "        \"membershipUsePoint\": 0\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    \"totalServiceCost\": 0,\n" +
+            "    \"totalDcAmount\": 0,\n" +
+            "    \"totalUsePoint\": 0\n" +
+            "  },\n" +
+            "  \"paymentInfo\": {\n" +
+            "    \"cardNo\": \"string\",\n" +
+            "    \"cardCoCode\": \"C001\"\n" +
+            "  },\n" +
+            "  \"workerCount\": 0,\n" +
+            "  \"workerList\": [\n" +
+            "    {\n" +
+            "      \"workerName\": \"string\",\n" +
+            "      \"workerHpNo\": \"string\",\n" +
+            "      \"workerType\": \"PKUP\",\n" +
+            "      \"serviceViewLink\": \"string\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"vendorInfo\": {\n" +
+            "    \"vendorCode\": \"string\",\n" +
+            "    \"vendorName\": \"로드윈 주식회사 0000-0000\",\n" +
+            "    \"vendorTelNo\": \"string\",\n" +
+            "    \"vendorAddress\": \"string\",\n" +
+            "    \"vendorHomePageUrl\": \"string\",\n" +
+            "    \"vendorCSTelNo\": \"01012341234\",\n" +
+            "    \"vendorCSHours\": \"평일 09:00-19:00 (공휴일 휴무)\"\n" +
+            "  }\n" +
+            "}", CHB_1021.Response.class);
+
+    public static CHB_1022.Response CHB_1022 = new Gson().fromJson("{\n" +
+            "    \"rtCd\": \"0000\",\n" +
+            "    \"rtMsg\": \"Success\",\n" +
+            "    \"workerName\": \"김제니\",\n" +
+            "    \"workerHpNo\": \"01012341234\",\n" +
+            "    \"latitude\": 37.4813022,\n" +
+            "    \"longitude\": 126.8821687,\n" +
+            "    \"address\": \"서울특별시 금천구 가산디지털1로\"\n" +
+            "}", CHB_1022.Response.class);
+
+    public static CHB_1023.Response CHB_1023 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"totalCount\": 0,\n" +
+            "  \"totalPage\": 3,\n" +
+            "  \"page\": 0,\n" +
+            "  \"pageSize\": 0,\n" +
+            "  \"currentSize\": 0,\n" +
+            "  \"firstYN\": \"Y\",\n" +
+            "  \"lastYN\": \"N\",\n" +
+            "  \"bookingList\": [\n" +
+            "    {\n" +
+            "      \"orderId\": \"KST123\",\n" +
+            "      \"category\": \"string\",\n" +
+            "      \"status\": \"1000\",\n" +
+            "      \"statusNm\": \"예약완료\",\n" +
+            "      \"bookingDt\": \"20210416113000\",\n" +
+            "      \"finishDt\": \"20210416124000\",\n" +
+            "      \"carNo\": \"123가1201\",\n" +
+            "      \"address\": \"서울 금천구 가산동 우림라이온스밸리 B동\",\n" +
+            "      \"addressDetail\": \"105호\",\n" +
+            "      \"buildingName\": \"string\",\n" +
+            "      \"productName\": \"string\",\n" +
+            "      \"optionCount\": 1,\n" +
+            "      \"optionNameList\": [\n" +
+            "        \"탁송\"\n" +
+            "      ],\n" +
+            "      \"serviceViewLink\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"orderId\": \"string\",\n" +
+            "      \"category\": \"string\",\n" +
+            "      \"status\": \"1000\",\n" +
+            "      \"statusNm\": \"예약완료\",\n" +
+            "      \"bookingDt\": \"20210416113000\",\n" +
+            "      \"finishDt\": \"20210416124000\",\n" +
+            "      \"carNo\": \"123가1202\",\n" +
+            "      \"address\": \"서울 금천구 가산동 우림라이온스밸리 B동\",\n" +
+            "      \"addressDetail\": \"105호\",\n" +
+            "      \"buildingName\": \"string\",\n" +
+            "      \"productName\": \"string\",\n" +
+            "      \"optionCount\": 1,\n" +
+            "      \"optionNameList\": [\n" +
+            "        \"탁송\"\n" +
+            "      ],\n" +
+            "      \"serviceViewLink\": \"https://www.google.com/\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"orderId\": \"string\",\n" +
+            "      \"category\": \"string\",\n" +
+            "      \"status\": \"1000\",\n" +
+            "      \"statusNm\": \"예약완료\",\n" +
+            "      \"bookingDt\": \"20210416113000\",\n" +
+            "      \"finishDt\": \"20210416124000\",\n" +
+            "      \"carNo\": \"123가1203\",\n" +
+            "      \"address\": \"서울 금천구 가산동 우림라이온스밸리 B동\",\n" +
+            "      \"addressDetail\": \"105호\",\n" +
+            "      \"buildingName\": \"string\",\n" +
+            "      \"productName\": \"string\",\n" +
+            "      \"optionCount\": 1,\n" +
+            "      \"optionNameList\": [\n" +
+            "        \"탁송\"\n" +
+            "      ],\n" +
+            "      \"serviceViewLink\": \"https://www.google.com/\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"orderId\": \"string\",\n" +
+            "      \"category\": \"string\",\n" +
+            "      \"status\": \"1000\",\n" +
+            "      \"statusNm\": \"예약완료\",\n" +
+            "      \"bookingDt\": \"20210416113000\",\n" +
+            "      \"finishDt\": \"20210416124000\",\n" +
+            "      \"carNo\": \"123가1204\",\n" +
+            "      \"address\": \"서울 금천구 가산동 우림라이온스밸리 B동\",\n" +
+            "      \"addressDetail\": \"105호\",\n" +
+            "      \"buildingName\": \"string\",\n" +
+            "      \"productName\": \"string\",\n" +
+            "      \"optionCount\": 1,\n" +
+            "      \"optionNameList\": [\n" +
+            "        \"탁송\"\n" +
+            "      ],\n" +
+            "      \"serviceViewLink\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"orderId\": \"string\",\n" +
+            "      \"category\": \"string\",\n" +
+            "      \"status\": \"6000\",\n" +
+            "      \"statusNm\": \"예약취소\",\n" +
+            "      \"bookingDt\": \"20210416113000\",\n" +
+            "      \"finishDt\": \"20210416124000\",\n" +
+            "      \"carNo\": \"123가1205\",\n" +
+            "      \"address\": \"서울 금천구 가산동 우림라이온스밸리 B동\",\n" +
+            "      \"addressDetail\": \"105호\",\n" +
+            "      \"buildingName\": \"string\",\n" +
+            "      \"productName\": \"string\",\n" +
+            "      \"optionCount\": 1,\n" +
+            "      \"optionNameList\": [\n" +
+            "        \"탁송\"\n" +
+            "      ],\n" +
+            "      \"serviceViewLink\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", CHB_1023.Response.class);
+
+    public static CHB_1024.Response CHB_1024 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}", CHB_1024.Response.class);
+
+    public static CHB_1025.Response CHB_1025 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}", CHB_1025.Response.class);
+
+    public static CHB_1026.Response CHB_1026 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"orderId\": \"string\",\n" +
+            "  \"status\": \"1000\",\n" +
+            "  \"statusNm\": \"예약완료\",\n" +
+            "  \"requestDt\": \"20210407162507\",\n" +
+            "  \"finishDt\": \"20210407180007\",\n" +
+            "  \"carInfo\": {\n" +
+            "    \"vin\": \"string\",\n" +
+            "    \"carNo\": \"27저 1234\"\n" +
+            "  },\n" +
+            "  \"locationCount\": 0,\n" +
+            "  \"locationList\": [\n" +
+            "    {\n" +
+            "      \"locationType\": \"STRT\",\n" +
+            "      \"inOutType\": \"I\",\n" +
+            "      \"latitude\": 0,\n" +
+            "      \"longitude\": 0,\n" +
+            "      \"address\": \"서울특별시 금천구 가산디지털1로\",\n" +
+            "      \"addressDetail\": \"string\",\n" +
+            "      \"buildingName\": \"string\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"orderInfo\": {\n" +
+            "    \"estimatedPaymentAmount\": 25000,\n" +
+            "    \"paymentAmount\": 25000,\n" +
+            "    \"productCode\": \"string\",\n" +
+            "    \"productName\": \"string\",\n" +
+            "    \"productPrice\": 0,\n" +
+            "    \"productSalePrice\": 16000,\n" +
+            "    \"optionCount\": 1,\n" +
+            "    \"optionList\": [\n" +
+            "      {\n" +
+            "        \"optionCode\": \"DV\",\n" +
+            "        \"optionType\": \"OT01\",\n" +
+            "        \"optionName\": \"탁송\",\n" +
+            "        \"optionPrice\": 20000,\n" +
+            "        \"optionApplyCount\": 1\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    \"membershipCount\": 1,\n" +
+            "    \"membershipList\": [\n" +
+            "      {\n" +
+            "        \"membershipCode\": \"STRFF\",\n" +
+            "        \"membershipNo\": \"string\",\n" +
+            "        \"membershipUsePoint\": 0\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    \"totalServiceCost\": 16000,\n" +
+            "    \"totalDcAmount\": 0,\n" +
+            "    \"totalUsePoint\": 0\n" +
+            "  },\n" +
+            "  \"workerCount\": 1,\n" +
+            "  \"workerList\": [\n" +
+            "    {\n" +
+            "      \"workerName\": \"김제니\",\n" +
+            "      \"workerHpNo\": \"01012344321\",\n" +
+            "      \"workerType\": \"PKUP\",\n" +
+            "      \"serviceViewLink\": \"https://www.google.com/\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"vendorInfo\": {\n" +
+            "    \"vendorCode\": \"string\",\n" +
+            "    \"vendorName\": \"string\",\n" +
+            "    \"vendorTelNo\": \"string\",\n" +
+            "    \"vendorAddress\": \"string\",\n" +
+            "    \"vendorHomePageUrl\": \"string\",\n" +
+            "    \"vendorCSTelNo\": \"string\"\n" +
+            "  }\n" +
+            "}", CHB_1026.Response.class);
+}

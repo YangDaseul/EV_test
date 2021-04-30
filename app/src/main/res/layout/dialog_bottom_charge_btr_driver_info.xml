@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.genesis.apps.comm.model.constants.VariableType" />
+
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.api.gra.CHB_1021.Response" />
+
+        <variable
+            name="stusMsg"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/back"
+            layout="@layout/layout_map_overlay_ui_bottom_info_bar_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isDialog="@{true}"
+            app:driverNm="@{data.getWorkerList().get(0).getWorkerName()}"
+            app:stusMsg="@{stusMsg}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_vin" />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_00000000_topline_e5e5e5"
+                android:paddingTop="40dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+
+                <!-- 기사정보 -->
+                <TextView
+                    android:id="@+id/tv_title_driver"
+                    style="@style/RelapseReqResultSubTitle"
+                    android:text="@string/sm_emgc03_p01_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_driver_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_driver">
+
+                    <!-- "전화번호" -->
+                    <include
+                        android:id="@+id/l_control_tel"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{PhoneNumberUtils.formatNumber(data.getWorkerList().get(0).getWorkerHpNo(), Locale.getDefault().getCountry())}"
+                        app:title="@{@string/service_charge_btr_word_21}" />
+
+                    <!-- "업체정보" -->
+                    <include
+                        android:id="@+id/l_alloc_nm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_control_tel"
+                        app:msg="@{data.getVendorInfo().getVendorName() ?? ``}"
+                        app:title="@{@string/service_charge_btr_word_22}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- 예약 내역 -->
+                <TextView
+                    android:id="@+id/tv_title_apply"
+                    style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/service_charge_btr_word_17"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_driver_info" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_apply_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_apply">
+
+                    <!-- "차량정보" -->
+                    <include
+                        android:id="@+id/l_car_reg_no"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{(data.getCarInfo().getCarNo() ?? ``) ?? ``}"
+                        app:title="@{@string/service_charge_btr_word_00}" />
+
+                    <!-- "예약일시" -->
+                    <include
+                        android:id="@+id/l_reserve_dtm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
+                        app:msg="@{(!TextUtils.isEmpty(data.getBookingDt()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(data.getBookingDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)) : `--`)}"
+                        app:title="@{@string/service_charge_btr_word_02}" />
+
+                    <!-- "픽업" 위치 정보 -->
+                    <include
+                        android:id="@+id/l_pickup_addr"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{data.getLocationList() != null ? (data.getLocationList().get(0).getAddress()) : ``}"
+                        app:title="@{@string/service_charge_btr_word_03}" />
+
+
+                    <!-- "서비스" 상품 정보 -->
+                    <include
+                        android:id="@+id/l_reserve_info"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_pickup_addr"
+                        app:title="@{@string/service_charge_btr_word_04}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- 서비스 내역  -->
+                <TextView
+                    android:id="@+id/l_amt_info_title"
+                    style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/service_charge_btr_word_11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_apply_info" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_amt_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_amt_info_title">
+
+                    <!-- 충전 금액 -->
+                    <include
+                        android:id="@+id/l_advance_paymt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:title="@{@string/service_charge_btr_word_12}" />
+
+                    <!-- 탁송 금액 -->
+                    <include
+                        android:id="@+id/l_delivery_paymt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_advance_paymt"
+                        app:title="@{@string/service_charge_btr_word_13}" />
+
+                    <!-- 세차 금액 -->
+                    <include
+                        android:id="@+id/l_car_wash_paymt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_delivery_paymt"
+                        app:title="@{@string/service_charge_btr_word_14}" />
+
+                    <!-- 포인트 사용 -->
+                    <include
+                        android:id="@+id/l_credit_point"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
+                        app:title="@{@string/service_charge_btr_word_15}" />
+
+                    <!-- 포인트사용-충전 크레딧 포인트 표시 -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="115dp"
+                        android:background="@color/x_ffffff"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/service_charge_btr_word_19"
+                        android:textColor="@color/x_262626"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_credit_point"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/l_credit_point" />
+
+                    <!-- 제 금액 -->
+                    <include
+                        android:id="@+id/l_paymt_amt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
+                        app:title="@{@string/service_charge_btr_word_16}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_mark_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/mark_666666"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_desc" />
+
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/service_charge_btr_msg_05"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
+                    app:layout_constraintTop_toBottomOf="@+id/l_amt_info" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btn_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ripple_bg_000000"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="0dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:text="@string/sm_emgc03_p01_11"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+</layout>

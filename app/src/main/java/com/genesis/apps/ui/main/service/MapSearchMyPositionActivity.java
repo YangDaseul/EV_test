@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CHB_1007;
 import com.genesis.apps.comm.model.api.roadwin.ServiceAreaCheck;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -20,6 +22,7 @@ import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.map.AroundPOIReqVO;
 import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
@@ -40,6 +43,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     private MapViewModel mapViewModel;
     private LGNViewModel lgnViewModel;
     private RoadWinViewModel roadWinViewModel;
+    private CHBViewModel chbViewModel;
     private LayoutMapOverlayUiBottomAddressBinding bottomSelectBinding;
     private AddressVO selectAddressVO;
     private Double[] requestPosition = new Double[2];
@@ -165,6 +169,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
         mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
         roadWinViewModel = new ViewModelProvider(this).get(RoadWinViewModel.class);
+        chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
     }
 
     @Override
@@ -253,6 +258,46 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                     break;
             }
         });
+
+        // 픽업앤충전 서비스 가능 지역 조회
+        chbViewModel.getRES_CHB_1007().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getUseYn() != null) {
+                        //서비스 가능 지역
+                        if (result.data.getUseYn().equals("Y")) {
+                            exitPageWithAddress();
+                        }
+                        // 서비스 불가 지역
+                        else {
+                            SnackBarUtil.show(this, getString(R.string.service_charge_btr_err_13));
+                        }
+
+                        showProgressDialog(false);
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
+
+
 //
 //        btrViewModel.getRES_BTR_1008().observe(this, result -> {
 //
@@ -310,6 +355,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                                 new ServiceAreaCheck.Request(
                                         "" + selectAddressVO.getCenterLon(),
                                         "" + selectAddressVO.getCenterLat()));
+                    } else if(titleId == R.string.service_charge_btr_01){
+                        chbViewModel.reqCHB1007(new CHB_1007.Request(APPIAInfo.SM_CGRV01_01.getId(), selectAddressVO.getAddr(), null, selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon(), selectAddressVO.getCname()));
                     } else {
                         exitPageWithAddress();
                     }

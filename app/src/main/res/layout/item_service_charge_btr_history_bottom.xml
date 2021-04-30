@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/x_f8f8f8">
+
+        <ImageView
+            android:id="@+id/iv_line_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintBottom_toTopOf="@+id/l_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_mark_1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/mark_666666"
+            app:layout_constraintBottom_toBottomOf="@+id/l_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/l_desc" />
+
+        <TextView
+            android:id="@+id/l_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center_vertical|start"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6dp"
+            android:text="@string/service_charge_btr_msg_06"
+            android:textColor="@color/x_666666"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_mark_1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

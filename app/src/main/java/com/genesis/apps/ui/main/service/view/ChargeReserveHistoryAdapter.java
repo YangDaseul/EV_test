@@ -56,7 +56,6 @@ public class ChargeReserveHistoryAdapter extends BaseRecyclerViewAdapter2<Reserv
         public void onBindView(ReserveHisVO item, int pos) {
             getBinding().setData(item);
             getBinding().setPos(pos);
-            getBinding().tvChgName.setPaintFlags(getBinding().tvChgName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 //            getBinding().btnRepairImage.setTag(R.id.item, item);
         }

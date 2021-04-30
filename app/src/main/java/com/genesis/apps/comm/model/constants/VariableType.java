@@ -201,6 +201,7 @@ public class VariableType {
     public static final String COUPON_CODE_WIPER = "33";//와이퍼블레이드
     public static final String COUPON_CODE_BREAK_OIL = "34";//브레이크오일
     public static final String COUPON_CODE_PICKUP_DELIVERY = "61";//픽업앤딜리버리
+    public static final String COUPON_CODE_ICE = "66";//냉각수 //TODO 냉각수 코드 변경 필요
     public static final String COUPON_CODE_SONAKS = "99";//프리미엄 소낙스 세차 이용권
 
     //버틀러 상담유형 코드
@@ -434,10 +435,33 @@ public class VariableType {
             case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL:
                 return "예약 취소";
             case SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE:
-                return "예약 완료";
+                //예약 완료인경우 뱃지 표기 안함
             default:
                 return "";
 
         }
     }
+
+    public static final String SERVICE_CHARGE_BTR_SVC_CD = "CHRGBTR";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
+    public static final String SERVICE_CHARGE_BTR_LOT_TYPE_STRT = "STRT";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
+
+    public static final String SERVICE_CHARGE_BTR_IN_TYPE_CD = "I";         // 내외부 구분 코드, 실내
+    public static final String SERVICE_CHARGE_BTR_IN_TYPE_NM = "실내 주차장";         // 내외부 구분 코드, 실내
+    public static final String SERVICE_CHARGE_BTR_OUT_TYPE_CD = "O";        // 내외부 구분 코드, 실외
+    public static final String SERVICE_CHARGE_BTR_OUT_TYPE_NM = "실외 주차장";        // 내외부 구분 코드, 실외
+
+    public static String getInOutCd(String result) {
+        switch (result) {
+            case SERVICE_CHARGE_BTR_IN_TYPE_NM:
+                return SERVICE_CHARGE_BTR_IN_TYPE_CD;
+            case SERVICE_CHARGE_BTR_OUT_TYPE_NM:
+            default:
+                return SERVICE_CHARGE_BTR_OUT_TYPE_CD;
+        }
+    }
+
+    public static final String SERVICE_CHARGE_BTR_OPT_TYPE_1 = "OT01";  // 옵션 타입, 기본형(탁송)
+    public static final String SERVICE_CHARGE_BTR_OPT_TYPE_2 = "OT02";  // 옵션 타입, 추가형(세차)
+
+    public static final String SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF = "STRFF";  // 멤버십 구분 코드, 에스트래픽
 }

@@ -32,8 +32,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilterBinding> {
     private PUBViewModel pubViewModel;
-    private final int[] filterIds = {R.id.tv_category_3, R.id.tv_category_1, R.id.tv_category_2, R.id.tv_category_4, R.id.tv_category_6, R.id.tv_category_5};
-    private final boolean[] isSelectFilter = {false, false, false, false, false, false};
+    private final int[] filterIds = {R.id.tv_category_3, R.id.tv_category_1, R.id.tv_category_2, R.id.tv_category_4, R.id.tv_category_6, R.id.tv_category_5, R.id.tv_category_7, R.id.tv_category_8};
+    private final boolean[] isSelectFilter = {false, false, false, false, false, false, false, false};
     private String fillerCd = "";
     private String addr = "";
     private String addrDtl = "";
@@ -172,6 +172,8 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
             case R.id.tv_category_4:
             case R.id.tv_category_5:
             case R.id.tv_category_6:
+            case R.id.tv_category_7:
+            case R.id.tv_category_8:
                 setFilter(v.getId());
                 break;
             case R.id.tv_position_1:

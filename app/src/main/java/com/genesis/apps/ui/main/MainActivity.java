@@ -35,6 +35,7 @@ import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.home.FragmentHome2;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
+import com.genesis.apps.ui.main.service.FragmentCharge;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
@@ -409,6 +410,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                         fragment.onActivityResult(requestCode, resultCode, data);
                         return;
                     }
+                }
+            }
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentService) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
                 }
             }
         }

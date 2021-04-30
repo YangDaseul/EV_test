@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_map_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        tools:background="#ffff00">
+
+        <!--  지도  -->
+        <com.hmns.playmap.PlayMapView
+            android:id="@+id/pmv_map_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ViewStub
+            android:id="@+id/vs_map_overlay_bottom_box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inflatedId="@+id/vs_map_overlay_bottom_box"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- gps 버튼 -->
+        <ImageView
+            android:id="@+id/btn_my_position"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ripple_bg_ffffff_round_05"
+            android:elevation="2dp"
+            android:src="@drawable/ic_gps"
+            app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- refresh 버튼 -->
+        <ImageView
+            android:id="@+id/btn_pos_refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ripple_bg_ffffff_round_05"
+            android:elevation="2dp"
+            android:src="@drawable/btn_repeat"
+            app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_center_maker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/pmv_map_view"
+            app:layout_constraintBottom_toBottomOf="@+id/pmv_map_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/ic_pin_car"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

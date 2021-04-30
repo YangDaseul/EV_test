@@ -96,7 +96,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private void reqInsightExpn(){
         if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
             setInsightExpnLayout(View.VISIBLE);
-            istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.MG01.getId(), "INSGT", "CBK", mainVehicle.getVin()));
+            istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.MG01.getId(), "INSGT", "CBK", mainVehicle.getVin(), mainVehicle.getEvCd()));
         }else{
             setInsightExpnLayout(View.GONE);
         }

@@ -28,7 +28,4 @@ class BookingTimeVO extends BaseData {
     @Expose
     @SerializedName("remainCount")
     private int remainCount;
-
-    @Ignore
-    private boolean isSelect;
 }

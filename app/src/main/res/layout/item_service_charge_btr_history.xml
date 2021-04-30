@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.carlife.BookingVO" />
+
+        <variable
+            name="pos"
+            type="int" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/x_ffffff">
+
+
+        <ImageView
+            android:id="@+id/iv_line_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/x_e5e5e5"
+            android:visibility="@{(pos!=0) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/l_apply_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="4dp"
+            android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getFinishDt() ??``),DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)}"
+            android:textColor="@color/x_262626"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_line_1"
+            tools:text="2021.03.02 12:04" />
+
+        <!-- 서비스 상태 값 -->
+        <TextView
+            android:id="@+id/tv_service_status"
+            style="@style/TextBasic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6dp"
+            android:text="@{data.getStatusNm}"
+            android:textColor="@{`6000`.equalsIgnoreCase(data.getStatus()) ? @color/x_ce2d2d : @color/x_996449}"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/l_apply_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/l_apply_date"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_apply_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/x_e5e5e5"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_apply_date">
+
+            <!-- "차량정보" -->
+            <include
+                android:id="@+id/l_car_reg_no"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:msg="@{data.getCarNo()}"
+                app:title="@{@string/service_charge_btr_word_00}" />
+
+            <!-- 사진보기 버튼 -->
+            <include
+                android:id="@+id/btn_charge_btr_image"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(view)->listener.onSingleClick(view)}"
+                android:visibility="@{!TextUtils.isEmpty(data.getServiceViewLink()) ? View.VISIBLE : View.GONE}"
+                app:btnNm="@{@string/service_charge_btr_word_01}"
+                app:layout_constraintBottom_toBottomOf="@+id/l_car_reg_no"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/l_car_reg_no"
+                app:layout_constraintVertical_bias=".5" />
+
+            <!-- "예약일시" -->
+            <include
+                android:id="@+id/l_reserve_dtm"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
+                app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBookingDt() ??``),DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)}"
+                app:title="@{@string/service_charge_btr_word_02}" />
+
+            <!-- "픽업" 위치 정보 -->
+            <include
+                android:id="@+id/l_pickup_addr"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
+                app:msg="@{data.getAddress() + (!TextUtils.isEmpty(data.getAddressDetail()) ? data.getAddressDetail() : ``)}"
+                app:title="@{@string/service_charge_btr_word_03}" />
+
+
+            <!-- "서비스" 상품 정보 -->
+            <include
+                android:id="@+id/l_option_info"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_pickup_addr"
+                app:title="@{@string/service_charge_btr_word_04}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/btn_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="3dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="30dp"
+            android:text="@string/service_charge_btr_word_07"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            android:onClick="@{(view)->listener.onSingleClick(view)}"
+            android:background="@drawable/bg_00000000_underline_000000"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_image"
+            app:layout_constraintTop_toBottomOf="@+id/l_apply_info"/>
+
+        <ImageView
+            android:id="@+id/iv_arrow_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/btn_arrow_open"
+            android:onClick="@{(view)->listener.onSingleClick(view)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_detail"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_detail" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_detail">
+
+            <!-- 탁송 기사 정보 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_detail_driver_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{data.getWorkerVO() != null ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/l_driver_info_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/service_charge_btr_word_08"
+                    android:textColor="@color/x_000000"
+                    android:textSize="22dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_driver_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_driver_info_title">
+
+                    <include
+                        android:id="@+id/l_driver_nm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:title="@{@string/service_charge_btr_word_08}" />
+
+                    <!-- 고객센터 연결 버튼 -->
+                    <include
+                        android:id="@+id/btn_charge_btr_tel"
+                        layout="@layout/item_btn_underline_mark_gold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(view)->listener.onSingleClick(view)}"
+                        app:btnNm="@{@string/service_charge_btr_word_10}"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_driver_nm"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/l_driver_nm"
+                        app:layout_constraintVertical_bias=".5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 서비스 내역 정보 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_detail_amt_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_detail_driver_info">
+
+                <TextView
+                    android:id="@+id/l_amt_info_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/service_charge_btr_word_11"
+                    android:textColor="@color/x_000000"
+                    android:textSize="22dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_amt_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_amt_info_title">
+
+                    <!-- 충전 선결제 금액 -->
+                    <include
+                        android:id="@+id/l_advance_paymt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:title="@{@string/service_charge_btr_word_12}" />
+
+                    <!-- 포인트 사용 -->
+                    <include
+                        android:id="@+id/l_credit_point"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_advance_paymt"
+                        app:title="@{@string/service_charge_btr_word_15}" />
+
+                    <!-- 포인트사용-충전 크레딧 포인트 표시 -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="115dp"
+                        android:background="@color/x_ffffff"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/service_charge_btr_word_19"
+                        android:textColor="@color/x_262626"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_credit_point"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/l_credit_point" />
+
+                    <!-- 탁송 금액 -->
+                    <include
+                        android:id="@+id/l_delivery_paymt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
+                        app:title="@{@string/service_charge_btr_word_13}" />
+
+                    <!-- 세차 금액 -->
+                    <include
+                        android:id="@+id/l_car_wash_paymt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:visibility="gone"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_delivery_paymt"
+                        app:title="@{@string/service_charge_btr_word_14}" />
+
+
+                    <!-- 최종 결제 금액 -->
+                    <include
+                        android:id="@+id/l_paymt_amt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
+                        app:title="@{@string/service_charge_btr_word_16}" />
+
+                    <!-- 결제금액-취소 표시 -->
+                    <TextView
+                        android:id="@+id/l_paymt_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="115dp"
+                        android:background="@color/x_ffffff"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/service_charge_btr_word_24"
+                        android:textColor="@color/x_262626"
+                        android:textSize="14dp"
+                        android:visibility="@{`6000`.equalsIgnoreCase(data.getStatus()) ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_paymt_amt"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/l_paymt_amt" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_mark_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/mark_666666"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_desc" />
+
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/service_charge_btr_msg_05"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
+                    app:layout_constraintTop_toBottomOf="@+id/l_amt_info" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
