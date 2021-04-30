@@ -235,5 +235,18 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ChargerListAdapter chargerListAdapter = new ChargerListAdapter();
         chargerListAdapter.setRows(data.getChgrList());
         ui.rvChargerList.setAdapter(chargerListAdapter);
+
+        // 지도 표시
+        try {
+            double lat = Double.parseDouble(chargeEptInfoVO.getLat());
+            double lot = Double.parseDouble(chargeEptInfoVO.getLot());
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot))
+                    .commit();
+        } catch (Exception e) {
+            // 좌표 파싱 에러로 지도를 표시할 수 없음.
+            ui.vgMap.setVisibility(View.GONE);
+        }
+
     }
 } // end of class ChargeStationDetailActivity
