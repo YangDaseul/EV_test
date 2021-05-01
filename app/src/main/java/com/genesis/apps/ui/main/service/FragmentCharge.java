@@ -148,11 +148,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
                     if (result.data != null) {
-                        ((SubActivity) getActivity()).showProgressDialog(false);
                         Spanned evStatus = null;
                         if (result.data.isBatteryCharge()) {
                             //충전 중
@@ -188,7 +186,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                         }
                     }
                 default:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
                     me.tvChargeStatus.setVisibility(View.VISIBLE);
                     me.tvChargeStatus.setText(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT));
 //                    batteryCharge = false;
