@@ -88,10 +88,10 @@ public class BtrBluehandsAdapter extends BaseRecyclerViewAdapter2<BtrVO> {
             }else{
                 //특화 서비스인 경우
                 authNM = new Integer[]{
-                        !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_17 : 0
+                        !TextUtils.isEmpty(btrVO.getEvYn()) && btrVO.getEvYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_23_2 : 0
+                        , !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_17 : 0
                         , !TextUtils.isEmpty(btrVO.getPrimTechYn()) && btrVO.getPrimTechYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_18 : 0
                         , !TextUtils.isEmpty(btrVO.getPrimCsYn()) && btrVO.getPrimCsYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_23 : 0
-                        , !TextUtils.isEmpty(btrVO.getEvYn()) && btrVO.getEvYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_23_2 : 0
                 };
             }
             //인증 뷰 초기화
