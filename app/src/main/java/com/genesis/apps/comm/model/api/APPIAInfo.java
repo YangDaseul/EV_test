@@ -128,7 +128,7 @@ public enum APPIAInfo {
     GM02_INV01("GM02_INV01", SimilarCarActivity.class, VariableType.QUICK_MENU_CODE_NONE, "유사 재고 조회 / 예약",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     GM02_BF01("GM02_BF01", null, VariableType.QUICK_MENU_CODE_NONE, "대기고객 혜택",VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    PAY01("PAY01", null, VariableType.QUICK_MENU_CODE_NONE, "디지털 월넛", VariableType.QUICK_MENU_CATEGORY_NONE,""),
+    PAY01("PAY01", null, VariableType.QUICK_MENU_CODE_CV, "디지털 월렛", VariableType.QUICK_MENU_CATEGORY_HOME,VariableType.VEHICLE_CODE_EV),
     PAY01_AOS01("PAY01_AOS01", null, VariableType.QUICK_MENU_CODE_NONE, "맴버쉽 직접 등록", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY01_AOS02("PAY01_AOS02", null, VariableType.QUICK_MENU_CODE_NONE, "주 사용카드 변경", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY01_AOS03("PAY01_AOS03", null, VariableType.QUICK_MENU_CODE_NONE, "맴버쉽 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
@@ -317,7 +317,7 @@ public enum APPIAInfo {
     SM_EVSB01_P01("SM_EVSB01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약희망일 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSB01_P02("SM_EVSB01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약완료 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    SM_EVSB02("SM_EVSB02", ChargeReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약 내역", VariableType.QUICK_MENU_CATEGORY_NONE, ""),
+    SM_EVSB02("SM_EVSB02", ChargeReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_OV, "충전소 예약 내역", VariableType.QUICK_MENU_CATEGORY_SERVICE, VariableType.VEHICLE_CODE_EV),
 
     SM_CGRV01("SM_CGRV01", null, VariableType.QUICK_MENU_CODE_NONE, "픽업앤충전 서비스", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
     SM_CGRV01_P01("SM_CGRV01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 이용 동의 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
