@@ -402,10 +402,6 @@ public class VariableType {
     public static final String SERVICE_REMOTE_CHECK_ITEM_NM_MISSION="04";
     public static final String SERVICE_REMOTE_CHECK_ITEM_NM_TPMS="05";
 
-    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB = "KT_FOB";     // 실물 키 전달, 대면 서비스
-    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC = "KT_DKC";     // 디지털 키 전달, 비대면 서비스
-    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 픽업앤충전 서비스에서는 사용 안함.
-
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL="100";
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_FAST="010";
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST="001";
@@ -442,6 +438,11 @@ public class VariableType {
         }
     }
 
+
+    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB = "KT_FOB";     // 실물 키 전달, 대면 서비스
+    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC = "KT_DKC";     // 디지털 키 전달, 비대면 서비스
+    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 픽업앤충전 서비스에서는 사용 안함.
+
     public static final String SERVICE_CHARGE_BTR_SVC_CD = "CHRGBTR";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
     public static final String SERVICE_CHARGE_BTR_LOT_TYPE_STRT = "STRT";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
 
@@ -464,4 +465,7 @@ public class VariableType {
     public static final String SERVICE_CHARGE_BTR_OPT_TYPE_2 = "OT02";  // 옵션 타입, 추가형(세차)
 
     public static final String SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF = "STRFF";  // 멤버십 구분 코드, 에스트래픽
+
+    public static final String EASY_PAY_WEBVIEW_TYPE_MEMBER_REG = "REG_MEMBER";
+    public static final String EASY_PAY_WEBVIEW_TYPE_CARD_REG = "REG_CARD";
 }

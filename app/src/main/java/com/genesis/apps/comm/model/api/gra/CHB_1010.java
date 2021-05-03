@@ -9,6 +9,7 @@ import com.genesis.apps.comm.model.vo.carlife.LotVO;
 import com.genesis.apps.comm.model.vo.carlife.MembershipVO;
 import com.genesis.apps.comm.model.vo.carlife.OrderVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
+import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqInfoVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -75,10 +76,13 @@ public class CHB_1010 extends BaseData {
     /**
      * @brief CHB_1010 응답 항목
      *
-     * TODO 응답문 필요한 데이터 실데이터 확인 후 처리 필요.
+     * @see #paymentFormData    결제 요청 폼 데이터
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        @Expose
+        @SerializedName("paymentFormData")
+        private PymtFormVO paymentFormData;
     }
 }
