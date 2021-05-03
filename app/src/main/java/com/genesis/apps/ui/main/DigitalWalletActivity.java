@@ -13,8 +13,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBinding> {
 
-    boolean isFront = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +33,6 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener); //설정
         initTitleBar();
 
-        isFront = true;
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.vg_container, FragmentCardFront.newInstance());
@@ -64,12 +61,13 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                 }
                 break;
             case R.id.btn_card_mgmt:
-                if(!isFront)
-                    verticalClose();
                 break;
 
-            case R.id.btn_card_trans:
+            case R.id.btn_card_open:
                 verticalOpen();
+                break;
+            case R.id.btn_card_close:
+                verticalClose();
                 break;
         }
 
@@ -91,7 +89,6 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     }
 
     private void verticalOpen() {
-        isFront = false;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.anim_bottom_in,
                 R.anim.anim_bottom_out,
@@ -103,7 +100,6 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     }
 
     private void verticalClose() {
-        isFront = true;
         getSupportFragmentManager().popBackStack();
     }
 

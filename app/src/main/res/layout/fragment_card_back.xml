@@ -1,18 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <data>
+        <variable
+            name="btnListener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/iv_card"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_111111_round_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1.77:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_card_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_ffffff_round_10"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_card"
+            app:layout_constraintEnd_toEndOf="@+id/iv_card"
+            app:layout_constraintStart_toStartOf="@+id/iv_card"
+            app:layout_constraintTop_toTopOf="@+id/iv_card">
+
+            <TextView
+                android:id="@+id/tv_credit_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="-4dp"
+                android:text="700,000 원"
+                android:textColor="@color/x_000000"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="700,000 원" />
+
+            <TextView
+                android:id="@+id/tv_card_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="-4dp"
+                android:text="1234-4567-4567-4567"
+                android:textColor="@color/x_000000"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_credit_point"
+                app:layout_constraintTop_toBottomOf="@+id/tv_credit_point"
+                tools:text="1234-4567-4567-4567" />
+
+
+            <TextView
+                android:id="@+id/tv_integration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_00000000_underline_000000"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="30sp"
+                android:paddingBottom="2dp"
+                android:text="@string/digital_wallet01_1"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/tv_card_no"
+                app:layout_constraintTop_toBottomOf="@+id/tv_card_no" />
+
+
+            <ImageView
+                android:id="@+id/btn_card_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="11dp"
+                android:onClick="@{(view)->btnListener.onClick(view)}"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_repeat_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/l_card_info"
+            app:layout_constraintStart_toStartOf="@+id/iv_card"
+            app:layout_constraintTop_toTopOf="@+id/iv_card"
+            android:src="@drawable/logo_genesis_barcode_w" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:text="뒷면"
-            android:layout_margin="20dp"
-            android:background="@color/x_000000"
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2dp"
+            android:text="@string/bcode01_3"
             android:textColor="@color/x_ffffff"
-            android:textSize="20dp"
-            android:gravity="center" />
-    </FrameLayout>
+            android:textSize="14dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/l_card_info"
+            app:layout_constraintEnd_toEndOf="@+id/iv_card"
+            app:layout_constraintTop_toTopOf="@+id/iv_card"
+            app:layout_constraintVertical_bias=".5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

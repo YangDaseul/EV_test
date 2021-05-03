@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.FragmentCardBackBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
 public class FragmentCardBack extends SubFragment<FragmentCardBackBinding> {
@@ -26,6 +27,8 @@ public class FragmentCardBack extends SubFragment<FragmentCardBackBinding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        me.setBtnListener(((SubActivity)getActivity()).onSingleClickListener);
     }
 
     @Override
