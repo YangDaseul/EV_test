@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp">
+
+        <!-- 타이틀 -->
+        <include
+            android:id="@+id/l_dia_bottom_sonax_branch_title"
+            layout="@layout/layout_titlebar_dialog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_contents"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/x_262626"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="8dp"
+            android:textSize="16dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:text="@string/sm_cggo_01_20"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_title"/>
+
+        <!-- 전체동의 체크박스 -->
+        <CheckBox
+            android:id="@+id/cb_agree_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="40dp"
+            android:bufferType="spannable"
+            android:button="@null"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:text="@string/terms_all_agree"
+            android:textColor="@color/x_000000"
+            android:textSize="15dp"
+            android:letterSpacing="-0.01"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_contents" />
+
+        <!-- 약관 목록 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_dia_bottom_terms_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/tv_bottom_terms_ok_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cb_agree_all" />
+
+        <TextView
+            android:id="@+id/tv_bottom_terms_ok_btn"
+            style="@style/BigBtn.Black"
+            android:text="@string/gm_carlst_p01_3"
+            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_dia_bottom_terms_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
