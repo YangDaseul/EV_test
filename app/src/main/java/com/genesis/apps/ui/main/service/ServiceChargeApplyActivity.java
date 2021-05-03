@@ -376,7 +376,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
             return false;
         }else{
             ui.lAddrInfo.setVisibility(View.VISIBLE);
-            ui.tvTitleAddr.setVisibility(View.GONE);
+            ui.tvTitleAddr.setVisibility(View.VISIBLE);
             ui.tvAddr.setVisibility(View.GONE);
             ui.tvErrorAddr.setVisibility(View.INVISIBLE);
             doTransition(2);
