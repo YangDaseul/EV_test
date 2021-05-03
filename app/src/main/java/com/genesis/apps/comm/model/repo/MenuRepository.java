@@ -70,9 +70,6 @@ public class MenuRepository {
         }catch (Exception e){
             evCd = "";
         }
-        //todo 하드코딩 제거 필요 (ev차량 구분)
-        evCd = VariableType.VEHICLE_CODE_EV;
-
         return evCd;
     }
 

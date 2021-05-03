@@ -20,6 +20,7 @@ import com.genesis.apps.comm.model.api.gra.SOS_3007;
 import com.genesis.apps.comm.model.api.gra.SOS_3008;
 import com.genesis.apps.comm.model.api.gra.SOS_3011;
 import com.genesis.apps.comm.model.api.gra.SOS_3013;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
 import com.genesis.apps.comm.net.NetCaller;
@@ -253,15 +254,7 @@ public class SOSRepo {
             @Override
             public void onSuccess(String object) {
                 RES_SOS_3001.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3001.Response.class)));
-
-//                RES_SOS_3001.setValue(NetUIResponse.success(new Gson().fromJson("{\n" +
-//                        "  \"rtCd\": \"0000\",\n" +
-//                        "  \"rtMsg\": \"Success\",\n" +
-//                        "  \"subspYn\": \"Y\",\n" +
-//                        "  \"tmpAcptNo\": \"28843\",\n" +
-//                        "  \"pgrsStusCd\": \"S\"\n" +
-//                        "}", SOS_3001.Response.class)));
-
+//                RES_SOS_3001.setValue(NetUIResponse.success(TestCode.SOS_3001));
             }
 
             @Override

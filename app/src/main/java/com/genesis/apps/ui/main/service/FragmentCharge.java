@@ -12,14 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.api.gra.CHB_1003;
 import com.genesis.apps.comm.model.api.gra.CHB_1006;
+import com.genesis.apps.comm.model.api.gra.SOS_3001;
 import com.genesis.apps.comm.model.api.gra.SOS_3006;
 import com.genesis.apps.comm.model.api.gra.SOS_3013;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -39,7 +37,7 @@ import com.genesis.apps.databinding.FragmentServiceChargeBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTerms;
+import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTermCharge;
 import com.genesis.apps.ui.common.dialog.bottom.BottomTwoButtonTerm;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -52,6 +50,8 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
@@ -153,11 +153,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
                     if (result.data != null) {
-                        ((SubActivity) getActivity()).showProgressDialog(false);
                         Spanned evStatus = null;
                         if (result.data.isBatteryCharge()) {
                             //충전 중
@@ -193,8 +191,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                         }
                     }
                 default:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    me.tvChargeStatus.setVisibility(View.GONE);
+                    me.tvChargeStatus.setVisibility(View.VISIBLE);
+                    me.tvChargeStatus.setText(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT));
 //                    batteryCharge = false;
 //                    soc = -1;
 //                    setViewEvBattery();
@@ -330,6 +328,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     public void onRefresh() {
         getVehicleVO();
         setViewBatteryStatus();
+        sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
     }
 
     @Override
@@ -540,7 +539,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     //약관 동의 대화상자 호출
     private void showTermsDialog(List<TermVO> termList) {
         if(termList!=null&&termList.size()>0) {
-            BottomDialogAskAgreeTerms termsDialog = new BottomDialogAskAgreeTerms(
+            BottomDialogAskAgreeTermCharge termsDialog = new BottomDialogAskAgreeTermCharge(
                     getActivity(),
                     R.style.BottomSheetDialogTheme,
                     onSingleClickListener);
@@ -558,6 +557,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 }
             });
             termsDialog.init(termList);
+            termsDialog.setTermEsnAgmtYn(false);
             termsDialog.show();
         }else{
             SnackBarUtil.show(getActivity(),"서비스 이용 약관 정보가 존재하지 않습니다.\n네트워크 상태를 확인 후 다시 시도해 주십시오.");
