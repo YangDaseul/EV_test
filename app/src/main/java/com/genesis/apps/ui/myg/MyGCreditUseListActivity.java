@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+
 public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseListBinding> {
 //    private static final int PAGE_SIZE = 20;
     public static final String TRANS_TYPE_CODE_SAVE="01";
@@ -116,7 +118,9 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    setFilter();
+                    if(result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005")) {
+                        setFilter();
+                    }
                     break;
                 default:
                     showProgressDialog(false);
@@ -129,6 +133,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                         if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         SnackBarUtil.show(this, serverMsg);
                         ui.tvEmpty.setVisibility(View.VISIBLE);
+                        ui.tvPointSave.setText("-");
                     }
                     break;
             }
