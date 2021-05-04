@@ -226,4 +226,5 @@
     <string name="gm01_02_2">오너차량의\n주요부품에 대한 보증기간\n수리 안내입니다.</string>
     <string name="gm01_02_3">일반 보증 기간</string>
     <string name="gm01_02_4">배출가스 관련\n부품 보증기간</string>
+    <string name="gm01_02_5">전기차 별도\n보증 부품</string>
 </resources>

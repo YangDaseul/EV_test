@@ -13,6 +13,7 @@ import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.WRT_1001;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.WarrantyVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.WRTViewModel;
@@ -29,8 +30,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRepairGuideBinding> {
     private WRTViewModel wrtViewModel;
-    private final int[] titleId = {R.string.gm01_02_3, R.string.gm01_02_4};
+    private final int[] TITLE_ID = {R.string.gm01_02_3, R.string.gm01_02_4};
+    private final int[] TITLE_ID_EV = {R.string.gm01_02_3, R.string.gm01_02_5};
     private String vin;
+    private VehicleVO vehicleVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,18 +89,19 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
     public void getDataFromIntent() {
         try {
 //            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
-            vin = wrtViewModel.getMainVehicleSimplyFromDB().getVin();
+            vehicleVO = wrtViewModel.getMainVehicleSimplyFromDB();
+            vin = vehicleVO.getVin();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (TextUtils.isEmpty(vin)) {
+            if (vehicleVO==null||TextUtils.isEmpty(vin)) {
                 exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }
     }
 
     private void initTabView(List<WarrantyVO> warrantyVOList) {
-        for (int nm : titleId) {
+        for (int nm : (vehicleVO!=null&&vehicleVO.isEV() ? TITLE_ID_EV : TITLE_ID)) {
             final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTabWarrantyBinding itemTabWarrantyBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_warranty, null, false);
             final View view = itemTabWarrantyBinding.getRoot();
