@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.databinding.ItemTermBinding;
+import com.genesis.apps.databinding.ItemTermChargeBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -32,7 +33,7 @@ public class TermsAdapterTest extends BaseRecyclerViewAdapter2<TermVO> {
 
     @Override
     public int getItemViewType(int position) {
-        return 0;//다 똑같음
+        return 0;
     }
 
     public void setTermEsnAgmtYn(boolean isTermEsnAgmtYn){
@@ -42,7 +43,7 @@ public class TermsAdapterTest extends BaseRecyclerViewAdapter2<TermVO> {
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TermViewHolder(getView(parent, R.layout.item_term), isTermEsnAgmtYn);
+        return new TermViewHolder(getView(parent, R.layout.item_term_charge), isTermEsnAgmtYn);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class TermsAdapterTest extends BaseRecyclerViewAdapter2<TermVO> {
     }
 
 
-    public class TermViewHolder extends BaseViewHolder<TermVO, ItemTermBinding> {
+    public class TermViewHolder extends BaseViewHolder<TermVO, ItemTermChargeBinding> {
 
         private boolean isTermEsnAgmtYn = true;
 

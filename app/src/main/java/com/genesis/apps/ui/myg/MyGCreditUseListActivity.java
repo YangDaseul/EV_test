@@ -33,6 +33,7 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseListBinding> {
 //    private static final int PAGE_SIZE = 20;
+    public static final String TRANS_TYPE_CODE_ALL="00";
     public static final String TRANS_TYPE_CODE_SAVE="01";
     public static final String TRANS_TYPE_CODE_USE="02";
     public static final String TRANS_TYPE_CODE_CANCEL="09";
@@ -118,10 +119,10 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005")) {
+                    if(result.data!=null&&(StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)||StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))) {
                         setFilter();
+                        break;
                     }
-                    break;
                 default:
                     showProgressDialog(false);
                     String serverMsg="";
@@ -315,7 +316,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                 break;
             case R.id.r_all:
             default:
-                transTypCd = "";
+                transTypCd = TRANS_TYPE_CODE_ALL;
                 break;
         }
         return transTypCd;
