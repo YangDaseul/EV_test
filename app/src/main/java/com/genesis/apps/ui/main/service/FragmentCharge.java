@@ -148,6 +148,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
+                    me.tvChargeStatus.setBackgroundResource(0);
+                    me.tvChargeStatus.setBackgroundColor(getContext().getColor(R.color.x_f8f8f8));
+                    me.tvChargeStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
                     break;
                 case SUCCESS:
                     if (result.data != null) {
@@ -187,10 +190,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     }
                 default:
                     me.tvChargeStatus.setVisibility(View.VISIBLE);
+                    me.tvChargeStatus.setBackgroundResource(R.drawable.ripple_bg_f8f8f8);
                     me.tvChargeStatus.setText(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT));
-//                    batteryCharge = false;
-//                    soc = -1;
-//                    setViewEvBattery();
+                    me.tvChargeStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.btn_again, 0);
                     break;
             }
         });
@@ -344,6 +346,16 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         }
 
         switch (id) {
+            case R.id.tv_charge_status:
+                try{
+                    if(me.tvChargeStatus.getText().toString().equalsIgnoreCase(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT).toString())){
+                        setViewBatteryStatus();
+                    }
+                }catch (Exception e){
+
+                }
+                break;
+
             //약관 내용 보기 버튼
             case R.id.iv_arrow:
                 showTerm(v);
@@ -525,7 +537,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         } catch (Exception e) {
 
         }
-
+//        developersViewModel.reqEvStatus(new EvStatus.Request(""));
     }
     //약관 동의 대화상자 호출
     private void showTermsDialog(List<TermVO> termList) {
