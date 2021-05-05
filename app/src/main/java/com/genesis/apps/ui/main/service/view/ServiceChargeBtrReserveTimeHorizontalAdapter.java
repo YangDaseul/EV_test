@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.carlife.BookingTimeVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.databinding.ItemServiceChargeReserveTimeBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -27,9 +28,9 @@ public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerVi
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = getView(parent, R.layout.item_service_charge_reserve_time);
-        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-        layoutParams.width = (int) (parent.getWidth() * 0.5);
-        itemView.setLayoutParams(layoutParams);
+//        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+//        layoutParams.width = (int) (parent.getWidth() * 0.5);
+//        itemView.setLayoutParams(layoutParams);
 
         return new ItemChargeBtrReserveTime(itemView);
     }

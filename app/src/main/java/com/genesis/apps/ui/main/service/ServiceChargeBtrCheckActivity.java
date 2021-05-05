@@ -100,44 +100,81 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         if(contentsVO == null)
             return;
 
-        // TODO : 서비스 금액 표시(충전 금액 - 충전 크레딧 포인트 + 탁송 금액 + 세차 금액)
-//        ui.tvSvcPaymt.setText();
+
         // 충전 금액 표시
         ui.tvChargePaymt.setText(StringUtil.getPriceString(contentsVO.getProductPrice()));
+        ui.tvChargePaymt.setTag(contentsVO.getProductPrice());
         // 충전 크레딧 포인트 정보 표시
         setLayoutCreditPoint();
         // 탁송금액 표시
         int deliverPrice = getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1).getOptionPrice();
         ui.tvDeliveryPaymt.setText(StringUtil.getPriceString(deliverPrice));
+        ui.tvDeliveryPaymt.setTag(deliverPrice);
         // 세차금액 표시
-        int carwashPrice = getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2).getOptionPrice();
-        ui.tvCarwashPaymt.setText(StringUtil.getPriceString(carwashPrice));
-        ui.tvCarwashPrice.setText(StringUtil.getPriceString(carwashPrice));
+        OptionVO carwashVO = getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2);
+        if(carwashVO != null) {
+            ui.lCarwashPaymtInfo.setVisibility(View.VISIBLE);
+            ui.lCarwashPrice.lWhole.setVisibility(View.VISIBLE);
+            int carwashPrice = carwashVO.getOptionPrice();
+            ui.tvCarwashPaymt.setText(StringUtil.getPriceString(carwashPrice));
+            ui.tvCarwashPaymt.setTag(carwashPrice);
+            ui.tvCarwashPrice.setText(StringUtil.getPriceString(carwashPrice));
+        } else {
+            ui.lCarwashPaymtInfo.setVisibility(View.GONE);
+            ui.lCarwashPrice.lWhole.setVisibility(View.GONE);
+        }
+
+        updateSvcPaymt();
 
         // 하단 결제 상세 내역 정보 표시
-        // TODO 최종 결제 금액 표시
-//        ui.tvPaymtAmt.setText();
         ui.lChargePrice.setContent(StringUtil.getPriceString(contentsVO.getProductPrice()));
         ui.lDeliveryPrice.setContent(StringUtil.getPriceString(deliverPrice));
+    }
+
+    /**
+     *  총 결재 금액 업데이트
+     */
+    private void updateSvcPaymt() {
+        // 서비스 금액 표시(충전 금액 - 충전 크레딧 포인트 + 탁송 금액 + 세차 금액)
+        int chargePrice = (int) ui.tvChargePaymt.getTag();
+        int discountPoint = ui.lCreditPointInfo.getVisibility() == View.VISIBLE ? (int) ui.tvCreditPoint.getTag() : 0;
+        int opt1Price = (int) ui.tvDeliveryPaymt.getTag();
+        int opt2Price = ui.tvCarwashPaymt.getVisibility() == View.VISIBLE ? (int) ui.tvCarwashPaymt.getTag() : 0;
+
+        int totalPaymt = chargePrice - discountPoint + opt1Price + opt2Price;
+        ui.tvSvcPaymt.setText(StringUtil.getPriceString(totalPaymt));
+        ui.tvSvcPaymt.setTag(totalPaymt);
+
+        ui.tvPaymtAmt.setText(StringUtil.getPriceString(totalPaymt));
     }
 
     /**
      * 충전 크레딧 정보 표시
      */
     private void setLayoutCreditPoint() {
+        if(contentsVO.getStrafficInfo() == null) {
+            ui.lCreditPointInfo.setVisibility(View.GONE);
+            ui.lCreditPoint.lWhole.setVisibility(View.GONE);
+            return;
+        }
+
         int creditBalance = 0;
 
-        if(contentsVO.getStrafficInfo() != null && contentsVO.getStrafficInfo().getAvailableYN().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+        if(contentsVO.getStrafficInfo().getAvailableYN().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
             creditBalance = contentsVO.getStrafficInfo().getBalance();
         }
 
         int discountPoint = creditBalance > contentsVO.getProductPrice() ? contentsVO.getProductPrice() : 0;
         ui.tvCreditPoint.setText(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_30));
+        ui.tvCreditPoint.setTag(discountPoint);
         ui.tvCreditPointBalance.setText(String.format(Locale.getDefault(), getString(R.string.service_charge_btr_word_41), StringUtil.getPriceString(creditBalance)));
         ui.tvCreditPointInfo.setText(String.format(getString(R.string.service_charge_btr_msg_04), StringUtil.getPriceString(contentsVO.getProductPrice())));
 
         // 하단 결제 상세 내역 정보 표시
         ui.lCreditPoint.setContent(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_42));
+
+        ui.lCreditPointInfo.setVisibility(View.VISIBLE);
+        ui.lCreditPoint.lWhole.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -198,15 +235,16 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 else
                     ui.lCarwashPrice.setContent(getString(R.string.service_charge_btr_word_42));
 
+                updateSvcPaymt();
                 break;
             case R.id.btn_card_reg:
                 if (isSingIn()) {
                     startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 } else {
                     // 회원 가입 처리
-
                     MiddleDialog.dialogBlueWalnutSingIn(this, () -> {
                         // TODO : 웹뷰로 이동
+                        startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                     }, () -> {
 
                     });
@@ -244,6 +282,11 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         List<LotVO> lotVOList = new ArrayList<LotVO>();
         lotVOList.add(lotVO);
 
+//        if(selectedCardVo == null){
+//            SnackBarUtil.show(this, getString(R.string.service_charge_btr_err_15));
+//            return;
+//        }
+
         chbViewModel.reqCHB1010(new CHB_1010.Request(APPIAInfo.SM_CGRV02.getId()
                 , contentsVO.getTxid()
                 , hpNo
@@ -252,7 +295,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 , lotVOList
                 , new OrderVO(contentsVO.getProductCode(), estimatedPaymentAmount, optList.size(), optList)
                 , membershipVO
-                , new PaymtCardVO(selectedCardVo.getCardId(), selectedCardVo.getCardNo(), selectedCardVo.getCardCoCode())));
+                , selectedCardVo != null ? new PaymtCardVO(selectedCardVo.getCardId(), selectedCardVo.getCardNo(), selectedCardVo.getCardCoCode()) : null));
     }
 
     @Override

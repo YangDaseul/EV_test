@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
+import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
@@ -34,6 +35,8 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_CLIENT_ID;
 
 @AndroidEntryPoint
 public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBinding> {
@@ -88,24 +91,25 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                     showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         try {
-                            String postData = "chnlCd=" + URLEncoder.encode(result.data.getChnlCd(), "UTF-8");
-                            postData += "svrEncKey=" + URLEncoder.encode(result.data.getSvrEncKey(), "UTF-8");
-                            postData += "chnlMbrIdfKey=" + URLEncoder.encode(result.data.getChnlMbrIdfKey(), "UTF-8");
-                            postData += "mbrCi=" + URLEncoder.encode(result.data.getMbrCi(), "UTF-8");
-                            postData += "mbrNm=" + URLEncoder.encode(result.data.getMbrNm(), "UTF-8");
-                            postData += "mbPhNo=" + URLEncoder.encode(result.data.getMbPhNo(), "UTF-8");
-                            postData += "mvmtCtCoCd=" + URLEncoder.encode(result.data.getMvmtCtCoCd(), "UTF-8");
-                            postData += "rsdtNo=" + URLEncoder.encode(result.data.getRsdtNo(), "UTF-8");
-                            postData += "closeUrl=" + URLEncoder.encode(result.data.getCloseUrl(), "UTF-8");
-                            postData += "redirectUrl=" + URLEncoder.encode(result.data.getRedirectUrl(), "UTF-8");
-                            postData += "userAgent=" + URLEncoder.encode(result.data.getUserAgent(), "UTF-8");
-                            postData += "dvceCd=" + URLEncoder.encode(result.data.getDvceCd(), "UTF-8");
-                            postData += "deceUuid=" + URLEncoder.encode(result.data.getDeceUuid(), "UTF-8");
-                            postData += "ediDate=" + URLEncoder.encode(result.data.getEdiDate(), "UTF-8");
-                            postData += "filler=" + URLEncoder.encode(result.data.getFiller(), "UTF-8");
-                            postData += "hashVal=" + URLEncoder.encode(result.data.getHashVal(), "UTF-8");
-                            fragment.postUrl(result.data.getFormUrl(), postData.getBytes());
-                        } catch (UnsupportedEncodingException e) {
+                            QueryString q = new QueryString();
+                            q.add("chnlCd", StringUtil.isValidString(result.data.getChnlCd()));
+                            q.add("svrEncKey", StringUtil.isValidString(result.data.getSvrEncKey()));
+                            q.add("chnlMbrIdfKey", StringUtil.isValidString(result.data.getChnlMbrIdfKey()));
+                            q.add("mbrCi", StringUtil.isValidString(result.data.getMbrCi()));
+                            q.add("mbrNm", StringUtil.isValidString(result.data.getMbrNm()));
+                            q.add("mbPhNo", StringUtil.isValidString(result.data.getMbPhNo()));
+                            q.add("mvmtCtCoCd", StringUtil.isValidString(result.data.getMvmtCtCoCd()));
+                            q.add("rsdtNo", StringUtil.isValidString(result.data.getRsdtNo()));
+                            q.add("closeUrl", StringUtil.isValidString(result.data.getCloseUrl()));
+                            q.add("redirectUrl", StringUtil.isValidString(result.data.getRedirectUrl()));
+                            q.add("userAgent", StringUtil.isValidString(result.data.getUserAgent()));
+                            q.add("dvceCd", StringUtil.isValidString(result.data.getDvceCd()));
+                            q.add("deceUuid", StringUtil.isValidString(result.data.getDeceUuid()));
+                            q.add("ediDate", StringUtil.isValidString(result.data.getEdiDate()));
+                            q.add("filler", StringUtil.isValidString(result.data.getFiller()));
+                            q.add("hashVal", StringUtil.isValidString(result.data.getHashVal()));
+                            fragment.postUrl(result.data.getFormUrl(), q.getQuery().getBytes());
+                        } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
                             closeUrl = result.data.getCloseUrl();
@@ -137,16 +141,17 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                     showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         try {
-                            String postData = "chnlCd=" + URLEncoder.encode(result.data.getChnlCd(), "UTF-8");
-                            postData += "svrEncKey=" + URLEncoder.encode(result.data.getSvrEncKey(), "UTF-8");
-                            postData += "chnlMbrIdfKey=" + URLEncoder.encode(result.data.getChnlMbrIdfKey(), "UTF-8");
-                            postData += "closeUrl=" + URLEncoder.encode(result.data.getCloseUrl(), "UTF-8");
-                            postData += "redirectUrl=" + URLEncoder.encode(result.data.getRedirectUrl(), "UTF-8");
-                            postData += "ediDate=" + URLEncoder.encode(result.data.getEdiDate(), "UTF-8");
-                            postData += "filler=" + URLEncoder.encode(result.data.getFiller(), "UTF-8");
-                            postData += "hashVal=" + URLEncoder.encode(result.data.getHashVal(), "UTF-8");
-                            fragment.postUrl(result.data.getFormUrl(), postData.getBytes());
-                        } catch (UnsupportedEncodingException e) {
+                            QueryString q = new QueryString();
+                            q.add("chnlCd", StringUtil.isValidString(result.data.getChnlCd()));
+                            q.add("svrEncKey", StringUtil.isValidString(result.data.getSvrEncKey()));
+                            q.add("chnlMbrIdfKey", StringUtil.isValidString(result.data.getChnlMbrIdfKey()));
+                            q.add("closeUrl", StringUtil.isValidString(result.data.getCloseUrl()));
+                            q.add("redirectUrl", StringUtil.isValidString(result.data.getRedirectUrl()));
+                            q.add("ediDate", StringUtil.isValidString(result.data.getEdiDate()));
+                            q.add("filler", StringUtil.isValidString(result.data.getFiller()));
+                            q.add("hashVal", StringUtil.isValidString(result.data.getHashVal()));
+                            fragment.postUrl(result.data.getFormUrl(), q.getQuery().getBytes());
+                        } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
                             closeUrl = result.data.getCloseUrl();
@@ -206,29 +211,30 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         } else {
             bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
             try {
-                String postData = "chnlCd=" + URLEncoder.encode(pymtFormVO.getChnlCd(), "UTF-8");
-                postData += "svrEncKey=" + URLEncoder.encode(pymtFormVO.getSvrEncKey(), "UTF-8");
-                postData += "chnlMbrIdfKey=" + URLEncoder.encode(pymtFormVO.getChnlMbrIdfKey(), "UTF-8");
-                postData += "bpayCardId=" + URLEncoder.encode(pymtFormVO.getBpayCardId(), "UTF-8");
-                postData += "srcCoCd=" + URLEncoder.encode(pymtFormVO.getSrcCoCd(), "UTF-8");
-                postData += "chnlMid=" + URLEncoder.encode(pymtFormVO.getChnlMid(), "UTF-8");
-                postData += "mOid=" + URLEncoder.encode(pymtFormVO.getMOid(), "UTF-8");
-                postData += "prdtNm=" + URLEncoder.encode(pymtFormVO.getPrdtNm(), "UTF-8");
-                postData += "stlmAmt=" + URLEncoder.encode(String.valueOf(pymtFormVO.getStlmAmt()), "UTF-8");
-                postData += "vlsp=" + URLEncoder.encode(String.valueOf(pymtFormVO.getVlsp()), "UTF-8");
-                postData += "srtx=" + URLEncoder.encode(String.valueOf(pymtFormVO.getSrtx()), "UTF-8");
-                postData += "srfe=" + URLEncoder.encode(String.valueOf(pymtFormVO.getSrfe()), "UTF-8");
-                postData += "nonMptx=" + URLEncoder.encode(String.valueOf(pymtFormVO.getNonMptx()), "UTF-8");
-                postData += "isMth=" + URLEncoder.encode(String.valueOf(pymtFormVO.getIsMth()), "UTF-8");
-                postData += "closeUrl=" + URLEncoder.encode(pymtFormVO.getCloseUrl(), "UTF-8");
-                postData += "redirectUrl=" + URLEncoder.encode(pymtFormVO.getRedirectUrl(), "UTF-8");
-                postData += "userAgent=" + URLEncoder.encode(pymtFormVO.getUserAgent(), "UTF-8");
-                postData += "dvceCd=" + URLEncoder.encode(pymtFormVO.getDvceCd(), "UTF-8");
-                postData += "deceUuid=" + URLEncoder.encode(pymtFormVO.getDeceUuid(), "UTF-8");
-                postData += "ediDate=" + URLEncoder.encode(pymtFormVO.getEdiDate(), "UTF-8");
-                postData += "filler=" + URLEncoder.encode(pymtFormVO.getFiller(), "UTF-8");
-                postData += "hashVal=" + URLEncoder.encode(pymtFormVO.getHashVal(), "UTF-8");
-                bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, postData.getBytes());
+                QueryString q = new QueryString();
+                q.add("chnlCd", StringUtil.isValidString(pymtFormVO.getChnlCd()));
+                q.add("svrEncKey", StringUtil.isValidString(pymtFormVO.getSvrEncKey()));
+                q.add("chnlMbrIdfKey", StringUtil.isValidString(pymtFormVO.getChnlMbrIdfKey()));
+                q.add("bpayCardId", StringUtil.isValidString(pymtFormVO.getBpayCardId()));
+                q.add("srcCoCd", StringUtil.isValidString(pymtFormVO.getSrcCoCd()));
+                q.add("chnlMid", StringUtil.isValidString(pymtFormVO.getChnlMid()));
+                q.add("mOid", StringUtil.isValidString(pymtFormVO.getMOid()));
+                q.add("prdtNm", StringUtil.isValidString(pymtFormVO.getPrdtNm()));
+                q.add("stlmAmt", String.valueOf(pymtFormVO.getStlmAmt()));
+                q.add("vlsp", String.valueOf(pymtFormVO.getVlsp()));
+                q.add("srtx", String.valueOf(pymtFormVO.getSrtx()));
+                q.add("srfe", String.valueOf(pymtFormVO.getSrfe()));
+                q.add("nonMptx", String.valueOf(pymtFormVO.getNonMptx()));
+                q.add("isMth", String.valueOf(pymtFormVO.getIsMth()));
+                q.add("closeUrl", StringUtil.isValidString(pymtFormVO.getCloseUrl()));
+                q.add("redirectUrl", StringUtil.isValidString(pymtFormVO.getRedirectUrl()));
+                q.add("userAgent", StringUtil.isValidString(pymtFormVO.getUserAgent()));
+                q.add("dvceCd", StringUtil.isValidString(pymtFormVO.getDvceCd()));
+                q.add("deceUuid", StringUtil.isValidString(pymtFormVO.getDeceUuid()));
+                q.add("ediDate", StringUtil.isValidString(pymtFormVO.getEdiDate()));
+                q.add("filler", StringUtil.isValidString(pymtFormVO.getFiller()));
+                q.add("hashVal", StringUtil.isValidString(pymtFormVO.getHashVal()));
+                bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, q.getQuery().getBytes());
             } catch (Exception e) {
 
             }

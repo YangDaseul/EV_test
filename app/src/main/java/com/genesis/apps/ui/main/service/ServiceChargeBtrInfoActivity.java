@@ -40,7 +40,6 @@ public class ServiceChargeBtrInfoActivity extends HtmlActivity {
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
-        ui.lTitle.setValue("픽업앤충전");
         chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
     }
 
@@ -53,12 +52,16 @@ public class ServiceChargeBtrInfoActivity extends HtmlActivity {
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if (result.data != null && !TextUtils.isEmpty(result.data.getProductInfoUrl())) {
+                    if (result.data != null) {
 
-                        if (StringUtil.isValidString(result.data.getProductInfoUrl()).startsWith("http"))
-                            loadTermsUrl(result.data.getProductInfoUrl());
-                        else
-                            loadTermsUrl(result.data.getProductInfoUrl());
+                        ui.lTitle.setValue(!TextUtils.isEmpty(result.data.getTtl()) ? result.data.getTtl() : getString(R.string.service_charge_btr_09));
+
+                        if(!TextUtils.isEmpty(result.data.getCont())) {
+                            if (StringUtil.isValidString(result.data.getCont()).startsWith("http"))
+                                loadTermsUrl(result.data.getCont());
+                            else
+                                loadTermsUrl(result.data.getCont());
+                        }
 
                         showProgressDialog(false);
                         break;
@@ -76,6 +79,7 @@ public class ServiceChargeBtrInfoActivity extends HtmlActivity {
                         SnackBarUtil.show(this, serverMsg);
                         showProgressDialog(false);
                     }
+
                     break;
             }
         });

@@ -23,17 +23,17 @@ public class CHB_1005 extends BaseData {
 
     /**
      * @brief CHB_1005 응답 항목
-     * @see #productThumbnailUrl 상품 썸네일 URL
-     * @see #productInfoUrl 상품 안내 URL
+     * @see #ttl 제목
+     * @see #cont 내용
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
         @Expose
-        @SerializedName("productThumbnailUrl")
-        private String productThumbnailUrl;
+        @SerializedName("ttl")
+        private String ttl;
         @Expose
-        @SerializedName("productInfoUrl")
-        private String productInfoUrl;
+        @SerializedName("cont")
+        private String cont;
     }
 }
