@@ -1,28 +1,38 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.EPT_1002;
+import com.genesis.apps.comm.model.api.gra.EPT_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.model.vo.ReviewVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeStationDetailBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Class Name : ChargeStationDetailActivity
@@ -30,7 +40,7 @@ import java.util.ArrayList;
  * @author Ki-man Kim
  * @since 2021-04-27
  */
-public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeStationDetailBinding> {
+public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeStationDetailBinding> implements NestedScrollView.OnScrollChangeListener {
 
     /**
      * 환경부-기관ID
@@ -53,6 +63,18 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      */
     private String lot;
 
+    // 조회된 충전소 정보
+    ChargeEptInfoVO chargeEptInfoVO;
+    // 리뷰 현재 페이지 번호
+    private int pageNo = 1;
+    // 리뷰를 조회 단위 개수
+    private final String pageCnt = "10";
+    // 리뷰 조회 요청 중복 방지 플래그
+    private boolean isReviewReq = false;
+
+    private final ArrayList<ReviewVO> reviewList = new ArrayList<>();
+    private ReviewListAdapter reviewListAdapter;
+
     private VehicleVO mainVehicleVO;
 
     private REQViewModel reqViewModel;
@@ -71,10 +93,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         setViewModel();
         setObserver();
         initialize();
-//        checkEnableGPS(() -> {
-        //현대양재사옥위치
-//            searchChargeStation(37.463936, 127.042953); // FIXME 고정된 위치값이 여러 곳에 사용중이어서 이 값은 한 곳에서 관리 할 수 있게 처리가 필요.
-//        }, this::reqMyLocation);
     }
 
     /****************************************************************************************************
@@ -83,6 +101,18 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     @Override
     public void onClickCommon(View v) {
 
+    }
+
+    @Override
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        // 리뷰 목록이 표시중이지 않거나 이미 데이테를 요청 중일 때는 넘어감
+        if (ui.rvReviewList.getVisibility() != View.VISIBLE || isReviewReq) {
+            return;
+        }
+
+        if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+            getReviewList(chargeEptInfoVO, pageNo + 1);
+        }
     }
 
     /****************************************************************************************************
@@ -106,17 +136,47 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 case SUCCESS: {
                     showProgressDialog(false);
                     EPT_1002.Response data = result.data;
-                    if (data == null) {
-                        // 데이터가 없음. - TODO 안내 처리 필요.
-                    } else {
+                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())) {
                         updateStation(data);
+                        break;
+                    }
+                }
+                default: {
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
                     }
                     break;
                 }
-                default:
-                case ERROR: {
-                    showProgressDialog(false);
+            }
+        });
 
+        eptViewModel.getRES_EPT_1003().observe(ChargeStationDetailActivity.this, result -> {
+            switch (result.status) {
+                case LOADING:{
+                    // Nothing
+                }
+                case SUCCESS: {
+                    EPT_1003.Response data = result.data;
+                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())) {
+                        isReviewReq = false;
+                        pageNo++;
+                        reviewList.addAll(data.getRevwList());
+                        updateReview(reviewList);
+                        break;
+                    }
+                }
+                default: {
+                    isReviewReq = false;
+                    break;
                 }
             }
         });
@@ -147,6 +207,15 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         ui.rvStationDetail.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         ui.rvChargerList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
+        ui.rvReviewList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
+
+        reviewListAdapter = new ReviewListAdapter();
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ChargeStationDetailActivity.this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
+        ui.rvReviewList.addItemDecoration(dividerItemDecoration);
+        ui.rvReviewList.setAdapter(reviewListAdapter);
+
+        ui.vgNsv.setOnScrollChangeListener(ChargeStationDetailActivity.this);
 
         try {
             mainVehicleVO = reqViewModel.getMainVehicle();
@@ -154,6 +223,10 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             e.printStackTrace();
         }
 
+        getChargeStationInfo();
+    }
+
+    private void getChargeStationInfo() {
         eptViewModel.reqEPT1002(new EPT_1002.Request(
                 APPIAInfo.SM_EVSS04.getId(),
                 mainVehicleVO.getVin(),
@@ -161,10 +234,31 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 csid,
                 lat,
                 lot));
+        // 리뷰 목록 페이지 번호 초기화
+        pageNo = 0;
+        reviewList.clear();
+    }
+
+    private void getReviewList(ChargeEptInfoVO chargeEptInfoVO, int pageNo) {
+        if (chargeEptInfoVO == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(chargeEptInfoVO.getEspid()) || TextUtils.isEmpty(chargeEptInfoVO.getEcsid())) {
+            return;
+        }
+
+        isReviewReq = true;
+
+        eptViewModel.reqEPT1003(new EPT_1003.Request(
+                APPIAInfo.SM_EVSS04.getId(),
+                chargeEptInfoVO.getEspid(),
+                chargeEptInfoVO.getEcsid(),
+                String.valueOf(pageNo),
+                pageCnt));
     }
 
     private void updateStation(EPT_1002.Response data) {
-        ChargeEptInfoVO chargeEptInfoVO = data.getChgInfo();
+        chargeEptInfoVO = data.getChgInfo();
 
         // 상단 타이틀 - 충전소 이름, 거리 표시.
         ui.lTitle.setValue(chargeEptInfoVO.getCsnm() + " " + chargeEptInfoVO.getDist() + "km");
@@ -248,5 +342,20 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             ui.vgMap.setVisibility(View.GONE);
         }
 
+        // 리뷰 데이터 요청
+        getReviewList(chargeEptInfoVO, 1);
+    }
+
+    private void updateReview(List<ReviewVO> list) {
+        if (list == null || list.size() == 0) {
+            ui.tvReviewTitle.setVisibility(View.GONE);
+            ui.rvReviewList.setVisibility(View.GONE);
+            return;
+        }
+        ui.tvReviewTitle.setVisibility(View.VISIBLE);
+        ui.rvReviewList.setVisibility(View.VISIBLE);
+
+        reviewListAdapter.setRows(list);
+        reviewListAdapter.notifyDataSetChanged();
     }
 } // end of class ChargeStationDetailActivity

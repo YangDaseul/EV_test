@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="30dp">
+
+        <!--리뷰 점수 아이콘-->
+        <ImageView
+            android:id="@+id/iv_star_0"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/selector_ic_star_1"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--리뷰 점수 아이콘-->
+        <ImageView
+            android:id="@+id/iv_star_1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_ic_star_1"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toEndOf="@id/iv_star_0"
+            app:layout_constraintTop_toTopOf="@id/iv_star_0" />
+        <!--리뷰 점수 아이콘-->
+        <ImageView
+            android:id="@+id/iv_star_2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_ic_star_1"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toEndOf="@id/iv_star_1"
+            app:layout_constraintTop_toTopOf="@id/iv_star_1" />
+        <!--리뷰 점수 아이콘-->
+        <ImageView
+            android:id="@+id/iv_star_3"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_ic_star_1"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toEndOf="@id/iv_star_2"
+            app:layout_constraintTop_toTopOf="@id/iv_star_2" />
+        <!--리뷰 점수 아이콘-->
+        <ImageView
+            android:id="@+id/iv_star_4"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_ic_star_1"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toEndOf="@id/iv_star_3"
+            app:layout_constraintTop_toTopOf="@id/iv_star_3" />
+        <!--ID와 날짜-->
+        <TextView
+            android:id="@+id/tv_id_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_666666"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_star_0"
+            tools:text="jin**** | 2021.03.25" />
+        <!--리뷰 내용-->
+        <TextView
+            android:id="@+id/tv_review_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_id_date"
+            tools:text="전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

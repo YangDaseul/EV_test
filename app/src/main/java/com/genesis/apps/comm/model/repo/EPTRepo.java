@@ -92,7 +92,7 @@ public class EPTRepo {
         RES_EPT_1003.setValue(NetUIResponse.loading(null));
 
         // TODO 테스트 데이터. API가 정상 작동시 삭제 필요.
-        String dummyData = "";
+        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"test msg\",\"revwList\":[{\"rgstDtm\":\"20210506131101\",\"uid\":\"testi*\",\"uNm\":\"김기*\",\"starPoint\":\"0.0\",\"contents\":\"전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!\"},{\"rgstDtm\":\"20210506131101\",\"uid\":\"testi*\",\"uNm\":\"김기*\",\"starPoint\":\"1.4\",\"contents\":\"전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!\"},{\"rgstDtm\":\"20210506131101\",\"uid\":\"testi*\",\"uNm\":\"김기*\",\"starPoint\":\"2.4\",\"contents\":\"전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!\"},{\"rgstDtm\":\"20210506131101\",\"uid\":\"testi*\",\"uNm\":\"김기*\",\"starPoint\":\"3.5\",\"contents\":\"전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!\"},{\"rgstDtm\":\"20210506131101\",\"uid\":\"testi*\",\"uNm\":\"김기*\",\"starPoint\":\"4.4\",\"contents\":\"전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!\"},{\"rgstDtm\":\"20210506131101\",\"uid\":\"testi*\",\"uNm\":\"김기*\",\"starPoint\":\"5.0\",\"contents\":\"전기차 충전기라고는 주민센터에만 있는 줄 알았는데 이렇게 근처에 있어서 좋아요!\"}]}";
         RES_EPT_1003.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, EPT_1003.Response.class)));
 
         /*
