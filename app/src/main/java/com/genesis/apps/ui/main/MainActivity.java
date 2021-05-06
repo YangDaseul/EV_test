@@ -209,6 +209,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 }finally {
                     if(isEv){
                         //TODO ev 차량인 경우 페이지 이동처리 필요
+                        startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
                     }else{
                         //내연기관 차량인 경우 바코드로 이동
                         startActivitySingleTop(new Intent(this, BarcodeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);

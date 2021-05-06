@@ -9,6 +9,7 @@ import com.genesis.apps.comm.model.vo.carlife.LotVO;
 import com.genesis.apps.comm.model.vo.carlife.MembershipVO;
 import com.genesis.apps.comm.model.vo.carlife.OrderVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
+import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqInfoVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -23,6 +24,7 @@ public class CHB_1010 extends BaseData {
      * @brief CHB_1010 요청 항목
      * @see #txid   트랜잭션ID
      * @see #hpNo   휴대폰번호
+     * @see #userAgent  사용자 정보(userAgent)
      * @see #carInfo    차량정보
      * @see #requestInfo    기본 신청정보
      * @see #serviceLocationList    서비스 위치 정보 리스트
@@ -40,6 +42,9 @@ public class CHB_1010 extends BaseData {
         @Expose
         @SerializedName("hpNo")
         private String hpNo;
+        @Expose
+        @SerializedName("userAgent")
+        private String userAgent;
         @Expose
         @SerializedName("carInfo")
         private CarVO carInfo;
@@ -59,9 +64,10 @@ public class CHB_1010 extends BaseData {
         @SerializedName("paymentInfo")
         private PaymtCardVO paymentInfo;
 
-        public Request(String menuId, String txid, String hpNo, CarVO carInfo, ReqInfoVO requestInfo, List<LotVO> serviceLocationList, OrderVO orderInfo, List<MembershipVO> membershipList, PaymtCardVO paymentInfo) {
+        public Request(String menuId, String txid, String hpNo, String userAgent, CarVO carInfo, ReqInfoVO requestInfo, List<LotVO> serviceLocationList, OrderVO orderInfo, List<MembershipVO> membershipList, PaymtCardVO paymentInfo) {
             this.txid = txid;
             this.hpNo = hpNo;
+            this.userAgent = userAgent;
             this.carInfo = carInfo;
             this.requestInfo = requestInfo;
             this.serviceLocationList = serviceLocationList;
@@ -75,10 +81,13 @@ public class CHB_1010 extends BaseData {
     /**
      * @brief CHB_1010 응답 항목
      *
-     * TODO 응답문 필요한 데이터 실데이터 확인 후 처리 필요.
+     * @see #paymentFormData    결제 요청 폼 데이터
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        @Expose
+        @SerializedName("paymentFormData")
+        private PymtFormVO paymentFormData;
     }
 }

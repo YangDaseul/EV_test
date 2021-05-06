@@ -4,6 +4,8 @@ import com.genesis.apps.comm.model.api.gra.CHB_1007;
 import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1010;
+import com.genesis.apps.comm.model.api.gra.CHB_1011;
+import com.genesis.apps.comm.model.api.gra.CHB_1013;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
@@ -4139,7 +4141,7 @@ public class TestCode {
             "  \"rtMsg\": \"Success\",\n" +
             "  \"dailyBookingSlotList\": [\n" +
             "    {\n" +
-            "      \"bookingDate\": \"20210422\",\n" +
+            "      \"bookingDate\": \"20210429\",\n" +
             "      \"slotList\": [\n" +
             "           {\n" +
             "           \"bookingTime\": \"1400\",\n" +
@@ -4148,12 +4150,7 @@ public class TestCode {
             "       ]\n" +
             "    },\n" +
             "    {\n" +
-            "      \"bookingDate\": \"20210423\",\n" +
-            "      \"slotList\": [\n" +
-            "       ]\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"bookingDate\": \"20210426\",\n" +
+            "      \"bookingDate\": \"20210430\",\n" +
             "      \"slotList\": [\n" +
             "           {\n" +
             "           \"bookingTime\": \"1100\",\n" +
@@ -4167,6 +4164,11 @@ public class TestCode {
             "           \"bookingTime\": \"1300\",\n" +
             "           \"remainCount\": 1\n" +
             "           }\n" +
+            "       ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"bookingDate\": \"20210501\",\n" +
+            "      \"slotList\": [\n" +
             "       ]\n" +
             "    }\n" +
             "  ]\n" +
@@ -4254,8 +4256,70 @@ public class TestCode {
 
     public static CHB_1010.Response CHB_1010 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
-            "  \"rtMsg\": \"Success\"\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"paymentFormData\" : \n" +
+            "   {\n" +
+            "       \"chnlCd\": \"CLPF\",\n" +
+            "       \"svrEncKey\": \"enckey\",\n" +
+            "       \"chnlMbrIdfKey\": \"string\",\n" +
+            "       \"bpayCardId\": \"string\",\n" +
+            "       \"srcCoCd\": \"C001\",\n" +
+            "       \"chnlMid\": \"string\",\n" +
+            "       \"mOid\": \"string\",\n" +
+            "       \"prdtNm\": \"버틀러서비스\",\n" +
+            "       \"stlmAmt\": 0,\n" +
+            "       \"vlsp\": 0,\n" +
+            "       \"srtx\": 0,\n" +
+            "       \"srfe\": 0,\n" +
+            "       \"nonMptx\": 0,\n" +
+            "       \"isMth\": 3,\n" +
+            "       \"closeUrl\": \"string\",\n" +
+            "       \"redirectUrl\": \"https://myhyundai.com/card/list\",\n" +
+            "       \"userAgent\": \"Android 6.0/Mozillar\",\n" +
+            "       \"dvceCd\": \"string\",\n" +
+            "       \"deceUuid\": \"string\",\n" +
+            "       \"ediDate\": \"20210318141600\",\n" +
+            "       \"filler\": \"string\",\n" +
+            "       \"hashVal\": \"string\",\n" +
+            "       \"formUrl\": \"https://devhpay.bluewalnut.co.kr/mem/registMemberCi.do/\"\n" +
+            "   }\n" +
             "}", CHB_1010.Response.class);
+
+    public static CHB_1011.Response CHB_1011 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"chnlCd\": \"CLPF\",\n" +
+            "  \"svrEncKey\": \"enckey\",\n" +
+            "  \"chnlMbrIdfKey\": \"string\",\n" +
+            "  \"mbrCi\": \"userciciciciciicicici\",\n" +
+            "  \"mbrNm\": \"김현대\",\n" +
+            "  \"mbPhNo\": \"01022223333\",\n" +
+            "  \"mvmtCtCoCd\": \"SKT\",\n" +
+            "  \"rsdtNo\": \"enc_rgst_no\",\n" +
+            "  \"closeUrl\": \"string\",\n" +
+            "  \"redirectUrl\": \"https://myhyundai.com/card/list\",\n" +
+            "  \"userAgent\": \"Android 6.0/Mozillar\",\n" +
+            "  \"dvceCd\": \"string\",\n" +
+            "  \"deceUuid\": \"string\",\n" +
+            "  \"ediDate\": \"20210318141600\",\n" +
+            "  \"filler\": \"string\",\n" +
+            "  \"hashVal\": \"string\",\n" +
+            "  \"formUrl\": \"https://devhpay.bluewalnut.co.kr/mem/registMemberCi.do/\"\n" +
+            "}", CHB_1011.Response.class);
+
+    public static CHB_1013.Response CHB_1013 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"chnlCd\": \"CLPF\",\n" +
+            "  \"svrEncKey\": \"enckey\",\n" +
+            "  \"chnlMbrIdfKey\": \"string\",\n" +
+            "  \"closeUrl\": \"string\",\n" +
+            "  \"redirectUrl\": \"https://myhyundai.com/card/list\",\n" +
+            "  \"ediDate\": \"20210318141600\",\n" +
+            "  \"filler\": \"string\",\n" +
+            "  \"hashVal\": \"string\",\n" +
+            "  \"formUrl\": \"https://devhpay.bluewalnut.co.kr/myp/selectCardCompany.do\"\n" +
+            "}", CHB_1013.Response.class);
 
     public static CHB_1021.Response CHB_1021 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

@@ -20,7 +20,6 @@ import com.genesis.apps.comm.model.api.gra.CHB_1006;
 import com.genesis.apps.comm.model.api.gra.SOS_3001;
 import com.genesis.apps.comm.model.api.gra.SOS_3006;
 import com.genesis.apps.comm.model.api.gra.SOS_3013;
-import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -36,6 +35,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTermCharge;
 import com.genesis.apps.ui.common.dialog.bottom.BottomTwoButtonTerm;
@@ -113,14 +113,19 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     }
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-                    }
+                    String vin = vehicleVO.getVin();
+                    if (!TextUtils.isEmpty(vin))
+                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
+                    else
+                        SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+//                    }
                     break;
             }
         });
@@ -393,8 +398,12 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BluewalnutWebActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG)
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     //픽업앤충전 서비스 신청 내역
-                    startChargeBtrHistoryActivity(ChargeBtrStatus.STATUS_1000.getStusCd());
+//                    startChargeBtrHistoryActivity(ChargeBtrStatus.STATUS_1000.getStusCd());
                 }
                 break;
             default:

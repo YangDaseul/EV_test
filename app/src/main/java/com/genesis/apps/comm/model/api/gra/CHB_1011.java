@@ -37,6 +37,54 @@ public class CHB_1011 extends BaseData {
     public @Data
     class Response extends BaseResponse {
         @Expose
+        @SerializedName("chnlCd")
+        private String chnlCd;
+        @Expose
+        @SerializedName("svrEncKey")
+        private String svrEncKey;
+        @Expose
+        @SerializedName("chnlMbrIdfKey")
+        private String chnlMbrIdfKey;
+        @Expose
+        @SerializedName("mbrCi")
+        private String mbrCi;
+        @Expose
+        @SerializedName("mbrNm")
+        private String mbrNm;
+        @Expose
+        @SerializedName("mbPhNo")
+        private String mbPhNo;
+        @Expose
+        @SerializedName("mvmtCtCoCd")
+        private String mvmtCtCoCd;
+        @Expose
+        @SerializedName("rsdtNo")
+        private String rsdtNo;
+        @Expose
+        @SerializedName("closeUrl")
+        private String closeUrl;
+        @Expose
+        @SerializedName("redirectUrl")
+        private String redirectUrl;
+        @Expose
+        @SerializedName("userAgent")
+        private String userAgent;
+        @Expose
+        @SerializedName("dvceCd")
+        private String dvceCd;
+        @Expose
+        @SerializedName("deceUuid")
+        private String deceUuid;
+        @Expose
+        @SerializedName("ediDate")
+        private String ediDate;
+        @Expose
+        @SerializedName("filler")
+        private String filler;
+        @Expose
+        @SerializedName("hashVal")
+        private String hashVal;
+        @Expose
         @SerializedName("formUrl")
         private String formUrl;
     }
