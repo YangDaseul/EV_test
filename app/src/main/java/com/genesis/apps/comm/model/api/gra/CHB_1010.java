@@ -24,6 +24,7 @@ public class CHB_1010 extends BaseData {
      * @brief CHB_1010 요청 항목
      * @see #txid   트랜잭션ID
      * @see #hpNo   휴대폰번호
+     * @see #userAgent  사용자 정보(userAgent)
      * @see #carInfo    차량정보
      * @see #requestInfo    기본 신청정보
      * @see #serviceLocationList    서비스 위치 정보 리스트
@@ -41,6 +42,9 @@ public class CHB_1010 extends BaseData {
         @Expose
         @SerializedName("hpNo")
         private String hpNo;
+        @Expose
+        @SerializedName("userAgent")
+        private String userAgent;
         @Expose
         @SerializedName("carInfo")
         private CarVO carInfo;
@@ -60,9 +64,10 @@ public class CHB_1010 extends BaseData {
         @SerializedName("paymentInfo")
         private PaymtCardVO paymentInfo;
 
-        public Request(String menuId, String txid, String hpNo, CarVO carInfo, ReqInfoVO requestInfo, List<LotVO> serviceLocationList, OrderVO orderInfo, List<MembershipVO> membershipList, PaymtCardVO paymentInfo) {
+        public Request(String menuId, String txid, String hpNo, String userAgent, CarVO carInfo, ReqInfoVO requestInfo, List<LotVO> serviceLocationList, OrderVO orderInfo, List<MembershipVO> membershipList, PaymtCardVO paymentInfo) {
             this.txid = txid;
             this.hpNo = hpNo;
+            this.userAgent = userAgent;
             this.carInfo = carInfo;
             this.requestInfo = requestInfo;
             this.serviceLocationList = serviceLocationList;

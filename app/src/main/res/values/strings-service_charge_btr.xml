@@ -62,7 +62,7 @@
     <string name="service_charge_btr_info_01">내가 원하는 위치에서 차량을 픽업하여 충전을 하고 다시 처음 위치로 가져다 주는 서비스</string>
 
     <!-- 팝업 문구 -->
-    <string name="service_charge_btr_popup_msg_00">아직 픽업앤충전 신청이\n완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
+    <string name="service_charge_btr_popup_msg_00">아직 픽업앤충전 신청이\n완료되지 않았습니다.\n\n신청을 종료하시겠습니까?</string>
     <string name="service_charge_btr_popup_msg_01">픽업앤충전 예약이 취소되었습니다.</string>
     <string name="service_charge_btr_popup_msg_02">픽업앤충전 예약을\n취소하시겠습니까?</string>
     <string name="service_charge_btr_popup_msg_03">간편결제 서비스를 이용하시려면\n회원가입이 필요합니다.\n\n간편결제 서비스 회원가입 하시겠습니까?</string>

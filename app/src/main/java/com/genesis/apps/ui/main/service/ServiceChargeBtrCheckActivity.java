@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -65,6 +66,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     private String keyTransferType;    // 차량 키 전달 방식
     private LotVO lotVO;        // 위치 정보
     private PaymtCardVO selectedCardVo; // 결제 카드 정보
+
+    private String userAgentString = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,9 +290,13 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
 //            return;
 //        }
 
+        if(TextUtils.isEmpty(userAgentString))
+            userAgentString = new WebView(this).getSettings().getUserAgentString();
+
         chbViewModel.reqCHB1010(new CHB_1010.Request(APPIAInfo.SM_CGRV02.getId()
                 , contentsVO.getTxid()
                 , hpNo
+                , userAgentString
                 , new CarVO(mainVehicle.getVin(), carNo, mainVehicle.getMdlCd(), mainVehicle.getMdlNm(), mainVehicle.getXrclCtyNm())
                 , new ReqInfoVO(rsvtDate, keyTransferType)
                 , lotVOList
