@@ -293,15 +293,15 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         /**
          * 경코등 코드 : 충전필요 경고등
          */
-        CODE_4300("4300", R.string.sm_remote01_wrn_lght_code_4300, R.drawable.selector_ic_ev_warning_03),
+        CODE_4400("4400", R.string.sm_remote01_wrn_lght_code_4400, R.drawable.selector_ic_ev_warning_03),
         /**
          * 경코등 코드 : 파워 제한 경고등
          */
-        CODE_4400("4400", R.string.sm_remote01_wrn_lght_code_4400, R.drawable.selector_ic_ev_warning_04),
+        CODE_4500("4500", R.string.sm_remote01_wrn_lght_code_4500, R.drawable.selector_ic_ev_warning_04),
         /**
          * 경코등 코드 : 전원공급장치 이상 경고등
          */
-        CODE_4500("4500", R.string.sm_remote01_wrn_lght_code_4500, R.drawable.selector_ic_battery);
+        CODE_4300("4300", R.string.sm_remote01_wrn_lght_code_4300, R.drawable.selector_ic_battery);
 
         /**
          * 경고등 코드

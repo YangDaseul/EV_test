@@ -44,9 +44,9 @@
 
     <string name="sm_remote01_wrn_lght_code_4100">서비스 경고등</string>
     <string name="sm_remote01_wrn_lght_code_4200">배터리 과열 경고등</string>
-    <string name="sm_remote01_wrn_lght_code_4300">충전필요 경고등</string>
-    <string name="sm_remote01_wrn_lght_code_4400">파워 제한 경고등</string>
-    <string name="sm_remote01_wrn_lght_code_4500">전원공급장치 이상 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4300">전원공급장치 이상 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4400">충전필요 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4500">파워 제한 경고등</string>
 
     <!--원격진단-->
     <string name="sm_remote01_list_title">원격 진단 신청 내역</string>
