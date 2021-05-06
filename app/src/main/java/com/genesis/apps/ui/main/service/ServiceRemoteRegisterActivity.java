@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -154,6 +155,67 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     } // end of enum class FLT_CODE
 
     /**
+     * EV 고장 코드 Enum Class.
+     */
+    enum EV_FLT_CODE {
+        /**
+         * 차량 문제 : 차량 시동이 걸리지 않아요.
+         */
+        CODE_1000("1000", R.string.sm_remote01_fit_code_1000),
+        /**
+         * 차량 문제 : 가속이 너무 느려요.
+         */
+        CODE_2000("2000", R.string.sm_remote01_fit_code_2000),
+        /**
+         * 차량 문제 : 계기판에 경고등 켜졌어요
+         */
+        CODE_3000("3000", R.string.sm_remote01_fit_code_3000),
+        /**
+         * 차량 문제 : 기어가 작동하지 않아요.
+         */
+        CODE_4000("4000", R.string.sm_remote01_fit_code_4000),
+        /**
+         * 차량 문제 : 주차 브레이크가 풀리지 않아요.
+         */
+        CODE_5000("5000", R.string.sm_remote01_fit_code_5000),
+        /**
+         * 차량 문제 : 고전압배터리 충전 시 충전이 안되요.
+         */
+        CODE_9100("9100", R.string.sm_remote01_fit_code_9100),
+        /**
+         * 차량 문제 : 외부 전기 사용 시, 차량에서 전기가 안나와요.
+         */
+        CODE_9200("9200", R.string.sm_remote01_fit_code_9200),
+        /**
+         * 차량 문제 : 계기판에 냉각수 부족 경고 문구가 나와요.
+         */
+        CODE_9300("9300", R.string.sm_remote01_fit_code_9300),
+        /**
+         * 차량 문제 : 차량을 주행할 수 없어요.
+         */
+        CODE_8000("8000", R.string.sm_remote01_fit_code_8000);
+
+        /**
+         * 차량 문제 코드.
+         */
+        private final String code;
+        /**
+         * 차량 문제 표시 문자열 String Resource ID.
+         */
+        private @StringRes
+        final int messageResId;
+
+        EV_FLT_CODE(String code, @StringRes int messageResId) {
+            this.code = code;
+            this.messageResId = messageResId;
+        }
+
+        public int messageResId() {
+            return this.messageResId;
+        }
+    } // end of enum class EV_FLT_CODE
+
+    /**
      * 차량 문제 중 경고등 코드.
      */
     public enum WRN_LGHT_CODE {
@@ -216,6 +278,61 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         }
     } // end of enum class WRN_LGHT_CODE
 
+    /**
+     * EV 차량 문제 중 경고등 코드.
+     */
+    public enum EV_WRN_LGHT_CODE {
+        /**
+         * 경코등 코드 : 서비스 경고등
+         */
+        CODE_4100("4100", R.string.sm_remote01_wrn_lght_code_4100, R.drawable.selector_ic_ev_warning_01),
+        /**
+         * 경코등 코드 : 배터리 과열 경고등
+         */
+        CODE_4200("4200", R.string.sm_remote01_wrn_lght_code_4200, R.drawable.selector_ic_ev_warning_02),
+        /**
+         * 경코등 코드 : 충전필요 경고등
+         */
+        CODE_4300("4300", R.string.sm_remote01_wrn_lght_code_4300, R.drawable.selector_ic_ev_warning_03),
+        /**
+         * 경코등 코드 : 파워 제한 경고등
+         */
+        CODE_4400("4400", R.string.sm_remote01_wrn_lght_code_4400, R.drawable.selector_ic_ev_warning_04),
+        /**
+         * 경코등 코드 : 전원공급장치 이상 경고등
+         */
+        CODE_4500("4500", R.string.sm_remote01_wrn_lght_code_4500, R.drawable.selector_ic_battery);
+
+        /**
+         * 경고등 코드
+         */
+        private final String code;
+        /**
+         * 경고등 표시 문자열 String Resource ID.
+         */
+        private @StringRes
+        final int messageResId;
+        /**
+         * 경고등 표시 아이콘 Drawable Resource ID.
+         */
+        private @DrawableRes
+        final int iconResId;
+
+        EV_WRN_LGHT_CODE(String code, @StringRes int messageResId, @DrawableRes int iconResId) {
+            this.code = code;
+            this.messageResId = messageResId;
+            this.iconResId = iconResId;
+        }
+
+        public int messageResId() {
+            return this.messageResId;
+        }
+
+        public int iconResId() {
+            return this.iconResId;
+        }
+    } // end of enum class EV_WRN_LGHT_CODE
+
     private RMTViewModel rmtViewModel;
     private SOSViewModel sosViewModel;
     private DevelopersViewModel developersViewModel;
@@ -247,9 +364,19 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     private FLT_CODE fltCd = null;
 
     /**
+     * EV 차량 문제 코드.
+     */
+    private EV_FLT_CODE evFltCd = null;
+
+    /**
      * 경고등 코드.
      */
     private WRN_LGHT_CODE wrnLghtCd = null;
+
+    /**
+     * EV 경고등 코드.
+     */
+    private EV_WRN_LGHT_CODE evWrnLghtCd = null;
 
     /**
      * 예약 시간.
@@ -260,6 +387,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
     // FIXME : 해당 버튼 위젯은 바인딩이 되지 않아 우선 수동으로 매칭처리. - 나중에 원인 찾아 수정 필요.
     private TextView btnNextStep;
+
+    private boolean isEv = false;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -277,6 +406,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         try {
             vin = rmtViewModel.getMainVehicle().getVin();
+            isEv = rmtViewModel.getMainVehicle().isEV();
+
             String carId = developersViewModel.getCarId(vin);
             if (TextUtils.isEmpty(carId)) {
                 // Car ID가 조회되지 않으면 GCS 가입 안내 팝업표시.
@@ -328,8 +459,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                         vin,
                         ui.etServiceRemoteStep2.getText().toString(),
                         data.getCelphNo(),
-                        fltCd.code,
-                        fltCd == FLT_CODE.CODE_3000 ? wrnLghtCd.code : "",
+                        isEv ? evFltCd.code : fltCd.code,
+                        isEv ? evFltCd == EV_FLT_CODE.CODE_3000 ? evWrnLghtCd.code : "" : fltCd == FLT_CODE.CODE_3000 ? wrnLghtCd.code : "",
                         rsrvMiss,
                         String.valueOf(myPosition[1]),
                         String.valueOf(myPosition[0])
@@ -370,7 +501,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                             if ("N".equalsIgnoreCase(data.getRmtExitYn())) {
                                 // 신청건이 없는 경우.
                                 //2021-03-02 요건 변경으로 팝업 하드코딩 (재 변경 사항)
-                                MiddleDialog.dialogServiceRemoteInfo(this,
+                                MiddleDialog.dialogServiceRemoteInfo(this, isEv,
                                         () -> initView(),
                                         () -> exitPage("", 0));
 //                                rmtViewModel.reqRMT1006(new RMT_1006.Request(APPIAInfo.R_REMOTE01.getId()));
@@ -496,7 +627,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     if (response != null) {
                         String rtCd = response.getRtCd();
                         if (BaseResponse.RETURN_CODE_SUCC.equals(rtCd)) {
-                            MiddleDialog.dialogServiceRemoteInfo(this,
+                            MiddleDialog.dialogServiceRemoteInfo(this, isEv,
                                     () -> initView(),
                                     () -> exitPage("", 0));//아니오 클릭시 페이지 종료
 //                            MiddleDialog.dialogServiceRemoteTwoButton(
@@ -772,6 +903,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         // 고장 코드가 없거나 경고등인데 상세 경고등 선택항목이 없는지 체크.
         boolean isEmptyErrorCode = (fltCd == null) || (fltCd == FLT_CODE.CODE_3000 && wrnLghtCd == null);
+        boolean isEmptyErrorEVCode = (evFltCd == null) || (evFltCd == EV_FLT_CODE.CODE_3000 && evWrnLghtCd == null);
         ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setSelected(isEmptyErrorCode);
 
         boolean isServiceTime = TextUtils.isEmpty(rsrvMiss);
@@ -779,12 +911,22 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         btnNextStep.setText(R.string.sm_remote01_next);
 
-        if (isEmptyCarNum) {
-            return REGISTER_STEP.INPUT_CAR_NUM;
-        } else if (isEmptyErrorCode) {
-            return REGISTER_STEP.SERVICE_TYPE;
-        } else if (isServiceTime) {
-            return REGISTER_STEP.SERVICE_TIME;
+        if(isEv) {
+            if (isEmptyCarNum) {
+                return REGISTER_STEP.INPUT_CAR_NUM;
+            } else if (isEmptyErrorEVCode) {
+                return REGISTER_STEP.SERVICE_TYPE;
+            } else if (isServiceTime) {
+                return REGISTER_STEP.SERVICE_TIME;
+            }
+        } else {
+            if (isEmptyCarNum) {
+                return REGISTER_STEP.INPUT_CAR_NUM;
+            } else if (isEmptyErrorCode) {
+                return REGISTER_STEP.SERVICE_TYPE;
+            } else if (isServiceTime) {
+                return REGISTER_STEP.SERVICE_TIME;
+            }
         }
 
         // 모든 정보가 입력이 완료되면 문구 변경.
@@ -806,21 +948,38 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
      */
     private void showSelectFltCd() {
         ArrayList<String> fltCodes = new ArrayList<>();
-        Stream.of(FLT_CODE.values())
-                .map(FLT_CODE::messageResId)
-                .forEach(id -> fltCodes.add(getString(id)));
+        if(isEv) {
+            Stream.of(EV_FLT_CODE.values())
+                    .map(EV_FLT_CODE::messageResId)
+                    .forEach(id -> fltCodes.add(getString(id)));
+        } else {
+            Stream.of(FLT_CODE.values())
+                    .map(FLT_CODE::messageResId)
+                    .forEach(id -> fltCodes.add(getString(id)));
+        }
+
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
             String result = bottomListDialog.getSelectItem();
 
             if (!TextUtils.isEmpty(result)) {
-                fltCd = Stream.of(FLT_CODE.values()).filter(item -> result.equals(getString(item.messageResId))).findFirst().get();
                 ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setText(result);
-                if (fltCd == FLT_CODE.CODE_3000) {
-                    // 경고등 점등인 경우 - 경고등 선택 다이얼로그 추가 표시.
-                    showSelectWrnLghtCd();
+                if(isEv) {
+                    evFltCd = Stream.of(EV_FLT_CODE.values()).filter(item -> result.equals(getString(item.messageResId))).findFirst().get();
+                    if (evFltCd == EV_FLT_CODE.CODE_3000) {
+                        // 경고등 점등인 경우 - 경고등 선택 다이얼로그 추가 표시.
+                        showSelectEVWrnLghtCd();
+                    } else {
+                        executeStep(checkStep());
+                    }
                 } else {
-                    executeStep(checkStep());
+                    fltCd = Stream.of(FLT_CODE.values()).filter(item -> result.equals(getString(item.messageResId))).findFirst().get();
+                    if (fltCd == FLT_CODE.CODE_3000) {
+                        // 경고등 점등인 경우 - 경고등 선택 다이얼로그 추가 표시.
+                        showSelectWrnLghtCd();
+                    } else {
+                        executeStep(checkStep());
+                    }
                 }
             }
         });
@@ -844,6 +1003,31 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
             try{
                 if(wrnLghtCd!=null&&wrnLghtCd.messageResId!=0){
                     ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setText(String.format(Locale.getDefault(), getString(R.string.sm_remote01_fit_code_3000_1), getString(wrnLghtCd.messageResId).replace(" 경고등","")));
+                }
+            }catch (Exception e){
+
+            }
+            executeStep(checkStep());
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
+
+    /**
+     * EV 경고등 선택 하단 리스트형 다이얼로그 표시 함수.
+     */
+    private void showSelectEVWrnLghtCd() {
+        EVWrnLghtCodeListAdapter adapter = new EVWrnLghtCodeListAdapter(Stream.of(EV_WRN_LGHT_CODE.values()).collect(Collectors.toList()));
+        BottomRecyclerDialog dialog = new BottomRecyclerDialog.Builder(this)
+                .setTitle(R.string.sm_romte01_p01_12)
+                .setAdapter(adapter)
+                .setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
+                .build();
+        adapter.setListener(selectItem -> {
+            evWrnLghtCd = selectItem;
+            try{
+                if(evWrnLghtCd!=null&&evWrnLghtCd.messageResId!=0){
+                    ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setText(String.format(Locale.getDefault(), getString(R.string.sm_remote01_fit_code_3000_1), getString(evWrnLghtCd.messageResId).replace(" 경고등","")));
                 }
             }catch (Exception e){
 
