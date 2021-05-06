@@ -318,15 +318,16 @@ public class MiddleDialog {
      * @param activity
      * @param ok
      * @param cancel
-     * @brief 원격진단안내팝업
+     * @brief 원격진단안내팝업 EV 체크
      */
-    public static void dialogServiceRemoteInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+    public static void dialogServiceRemoteInfo(@NonNull Activity activity, boolean isEv, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;
         }
         activity.runOnUiThread(() ->
                 new CustomDialog(activity, dialog -> {
                     DialogServiceRemoteInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_info, null, false);
+                    binding.setIsEv(isEv);
                     dialog.setContentView(binding.getRoot());
 
                     binding.btnCancel.setOnClickListener(v -> {
@@ -339,6 +340,16 @@ public class MiddleDialog {
                     });
                 }).show()
         );
+    }
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 원격진단안내팝업
+     */
+    public static void dialogServiceRemoteInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        dialogServiceRemoteInfo(activity, false, ok, cancel);
     }
 
     /**

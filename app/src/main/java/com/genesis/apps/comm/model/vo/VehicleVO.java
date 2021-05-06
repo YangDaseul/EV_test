@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.model.vo;
 
+import android.text.TextUtils;
+
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.StringUtil;
@@ -166,13 +168,7 @@ class VehicleVO extends BaseData {
     private String spCd;
 
     public boolean isEV(){
-//        if(Math.floor(Math.random() * 10) < 5){
-//            return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
-//        }else{
-//            return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
-//        }
-        //TODO 2021-04-28 PARK 서버에서 EV차량을 내려 줄 경우 변경 필요
-        return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+         return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV) && (TextUtils.isEmpty(getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_OV.equalsIgnoreCase(getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_CV.equalsIgnoreCase(getCustGbCd()));
     }
 
     public boolean isSP(){

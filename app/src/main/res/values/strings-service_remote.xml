@@ -30,6 +30,9 @@
     <string name="sm_remote01_fit_code_6000">엔진이 과열되었어요.</string>
     <string name="sm_remote01_fit_code_7000">엔진 떨림이 심해요.</string>
     <string name="sm_remote01_fit_code_8000">차량을 주행할 수 없어요.</string>
+    <string name="sm_remote01_fit_code_9100">고전압배터리 충전 시 충전이 안되요.</string>
+    <string name="sm_remote01_fit_code_9200">외부 전기 사용 시, 차량에서 전기가 안나와요.</string>
+    <string name="sm_remote01_fit_code_9300">계기판에 냉각수 부족 경고 문구가 나와요.</string>
 
     <string name="sm_remote01_wrn_lght_code_3100">EPS 경고등</string>
     <string name="sm_remote01_wrn_lght_code_3200">VDC/ESP 경고등</string>
@@ -38,6 +41,12 @@
     <string name="sm_remote01_wrn_lght_code_3500">TPMS 경고등</string>
     <string name="sm_remote01_wrn_lght_code_3600">엔진체크 경고등</string>
     <string name="sm_remote01_wrn_lght_code_3700">충전 경고등</string>
+
+    <string name="sm_remote01_wrn_lght_code_4100">서비스 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4200">배터리 과열 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4300">전원공급장치 이상 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4400">충전필요 경고등</string>
+    <string name="sm_remote01_wrn_lght_code_4500">파워 제한 경고등</string>
 
     <!--원격진단-->
     <string name="sm_remote01_list_title">원격 진단 신청 내역</string>

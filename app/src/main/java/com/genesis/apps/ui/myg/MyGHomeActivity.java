@@ -77,12 +77,10 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         if(mainVehicle!=null&&mainVehicle.isEV()){
             ui.lOil.lParent.setVisibility(View.GONE);
             ui.vLine02.setVisibility(View.GONE);
-            ui.lCredit.setVisibility(View.VISIBLE);
         }else {
             mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
             ui.lOil.lParent.setVisibility(View.VISIBLE);
             ui.vLine02.setVisibility(View.VISIBLE);
-            ui.lCredit.setVisibility(View.GONE);
         }
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
         setViewNotiBadge();
@@ -222,15 +220,17 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.hide();
 
-                    if(mainVehicle!=null&&mainVehicle.isEV()) {
+                    if(mainVehicle!=null&&mainVehicle.isEV()&&result.data!=null&&StringUtil.isValidString(result.data.getStMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                        ui.lCredit.setVisibility(View.VISIBLE);
                         ui.tvCreditPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getCretPntTot()))
                                 ? "0원" : StringUtil.getPriceString(result.data.getCretPntTot()));
                         ui.tvCreditPoint.setVisibility(View.VISIBLE);
                         ui.tvCreditConnectError.setVisibility(View.GONE);
                         ui.tvCreditRetry.setVisibility(View.GONE);
                         ui.pCredit.hide();
+                    }else{
+                        ui.lCredit.setVisibility(View.GONE);
                     }
-
                     break;
                 default:
                     ui.tvPointUnit.setVisibility(View.INVISIBLE);

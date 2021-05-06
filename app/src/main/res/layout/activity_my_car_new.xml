@@ -292,7 +292,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/indicator"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:visibility="visible"/>
+                    tools:visibility="gone"/>
 
                 <!--유사 재고 조회 버튼-->
                 <TextView
@@ -317,7 +317,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_contract"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:visibility="visible"/>
+                    tools:visibility="gone"/>
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -325,6 +325,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -335,8 +337,6 @@
                         android:id="@+id/tv_title_mobility_care_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/light_genesissansheadglobal"
                         android:letterSpacing="-0.01"
@@ -347,7 +347,8 @@
                         android:textSize="22dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_title_mobility_care_2"
@@ -363,7 +364,7 @@
                         android:textColor="@color/x_000000"
                         android:textSize="18dp"
                         app:layout_constraintEnd_toStartOf="@+id/tv_item_date"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_1" />
 
                     <TextView
@@ -381,7 +382,7 @@
                         tools:visibility="visible"
                         app:layout_constraintHorizontal_bias="1"
                         app:layout_constraintStart_toEndOf="@+id/tv_title_mobility_care_2"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_title_mobility_care_2"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_title_mobility_care_2"/>
 
@@ -392,8 +393,8 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="20dp"
                         android:background="@color/x_e5e5e5"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/l_part_home"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_2"/>
 
@@ -403,9 +404,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/iv_bg">
 
 
@@ -537,8 +538,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_engine">
 
 
@@ -587,8 +588,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_air_conditioner_filter">
 
 
@@ -636,8 +637,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break_pad">
 
 
@@ -686,8 +687,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_wiper">
 
 
@@ -736,8 +737,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@drawable/bg_ffffff_underline_e4e4e4"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break">
 
 
@@ -787,8 +788,8 @@
                         android:layout_marginTop="1dp"
                         android:layout_marginBottom="50dp"
                         android:background="@drawable/bg_ffffff_underline_e4e4e4"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_ice"
                         app:layout_constraintBottom_toBottomOf="parent">
 

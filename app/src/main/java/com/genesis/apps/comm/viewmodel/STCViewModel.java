@@ -61,6 +61,7 @@ class STCViewModel extends ViewModel {
         RES_STC_1004 = repository.RES_STC_1004;
         RES_STC_1005 = repository.RES_STC_1005;
         RES_STC_1006 = repository.RES_STC_1006;
+        RES_STC_2001 = repository.RES_STC_2001;
     }
 
     public void reqSTC1001(final STC_1001.Request reqData) {
