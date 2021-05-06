@@ -220,6 +220,8 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.hide();
 
+//                    result.data.setStMbrYn("Y");
+
                     if(mainVehicle!=null&&mainVehicle.isEV()&&result.data!=null&&StringUtil.isValidString(result.data.getStMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
                         ui.lCredit.setVisibility(View.VISIBLE);
                         ui.tvCreditPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getCretPntTot()))
