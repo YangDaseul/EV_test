@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.databinding.ItemFilterBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -57,13 +59,18 @@ public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSe
 
         @Override
         public void onBindView(ChargeSearchCategoryVO item) {
+            Context context = getContext();
             ItemFilterBinding binding = getBinding();
             binding.setSubFragment(this.subFragment);
 
             binding.tvName.setTag(item);
             binding.tvName.setSelected(item.isSelected());
             if (item.getSelectedItem().size() > 0) {
-                binding.tvName.setText(item.getSelectedItem().get(0).getTitleResId());
+                binding.tvName.setText(
+                        item.getSelectedItem().stream()
+                                .filter(it -> it.getTitleResId() != 0)
+                                .map(it -> context.getString(it.getTitleResId()))
+                                .collect(Collectors.joining("/")));
             } else {
                 binding.tvName.setText(item.getTitleResId());
             }

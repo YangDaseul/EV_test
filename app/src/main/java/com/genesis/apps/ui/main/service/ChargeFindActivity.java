@@ -50,6 +50,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     private EvChargeStatusFragment evChargeStatusFragment;
     private InputChargePlaceFragment inputChargePlaceFragment;
 
+    private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
     private ChargePlaceListAdapter adapter;
 
     private String reservYn;
@@ -165,7 +166,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             // 주소 검색은 별도 처리 없음.
         } else {
             // 나머지 내 위치, 내 차량 위치 기준 검색.
-
+            selectedFilterList.clear();
+            selectedFilterList.addAll(filterList);
             // 예약가능여부 값 초기화.
             reservYn = null;
             // 충전소 구분 코드 초기화.
@@ -175,55 +177,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             // 결제 방식 값 초기화.
             payTypeList.clear();
 
-            // 설정된 필터값 적용.
-            for (ChargeSearchCategoryVO item : filterList) {
-                if (item.getTitleResId() == R.string.sm_evss01_15) {
-                    // 예약가능 충전소 필터
-                    reservYn = item.isSelected() ? "Y" : "N";
-                } else if (item.getTitleResId() == R.string.sm_evss01_16) {
-                    // 충전소 종류 필터
-                    if (item.getSelectedItem().size() > 0) {
-                        ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
-                        switch (chargeStation) {
-                            case GENESIS: // 제네시스 전용 충전소
-                            case E_PIT: {
-                                // 관련 충전소 종류 코드 설정.
-                                chgCd = chargeStation.getCode();
-                                break;
-                            }
-                            case ALL:
-                            case HI_CHARGER:
-                            default: {
-                                // 관련 코드가 없어 전체 조회하는 것으로 처리.
-                                chgCd = null;
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    // 충전 속도, 결제 방식 필터.
-                    // 필터별 필터 코드 적용.
-                    for (ChargeSearchCategorytype filterItem : item.getSelectedItem()) {
-                        Log.d("FID", "test :: 1111 :: item=" + filterItem);
-                        switch (filterItem) {
-                            case SUPER_SPEED:
-                            case HIGH_SPEED:
-                            case SLOW_SPEED: {
-                                chgSpeedList.add(filterItem.getCode());
-                                break;
-                            }
-                            case CAR_PAY:
-                            case S_TRAFFIC_CRADIT_PAY: {
-                                payTypeList.add(filterItem.getCode());
-                            }
-                            default: {
-                                // Nothing
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+            updateFilterValue(selectedFilterList);
+
             if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_LOCATION) {
                 // 내 위치 기준 충전소 검색.
                 reqMyLocation();
@@ -250,10 +205,13 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     @Override
     public void onSearchMap() {
         // 충전소 찾기 지도 표시.
-        startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class)
-                        .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE),
-                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        Intent intent = new Intent(this, ServiceNetworkActivity.class)
+                .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE);
+
+        if (selectedFilterList != null && selectedFilterList.size() > 0) {
+            intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, inputChargePlaceFragment.getSearchCategoryList());
+        }
+        startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     /****************************************************************************************************
@@ -337,5 +295,56 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     private void updateChargeList(List<ChargeEptInfoVO> list) {
         adapter.setRows(list);
         adapter.notifyDataSetChanged();
+    }
+
+    private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
+        // 설정된 필터값 적용.
+        for (ChargeSearchCategoryVO item : filterList) {
+            if (item.getTitleResId() == R.string.sm_evss01_15) {
+                // 예약가능 충전소 필터
+                reservYn = item.isSelected() ? "Y" : "N";
+            } else if (item.getTitleResId() == R.string.sm_evss01_16) {
+                // 충전소 종류 필터
+                if (item.getSelectedItem().size() > 0) {
+                    ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
+                    switch (chargeStation) {
+                        case GENESIS: // 제네시스 전용 충전소
+                        case E_PIT: {
+                            // 관련 충전소 종류 코드 설정.
+                            chgCd = chargeStation.getCode();
+                            break;
+                        }
+                        case ALL:
+                        case HI_CHARGER:
+                        default: {
+                            // 관련 코드가 없어 전체 조회하는 것으로 처리.
+                            chgCd = null;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                // 충전 속도, 결제 방식 필터.
+                // 필터별 필터 코드 적용.
+                for (ChargeSearchCategorytype filterItem : item.getSelectedItem()) {
+                    switch (filterItem) {
+                        case SUPER_SPEED:
+                        case HIGH_SPEED:
+                        case SLOW_SPEED: {
+                            chgSpeedList.add(filterItem.getCode());
+                            break;
+                        }
+                        case CAR_PAY:
+                        case S_TRAFFIC_CRADIT_PAY: {
+                            payTypeList.add(filterItem.getCode());
+                        }
+                        default: {
+                            // Nothing
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 } // end of class ChargeSearchActivity

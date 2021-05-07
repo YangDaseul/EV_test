@@ -97,6 +97,8 @@ public interface KeyNames {
 
     String KEY_NAME_CAR_REG_NO = "carRegNo";
 
+    String KEY_NAME_FILTER_INFO = "filterInfo";
+
     String KEY_NAME_CHARGE_STATION_SPID = "chargeStationSPID";
     String KEY_NAME_CHARGE_STATION_CSID = "chargeStationCSID";
     String KEY_NAME_LAT = "lat";
