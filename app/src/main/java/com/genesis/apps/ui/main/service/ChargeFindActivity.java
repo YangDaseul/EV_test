@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -126,6 +127,18 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void setObserver() {
+        developersViewModel.getRES_EV_STATUS().observe(ChargeFindActivity.this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                default:
+                    showProgressDialog(false);
+                    updateChargeStatus(result.data);
+                    break;
+            }
+        });
         eptViewModel.getRES_EPT_1001().observe(ChargeFindActivity.this, result -> {
             switch (result.status) {
                 case LOADING: {
@@ -251,7 +264,12 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         } catch (Exception e) {
             e.printStackTrace();
         }
+        getEvStatus();
         reqMyLocation();
+    }
+
+    private void getEvStatus() {
+        developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
     }
 
     private void reqMyLocation() {
@@ -290,6 +308,12 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 chgSpeed,
                 payType
         ));
+    }
+
+    private void updateChargeStatus(EvStatus.Response data) {
+        if (evChargeStatusFragment != null) {
+            evChargeStatusFragment.updateEvChargeStatus(data);
+        }
     }
 
     private void updateChargeList(List<ChargeEptInfoVO> list) {

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.databinding.FragmentEvChargeStatusBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
@@ -27,6 +28,8 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         fragment.setArguments(args);
         return fragment;
     }
+
+    private EvStatus.Response evData;
 
     private EvChargeStatusFragment() {
     }
@@ -65,7 +68,26 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
     public void onClickCommon(View v) {
 
     }
+
     /****************************************************************************************************
-     * Method - Private
+     * Method - Public
      ****************************************************************************************************/
+    public void updateEvChargeStatus(EvStatus.Response data) {
+        if (data == null) {
+            // 충전 정보 조회 실패.
+            me.tvHasBattery.setText("- %");
+            me.tvHasDistance.setText("- km");
+            me.progress.setProgress(0);
+            me.tvBtnRetry.setVisibility(View.VISIBLE);
+            me.dot.setVisibility(View.VISIBLE);
+            me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
+            return;
+        }
+        me.tvBtnRetry.setVisibility(View.GONE);
+        me.dot.setVisibility(View.GONE);
+        me.tvErrorChargeInfo.setVisibility(View.GONE);
+        me.tvHasBattery.setText(String.format("%.1f%%", data.getSoc()));
+    }
+
+
 } // end of class EvChargeStatusFragment
