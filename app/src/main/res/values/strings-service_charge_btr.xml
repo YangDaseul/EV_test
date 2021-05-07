@@ -26,7 +26,7 @@
     <string name="service_charge_btr_txt_09">픽업 받으실 주소를\n검색해 주세요.</string>
     <string name="service_charge_btr_txt_10">차량 키는 어떻게 전달 하시겠습니까?</string>
     <string name="service_charge_btr_txt_11">키 직접 전달(대면)</string>
-    <string name="service_charge_btr_txt_11_1">차량 픽업 시, 기사님께 직접 키를 전달하고 서비스 완료 시 카를 다시 전달해 드립니다</string>
+    <string name="service_charge_btr_txt_11_1">차량 픽업 시, 기사님께 직접 키를 전달하고 서비스 완료 시 키를 다시 전달해 드립니다</string>
     <string name="service_charge_btr_txt_12">디지털 키를 공유(비대면)</string>
     <string name="service_charge_btr_txt_13">기사님께서 픽업 위치 도착 시간에 맞추어 디지털 키가 자동 전달, 서비스 완료 시 회수됩니다.</string>
     <string name="service_charge_btr_txt_14">디지털 키 바로가기</string>
