@@ -56,6 +56,7 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
 import com.genesis.apps.ui.main.service.ChargeFindActivity;
+import com.genesis.apps.ui.main.service.ChargeStationDetailActivity;
 import com.genesis.apps.ui.main.service.SearchAddressHMNFragment;
 import com.google.gson.Gson;
 import com.hmns.playmap.PlayMapPoint;
@@ -87,6 +88,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private REQViewModel reqViewModel;
     private EPTViewModel eptViewModel;
     private BtrVO btrVO = null;
+    private ChargeEptInfoVO selectedChargeEptInfo;
     private LayoutMapOverlayUiBottomSelectNewBinding bottomSelectBinding;
     private LayoutMapOverlayUiBottomEvChargeBinding evBottomSelectBinding;
     private String fillerCd = "";
@@ -613,8 +615,16 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         exitPage(new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO), ResultCodes.REQ_CODE_BTR.getCode());
                         break;
                     case PAGE_TYPE_EVCHARGE: {
-                        // TODO 충전소 찾기 - 자세히 보기 처리
-                        Log.d("FID", "test :: onClickCommon :: btn_right_black");
+                        // 충전소 찾기
+                        if(selectedChargeEptInfo != null) {
+                            startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
+                                            .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, selectedChargeEptInfo.getSpid())
+                                            .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectedChargeEptInfo.getCsid())
+                                            .putExtra(KeyNames.KEY_NAME_LAT, selectedChargeEptInfo.getLat())
+                                            .putExtra(KeyNames.KEY_NAME_LOT, selectedChargeEptInfo.getLot()),
+                                    RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                    VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        }
                         break;
                     }
                     case PAGE_TYPE_SERVICE:
@@ -1114,6 +1124,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             // 검색된 충전소 데이터가 없음. - TODO 예외 처리가 필요할 수 있음.
             return;
         }
+
+        selectedChargeEptInfo = selectItemVo;
 
         ui.pmvMapView.removeAllMarkerItem();
 

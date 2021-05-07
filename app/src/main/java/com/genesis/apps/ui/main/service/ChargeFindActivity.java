@@ -94,7 +94,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 break;
             }
             case R.id.iv_arrow: {
-                // TODO 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
+                // 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
                 if (tag instanceof ChargeEptInfoVO) {
                     ChargeEptInfoVO chargeEptInfoVO = (ChargeEptInfoVO) tag;
                     startActivitySingleTop(new Intent(ChargeFindActivity.this, ChargeStationDetailActivity.class)
