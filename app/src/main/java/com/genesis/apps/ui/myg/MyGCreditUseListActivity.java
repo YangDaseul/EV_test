@@ -44,7 +44,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     public static final String TRANS_TYPE_CODE_CANCEL="09";
     private STCViewModel stcViewModel;
     private CreditUseListAdapter adapter;
-    private VehicleVO mainVehicleVO;
+    private CreditVO selectVehicleVO;
     private Calendar startDate = Calendar.getInstance(Locale.getDefault());
     private Calendar endDate = Calendar.getInstance(Locale.getDefault());
 
@@ -56,7 +56,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
         getDataFromIntent();
         setObserver();
         initView();
-        reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), mainVehicleVO.getVin(), mainVehicleVO.getMdlCd(), mainVehicleVO.getMdlNm(),1);
+        reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), selectVehicleVO.getVin(), selectVehicleVO.getCarCd(), selectVehicleVO.getCarNm(),1);
     }
 
     private void reqSTC2001(String transStrDt, String transEndDt,String vin, String mdlCd, String mdlNm, int pageNo){
@@ -96,12 +96,33 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.l_vehicle:
-                if(stcViewModel.getRES_STC_2001().getValue()!=null
-                        &&stcViewModel.getRES_STC_2001().getValue().data!=null
-                        &&stcViewModel.getRES_STC_2001().getValue().data.getCarCretList()!=null
-                        &&stcViewModel.getRES_STC_2001().getValue().data.getCarCretList().size()>0){
+
+                List<VehicleVO> vehicleList=new ArrayList<>();
+                List<CreditVO> creditList = new ArrayList<>();
+                try{
+                    vehicleList.addAll(stcViewModel.getVehicleListEV());
+                }catch (Exception e){
+
+                }
+                for (VehicleVO vehicleVO : vehicleList) {
+                    String balance="0";
+                    try{
+                        balance = stcViewModel.getRES_STC_2001().getValue().data.getCarCretList().stream().filter(data->StringUtil.isValidString(data.getVin()).equalsIgnoreCase(vehicleVO.getVin())).map(CreditVO::getBalance).findFirst().orElse("0");
+                    }catch (Exception e){
+                        balance="0";
+                    }
+                    if(selectVehicleVO.getVin().equalsIgnoreCase(vehicleVO.getVin())){
+                        creditList.add(0, new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), balance, vehicleVO.getCarRgstNo()));
+                    }else{
+                        creditList.add(new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), balance, vehicleVO.getCarRgstNo()));
+                    }
+                }
+
+
+
+                if(creditList.size()>0){
                     CreditVehicleAdapter adapter = new CreditVehicleAdapter();
-                    adapter.setRows(stcViewModel.getRES_STC_2001().getValue().data.getCarCretList());
+                    adapter.setRows(creditList);
                     BottomRecyclerDialog dialog = new BottomRecyclerDialog.Builder(this)
                             .setTitle(R.string.mg_cp_01_4)
                             .setAdapter(adapter)
@@ -112,7 +133,12 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                         public void onSingleClick(View v) {
                             CreditVO item = (CreditVO)v.getTag(R.id.item);
                             if(item!=null){
-                                reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), item.getVin(), item.getMdlCd(), item.getMdlNm(),1);
+                                try {
+                                    selectVehicleVO = (CreditVO)item.clone();
+                                }catch (Exception e){
+
+                                }
+                                reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), item.getVin(), item.getCarCd(), item.getCarNm(),1);
                             }
                             dialog.dismiss();
                         }
@@ -124,7 +150,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                 break;
             case R.id.btn_query:
                 adapter.setPageNo(0);
-                reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), mainVehicleVO.getVin(), mainVehicleVO.getMdlCd(), mainVehicleVO.getMdlNm(),1);
+                reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), selectVehicleVO.getVin(), selectVehicleVO.getCarCd(), selectVehicleVO.getCarNm(),1);
                 break;
             case R.id.btn_start_date:
                 openDatePicker(startDateCallback, -1L, endDate == null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
@@ -168,6 +194,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                         SnackBarUtil.show(this, serverMsg);
                         ui.tvEmpty.setVisibility(View.VISIBLE);
                         ui.tvPointSave.setText("-");
+                        setViewVehicle(new ArrayList<>());
                     }
                     break;
             }
@@ -175,20 +202,35 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     }
 
     private void setViewVehicle(List<CreditVO> list) {
-        if(list!=null&&list.size()>0){
+        List<VehicleVO> vehicleList = new ArrayList<>();
+        String balance = "0";
+        try {
+            vehicleList.addAll(stcViewModel.getVehicleListEV());
+        } catch (Exception e) {
+
+        }
+        if (vehicleList.size() > 1 && selectVehicleVO != null) {
             ui.lVehicle.setVisibility(View.VISIBLE);
-            ui.tvMdlNm.setText(list.get(0).getMdlNm());
-            ui.tvVrn.setText(list.get(0).getCarNo());
-            ui.tvBalance.setText(StringUtil.getPriceString(list.get(0).getBalance()));
-        }else{
+            ui.ivLine1.setVisibility(View.VISIBLE);
+            ui.tvMdlNm.setText(selectVehicleVO.getCarNm());
+            ui.tvVrn.setText(selectVehicleVO.getCarNo());
+            if (list != null && list.size() > 0) {
+                CreditVO creditVO = list.stream().filter(data -> StringUtil.isValidString(data.getVin()).equalsIgnoreCase(selectVehicleVO.getVin())).findFirst().orElse(null);
+                if (creditVO != null)
+                    balance = creditVO.getBalance();
+            }
+            ui.tvBalance.setText(StringUtil.getPriceString(balance));
+        } else {
             ui.lVehicle.setVisibility(View.GONE);
+            ui.ivLine1.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void getDataFromIntent() {
         try {
-            mainVehicleVO = stcViewModel.getMainVehicle();
+            VehicleVO vehicleVO = stcViewModel.getMainVehicle();
+            selectVehicleVO = new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), "0", vehicleVO.getCarRgstNo());
         } catch (Exception e) {
             e.printStackTrace();
         }

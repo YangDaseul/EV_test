@@ -37,7 +37,7 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1dp"
-            android:text="@{data.mdlNm + (TextUtils.isEmpty(data.carNo) ? `` : (`\n`+data.carNo))}"
+            android:text="@{data.carNm + (TextUtils.isEmpty(data.carNo) ? `` : (`\n`+data.carNo))}"
             android:textColor="@color/x_000000"
             android:textSize="15dp"
             android:ellipsize="end"

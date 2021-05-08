@@ -144,6 +144,10 @@ public class DBVehicleRepository {
         return databaseHolder.getDatabase().vehicleDao().selectMyCarList();
     }
 
+    public List<VehicleVO> getVehicleListEV(){
+        return databaseHolder.getDatabase().vehicleDao().selectEVCarList();
+    }
+
     public List<VehicleVO> getInsightVehicleList(){
         return databaseHolder.getDatabase().vehicleDao().selectInsightExpnList();
     }
