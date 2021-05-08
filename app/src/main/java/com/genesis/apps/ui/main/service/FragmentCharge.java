@@ -94,6 +94,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
+        //todo 아래 정보제공 동의를 서버에서 어떤 전문으로 통합하느냐에 따라 별도 처리 필요 20201-05-09 park
         chbViewModel.getRES_CHB_1003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
@@ -287,7 +288,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     break;
             }
         });
-
+        //todo 아래 정보제공 동의를 서버에서 어떤 전문으로 통합하느냐에 따라 별도 처리 필요 20201-05-09 park
         sosViewModel.getRES_SOS_3013().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
@@ -382,7 +383,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 break;
             //픽업앤충전 서비스
             case R.id.l_service_charge_btr_service:
-
                 break;
             //찾아가는 충전 서비스
             case R.id.l_service_charge_service:
@@ -417,27 +417,30 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 
     private void startChargeBtrReqActivity() {
 
-        if (!sosViewModel.isPrvcyInfoAgmtYn()) {
+        if (!sosViewModel.isTrmsAgmtYn()) {
             //정보제공동의가 안되어 있는 경우
-            if (bottomTwoButtonTerm == null)
-                bottomTwoButtonTerm = new BottomTwoButtonTerm(getActivity(), R.style.BottomSheetDialogTheme);
+            showTermsDialog(sosViewModel.getChargeTermVO());
 
-            bottomTwoButtonTerm.setTitle(getString(R.string.service_charge_btr_10));
-            bottomTwoButtonTerm.setContent(getString(R.string.service_charge_btr_popup_msg_04));
-            bottomTwoButtonTerm.setButtonAction(() -> {
-                // 픽업앤충전 정보제공동의 설정 요청
-                chbViewModel.reqCHB1003(new CHB_1003.Request(APPIAInfo.SM01.getId(), VariableType.SERVICE_CHARGE_BTR_SVC_CD, "Y"));
-            }, () -> {
-                // 팝업 종료
-            });
-
-            bottomTwoButtonTerm.setEventTerm(() -> {
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
-                                .putExtra(VariableType.KEY_NAME_TERM_VO, new TermVO("01.03", "2000", "", sosViewModel.getChbTermCont(), ""))
-                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-            });
-            bottomTwoButtonTerm.show();
+//            //정보제공동의가 안되어 있는 경우
+//            if (bottomTwoButtonTerm == null)
+//                bottomTwoButtonTerm = new BottomTwoButtonTerm(getActivity(), R.style.BottomSheetDialogTheme);
+//
+//            bottomTwoButtonTerm.setTitle(getString(R.string.service_charge_btr_10));
+//            bottomTwoButtonTerm.setContent(getString(R.string.service_charge_btr_popup_msg_04));
+//            bottomTwoButtonTerm.setButtonAction(() -> {
+//                // 픽업앤충전 정보제공동의 설정 요청
+//                chbViewModel.reqCHB1003(new CHB_1003.Request(APPIAInfo.SM01.getId(), VariableType.SERVICE_CHARGE_BTR_SVC_CD, "Y"));
+//            }, () -> {
+//                // 팝업 종료
+//            });
+//
+//            bottomTwoButtonTerm.setEventTerm(() -> {
+//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
+//                                .putExtra(VariableType.KEY_NAME_TERM_VO, new TermVO("01.03", "2000", "", sosViewModel.getChbTermCont(), ""))
+//                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+//                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//            });
+//            bottomTwoButtonTerm.show();
 
         } else if (sosViewModel.isChbApplyYn()) {
             //서비스 신청 중인경우
