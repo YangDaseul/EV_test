@@ -383,6 +383,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 break;
             //픽업앤충전 서비스
             case R.id.l_service_charge_btr_service:
+                startChargeBtrReqActivity();
                 break;
             //찾아가는 충전 서비스
             case R.id.l_service_charge_service:
