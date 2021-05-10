@@ -169,7 +169,7 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
             e.printStackTrace();
         } finally {
             if (sosDriverVO == null || TextUtils.isEmpty(tmpAcptNo) || TextUtils.isEmpty(sosDriverVO.getGCustY()) || TextUtils.isEmpty(sosDriverVO.getGCustX())) {
-                exitPage("기사 정보를 불러오지 못했습니다\n잠시 후 다시 시도해 주세요.", ResultCodes.RES_CODE_NETWORK.getCode());
+                exitPage("죄송합니다\n기사님 위치 조회에 실패하였습니다.\n다시 시도해 주세요.", ResultCodes.RES_CODE_NETWORK.getCode());
             }
         }
     }

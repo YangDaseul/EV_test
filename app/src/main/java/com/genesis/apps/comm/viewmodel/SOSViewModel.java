@@ -185,8 +185,8 @@ class SOSViewModel extends ViewModel {
     //찾아가는 충전 서비스 정보제공동의 유무
     public boolean isTrmsAgmtYn() {
         return isValidSOS3001() &&
-                RES_SOS_3001.getValue().data.getSosStus() != null &&
-                StringUtil.isValidString(RES_SOS_3001.getValue().data.getSosStus().getTrmsAgmtYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+                RES_SOS_3001.getValue().data.getEvSvcTerm() != null &&
+                StringUtil.isValidString(RES_SOS_3001.getValue().data.getEvSvcTerm().getTrmsAgmtYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
     }
 
     //찾아가는 충전 서비스 신청 가능 유무
@@ -247,9 +247,9 @@ class SOSViewModel extends ViewModel {
     public List<TermVO> getChargeTermVO(){
         List<TermVO> list = new ArrayList<>();
 
-        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getSosStus() != null){
+        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getEvSvcTerm() != null){
             try{
-                list.addAll(RES_SOS_3001.getValue().data.getSosStus().getTermList());
+                list.addAll(RES_SOS_3001.getValue().data.getEvSvcTerm().getTermList());
             }catch (Exception e){
                 list = new ArrayList<>();
             }
@@ -257,24 +257,24 @@ class SOSViewModel extends ViewModel {
         return list;
     }
 
-    // 픽업앤충전 정보제공동의 유무
-    public boolean isPrvcyInfoAgmtYn() {
-        return isValidSOS3001() &&
-                RES_SOS_3001.getValue().data.getChbStus() != null &&
-                StringUtil.isValidString(RES_SOS_3001.getValue().data.getChbStus().getPrvcyInfoAgmtYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
-    }
+//    // 픽업앤충전 정보제공동의 유무
+//    public boolean isPrvcyInfoAgmtYn() {
+//        return isValidSOS3001() &&
+//                RES_SOS_3001.getValue().data.getChbStus() != null &&
+//                StringUtil.isValidString(RES_SOS_3001.getValue().data.getChbStus().getPrvcyInfoAgmtYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+//    }
 
-    public String getChbTermCont() {
-        String termCont = null;
-        if (isValidSOS3001() && RES_SOS_3001.getValue().data.getChbStus() != null) {
-            try {
-                termCont = RES_SOS_3001.getValue().data.getChbStus().getScrnCntn();
-            } catch (Exception e) {
-                termCont = null;
-            }
-        }
-        return termCont;
-    }
+//    public String getChbTermCont() {
+//        String termCont = null;
+//        if (isValidSOS3001() && RES_SOS_3001.getValue().data.getChbStus() != null) {
+//            try {
+//                termCont = RES_SOS_3001.getValue().data.getChbStus().getScrnCntn();
+//            } catch (Exception e) {
+//                termCont = null;
+//            }
+//        }
+//        return termCont;
+//    }
 
     // 픽업앤충전 신청 유무
     public boolean isChbApplyYn() {

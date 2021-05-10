@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.vo.ChbStatusVO;
+import com.genesis.apps.comm.model.vo.EvTermVO;
 import com.genesis.apps.comm.model.vo.SosStatusVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -46,6 +47,9 @@ public class SOS_3001 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        @Expose
+        @SerializedName("evSvcTerm")
+        private EvTermVO evSvcTerm;
         @Expose
         @SerializedName("sosStus")
         private SosStatusVO sosStus;

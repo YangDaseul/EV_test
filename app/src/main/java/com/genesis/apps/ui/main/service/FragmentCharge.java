@@ -95,20 +95,36 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
-        //todo 아래 정보제공 동의를 서버에서 어떤 전문으로 통합하느냐에 따라 별도 처리 필요 20201-05-09 park
-        chbViewModel.getRES_CHB_1003().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case LOADING:
-                    ((SubActivity) getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
-                        try {
-                            //정보제공동의 완료 처리 후 픽업앤충전 신청 버튼 클릭 처리
-                            sosViewModel.getRES_SOS_3001().getValue().data.getChbStus().setPrvcyInfoAgmtYn(VariableType.COMMON_MEANS_YES);
-                            startChargeBtrReqActivity();
-                        } catch (Exception e) {
+//        chbViewModel.getRES_CHB_1003().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    ((SubActivity) getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    ((SubActivity) getActivity()).showProgressDialog(false);
+//                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+//                        try {
+//                            //정보제공동의 완료 처리 후 픽업앤충전 신청 버튼 클릭 처리
+//                            sosViewModel.getRES_SOS_3001().getValue().data.getChbStus().setPrvcyInfoAgmtYn(VariableType.COMMON_MEANS_YES);
+//                            startChargeBtrReqActivity();
+//                        } catch (Exception e) {
+//
+//                        }
+//                        break;
+//                    }
+//                default:
+//                    ((SubActivity) getActivity()).showProgressDialog(false);
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+//                    }
+//                    break;
+//            }
+//        });
 
                         }
                         break;
@@ -304,7 +320,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     if (result.data != null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         try {
                             //정보제공동의 완료 처리 후 찾아가는 출동 서비스 버튼 클릭 처리
-                            sosViewModel.getRES_SOS_3001().getValue().data.getSosStus().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
+                            sosViewModel.getRES_SOS_3001().getValue().data.getEvSvcTerm().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
                             if(eventType==EVENT_TYPE_SOS) startServiceChargeActivity();
                             else startChargeBtrReqActivity();
 
