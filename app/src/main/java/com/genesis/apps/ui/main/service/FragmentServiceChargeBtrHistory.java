@@ -25,6 +25,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.carlife.BookingVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
@@ -34,9 +35,13 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.service.view.ServiceChargeBtrHistoryAdapter;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentServiceChargeBtrHistoryBinding> {
 
-    private final int PAGE_SIZE = 5;
+    private final int PAGE_SIZE = 20;
 
     private ServiceChargeBtrHistoryAdapter adapter;
     private CHBViewModel chbViewModel;
@@ -237,7 +242,12 @@ public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentService
         if (adapter != null && pageNo == 1)
             adapter.setPageNo(0);
 
-        chbViewModel.reqCHB1023(new CHB_1023.Request(APPIAInfo.SM_CGRV04_04.getId(), mainVehicle.getVin(), "20210416", "20210416", PAGE_SIZE, pageNo));
+
+        Calendar fromCal= Calendar.getInstance(Locale.getDefault());
+        fromCal.add(Calendar.MONTH, -3);
+        String fromDate = DateUtil.formatDate(DateUtil.DATE_FORMAT_yyyyMMddHHmmss, fromCal.getTime());
+        String currentDate = DateUtil.formatDate(DateUtil.DATE_FORMAT_yyyyMMddHHmmss, (Date) null);
+        chbViewModel.reqCHB1023(new CHB_1023.Request(APPIAInfo.SM_CGRV04_04.getId(), mainVehicle.getVin(), fromDate, currentDate, PAGE_SIZE, pageNo));
     }
 
     private void setViewEmpty() {

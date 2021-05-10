@@ -18,7 +18,10 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBtrApplyInfoBinding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
@@ -28,7 +31,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
 
     private CHBViewModel chbViewModel;
 
-    private CHB_1021.Response mData;
+    private CHB_1021.Response resData;
     private VehicleVO mainVehicle;
 
     public static FragmentServiceChargeBtrApplyInfo newInstance(CHB_1021.Response data) {
@@ -45,7 +48,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
-            mData = (CHB_1021.Response) getArguments().getSerializable(KeyNames.KEY_NAME_CHB_CONTENTS_VO);
+            resData = (CHB_1021.Response) getArguments().getSerializable(KeyNames.KEY_NAME_CHB_CONTENTS_VO);
         }
     }
 
@@ -69,7 +72,34 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
     }
 
     private void initView() {
-        me.setData(mData);
+        me.setData(resData);
+    }
+
+    /**
+     * 가격 정보들 표시
+     */
+    private void setLayoutPriceItem() {
+        if(resData == null && resData.getOrderInfo() == null)
+            return;
+
+        // 충전 금액 표시
+        me.lAdvancePaymt.setMsg(StringUtil.getPriceString(resData.getOrderInfo().getProductPrice()));
+        // 충전 크레딧 포인트 정보 표시
+//        me.lCreditPoint.setMsg();
+        // 탁송금액 표시
+        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, resData.getOrderInfo().getOptionList()).getOptionPrice();
+        me.lDeliveryPaymt.setMsg(StringUtil.getPriceString(deliverPrice));
+        // 세차금액 표시
+        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2, resData.getOrderInfo().getOptionList());
+        if(carwashVO != null) {
+            me.lCarWashPaymt.lWhole.setVisibility(View.VISIBLE);
+            int carwashPrice = carwashVO.getOptionPrice();
+            me.lCarWashPaymt.setMsg(StringUtil.getPriceString(carwashPrice));
+        } else {
+            me.lCarWashPaymt.lWhole.setVisibility(View.GONE);
+        }
+
+        me.lPaymtAmt.setMsg(StringUtil.getPriceString(resData.getOrderInfo().getTotalServiceCost()));
     }
 
     private void initData() {
@@ -92,8 +122,8 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
                 dialogCancel();
                 break;
             case R.id.btn_call_cs:
-                if (!TextUtils.isEmpty(mData.getVendorInfo().getVendorCSTelNo())) {
-                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + mData.getVendorInfo().getVendorCSTelNo())));
+                if (!TextUtils.isEmpty(resData.getVendorInfo().getVendorCSTelNo())) {
+                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + resData.getVendorInfo().getVendorCSTelNo())));
                 }
                 break;
             default:
@@ -103,7 +133,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
 
     private void dialogCancel() {
         MiddleDialog.dialogServiceChargeBtrCancel(getActivity(), () -> {
-            chbViewModel.reqCHB1024(new CHB_1024.Request(APPIAInfo.SM_CGRV04_02.getId(), mData.getOrderId(), mainVehicle.getVin()));
+            chbViewModel.reqCHB1024(new CHB_1024.Request(APPIAInfo.SM_CGRV04_02.getId(), resData.getOrderId(), mainVehicle.getVin()));
         }, () -> {
 
         });
@@ -122,33 +152,5 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
     }
 
     private void setObserver() {
-//        chbViewModel.getRES_CHB_1024().observe(getViewLifecycleOwner(), result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    ((SubActivity) getActivity()).showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-//                        SnackBarUtil.show(getActivity(), getString(R.string.service_charge_btr_popup_msg_01));
-//                        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(true);
-//                        ((SubActivity) getActivity()).showProgressDialog(false);
-//                        break;
-//                    }
-//                default:
-//                    String serverMsg = "";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        if (TextUtils.isEmpty(serverMsg)) {
-//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-//                        }
-//                        SnackBarUtil.show(getActivity(), serverMsg);
-//                        ((SubActivity) getActivity()).showProgressDialog(false);
-//                    }
-//                    break;
-//            }
-//        });
     }
 }
