@@ -131,7 +131,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:msg="@{data.getCarInfo() != null ? (TextUtils.isEmpty(data.getCarInfo().carNo) ? `` : data.getCarInfo().carNo) : `-`}"
+                            app:msg="@{(data.getCarInfo().getCarNo() ?? ``) ?? ``}"
                             app:title="@{@string/service_charge_btr_word_00}" />
 
                         <!-- "예약일시" -->
@@ -160,7 +160,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
                             app:maxLine="@{Integer.MAX_VALUE}"
-                            app:msg="@{data.getLocationCount() > 0 ? data.getLocationList().get(0).getAddress() : `-`}"
                             app:title="@{@string/service_charge_btr_word_03}" />
 
 
@@ -175,7 +174,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_pickup_addr"
-                            app:msg="@{data.getOrderInfo().getOptionCount() > 0 ? data.getOrderInfo().getOptionList().get(0).getOptionName() : ``}"
                             app:title="@{@string/service_charge_btr_word_04}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -246,6 +244,7 @@
 
                         <!-- 포인트사용-충전 크레딧 포인트 표시 -->
                         <TextView
+                            android:id="@+id/txt_credit_point"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="115dp"
@@ -296,10 +295,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             app:isRight="@{true}"
+                            app:textColor="@{@color/x_996449}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
-                            app:msg="@{data.getOrderInfo() != null ? StringUtil.getPriceString(data.getOrderInfo().getPaymentAmount()) : ``}"
+                            app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
                             app:title="@{@string/service_charge_btr_word_16}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

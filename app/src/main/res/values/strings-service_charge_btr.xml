@@ -55,6 +55,7 @@
     <string name="service_charge_btr_err_13">서비스 이용 가능 지역이 아닙니다.</string>
     <string name="service_charge_btr_err_14">주차 장소를 선택해 주세요.</string>
     <string name="service_charge_btr_err_15">결제할 카드가 없습니다.\n카드 등록 후 다시 시도해 주세요.</string>
+    <string name="service_charge_btr_err_16">죄송합니다.\n기사님 위치 조회에 실패하였습니다.\n다시 시도해 주세요.</string>
 
 
     <!-- 픽업앤충전 서비스 안내 메시 -->
@@ -114,7 +115,7 @@
     <string name="service_charge_btr_word_28">변경</string>
     <string name="service_charge_btr_word_29">서비스 금액</string>
     <string name="service_charge_btr_word_30">사용불가</string>
-    <string name="service_charge_btr_word_31">담당 : %s 님</string>
+    <string name="service_charge_btr_word_31">담당</string>
     <string name="service_charge_btr_word_32"></string>
     <string name="service_charge_btr_word_33"></string>
     <string name="service_charge_btr_word_34">세차서비스</string>
