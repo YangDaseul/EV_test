@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -61,6 +62,7 @@ class STCViewModel extends ViewModel {
         RES_STC_1004 = repository.RES_STC_1004;
         RES_STC_1005 = repository.RES_STC_1005;
         RES_STC_1006 = repository.RES_STC_1006;
+        RES_STC_2001 = repository.RES_STC_2001;
     }
 
     public void reqSTC1001(final STC_1001.Request reqData) {
@@ -103,6 +105,29 @@ class STCViewModel extends ViewModel {
                 vehicleVO = null;
             }
             return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public List<VehicleVO> getVehicleListEV() throws ExecutionException, InterruptedException{
+        ExecutorService es = new ExecutorService("");
+        Future<List<VehicleVO>> future = es.getListeningExecutorService().submit(()->{
+            List<VehicleVO> list = new ArrayList<>();
+            try {
+                list = dbVehicleRepository.getVehicleListEV();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }finally {
+                if(list==null)
+                    list = new ArrayList<>();
+            }
+
+            return list;
         });
 
         try {

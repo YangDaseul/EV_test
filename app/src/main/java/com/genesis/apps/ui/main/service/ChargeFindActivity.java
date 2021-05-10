@@ -94,7 +94,17 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 break;
             }
             case R.id.iv_arrow: {
-                // TODO 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
+                // 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
+                if (tag instanceof ChargeEptInfoVO) {
+                    ChargeEptInfoVO chargeEptInfoVO = (ChargeEptInfoVO) tag;
+                    startActivitySingleTop(new Intent(ChargeFindActivity.this, ChargeStationDetailActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, chargeEptInfoVO.getSpid())
+                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, chargeEptInfoVO.getCsid())
+                                    .putExtra(KeyNames.KEY_NAME_LAT, chargeEptInfoVO.getLat())
+                                    .putExtra(KeyNames.KEY_NAME_LOT, chargeEptInfoVO.getLot()),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
                 break;
             }
         }

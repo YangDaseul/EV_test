@@ -453,10 +453,12 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             ui.lPartEngine.setVisibility(View.GONE);
             ui.lPartBreakPad.setVisibility(View.GONE);
             ui.lPartIce.setVisibility(View.VISIBLE);
+            ui.tvTitleMobilityCare1.setVisibility(View.GONE);
         }else{
             ui.lPartEngine.setVisibility(View.VISIBLE);
             ui.lPartBreakPad.setVisibility(View.VISIBLE);
             ui.lPartIce.setVisibility(View.GONE);
+            ui.tvTitleMobilityCare1.setVisibility(View.VISIBLE);
         }
 
         if(!TextUtils.isEmpty(itemDate)){
