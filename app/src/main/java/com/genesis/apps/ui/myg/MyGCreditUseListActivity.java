@@ -107,7 +107,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                 for (VehicleVO vehicleVO : vehicleList) {
                     String balance="0";
                     try{
-                        balance = stcViewModel.getRES_STC_2001().getValue().data.getCarCretList().stream().filter(data->StringUtil.isValidString(data.getVin()).equalsIgnoreCase(vehicleVO.getVin())).map(CreditVO::getBalance).findFirst().orElse("0");
+                        balance = stcViewModel.getRES_STC_2001().getValue().data.getCarCretList().stream().filter(data->StringUtil.isValidString(data.getVin()).equalsIgnoreCase(vehicleVO.getVin())).map(CreditVO::getBalanceAmount).findFirst().orElse("0");
                     }catch (Exception e){
                         balance="0";
                     }
@@ -217,7 +217,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
             if (list != null && list.size() > 0) {
                 CreditVO creditVO = list.stream().filter(data -> StringUtil.isValidString(data.getVin()).equalsIgnoreCase(selectVehicleVO.getVin())).findFirst().orElse(null);
                 if (creditVO != null)
-                    balance = creditVO.getBalance();
+                    balance = creditVO.getBalanceAmount();
             }
             ui.tvBalance.setText(StringUtil.getPriceString(balance));
         } else {

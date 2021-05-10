@@ -102,7 +102,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             //API에서 언제 제거될지 모르기 때문에 현업 요청으로 반영
             if(replacements!=null&&replacements.getSests()!=null&&replacements.getSests().size()>0){
                 replacements.setSests(replacements.getSests().stream().filter(data->
-                        (data.getSestCode()!=4&&(isEV ? data.getSestCode()!=1 : data.getSestCode()!=10))).collect(Collectors.toList())); //todo 2021-04-27 냉각수 코드 결정되면 10을 해당 코드로 변경 필요
+                        (data.getSestCode()!=4&&(isEV ? data.getSestCode()!=1 : data.getSestCode()!=21))).collect(Collectors.toList())); //todo 2021-04-27 냉각수 코드 결정되면 21을 해당 코드로 변경 필요
             }
             item.setReplacements(replacements);
             item.setChangedReplacements(true);

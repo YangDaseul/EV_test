@@ -39,8 +39,8 @@ public class MYP_1003 extends BaseData {
      * @see #bludMbrPoint 블루멤버스 사용가능포인트
      * @see #blueMbrYn 블루멤버스 회원여부
      * 회원 : Y, 비회원 : N
-     * @see #cretPntTot 크레딧포인트 합계
-     * @see #cretPntList 크레딧 포인트리스트
+     * @see #cretTotAmount 크레딧포인트 합계
+     * @see #carCretList 크레딧 포인트리스트
      * @see #stMbrYn 에스트래픽회원여부
      */
     @EqualsAndHashCode(callSuper = true)
@@ -56,11 +56,11 @@ public class MYP_1003 extends BaseData {
         @SerializedName("blueMbrYn")
         private String blueMbrYn;
         @Expose
-        @SerializedName("cretPntTot")
-        private String cretPntTot;
+        @SerializedName("cretTotAmount")
+        private String cretTotAmount;
         @Expose
-        @SerializedName("cretPntList")
-        private List<CreditVO> cretPntList;
+        @SerializedName("carCretList")
+        private List<CreditVO> carCretList;
         @Expose
         @SerializedName("stMbrYn")
         private String stMbrYn;

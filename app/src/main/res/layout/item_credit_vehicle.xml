@@ -61,7 +61,7 @@
             android:lineSpacingExtra="1dp"
             android:textColor="@color/x_000000"
             android:textSize="15dp"
-            android:text="@{StringUtil.getPriceString(data.balance ?? `0`)}"
+            android:text="@{StringUtil.getPriceString(data.balanceAmount ?? `0`)}"
             android:maxLines="2"
             android:ellipsize="middle"
             app:layout_constraintHorizontal_bias="1"

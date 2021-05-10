@@ -37,12 +37,12 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class ChbStatusVO extends BaseData {
-    @Expose
-    @SerializedName("prvcyInfoAgmtYn")
-    private String prvcyInfoAgmtYn;
-    @Expose
-    @SerializedName("scrnCntn")
-    private String scrnCntn;
+//    @Expose
+//    @SerializedName("prvcyInfoAgmtYn")
+//    private String prvcyInfoAgmtYn;
+//    @Expose
+//    @SerializedName("scrnCntn")
+//    private String scrnCntn;
     @Expose
     @SerializedName("status")
     private String status;
