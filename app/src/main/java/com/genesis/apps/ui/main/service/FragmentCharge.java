@@ -126,28 +126,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 //            }
 //        });
 
-                        }
-                        break;
-                    }
-                default:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    String vin = vehicleVO.getVin();
-                    if (!TextUtils.isEmpty(vin))
-                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
-                    else
-                        SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
-//                    String serverMsg = "";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-//                    }
-                    break;
-            }
-        });
-
         chbViewModel.getRES_CHB_1006().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
@@ -332,6 +310,15 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     String serverMsg = "";
+                    //todo 2021-05-10 park 해당 부분 확인 요청 (To. 이지은C)
+                    if(eventType==EVENT_TYPE_BTR) {
+                        String vin = vehicleVO.getVin();
+                        if (!TextUtils.isEmpty(vin)) {
+                            chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
+                            return;
+                        }
+                    }
+                    
                     try {
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
