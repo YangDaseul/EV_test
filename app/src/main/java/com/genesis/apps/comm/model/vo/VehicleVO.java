@@ -171,6 +171,10 @@ class VehicleVO extends BaseData {
          return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV) && (TextUtils.isEmpty(getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_OV.equalsIgnoreCase(getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_CV.equalsIgnoreCase(getCustGbCd()));
     }
 
+    public boolean isEVonlyOV(){
+        return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV) && !TextUtils.isEmpty(getCustGbCd()) && VariableType.MAIN_VEHICLE_TYPE_OV.equalsIgnoreCase(getCustGbCd());
+    }
+
     public boolean isSP(){
         return StringUtil.isValidString(spCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_SP);
     }

@@ -12,8 +12,8 @@ import lombok.EqualsAndHashCode;
  * @brief 크레딧 정보
  * @author hjpark
  * @see #vin 차대번호
- * @see #mdlCd
- * @see #mdlNm
+ * @see #carCd
+ * @see #carNm
  * @see #balance 에스트래픽에서 조회한 크레딧포인트 잔액
  */
 @EqualsAndHashCode(callSuper = false)
@@ -24,11 +24,11 @@ class CreditVO extends BaseData {
     @SerializedName("vin")
     private String vin;
     @Expose
-    @SerializedName("mdlCd")
-    private String mdlCd;
+    @SerializedName("carCd")
+    private String carCd;
     @Expose
-    @SerializedName("mdlNm")
-    private String mdlNm;
+    @SerializedName("carNm")
+    private String carNm;
     @Expose
     @SerializedName("balance")
     private String balance;

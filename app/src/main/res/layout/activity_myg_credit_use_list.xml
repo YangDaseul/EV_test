@@ -110,18 +110,108 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_vehicle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="15dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_000000"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_point_save_info">
+
+                    <TextView
+                        android:id="@+id/tv_mdl_nm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="3dp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_vrn"
+                        tools:text="Electrified G80"/>
+
+                    <TextView
+                        android:id="@+id/tv_vrn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="3dp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/x_bf000000"
+                        android:textSize="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_mdl_nm"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:text="123차1234"/>
+
+                    <TextView
+                        android:id="@+id/tv_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="3dp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                        tools:text="20,000원"/>
+
+
+                    <ImageView
+                        android:id="@+id/iv_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/btn_dropdown"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_line_1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_vehicle"/>
 
                 <RadioGroup
                     android:id="@+id/r_group"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_point_save_info"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1"
                     app:layout_constraintVertical_bias="0.8">
 
 
