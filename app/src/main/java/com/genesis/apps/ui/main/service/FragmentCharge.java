@@ -408,12 +408,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BluewalnutWebActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG)
-                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     //픽업앤충전 서비스 신청 내역
-//                    startChargeBtrHistoryActivity(ChargeBtrStatus.STATUS_1000.getStusCd());
+                    startChargeBtrHistoryActivity(sosViewModel.getChbStusCd());
                 }
                 break;
             default:
