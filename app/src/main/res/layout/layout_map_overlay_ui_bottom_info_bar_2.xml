@@ -9,10 +9,6 @@
             type="boolean" />
 
         <variable
-            name="driverNm"
-            type="String" />
-
-        <variable
             name="stusMsg"
             type="String" />
 
@@ -42,29 +38,21 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/btn_arrow_close_2"/>
 
-
-        <TextView
-            android:id="@+id/tv_map_top_title"
-            style="@style/MapOverlayWhite.RegularHead"
-            android:layout_width="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:textColor="@color/x_996449"
-            android:text="@{String.format(@string/service_charge_btr_word_31, driverNm)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_driver_info"
-            tools:text="담당 : 김제니 님"/>
-
         <TextView
             android:id="@+id/tv_driver_status"
             style="@style/MapOverlayWhite.RegularText"
-            android:textColor="@color/x_262626"
-            app:layout_constraintStart_toStartOf="@+id/tv_map_top_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_map_top_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:text="@{stusMsg}"
+            android:textColor="@color/x_262626"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_driver_info"
             tools:text="픽업 중입니다." />
 
 

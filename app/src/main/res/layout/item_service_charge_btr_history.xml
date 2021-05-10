@@ -44,20 +44,19 @@
 
 
         <TextView
-            android:id="@+id/l_apply_date"
+            android:id="@+id/l_order_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
-            android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getFinishDt() ??``),DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)}"
-            android:textColor="@color/x_262626"
+            android:textColor="@color/x_996449"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_line_1"
-            tools:text="2021.03.02 12:04" />
+            tools:text="예약번호 : AAAAAAAAAAAA" />
 
         <!-- 서비스 상태 값 -->
         <TextView
@@ -72,9 +71,9 @@
             android:text="@{data.getStatusNm}"
             android:textColor="@{`6000`.equalsIgnoreCase(data.getStatus()) ? @color/x_ce2d2d : @color/x_996449}"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/l_apply_date"
+            app:layout_constraintBottom_toBottomOf="@+id/l_order_no"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/l_apply_date"
+            app:layout_constraintTop_toTopOf="@+id/l_order_no"
             app:layout_constraintVertical_bias="0.5" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,7 +88,7 @@
             android:paddingBottom="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_apply_date">
+            app:layout_constraintTop_toBottomOf="@+id/l_order_no">
 
             <!-- "차량정보" -->
             <include
@@ -140,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 app:isLeft="@{true}"
+                app:maxLine="@{Integer.MAX_VALUE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
@@ -329,6 +329,7 @@
 
                     <!-- 포인트사용-충전 크레딧 포인트 표시 -->
                     <TextView
+                        android:id="@+id/txt_credit_point"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="115dp"
@@ -379,6 +380,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         app:isRight="@{true}"
+                        app:textColor="@{@color/x_996449}"
+                        app:titColor="@{@color/x_996449}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
@@ -395,7 +398,7 @@
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/service_charge_btr_word_24"
-                        android:textColor="@color/x_262626"
+                        android:textColor="@color/x_996449"
                         android:textSize="14dp"
                         android:visibility="@{`6000`.equalsIgnoreCase(data.getStatus()) ? View.VISIBLE : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="@+id/l_paymt_amt"

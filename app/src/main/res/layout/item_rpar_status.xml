@@ -24,6 +24,10 @@
             type="boolean" />
 
         <variable
+            name="titColor"
+            type="int" />
+
+        <variable
             name="textColor"
             type="int" />
 
@@ -55,7 +59,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
             android:text="@{title}"
-            android:textColor="@color/x_000000"
+            android:textColor="@{titColor==0 ? @color/x_000000 : titColor}"
             android:textSize="14dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
