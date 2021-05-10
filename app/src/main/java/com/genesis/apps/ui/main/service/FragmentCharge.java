@@ -310,15 +310,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     String serverMsg = "";
-                    //todo 2021-05-10 park 해당 부분 확인 요청 (To. 이지은C)
-                    if(eventType==EVENT_TYPE_BTR) {
-                        String vin = vehicleVO.getVin();
-                        if (!TextUtils.isEmpty(vin)) {
-                            chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
-                            return;
-                        }
-                    }
-                    
+
                     try {
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
