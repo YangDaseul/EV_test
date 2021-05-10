@@ -15,7 +15,6 @@ import android.webkit.WebView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
-import com.genesis.apps.comm.model.api.gra.CHB_1003;
 import com.genesis.apps.comm.model.api.gra.CHB_1006;
 import com.genesis.apps.comm.model.api.gra.SOS_3001;
 import com.genesis.apps.comm.model.api.gra.SOS_3006;
@@ -38,7 +37,6 @@ import com.genesis.apps.databinding.FragmentServiceChargeBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTermCharge;
-import com.genesis.apps.ui.common.dialog.bottom.BottomTwoButtonTerm;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
@@ -67,7 +65,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     @Inject
     public LoginInfoDTO loginInfoDTO;
 
-    private BottomTwoButtonTerm bottomTwoButtonTerm;
+//    private BottomTwoButtonTerm bottomTwoButtonTerm;
+    private final int EVENT_TYPE_BTR=1;
+    private final int EVENT_TYPE_SOS=2;
+    private int eventType=0;
 
     public static FragmentCharge newInstance(int position) {
         FragmentCharge fragmentCharge = new FragmentCharge();
@@ -288,7 +289,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     break;
             }
         });
-        //todo 아래 정보제공 동의를 서버에서 어떤 전문으로 통합하느냐에 따라 별도 처리 필요 20201-05-09 park
         sosViewModel.getRES_SOS_3013().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
@@ -300,7 +300,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                         try {
                             //정보제공동의 완료 처리 후 찾아가는 출동 서비스 버튼 클릭 처리
                             sosViewModel.getRES_SOS_3001().getValue().data.getSosStus().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
-                            startServiceChargeActivity();
+                            if(eventType==EVENT_TYPE_SOS) startServiceChargeActivity();
+                            else startChargeBtrReqActivity();
+
                         }catch (Exception e){
 
                         }
@@ -420,7 +422,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 
         if (!sosViewModel.isTrmsAgmtYn()) {
             //정보제공동의가 안되어 있는 경우
-            showTermsDialog(sosViewModel.getChargeTermVO());
+            showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_BTR);
 
 //            //정보제공동의가 안되어 있는 경우
 //            if (bottomTwoButtonTerm == null)
@@ -480,7 +482,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         } else {
             if (!sosViewModel.isTrmsAgmtYn()) {
                 //정보제공동의가 안되어 있는 경우
-                showTermsDialog(sosViewModel.getChargeTermVO());
+                showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_SOS);
             } else if (!sosViewModel.isUseYn()) {
                 //서비스 사용 불가상태인 경우
                 SnackBarUtil.show(getActivity(), getString(R.string.sm_cggo_01_14));
@@ -544,7 +546,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 //        developersViewModel.reqEvStatus(new EvStatus.Request(""));
     }
     //약관 동의 대화상자 호출
-    private void showTermsDialog(List<TermVO> termList) {
+    private void showTermsDialog(List<TermVO> termList, int type) {
         if(termList!=null&&termList.size()>0) {
             BottomDialogAskAgreeTermCharge termsDialog = new BottomDialogAskAgreeTermCharge(
                     getActivity(),
@@ -559,8 +561,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     for (TermVO termVO : termVOList) {
                         agreeTerm2List.add(new AgreeTerm2VO(termVO.getTermCd(), VariableType.COMMON_MEANS_YES));
                     }
-                    if (agreeTerm2List != null && agreeTerm2List.size() > 0)
+                    if (agreeTerm2List != null && agreeTerm2List.size() > 0) {
+                        eventType = type;
                         sosViewModel.reqSOS3013(new SOS_3013.Request(APPIAInfo.SM01.getId(), agreeTerm2List));
+                    }
                 }
             });
             termsDialog.init(termList);
