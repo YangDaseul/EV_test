@@ -116,7 +116,7 @@
     <string name="service_charge_btr_word_29">서비스 금액</string>
     <string name="service_charge_btr_word_30">사용불가</string>
     <string name="service_charge_btr_word_31">담당</string>
-    <string name="service_charge_btr_word_32"></string>
+    <string name="service_charge_btr_word_32">예약번호&#160;:&#160;</string>
     <string name="service_charge_btr_word_33"></string>
     <string name="service_charge_btr_word_34">세차서비스</string>
     <string name="service_charge_btr_word_35">결제 수단</string>

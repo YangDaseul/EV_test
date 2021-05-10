@@ -117,7 +117,7 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
             for(MembershipVO vo : data.getOrderInfo().getMembershipList()) {
                 if(!vo.getMembershipCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF)) {
                     useCreditPoint = StringUtil.getDiscountString(vo.getMembershipUsePoint());
-                    continue;
+                    break;
                 }
             }
         }

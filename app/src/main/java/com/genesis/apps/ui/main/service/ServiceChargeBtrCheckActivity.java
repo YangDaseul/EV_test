@@ -270,7 +270,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
 
     private void reqChargeBtrApply(){
 
-        int estimatedPaymentAmount = 0; // 최종 결제 금액
+        int estimatedPaymentAmount = (int) ui.tvSvcPaymt.getTag(); // 최종 결제 금액
         List<OptionVO> optList = new ArrayList<>();
         optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, contentsVO.getOptionList()).getOptionCode(), 1));
 
