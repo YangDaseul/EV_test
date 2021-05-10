@@ -220,12 +220,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.hide();
 
-                    result.data.setStMbrYn("Y");
+//                    result.data.setStMbrYn("Y");
 
                     if(mainVehicle!=null&&mainVehicle.isEVonlyOV()&&result.data!=null&&StringUtil.isValidString(result.data.getStMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
                         ui.lCredit.setVisibility(View.VISIBLE);
-                        ui.tvCreditPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getCretPntTot()))
-                                ? "0원" : StringUtil.getPriceString(result.data.getCretPntTot()));
+                        ui.tvCreditPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getCretTotAmount()))
+                                ? "0원" : StringUtil.getPriceString(result.data.getCretTotAmount()));
                         ui.tvCreditPoint.setVisibility(View.VISIBLE);
                         ui.tvCreditConnectError.setVisibility(View.GONE);
                         ui.tvCreditRetry.setVisibility(View.GONE);
