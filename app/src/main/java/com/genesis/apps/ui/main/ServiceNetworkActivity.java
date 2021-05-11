@@ -97,7 +97,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private String addrDtl = "";
     private VehicleVO mainVehicle = null;
 
-    private List<ChargeSearchCategoryVO> searchCategoryList = new ArrayList<>();
+    private List<ChargeSearchCategoryVO> searchCategoryList;
 
     public final static int PAGE_TYPE_BTR = 0;//버틀러 변경
     public final static int PAGE_TYPE_RENT = 1;//렌트리스 등록
@@ -134,15 +134,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 ui.btnMyPosition.setVisibility(View.GONE);
                 ui.btnMyPosition2.setOnClickListener(onSingleClickListener);
                 ui.btnCarPosition.setOnClickListener(onSingleClickListener);
-                // 필터값 초기 셋팅
-                searchCategoryList.addAll(Arrays.asList(
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null)
-                                .setSelected(true), // 기본 선택 값 설정.
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER))
-                                .addSelectedItem(ChargeSearchCategorytype.ALL),// 기본 선택 값 설정.
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
-                ));
                 break;
             }
             case PAGE_TYPE_BTR:
@@ -218,6 +209,22 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             btrVO = (BtrVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
             pageType = getIntent().getIntExtra(KeyNames.KEY_NAME_PAGE_TYPE, PAGE_TYPE_SERVICE);
             rparTypCd = getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
+
+            if(pageType == PAGE_TYPE_EVCHARGE) {
+                searchCategoryList = getIntent().getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO);
+                if (searchCategoryList == null) {
+                    // 필터값 초기 셋팅
+                    searchCategoryList = new ArrayList<>();
+                    searchCategoryList.addAll(Arrays.asList(
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null)
+                                    .setSelected(true), // 기본 선택 값 설정.
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER))
+                                    .addSelectedItem(ChargeSearchCategorytype.ALL),// 기본 선택 값 설정.
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
+                    ));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

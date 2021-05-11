@@ -23,10 +23,10 @@
     <string name="sm_evss01_20">Hi Charger</string>
     <string name="sm_evss01_21">충전 속도</string>
     <string name="sm_evss01_22">초고속</string>
-    <string name="sm_evss01_23">고속</string>
+    <string name="sm_evss01_23">급속</string>
     <string name="sm_evss01_24">완속</string>
     <string name="sm_evss01_25">결제 방식</string>
-    <string name="sm_evss01_26">S트레픽 크레딧 결제</string>
+    <string name="sm_evss01_26">충전 크레딧 결제</string>
     <string name="sm_evss01_27">카페이 결제</string>
     <string name="sm_evss01_28">선택</string>
     <string name="sm_evss01_29">적용</string>
@@ -37,9 +37,10 @@
     <string name="sm_evss01_34">충전소 검색</string>
     <string name="sm_evss01_35">건물명 또는 주소를\n검색해 주세요.</string>
     <string name="sm_evss01_36">충전소 검색 필터</string>
+    <string name="sm_evss01_37">연결에 실패하였습니다.</string>
 
     <string name="sm_evss02_01">초고속 %d대</string>
-    <string name="sm_evss02_02">고속 %d대</string>
+    <string name="sm_evss02_02">급속 %d대</string>
     <string name="sm_evss02_03">완속 %d대</string>
     <string name="sm_evss03_04">사용가능</string>
 </resources>
