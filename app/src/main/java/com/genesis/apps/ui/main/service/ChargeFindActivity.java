@@ -332,14 +332,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     private void searchChargeStation(double lat, double lot) {
         lgnViewModel.setMyPosition(lat, lot);
-        String chgSpeed = null;
-        String payType = null;
-        if (chgSpeedList.size() > 0) {
-            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-        }
-        if (payTypeList.size() > 0) {
-            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-        }
+//        String chgSpeed = null;
+//        String payType = null;
+//        if (chgSpeedList.size() > 0) {
+//            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+//            chgSpeed = chgSpeed.replace("\\","");
+//        }
+//        if (payTypeList.size() > 0) {
+//            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+//        }
         if(lat==VariableType.DEFAULT_POSITION[0]&&lot==VariableType.DEFAULT_POSITION[1]){
             inputChargePlaceFragment.setGuideErrorMsg();
         }
@@ -350,8 +351,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 String.valueOf(lot),
                 reservYn,
                 chgCd,
-                chgSpeed,
-                payType
+                chgSpeedList,
+                payTypeList
         ));
     }
 
