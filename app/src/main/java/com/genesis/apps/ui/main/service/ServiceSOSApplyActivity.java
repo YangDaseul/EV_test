@@ -349,7 +349,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
     private void selectfltCd(){
-        final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.service_sos_fit));
+        final List<String> divList = mainVehicle.isEV() ? Arrays.asList(getResources().getStringArray(R.array.service_sos_fit_ev)) : Arrays.asList(getResources().getStringArray(R.array.service_sos_fit));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
             String result = bottomListDialog.getSelectItem();
