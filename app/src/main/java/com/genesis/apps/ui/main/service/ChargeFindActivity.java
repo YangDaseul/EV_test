@@ -219,10 +219,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
             if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_LOCATION) {
                 // 내 위치 기준 충전소 검색.
-                checkEnableGPS(() -> {
-                    //현대양재사옥위치
-                    searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
-                }, this::reqMyLocation);
+                reqMyLocation();
             } else if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_CAR) {
                 reqParkLocationToDevelopers();
             }
@@ -323,7 +320,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         findMyLocation(location -> {
             showProgressDialog(false);
             if (location == null) {
-                exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                 return;
             }
             runOnUiThread(() -> {
