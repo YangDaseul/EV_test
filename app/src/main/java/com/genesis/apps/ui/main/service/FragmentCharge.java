@@ -15,7 +15,6 @@ import android.webkit.WebView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
-import com.genesis.apps.comm.model.api.gra.CHB_1003;
 import com.genesis.apps.comm.model.api.gra.CHB_1006;
 import com.genesis.apps.comm.model.api.gra.SOS_3001;
 import com.genesis.apps.comm.model.api.gra.SOS_3006;
@@ -38,7 +37,6 @@ import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTermCharge;
-import com.genesis.apps.ui.common.dialog.bottom.BottomTwoButtonTerm;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
@@ -67,7 +65,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     @Inject
     public LoginInfoDTO loginInfoDTO;
 
-    private BottomTwoButtonTerm bottomTwoButtonTerm;
+//    private BottomTwoButtonTerm bottomTwoButtonTerm;
+    private final int EVENT_TYPE_BTR=1;
+    private final int EVENT_TYPE_SOS=2;
+    private int eventType=0;
 
     public static FragmentCharge newInstance(int position) {
         FragmentCharge fragmentCharge = new FragmentCharge();
@@ -94,30 +95,25 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
-        chbViewModel.getRES_CHB_1003().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case LOADING:
-                    ((SubActivity) getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
-                        try {
-                            //정보제공동의 완료 처리 후 픽업앤충전 신청 버튼 클릭 처리
-                            sosViewModel.getRES_SOS_3001().getValue().data.getChbStus().setPrvcyInfoAgmtYn(VariableType.COMMON_MEANS_YES);
-                            startChargeBtrReqActivity();
-                        } catch (Exception e) {
-
-                        }
-                        break;
-                    }
-                default:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    String vin = vehicleVO.getVin();
-                    if (!TextUtils.isEmpty(vin))
-                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
-                    else
-                        SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
+//        chbViewModel.getRES_CHB_1003().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    ((SubActivity) getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    ((SubActivity) getActivity()).showProgressDialog(false);
+//                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+//                        try {
+//                            //정보제공동의 완료 처리 후 픽업앤충전 신청 버튼 클릭 처리
+//                            sosViewModel.getRES_SOS_3001().getValue().data.getChbStus().setPrvcyInfoAgmtYn(VariableType.COMMON_MEANS_YES);
+//                            startChargeBtrReqActivity();
+//                        } catch (Exception e) {
+//
+//                        }
+//                        break;
+//                    }
+//                default:
+//                    ((SubActivity) getActivity()).showProgressDialog(false);
 //                    String serverMsg = "";
 //                    try {
 //                        serverMsg = result.data.getRtMsg();
@@ -126,9 +122,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 //                    } finally {
 //                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
 //                    }
-                    break;
-            }
-        });
+//                    break;
+//            }
+//        });
 
         chbViewModel.getRES_CHB_1006().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
@@ -153,6 +149,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
+                    me.tvChargeStatus.setBackgroundResource(0);
+                    me.tvChargeStatus.setBackgroundColor(getContext().getColor(R.color.x_f8f8f8));
+                    me.tvChargeStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
                     break;
                 case SUCCESS:
                     if (result.data != null) {
@@ -192,10 +191,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     }
                 default:
                     me.tvChargeStatus.setVisibility(View.VISIBLE);
+                    me.tvChargeStatus.setBackgroundResource(R.drawable.ripple_bg_f8f8f8);
                     me.tvChargeStatus.setText(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT));
-//                    batteryCharge = false;
-//                    soc = -1;
-//                    setViewEvBattery();
+                    me.tvChargeStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.btn_again, 0);
                     break;
             }
         });
@@ -290,7 +288,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     break;
             }
         });
-
         sosViewModel.getRES_SOS_3013().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
@@ -301,8 +298,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     if (result.data != null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         try {
                             //정보제공동의 완료 처리 후 찾아가는 출동 서비스 버튼 클릭 처리
-                            sosViewModel.getRES_SOS_3001().getValue().data.getSosStus().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
-                            startServiceChargeActivity();
+                            sosViewModel.getRES_SOS_3001().getValue().data.getEvSvcTerm().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
+                            if(eventType==EVENT_TYPE_SOS) startServiceChargeActivity();
+                            else startChargeBtrReqActivity();
+
                         }catch (Exception e){
 
                         }
@@ -311,6 +310,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     String serverMsg = "";
+
                     try {
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
@@ -349,6 +349,16 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         }
 
         switch (id) {
+            case R.id.tv_charge_status:
+                try{
+                    if(me.tvChargeStatus.getText().toString().equalsIgnoreCase(Html.fromHtml(getString(R.string.sm_cg_sm02_16_2), Html.FROM_HTML_MODE_COMPACT).toString())){
+                        setViewBatteryStatus();
+                    }
+                }catch (Exception e){
+
+                }
+                break;
+
             //약관 내용 보기 버튼
             case R.id.iv_arrow:
                 showTerm(v);
@@ -375,7 +385,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 break;
             //픽업앤충전 서비스
             case R.id.l_service_charge_btr_service:
-
+                startChargeBtrReqActivity();
                 break;
             //찾아가는 충전 서비스
             case R.id.l_service_charge_service:
@@ -398,12 +408,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BluewalnutWebActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG)
-                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     //픽업앤충전 서비스 신청 내역
-//                    startChargeBtrHistoryActivity(ChargeBtrStatus.STATUS_1000.getStusCd());
+                    startChargeBtrHistoryActivity(sosViewModel.getChbStusCd());
                 }
                 break;
             default:
@@ -414,27 +420,30 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 
     private void startChargeBtrReqActivity() {
 
-        if (!sosViewModel.isPrvcyInfoAgmtYn()) {
+        if (!sosViewModel.isTrmsAgmtYn()) {
             //정보제공동의가 안되어 있는 경우
-            if (bottomTwoButtonTerm == null)
-                bottomTwoButtonTerm = new BottomTwoButtonTerm(getActivity(), R.style.BottomSheetDialogTheme);
+            showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_BTR);
 
-            bottomTwoButtonTerm.setTitle(getString(R.string.service_charge_btr_10));
-            bottomTwoButtonTerm.setContent(getString(R.string.service_charge_btr_popup_msg_04));
-            bottomTwoButtonTerm.setButtonAction(() -> {
-                // 픽업앤충전 정보제공동의 설정 요청
-                chbViewModel.reqCHB1003(new CHB_1003.Request(APPIAInfo.SM01.getId(), VariableType.SERVICE_CHARGE_BTR_SVC_CD, "Y"));
-            }, () -> {
-                // 팝업 종료
-            });
-
-            bottomTwoButtonTerm.setEventTerm(() -> {
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
-                                .putExtra(VariableType.KEY_NAME_TERM_VO, new TermVO("01.03", "2000", "", sosViewModel.getChbTermCont(), ""))
-                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-            });
-            bottomTwoButtonTerm.show();
+//            //정보제공동의가 안되어 있는 경우
+//            if (bottomTwoButtonTerm == null)
+//                bottomTwoButtonTerm = new BottomTwoButtonTerm(getActivity(), R.style.BottomSheetDialogTheme);
+//
+//            bottomTwoButtonTerm.setTitle(getString(R.string.service_charge_btr_10));
+//            bottomTwoButtonTerm.setContent(getString(R.string.service_charge_btr_popup_msg_04));
+//            bottomTwoButtonTerm.setButtonAction(() -> {
+//                // 픽업앤충전 정보제공동의 설정 요청
+//                chbViewModel.reqCHB1003(new CHB_1003.Request(APPIAInfo.SM01.getId(), VariableType.SERVICE_CHARGE_BTR_SVC_CD, "Y"));
+//            }, () -> {
+//                // 팝업 종료
+//            });
+//
+//            bottomTwoButtonTerm.setEventTerm(() -> {
+//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
+//                                .putExtra(VariableType.KEY_NAME_TERM_VO, new TermVO("01.03", "2000", "", sosViewModel.getChbTermCont(), ""))
+//                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+//                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//            });
+//            bottomTwoButtonTerm.show();
 
         } else if (sosViewModel.isChbApplyYn()) {
             //서비스 신청 중인경우
@@ -473,7 +482,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         } else {
             if (!sosViewModel.isTrmsAgmtYn()) {
                 //정보제공동의가 안되어 있는 경우
-                showTermsDialog(sosViewModel.getChargeTermVO());
+                showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_SOS);
             } else if (!sosViewModel.isUseYn()) {
                 //서비스 사용 불가상태인 경우
                 SnackBarUtil.show(getActivity(), getString(R.string.sm_cggo_01_14));
@@ -534,10 +543,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         } catch (Exception e) {
 
         }
-
+//        developersViewModel.reqEvStatus(new EvStatus.Request(""));
     }
     //약관 동의 대화상자 호출
-    private void showTermsDialog(List<TermVO> termList) {
+    private void showTermsDialog(List<TermVO> termList, int type) {
         if(termList!=null&&termList.size()>0) {
             BottomDialogAskAgreeTermCharge termsDialog = new BottomDialogAskAgreeTermCharge(
                     getActivity(),
@@ -552,8 +561,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     for (TermVO termVO : termVOList) {
                         agreeTerm2List.add(new AgreeTerm2VO(termVO.getTermCd(), VariableType.COMMON_MEANS_YES));
                     }
-                    if (agreeTerm2List != null && agreeTerm2List.size() > 0)
+                    if (agreeTerm2List != null && agreeTerm2List.size() > 0) {
+                        eventType = type;
                         sosViewModel.reqSOS3013(new SOS_3013.Request(APPIAInfo.SM01.getId(), agreeTerm2List));
+                    }
                 }
             });
             termsDialog.init(termList);

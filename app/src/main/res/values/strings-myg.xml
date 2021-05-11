@@ -226,4 +226,5 @@
     <string name="mg_cp_01_1">충전 크레딧 사용 내역</string>
     <string name="mg_cp_01_2">총 충전 크레딧</string>
     <string name="mg_cp_01_3">포인트 내역이 없습니다.</string>
+    <string name="mg_cp_01_4">조회할 차량을 선택해 주세요.</string>
 </resources>

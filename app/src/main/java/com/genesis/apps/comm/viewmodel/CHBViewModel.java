@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -33,6 +35,7 @@ import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.EVLRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -215,6 +218,13 @@ class CHBViewModel extends ViewModel {
         }
     }
 
+    /**
+     * 결제 수단 카드명 조회
+     * @param paymtCardVOList
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<String> getPaymtCardNm(List<PaymtCardVO> paymtCardVOList) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<List<String>> future = es.getListeningExecutorService().submit(() -> {
@@ -233,5 +243,23 @@ class CHBViewModel extends ViewModel {
         } finally {
             es.shutDownExcutor();
         }
+    }
+
+    /**
+     * 옵션 VO 조회
+     * @param optTy
+     * @return
+     */
+    public OptionVO getOptionVO(String optTy, List<OptionVO> optionList) {
+
+        if (!TextUtils.isEmpty(optTy)) {
+            for (OptionVO optVo : optionList) {
+                if (optVo.getOptionType().equalsIgnoreCase(optTy)) {
+                    return optVo;
+                }
+            }
+        }
+
+        return null;
     }
 }

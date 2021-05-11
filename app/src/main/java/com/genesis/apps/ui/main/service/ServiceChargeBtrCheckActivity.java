@@ -110,11 +110,11 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         // 충전 크레딧 포인트 정보 표시
         setLayoutCreditPoint();
         // 탁송금액 표시
-        int deliverPrice = getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1).getOptionPrice();
+        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, contentsVO.getOptionList()).getOptionPrice();
         ui.tvDeliveryPaymt.setText(StringUtil.getPriceString(deliverPrice));
         ui.tvDeliveryPaymt.setTag(deliverPrice);
         // 세차금액 표시
-        OptionVO carwashVO = getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2);
+        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2, contentsVO.getOptionList());
         if(carwashVO != null) {
             ui.lCarwashPaymtInfo.setVisibility(View.VISIBLE);
             ui.lCarwashPrice.lWhole.setVisibility(View.VISIBLE);
@@ -270,12 +270,12 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
 
     private void reqChargeBtrApply(){
 
-        int estimatedPaymentAmount = 0; // 최종 결제 금액
+        int estimatedPaymentAmount = (int) ui.tvSvcPaymt.getTag(); // 최종 결제 금액
         List<OptionVO> optList = new ArrayList<>();
-        optList.add(new OptionVO(getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1).getOptionCode(), 1));
+        optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, contentsVO.getOptionList()).getOptionCode(), 1));
 
         if(ui.cbCarwashOption.isChecked())
-            optList.add(new OptionVO(getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2).getOptionCode(), 1));
+            optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2, contentsVO.getOptionList()).getOptionCode(), 1));
 
         int membershipUsePoint = 0;
         List<MembershipVO> membershipVO = new ArrayList<>();
@@ -444,25 +444,6 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         } catch (Exception e) {
 
         }
-    }
-
-
-    /**
-     * 옵션 VO 조회
-     * @param optTy
-     * @return
-     */
-    private OptionVO getOptionVO(String optTy) {
-
-        if (!TextUtils.isEmpty(optTy)) {
-            for (OptionVO optVo : contentsVO.getOptionList()) {
-                if (optVo.getOptionType().equalsIgnoreCase(optTy)) {
-                    return optVo;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**

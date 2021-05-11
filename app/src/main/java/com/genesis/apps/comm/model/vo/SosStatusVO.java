@@ -32,12 +32,9 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class SosStatusVO extends BaseData {
-    @Expose
-    @SerializedName("trmsAgmtYn")
-    private String trmsAgmtYn;
-    @Expose
-    @SerializedName("termList")
-    private List<TermVO> termList;
+//    @Expose
+//    @SerializedName("trmsAgmtYn")
+//    private String trmsAgmtYn;
     @Expose
     @SerializedName("useYn")
     private String useYn;
