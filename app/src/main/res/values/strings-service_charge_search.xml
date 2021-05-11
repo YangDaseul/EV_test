@@ -38,6 +38,7 @@
     <string name="sm_evss01_35">건물명 또는 주소를\n검색해 주세요.</string>
     <string name="sm_evss01_36">충전소 검색 필터</string>
     <string name="sm_evss01_37">연결에 실패하였습니다.</string>
+    <string name="sm_evss01_38">충전 중입니다.\n(충전 잔여시간 : %s / 100&#36; 충전기준)</string>
 
     <string name="sm_evss02_01">초고속 %d대</string>
     <string name="sm_evss02_02">급속 %d대</string>
