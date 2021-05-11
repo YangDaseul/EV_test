@@ -374,11 +374,14 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             //충전소 예약/내역
             case R.id.l_service_charge_reservation_list:
                 //TODO 2021-04-23 PARK 예약 내역만 추가하였으며 충전소 예약 분기 처리 필요 > 분기 처리 후 해당 페이지를 호출을 다시 정의해 주세요. (김기만 C)
-                ((BaseActivity) getActivity()).startActivitySingleTop(
-                        new Intent(getActivity(), ChargeReserveHistoryActivity.class),
-                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-                );
+//                ((BaseActivity) getActivity()).startActivitySingleTop(
+//                        new Intent(getActivity(), ChargeReserveHistoryActivity.class),
+//                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+//                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+//                );
+                MiddleDialog.dialogEVServiceInfo(getActivity(), (Runnable) () -> {
+
+                });
                 break;
             //여행 경로 추천
             case R.id.l_service_charge_recommend_trip:
