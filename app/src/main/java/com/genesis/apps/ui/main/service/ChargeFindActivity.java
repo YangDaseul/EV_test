@@ -3,11 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -37,10 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
 
 /**
  * Class Name : ChargeSearchActivity
@@ -84,6 +83,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             //현대양재사옥위치
             searchChargeStation(37.463936, 127.042953); // FIXME 고정된 위치값이 여러 곳에 사용중이어서 이 값은 한 곳에서 관리 할 수 있게 처리가 필요.
         }, this::reqMyLocation);
+        getEvStatus();
     }
 
     /****************************************************************************************************
@@ -165,6 +165,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     } finally {
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        updateChargeList(new ArrayList<>());
                     }
                 }
             }
@@ -267,12 +268,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         } catch (Exception e) {
             e.printStackTrace();
         }
-        getEvStatus();
-        reqMyLocation();
     }
 
     private void getEvStatus() {
-        developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
+        if(developersViewModel.checkCarInfoToDevelopers(mainVehicleVO.getVin(), "") == STAT_AGREEMENT) {
+            ui.vgEvStatusConstainer.setVisibility(View.VISIBLE);
+            developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
+        }else {
+            ui.vgEvStatusConstainer.setVisibility(View.GONE);
+        }
     }
 
     private void reqMyLocation() {
@@ -320,8 +324,24 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     }
 
     private void updateChargeList(List<ChargeEptInfoVO> list) {
-        adapter.setRows(list);
-        adapter.notifyDataSetChanged();
+        try {
+            adapter.setRows(list);
+            adapter.notifyDataSetChanged();
+        }catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            setEmptyView();
+        }
+    }
+
+    private void setEmptyView() {
+        if(adapter==null||adapter.getItemCount()<1){
+            ui.rvSearchResult.setVisibility(View.GONE);
+            ui.tvEmpty.setVisibility(View.VISIBLE);
+        }else{
+            ui.rvSearchResult.setVisibility(View.VISIBLE);
+            ui.tvEmpty.setVisibility(View.GONE);
+        }
     }
 
     private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
