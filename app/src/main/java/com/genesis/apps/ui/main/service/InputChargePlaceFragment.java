@@ -92,7 +92,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
 
     @Override
     public void onRefresh() {
-        updateSearchType(currentType);
+//        updateSearchType(currentType);
     }
 
     @Override
@@ -173,6 +173,21 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         }
     }
 
+    public void setGuideErrorMsg(){
+        me.tvGuideLocationError.setVisibility(View.VISIBLE);
+        switch (currentType){
+            case MY_LOCATION:
+                me.tvGuideLocationError.setText(Html.fromHtml(getString(R.string.sm_evss01_07_1), Html.FROM_HTML_MODE_COMPACT));
+                break;
+            case MY_CAR:
+                me.tvGuideLocationError.setText(Html.fromHtml(getString(R.string.sm_evss01_08_1), Html.FROM_HTML_MODE_COMPACT));
+                break;
+            default:
+                me.tvGuideLocationError.setVisibility(View.GONE);
+                break;
+        }
+    }
+
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
@@ -197,7 +212,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 // 내 현재 위치 기준
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_07), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.GONE);
-
+                me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
                 me.ivBtnMap.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
@@ -208,7 +223,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 // 내 차량 위치 기준
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_08), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.GONE);
-
+                me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
                 me.ivBtnMap.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
@@ -219,7 +234,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 // 주소 검색 기준
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_09), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.VISIBLE);
-
+                me.tvGuideLocationError.setVisibility(View.GONE);
                 if (this.address == null || this.address.length == 0) {
                     me.tvFilter.setVisibility(View.GONE);
                     me.ivBtnMap.setVisibility(View.GONE);
