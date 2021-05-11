@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.common.activity;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -147,6 +148,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                             data.add("ediDate", result.data.getEdiDate());
                             data.add("filler", result.data.getFiller());
                             data.add("hashVal", result.data.getHashVal());
+                            Log.d("LJEUN", "postData : " + data.getPostData());
                             fragment.postUrl(result.data.getFormUrl(), data.getPostData().getBytes());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -231,6 +233,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                 data.add("ediDate", pymtFormVO.getEdiDate());
                 data.add("filler", pymtFormVO.getFiller());
                 data.add("hashVal", pymtFormVO.getHashVal());
+                Log.d("LJEUN", "postData : " + data.getPostData());
                 bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, data.getPostData().getBytes());
             } catch (Exception e) {
 
@@ -282,7 +285,8 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         @Override
         public void onCloseWindow(WebView window) {
             Log.d(TAG, "onCloseWindow:" + url);
-            //
+            setResult(Activity.RESULT_OK);
+            finish();
         }
     };
 
