@@ -241,17 +241,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 updateSvcPaymt();
                 break;
             case R.id.btn_card_reg:
-                if (isSingIn()) {
-                    startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
-                } else {
-                    // 회원 가입 처리
-                    MiddleDialog.dialogBlueWalnutSingIn(this, () -> {
-                        // TODO : 웹뷰로 이동
-                        startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
-                    }, () -> {
-
-                    });
-                }
+                // 결제수단관리 페이지로 연결(간편결제 가입/카드등록 분기 처리)
+                startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
             case R.id.btn_card_mgmt:
                 //CardManageActivity
