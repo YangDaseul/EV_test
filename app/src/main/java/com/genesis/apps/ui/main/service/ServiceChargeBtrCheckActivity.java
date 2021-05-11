@@ -297,7 +297,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 , contentsVO.getTxid()
                 , hpNo
                 , userAgentString
-                , new CarVO(mainVehicle.getVin(), carNo, mainVehicle.getMdlCd(), mainVehicle.getMdlNm(), mainVehicle.getXrclCtyNm())
+                , new CarVO(mainVehicle.getVin(), carNo, mainVehicle.getMdlCd(), mainVehicle.getMdlNm())
                 , new ReqInfoVO(rsvtDate, keyTransferType)
                 , lotVOList
                 , new OrderVO(contentsVO.getProductCode(), estimatedPaymentAmount, optList.size(), optList)
