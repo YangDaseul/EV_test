@@ -209,7 +209,7 @@ public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentService
                     ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if (result.data != null) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         BookingVO item = adapter.getItem(currSelectPos);
                         if(result.data.getWorkerCount() > 0)
                             item.setWorkerVO(result.data.getWorkerList().get(0));
