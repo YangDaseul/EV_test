@@ -190,8 +190,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1007.setValue(NetUIResponse.success(TestCode.CHB_1007));
+                RES_CHB_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1007.setValue(NetUIResponse.success(TestCode.CHB_1007));
             }
 
             @Override
@@ -213,8 +213,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1008.setValue(NetUIResponse.success(TestCode.CHB_1008));
+                RES_CHB_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1008.setValue(NetUIResponse.success(TestCode.CHB_1008));
             }
 
             @Override
@@ -236,8 +236,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1009.setValue(NetUIResponse.success(TestCode.CHB_1009));
+                RES_CHB_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1009.setValue(NetUIResponse.success(TestCode.CHB_1009));
             }
 
             @Override
@@ -259,8 +259,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1010.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1010.setValue(NetUIResponse.success(TestCode.CHB_1010));
+                RES_CHB_1010.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1010.setValue(NetUIResponse.success(TestCode.CHB_1010));
             }
 
             @Override
@@ -282,8 +282,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1011.setValue(NetUIResponse.success(TestCode.CHB_1011));
+                RES_CHB_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1011.setValue(NetUIResponse.success(TestCode.CHB_1011));
             }
 
             @Override
@@ -305,8 +305,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1013.setValue(NetUIResponse.success(TestCode.CHB_1013));
+                RES_CHB_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1013.setValue(NetUIResponse.success(TestCode.CHB_1013));
             }
 
             @Override
@@ -457,8 +457,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1021.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1021.setValue(NetUIResponse.success(TestCode.CHB_1021));
+                RES_CHB_1021.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1021.setValue(NetUIResponse.success(TestCode.CHB_1021));
             }
 
             @Override
@@ -480,8 +480,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1022.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1022.setValue(NetUIResponse.success(TestCode.CHB_1022));
+                RES_CHB_1022.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1022.setValue(NetUIResponse.success(TestCode.CHB_1022));
             }
 
             @Override
@@ -503,8 +503,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1023.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1023.setValue(NetUIResponse.success(TestCode.CHB_1023));
+                RES_CHB_1023.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1023.setValue(NetUIResponse.success(TestCode.CHB_1023));
             }
 
             @Override
@@ -526,8 +526,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1024.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1024.setValue(NetUIResponse.success(TestCode.CHB_1024));
+                RES_CHB_1024.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1024.setValue(NetUIResponse.success(TestCode.CHB_1024));
             }
 
             @Override
@@ -549,8 +549,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1025.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1025.setValue(NetUIResponse.success(TestCode.CHB_1025));
+                RES_CHB_1025.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1025.setValue(NetUIResponse.success(TestCode.CHB_1025));
             }
 
             @Override
@@ -572,8 +572,8 @@ public class CHBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CHB_1026.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CHB_1026.setValue(NetUIResponse.success(TestCode.CHB_1026));
+                RES_CHB_1026.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1026.setValue(NetUIResponse.success(TestCode.CHB_1026));
             }
 
             @Override
