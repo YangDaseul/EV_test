@@ -15,6 +15,7 @@ import lombok.Data;
 public @Data
 class BaseResponse extends BaseData {
     public static final String RETURN_CODE_SUCC = "0000";      //정상
+    public static final String RETURN_CODE_EMPTY = "2005";      //조회된 내역 없음
 
     @Expose
     @SerializedName("rtCd")

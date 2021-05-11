@@ -39,6 +39,9 @@ import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+
 /**
  * Class Name : ChargeSearchActivity
  * 충전소 검색 Activity.
@@ -147,15 +150,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 }
                 case SUCCESS: {
                     showProgressDialog(false);
-                    if (result.data != null) {
+                    if (result.data != null&&(RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd())||RETURN_CODE_EMPTY.equalsIgnoreCase(result.data.getRtCd()))) {
                         updateChargeList(result.data.getChgList());
+                        break;
                     }
-                    break;
                 }
                 default: {
                     String serverMsg = "";
                     try {
-                        serverMsg = getString(R.string.snackbar_etc_3);
+                        serverMsg = result.data.getRtMsg();
                         //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -181,9 +181,9 @@ public enum APIInfo {
     GRA_SOS_3013("긴급충전출동 약관동의", "SOS-3013", HttpRequest.METHOD_POST, getEvUri()+"sos/receAgreeEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - E-PIT
-    GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "EPT-1001", HttpRequest.METHOD_POST, getEvUri()+"chgListGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_EPT_1002("service + E-PIT 충전소 상세 조회", "EPT-1002", HttpRequest.METHOD_POST, getEvUri()+"chgDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_EPT_1003("service + E-PIT 충전소 상세 리뷰", "EPT-1003", HttpRequest.METHOD_POST, getEvUri()+"detailRevwGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "EPT-1001", HttpRequest.METHOD_POST, getEvUri()+"ept/chgListGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1002("service + E-PIT 충전소 상세 조회", "EPT-1002", HttpRequest.METHOD_POST, getEvUri()+"ept/chgDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1003("service + E-PIT 충전소 상세 리뷰", "EPT-1003", HttpRequest.METHOD_POST, getEvUri()+"ept/detailRevwGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - 에스트레픽
     GRA_STC_1001("service + S-트래픽 충전소 조회", "STC-1001", HttpRequest.METHOD_POST, getEvUri()+"stc/chgInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
