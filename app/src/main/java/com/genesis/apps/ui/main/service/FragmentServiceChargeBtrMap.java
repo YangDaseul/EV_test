@@ -21,6 +21,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentMapBinding;
@@ -32,6 +33,11 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
+/**
+ * 픽업앤충전 현황/예약_서비스 중 화면(SM_CGRV04_03)
+ * @author ljeun
+ * @since 2021. 5. 10.
+ */
 public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding> {
 
     private final String LOG_TAG = FragmentServiceChargeBtrMap.class.getSimpleName();
@@ -90,11 +96,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
         me.btnMyPosition.setOnClickListener(onSingleClickListener);
         me.btnPosRefresh.setOnClickListener(onSingleClickListener);
 
-        String driverNm = "";
-        if(data != null && data.getWorkerList().size() > 0) {
-            driverNm = data.getWorkerList().get(0).getWorkerName();
-        }
-        updateBottomView(driverNm, data.getStatus());
+        updateBottomView(data.getStatus());
     }
 
     private void initData() {
@@ -117,7 +119,6 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
                 reqMyLocation();
                 break;
             case R.id.btn_pos_refresh:
-                // TODO :  잦은 리플래쉬 방지하기 위한 방안 확인 필요!
                 reqDriverPos();
                 break;
             case R.id.btn_driver_info:
@@ -172,7 +173,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
                     break;
                 case SUCCESS:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         // TODO 업데이트 처리
                         if(result.data.getLatitude() > 0 && result.data.getLongitude() > 0) {
                             me.pmvMapView.initMap(result.data.getLatitude(), result.data.getLongitude(), ((GpsBaseActivity)getActivity()).DEFAULT_ZOOM);
@@ -188,7 +189,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
                         e.printStackTrace();
                     } finally {
                         if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                            serverMsg = getString(R.string.service_charge_btr_err_16);
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
                         ((SubActivity) getActivity()).showProgressDialog(false);
@@ -198,12 +199,17 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
         });
     }
 
-    private void updateBottomView(String driverNm, String stusCd) {
+    private void updateBottomView(String stusCd) {
 
         if (!TextUtils.isEmpty(stusCd)) {
             ChargeBtrStatus status = ChargeBtrStatus.findCode(stusCd);
-            if (status != null)
+            if (status != null){
                 stusMsg = status.getStusMsg();
+                if(status.getStusCd().equalsIgnoreCase(ChargeBtrStatus.STATUS_1500.getStusCd())) {
+                    if(!TextUtils.isEmpty(data.getBookingDt()))
+                        stusMsg = String.format(stusMsg, DateUtil.getDate(DateUtil.getDefaultDateFormat(data.getBookingDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_aa_hh_mm));
+                }
+            }
         }
 
         if (bottomBinding == null) {
@@ -214,11 +220,9 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
             ((GpsBaseActivity) getActivity()).setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_info_bar_2, (viewStub, inflated) -> {
                 bottomBinding = DataBindingUtil.bind(inflated);
                 bottomBinding.btnDriverInfo.setOnClickListener(onSingleClickListener);
-                bottomBinding.setDriverNm(driverNm);
                 bottomBinding.setStusMsg(stusMsg);
             });
         } else {
-            bottomBinding.setDriverNm(driverNm);
             bottomBinding.setStusMsg(stusMsg);
         }
     }

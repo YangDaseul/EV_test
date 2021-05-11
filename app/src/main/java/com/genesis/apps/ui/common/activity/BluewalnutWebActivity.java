@@ -24,19 +24,15 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
-import com.genesis.apps.comm.util.QueryString;
+import com.genesis.apps.comm.util.PostDataString;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityBluewalnutWebBinding;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 
 import dagger.hilt.android.AndroidEntryPoint;
-
-import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_CLIENT_ID;
 
 @AndroidEntryPoint
 public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBinding> {
@@ -91,24 +87,25 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                     showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         try {
-                            QueryString q = new QueryString();
-                            q.add("chnlCd", StringUtil.isValidString(result.data.getChnlCd()));
-                            q.add("svrEncKey", StringUtil.isValidString(result.data.getSvrEncKey()));
-                            q.add("chnlMbrIdfKey", StringUtil.isValidString(result.data.getChnlMbrIdfKey()));
-                            q.add("mbrCi", StringUtil.isValidString(result.data.getMbrCi()));
-                            q.add("mbrNm", StringUtil.isValidString(result.data.getMbrNm()));
-                            q.add("mbPhNo", StringUtil.isValidString(result.data.getMbPhNo()));
-                            q.add("mvmtCtCoCd", StringUtil.isValidString(result.data.getMvmtCtCoCd()));
-                            q.add("rsdtNo", StringUtil.isValidString(result.data.getRsdtNo()));
-                            q.add("closeUrl", StringUtil.isValidString(result.data.getCloseUrl()));
-                            q.add("redirectUrl", StringUtil.isValidString(result.data.getRedirectUrl()));
-                            q.add("userAgent", StringUtil.isValidString(result.data.getUserAgent()));
-                            q.add("dvceCd", StringUtil.isValidString(result.data.getDvceCd()));
-                            q.add("deceUuid", StringUtil.isValidString(result.data.getDeceUuid()));
-                            q.add("ediDate", StringUtil.isValidString(result.data.getEdiDate()));
-                            q.add("filler", StringUtil.isValidString(result.data.getFiller()));
-                            q.add("hashVal", StringUtil.isValidString(result.data.getHashVal()));
-                            fragment.postUrl(result.data.getFormUrl(), q.getQuery().getBytes());
+                            PostDataString data = new PostDataString();
+                            data.add("chnlCd", result.data.getChnlCd());
+                            data.add("svrEncKey", result.data.getSvrEncKey());
+                            data.add("chnlMbrIdfKey", result.data.getChnlMbrIdfKey());
+                            data.add("mbrCi", result.data.getMbrCi());
+                            data.add("mbrNm", result.data.getMbrNm());
+                            data.add("mbPhNo", result.data.getMbPhNo());
+                            data.add("mvmtCtCoCd", result.data.getMvmtCtCoCd());
+                            data.add("rsdtNo", result.data.getRsdtNo());
+                            data.add("closeUrl", result.data.getCloseUrl());
+                            data.add("redirectUrl", result.data.getRedirectUrl());
+                            data.add("userAgent", result.data.getUserAgent());
+                            data.add("dvceCd", result.data.getDvceCd());
+                            data.add("deceUuid", result.data.getDeceUuid());
+                            data.add("ediDate", result.data.getEdiDate());
+                            data.add("filler", result.data.getFiller());
+                            data.add("hashVal", result.data.getHashVal());
+                            Log.d("LJEUN", "postData : " + data.getPostData());
+                            fragment.postUrl(result.data.getFormUrl(), data.getPostData().getBytes());
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
@@ -141,16 +138,16 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                     showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         try {
-                            QueryString q = new QueryString();
-                            q.add("chnlCd", StringUtil.isValidString(result.data.getChnlCd()));
-                            q.add("svrEncKey", StringUtil.isValidString(result.data.getSvrEncKey()));
-                            q.add("chnlMbrIdfKey", StringUtil.isValidString(result.data.getChnlMbrIdfKey()));
-                            q.add("closeUrl", StringUtil.isValidString(result.data.getCloseUrl()));
-                            q.add("redirectUrl", StringUtil.isValidString(result.data.getRedirectUrl()));
-                            q.add("ediDate", StringUtil.isValidString(result.data.getEdiDate()));
-                            q.add("filler", StringUtil.isValidString(result.data.getFiller()));
-                            q.add("hashVal", StringUtil.isValidString(result.data.getHashVal()));
-                            fragment.postUrl(result.data.getFormUrl(), q.getQuery().getBytes());
+                            PostDataString data = new PostDataString();
+                            data.add("chnlCd", result.data.getChnlCd());
+                            data.add("svrEncKey", result.data.getSvrEncKey());
+                            data.add("chnlMbrIdfKey", result.data.getChnlMbrIdfKey());
+                            data.add("closeUrl", result.data.getCloseUrl());
+                            data.add("redirectUrl", result.data.getRedirectUrl());
+                            data.add("ediDate", result.data.getEdiDate());
+                            data.add("filler", result.data.getFiller());
+                            data.add("hashVal", result.data.getHashVal());
+                            fragment.postUrl(result.data.getFormUrl(), data.getPostData().getBytes());
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
@@ -211,30 +208,30 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         } else {
             bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
             try {
-                QueryString q = new QueryString();
-                q.add("chnlCd", StringUtil.isValidString(pymtFormVO.getChnlCd()));
-                q.add("svrEncKey", StringUtil.isValidString(pymtFormVO.getSvrEncKey()));
-                q.add("chnlMbrIdfKey", StringUtil.isValidString(pymtFormVO.getChnlMbrIdfKey()));
-                q.add("bpayCardId", StringUtil.isValidString(pymtFormVO.getBpayCardId()));
-                q.add("srcCoCd", StringUtil.isValidString(pymtFormVO.getSrcCoCd()));
-                q.add("chnlMid", StringUtil.isValidString(pymtFormVO.getChnlMid()));
-                q.add("mOid", StringUtil.isValidString(pymtFormVO.getMOid()));
-                q.add("prdtNm", StringUtil.isValidString(pymtFormVO.getPrdtNm()));
-                q.add("stlmAmt", String.valueOf(pymtFormVO.getStlmAmt()));
-                q.add("vlsp", String.valueOf(pymtFormVO.getVlsp()));
-                q.add("srtx", String.valueOf(pymtFormVO.getSrtx()));
-                q.add("srfe", String.valueOf(pymtFormVO.getSrfe()));
-                q.add("nonMptx", String.valueOf(pymtFormVO.getNonMptx()));
-                q.add("isMth", String.valueOf(pymtFormVO.getIsMth()));
-                q.add("closeUrl", StringUtil.isValidString(pymtFormVO.getCloseUrl()));
-                q.add("redirectUrl", StringUtil.isValidString(pymtFormVO.getRedirectUrl()));
-                q.add("userAgent", StringUtil.isValidString(pymtFormVO.getUserAgent()));
-                q.add("dvceCd", StringUtil.isValidString(pymtFormVO.getDvceCd()));
-                q.add("deceUuid", StringUtil.isValidString(pymtFormVO.getDeceUuid()));
-                q.add("ediDate", StringUtil.isValidString(pymtFormVO.getEdiDate()));
-                q.add("filler", StringUtil.isValidString(pymtFormVO.getFiller()));
-                q.add("hashVal", StringUtil.isValidString(pymtFormVO.getHashVal()));
-                bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, q.getQuery().getBytes());
+                PostDataString data = new PostDataString();
+                data.add("chnlCd", pymtFormVO.getChnlCd());
+                data.add("svrEncKey", pymtFormVO.getSvrEncKey());
+                data.add("chnlMbrIdfKey", pymtFormVO.getChnlMbrIdfKey());
+                data.add("bpayCardId", pymtFormVO.getBpayCardId());
+                data.add("srcCoCd", pymtFormVO.getSrcCoCd());
+                data.add("chnlMid", pymtFormVO.getChnlMid());
+                data.add("mOid", pymtFormVO.getMOid());
+                data.add("prdtNm", pymtFormVO.getPrdtNm());
+                data.add("stlmAmt", String.valueOf(pymtFormVO.getStlmAmt()));
+                data.add("vlsp", String.valueOf(pymtFormVO.getVlsp()));
+                data.add("srtx", String.valueOf(pymtFormVO.getSrtx()));
+                data.add("srfe", String.valueOf(pymtFormVO.getSrfe()));
+                data.add("nonMptx", String.valueOf(pymtFormVO.getNonMptx()));
+                data.add("isMth", String.valueOf(pymtFormVO.getIsMth()));
+                data.add("closeUrl", pymtFormVO.getCloseUrl());
+                data.add("redirectUrl", pymtFormVO.getRedirectUrl());
+                data.add("userAgent", pymtFormVO.getUserAgent());
+                data.add("dvceCd", pymtFormVO.getDvceCd());
+                data.add("deceUuid", pymtFormVO.getDeceUuid());
+                data.add("ediDate", pymtFormVO.getEdiDate());
+                data.add("filler", pymtFormVO.getFiller());
+                data.add("hashVal", pymtFormVO.getHashVal());
+                bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, data.getPostData().getBytes());
             } catch (Exception e) {
 
             }
@@ -398,4 +395,5 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         }
         return false;
     }
+
 }

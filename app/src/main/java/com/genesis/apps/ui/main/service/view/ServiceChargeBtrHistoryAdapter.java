@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.BookingVO;
 import com.genesis.apps.comm.model.vo.carlife.MembershipVO;
 import com.genesis.apps.comm.model.vo.carlife.OptionVO;
@@ -112,14 +113,24 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
             getBinding().setPos(pos);
             getBinding().setListener(onSingleClickListener);
 
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) getBinding().lApplyDate.getLayoutParams();
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) getBinding().lOrderNo.getLayoutParams();
             if(pos == 0)
                 params.topMargin = 0;
             else
                 params.topMargin = (int) DeviceUtil.dip2Pixel(getContext(), 30f);
-            getBinding().lApplyDate.setLayoutParams(params);
+            getBinding().lOrderNo.setLayoutParams(params);
 
-            getBinding().lOptionInfo.setMsg(getStrOptInfo(item.getOptionNameList()));
+            // 예약 번호 표시
+            getBinding().lOrderNo.setText(String.format("예약번호 : %s", StringUtil.isValidString(item.getOrderId())));
+
+            // 예약 상품 표시 (충전 or 충전, 세차)
+            if(item.getOptionNameList() != null) {
+                String serviceNm = getContext().getString(R.string.service_charge_btr_word_05);
+                for(String optNm : item.getOptionNameList()) {
+                    serviceNm += ", " + optNm;
+                }
+                getBinding().lOptionInfo.setMsg(serviceNm);
+            }
             getBinding().btnChargeBtrImage.btnNm.setTag(item.getServiceViewLink());
 
             getBinding().btnDetail.setTag(R.id.item, item.getOrderId());
@@ -134,62 +145,73 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
 
             if(selectedItems.get(pos)){
                 if(item.getWorkerVO() != null) {
+                    // 담당 기사 표시
                     getBinding().lDriverNm.setMsg(String.format(getContext().getString(R.string.service_charge_btr_word_09), item.getWorkerVO().getWorkerName()));
+                    // 고객센터 번호 연결
                     getBinding().btnChargeBtrTel.btnNm.setTag(item.getWorkerVO().getWorkerHpNo());
                 }
 
                 if(item.getOrderVO() != null) {
-                    getBinding().lAdvancePaymt.setMsg(displayWon(item.getOrderVO().getProductPrice()));
-                    if(item.getOrderVO().getOptionList().size() > 0) {
-                        // 선택 옵션인 세차는 숨김 처리(초기화)
-                        getBinding().lCarWashPaymt.lWhole.setVisibility(View.GONE);
+                    // 충전 금액 표시
+                    getBinding().lAdvancePaymt.setMsg(StringUtil.getPriceString(item.getOrderVO().getProductPrice()));
 
-                        for(OptionVO opt : item.getOrderVO().getOptionList()) {
-                            if(opt.getOptionType().equalsIgnoreCase("OT01")) {
-                                getBinding().lDeliveryPaymt.setMsg(displayWon(opt.getOptionPrice()));
-                            } else {
-                                getBinding().lCarWashPaymt.lWhole.setVisibility(View.VISIBLE);
-                                getBinding().lCarWashPaymt.setMsg(displayWon(opt.getOptionPrice()));
+                    // 충전 크레딧 포인트 정보 표시
+                    String useCreditPoint = null;
+                    if(item.getOrderVO().getMembershipList() != null && item.getOrderVO().getMembershipList().size() > 0) {
+                        for(MembershipVO vo : item.getOrderVO().getMembershipList()) {
+                            if(!vo.getMembershipCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF)) {
+                                useCreditPoint = StringUtil.getDiscountString(vo.getMembershipUsePoint());
+                                break;
                             }
                         }
                     }
-                    if(item.getOrderVO().getMembershipList().size() > 0) {
-                        int mbsPit = 0;
-                        for(MembershipVO mbs : item.getOrderVO().getMembershipList()) {
-                            if(mbs.getMembershipCode().equalsIgnoreCase("STRFF"))
-                                mbsPit = mbs.getMembershipUsePoint();
-                        }
-                        getBinding().lCreditPoint.setMsg("-" + displayWon(mbsPit));
+
+                    if(TextUtils.isEmpty(useCreditPoint)) {
+                        getBinding().lCreditPoint.lWhole.setVisibility(View.GONE);
+                        getBinding().txtCreditPoint.setVisibility(View.GONE);
+                    } else {
+                        getBinding().lCreditPoint.lWhole.setVisibility(View.VISIBLE);
+                        getBinding().txtCreditPoint.setVisibility(View.VISIBLE);
+                        getBinding().lCreditPoint.setMsg(useCreditPoint);
                     }
 
-                    getBinding().lPaymtAmt.setMsg(item.getOrderVO().getTotalServiceCost() > 0 ? displayWon(item.getOrderVO().getTotalServiceCost()) : getContext().getString(R.string.service_charge_btr_word_42));
+                    OptionVO deliverVO = null;
+                    OptionVO carwashVO = null;
+                    for (OptionVO optVo : item.getOrderVO().getOptionList()) {
+                        if (optVo.getOptionType().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1)) {
+                            deliverVO = optVo;
+                            continue;
+                        } else {
+                            carwashVO = optVo;
+                            continue;
+                        }
+                    }
+
+                    // 탁송 금액 표시
+                    if (deliverVO != null) {
+                        getBinding().lDeliveryPaymt.setMsg(StringUtil.getPriceString(deliverVO.getOptionPrice()));
+                    }
+
+                    // 세차 금액 표시
+                    if(carwashVO == null) {
+                        // 선택 옵션인 세차는 숨김 처리(초기화)
+                        getBinding().lCarWashPaymt.lWhole.setVisibility(View.GONE);
+                    } else {
+                        getBinding().lCarWashPaymt.lWhole.setVisibility(View.VISIBLE);
+                        getBinding().lCarWashPaymt.setMsg(StringUtil.getPriceString(carwashVO.getOptionPrice()));
+                    }
+
+                    // 결제 금액 표시
+                    getBinding().lPaymtAmt.setMsg(item.getOrderVO().getPaymentAmount() > 0 ? StringUtil.getPriceString(item.getOrderVO().getPaymentAmount()) : getContext().getString(R.string.service_charge_btr_word_42));
                     if(item.getStatus().equalsIgnoreCase(ChargeBtrStatus.STATUS_6000.getStusCd()))
-                        getBinding().lCreditPoint.tvMsg.setPaintFlags(getBinding().lCreditPoint.tvMsg.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+                        getBinding().lPaymtAmt.tvMsg.setPaintFlags(getBinding().lPaymtAmt.tvMsg.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                     else
-                        getBinding().lCreditPoint.tvMsg.setPaintFlags(0);
+                        getBinding().lPaymtAmt.tvMsg.setPaintFlags(0);
 
                 }
             }
         }
 
-        public String getStrOptInfo(List<String> item) {
-            if (item != null && item.size() > 0) {
-                String strOptNm = null;
-                for (String optNm : item) {
-                    if (TextUtils.isEmpty(strOptNm))
-                        strOptNm = optNm;
-                    else
-                        strOptNm += ", " + optNm;
-                }
-
-                return strOptNm;
-            }
-            return null;
-        }
-
-        private String displayWon(int price) {
-            return String.format(getContext().getString(R.string.service_charge_btr_word_40), StringUtil.getDigitGrouping(price));
-        }
     }
 
     private static class ItemServiceChargeBtrHistoryBottom extends BaseViewHolder<BookingVO, ItemServiceChargeBtrHistoryBottomBinding> {

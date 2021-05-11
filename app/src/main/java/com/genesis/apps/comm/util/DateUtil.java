@@ -48,6 +48,7 @@ public class DateUtil {
     public static final String DATE_FORMAT_hh_mm_ss = "hh:mm:ss"; // 12:30:30
     public static final String DATE_FORMAT_hh_mm_ss_aa = "hh:mm:ss aa"; // 12:30:30 am
     public static final String DATE_FORMAT_hh_mm_aa = "hh:mm aa"; // 12:30 am
+    public static final String DATE_FORMAT_aa_hh_mm = "aa hh시 mm분"; // 12:30 am
 
     // date
     public static final String DATE_FORMAT_yyyy_mm_dd_dot = "yyyy.MM.dd"; // 1989, 3 jun

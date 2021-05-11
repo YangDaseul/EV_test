@@ -2,7 +2,6 @@ package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBtrStatusBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -84,26 +84,29 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                 case SUCCESS:
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
-                        // TODO 업데이트 처리
                         me.vpStatus.setAdapter(new ServiceChargeBtrStatusViewpagerAdapter(this, PAGE_NUM, result.data));
-
                         setFragment(result.data.getStatus());
                         break;
                     }
                 default:
+                    ((SubActivity) getActivity()).showProgressDialog(false);
                     String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(getActivity(), serverMsg);
-                        ((SubActivity) getActivity()).showProgressDialog(false);
+                        me.lEmpty.lWhole.setVisibility(View.VISIBLE);
                     }
-                    me.lEmpty.lWhole.setVisibility(View.VISIBLE);
+
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                        return;
+
+                    if (TextUtils.isEmpty(serverMsg)) {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }
+                    SnackBarUtil.show(getActivity(), serverMsg);
+
                     break;
             }
         });
