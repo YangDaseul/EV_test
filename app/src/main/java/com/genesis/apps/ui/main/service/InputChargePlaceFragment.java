@@ -216,7 +216,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvSearchAddr.setVisibility(View.GONE);
                 me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
-                me.ivBtnMap.setVisibility(View.VISIBLE);
+                me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
                 me.line0.setVisibility(View.VISIBLE);
                 break;
@@ -227,7 +227,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvSearchAddr.setVisibility(View.GONE);
                 me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
-                me.ivBtnMap.setVisibility(View.VISIBLE);
+                me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
                 me.line0.setVisibility(View.VISIBLE);
                 break;
@@ -239,14 +239,14 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvGuideLocationError.setVisibility(View.GONE);
                 if (this.address == null || this.address.length == 0) {
                     me.tvFilter.setVisibility(View.GONE);
-                    me.ivBtnMap.setVisibility(View.GONE);
+                    me.ivBtnMap.lWhole.setVisibility(View.GONE);
                     me.rvFilter.setVisibility(View.GONE);
                     me.line0.setVisibility(View.GONE);
                     me.tvSearchAddr.setText(R.string.sm_evss01_14);
                     me.tvSearchAddr.setSelected(false);
                 } else {
                     me.tvFilter.setVisibility(View.VISIBLE);
-                    me.ivBtnMap.setVisibility(View.VISIBLE);
+                    me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                     me.rvFilter.setVisibility(View.VISIBLE);
                     me.line0.setVisibility(View.VISIBLE);
                     StringBuilder stringBuilder = new StringBuilder();

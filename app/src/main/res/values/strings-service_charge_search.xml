@@ -45,6 +45,10 @@
     <string name="sm_evss01_38">(충전 잔여시간 : %s / 100&#36; 충전기준)</string>
     <string name="sm_evss01_39"><![CDATA[<font color="#996449">충전 중</font>입니다.]]></string>
     <string name="sm_evss01_40">가까운 충전소를 이용해 주세요.</string>
+    <string name="sm_evss01_41">현재 위치</string>
+    <string name="sm_evss01_42">차량 위치</string>
+    <string name="sm_evss01_43">위치 검색</string>
+    <string name="sm_evss01_44">지도로 보기</string>
 
     <string name="sm_evss02_01">초고속 %d대</string>
     <string name="sm_evss02_02">급속 %d대</string>
