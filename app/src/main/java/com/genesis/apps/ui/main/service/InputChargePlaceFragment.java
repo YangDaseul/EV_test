@@ -177,9 +177,11 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         me.tvGuideLocationError.setVisibility(View.VISIBLE);
         switch (currentType){
             case MY_LOCATION:
+                me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_07_0), Html.FROM_HTML_MODE_COMPACT));
                 me.tvGuideLocationError.setText(Html.fromHtml(getString(R.string.sm_evss01_07_1), Html.FROM_HTML_MODE_COMPACT));
                 break;
             case MY_CAR:
+                me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_08_0), Html.FROM_HTML_MODE_COMPACT));
                 me.tvGuideLocationError.setText(Html.fromHtml(getString(R.string.sm_evss01_08_1), Html.FROM_HTML_MODE_COMPACT));
                 break;
             default:

@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
+
 /**
  * Class Name : EvChargeStatusFragment
  * 충전소 찾기 > 차량 충전 상태 표시 Fragment
@@ -26,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBinding> {
 
     private DevelopersViewModel developersViewModel;
+    private VehicleVO mainVehicle;
 
     public static EvChargeStatusFragment newInstance() {
         Bundle args = new Bundle();
@@ -34,9 +37,8 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         return fragment;
     }
 
-    private EvStatus.Response evData;
-
     private EvChargeStatusFragment() {
+
     }
 
     /****************************************************************************************************
@@ -58,12 +60,13 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         super.onActivityCreated(savedInstanceState);
         me.setFragment(this);
         me.setLifecycleOwner(getViewLifecycleOwner());
-        developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
+        setObserver();
     }
 
     @Override
     public void onRefresh() {
-
+        getMainVehicle();
+        getEvStatus();
     }
 
     @Override
@@ -73,18 +76,16 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
 
     @Override
     public void onClickCommon(View v) {
-
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_btn_retry:
                 try {
                     VehicleVO mainVehicleVO = developersViewModel.getMainVehicleSimplyFromDB();
                     developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
                 break;
         }
-
     }
 
     /****************************************************************************************************
@@ -129,18 +130,50 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
-    private int getProgressColor(EvStatus.Response data){
+    private void getMainVehicle() {
+        try {
+            mainVehicle = developersViewModel.getMainVehicleSimplyFromDB();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void setObserver() {
+        developersViewModel = new ViewModelProvider(this).get(DevelopersViewModel.class);
+        developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                default:
+                    updateEvChargeStatus(result.data);
+                    break;
+            }
+        });
+    }
+
+
+    private int getProgressColor(EvStatus.Response data) {
         int progressColor = R.color.x_996449;
 
         if (data.isBatteryCharge()) {
             //충전중
             progressColor = R.color.x_2b9d49;
-        } else if(data.getSoc() <= 30) {
+        } else if (data.getSoc() <= 30) {
             //30퍼 이하일 경우
             progressColor = R.color.x_ce2d2d;
         }
 
         return progressColor;
+    }
+
+    private void getEvStatus() {
+        if (mainVehicle!=null&&developersViewModel.checkCarInfoToDevelopers(mainVehicle.getVin(), "") == STAT_AGREEMENT) {
+            me.lWhole.setVisibility(View.VISIBLE);
+            developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicle.getVin())));
+        } else {
+            me.lWhole.setVisibility(View.GONE);
+        }
     }
 
 

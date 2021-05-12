@@ -52,7 +52,6 @@ import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_A
  */
 @AndroidEntryPoint
 public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
-    private EvChargeStatusFragment evChargeStatusFragment;
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
@@ -85,7 +84,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             //현대양재사옥위치
             searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
         }, this::reqMyLocation);
-        getEvStatus();
     }
 
     /****************************************************************************************************
@@ -132,18 +130,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void setObserver() {
-        developersViewModel.getRES_EV_STATUS().observe(ChargeFindActivity.this, result -> {
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                default:
-                    showProgressDialog(false);
-                    updateChargeStatus(result.data);
-                    break;
-            }
-        });
         developersViewModel.getRES_PARKLOCATION().observe(ChargeFindActivity.this, result -> {
             switch (result.status) {
                 case LOADING:
@@ -280,7 +266,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      * Method - Private
      ****************************************************************************************************/
     private void initialize() {
-        evChargeStatusFragment = EvChargeStatusFragment.newInstance();
+        EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
         getSupportFragmentManager().beginTransaction()
@@ -306,14 +292,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         }
     }
 
-    private void getEvStatus() {
-        if(developersViewModel.checkCarInfoToDevelopers(mainVehicleVO.getVin(), "") == STAT_AGREEMENT) {
-            ui.vgEvStatusConstainer.setVisibility(View.VISIBLE);
-            developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
-        }else {
-            ui.vgEvStatusConstainer.setVisibility(View.GONE);
-        }
-    }
 
     private void reqMyLocation() {
         showProgressDialog(true);
@@ -356,11 +334,11 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         ));
     }
 
-    private void updateChargeStatus(EvStatus.Response data) {
-        if (evChargeStatusFragment != null) {
-            evChargeStatusFragment.updateEvChargeStatus(data);
-        }
-    }
+//    private void updateChargeStatus(EvStatus.Response data) {
+//        if (evChargeStatusFragment != null) {
+//            evChargeStatusFragment.updateEvChargeStatus(data);
+//        }
+//    }
 
     private void updateChargeList(List<ChargeEptInfoVO> list) {
         try {
@@ -394,7 +372,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 if (item.getSelectedItem().size() > 0) {
                     ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
                     switch (chargeStation) {
-                        case GENESIS: // 제네시스 전용 충전소
+                        case GENESIS: // 제네시스 충전소
                         case E_PIT: {
                             // 관련 충전소 종류 코드 설정.
                             chgCd = chargeStation.getCode();
