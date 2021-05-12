@@ -154,4 +154,9 @@
     <string name="sm_romte02_p01_1">원격진단 예약 취소</string>
     <string name="sm_romte02_p01_2">원격진단 예약을 취소하시겠습니까?</string>
 
+
+    <!-- 간편결제카드 관리 팝업-->
+    <string name="pay03_p01_1">결제 카드를 삭제 하시겠습니까?\n주 결제 카드가 다른 카드로 변경 됩니다.</string>
+    <string name="pay03_p02_1">결제 카드를 삭제 하시겠습니까?\n\n결제 할 수 있는 카드가 없어 간편결제를 사용하실 수 없습니다.</string>
+
 </resources>

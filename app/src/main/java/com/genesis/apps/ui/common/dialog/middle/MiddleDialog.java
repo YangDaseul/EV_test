@@ -1170,7 +1170,6 @@ public class MiddleDialog {
     }
 
     /**
-     *
      * @param activity
      * @param ok
      * @param cancel
@@ -1193,7 +1192,6 @@ public class MiddleDialog {
     }
 
     /**
-     *
      * @param activity
      * @param ok
      * @param cancel
@@ -1209,6 +1207,49 @@ public class MiddleDialog {
                         cancel,
                         R.string.pop03_1,
                         R.string.service_charge_btr_popup_msg_03,
+                        R.string.dialog_common_7,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 주 카드 삭제 팝업 1_주 카드 이외 카드가 존재 하는 경우
+     */
+    public static void dialogDeletePayCard01(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.pop03_1,
+                        R.string.pay03_p01_1,
+                        R.string.dialog_common_7,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 주 카드 삭제 팝업 2_주 카드 이외 카드가 없는 경우
+     */
+    public static void dialogDeletePayCard02(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.pop03_1,
+                        R.string.pay03_p02_1,
                         R.string.dialog_common_7,
                         R.string.dialog_common_4
                 ).show()

@@ -1,7 +1,9 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -14,10 +16,18 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityCardManageBinding;
+import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.List;
 
@@ -35,9 +45,21 @@ import java.util.List;
  */
 public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
+    private final int MIN_CARD_COUNT = 1;
     private CHBViewModel chbViewModel;
 
     private CardManageListAdapter adapter;
+
+    private String targetDelCardId = null;
+    private CardDeleteReqTy currCardDelReqType;  // 현재 카드 삭제 요청 타입
+
+    boolean isUpdate = false; // 간편결제 카드 관리 변경 사항 있는지 여부
+
+    public enum CardDeleteReqTy {
+        SUB_CARD_DELETE,        // 메인 이외 카드 삭제 요청 하는 경우
+        ONLY_MAIN_CARD_DELETE,  // 메인 카드 삭제 요청 하는 경우
+        MAIN_CARD_DELETE_AND_CHANGE     // 메인 카드를 삭제하고 다른 카드를 메인 카드로 설정 하는 경우
+    }
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -63,7 +85,10 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         switch (v.getId()) {
             // 카드 추가 버튼
             case R.id.tv_add_card: {
-                addCard();
+                if(chbViewModel.isSignInYN())
+                    addCard();
+                else
+                    reqMemberReg();
                 break;
             }
             // 카드 목록 이벤트 - 카드 삭제 버튼
@@ -127,15 +152,24 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                     Log.d("FID", "test :: RES_CHB_1015 :: data=" + result.data);
                     if (result.data != null) {
                         updateCardList(result.data.getCardList());
-                    } else {
-                        // TODO 결제수단 데이터가 없음.
+                        break;
                     }
-                    break;
                 }
-                case ERROR: {
+                default: {
                     showProgressDialog(false);
-                    // TODO 통신 오류 코드 추가.
-                    break;
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                        return;
+
+                    if (TextUtils.isEmpty(serverMsg)) {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }
+                    SnackBarUtil.show(this, serverMsg);
                 }
             }
         });
@@ -152,16 +186,27 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                     showProgressDialog(false);
                     if (result.data != null && CHB_1016.Response.RETURN_CODE_SUCC.equals(result.data.getRtCd())) {
                         // 주카드 등록 성공 - 카드 목록 갱신
-                        getCardList();
-                    } else {
-                        // 주카드 등록 실패 또는 연동 데이터 없음. TODO 예외 처리
+                        if (currCardDelReqType != null && currCardDelReqType == CardDeleteReqTy.MAIN_CARD_DELETE_AND_CHANGE && !TextUtils.isEmpty(targetDelCardId))
+                            chbViewModel.reqCHB1017(new CHB_1017.Request(APPIAInfo.SM_CGRV02_P01.getId(), targetDelCardId));
+                        else
+                            getCardList();
+
+                        break;
                     }
-                    break;
                 }
-                case ERROR: {
+                default: {
                     showProgressDialog(false);
-                    // TODO 통신 오류 코드 추가.
-                    break;
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (TextUtils.isEmpty(serverMsg)) {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }
+                    SnackBarUtil.show(this, serverMsg);
                 }
             }
         });
@@ -177,17 +222,28 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                 case SUCCESS: {
                     showProgressDialog(false);
                     if (result.data != null && CHB_1017.Response.RETURN_CODE_SUCC.equals(result.data.getRtCd())) {
+                        targetDelCardId = null;
                         // 카드 삭제 성공 - 카드 목록 갱신
                         getCardList();
-                    } else {
-                        // 카드 삭제 실패 또는 연동 데이터 없음. TODO 예외 처리
+
+                        break;
                     }
-                    break;
                 }
-                case ERROR: {
+                default: {
+                    targetDelCardId = null;
+
                     showProgressDialog(false);
-                    // TODO 통신 오류 코드 추가.
-                    break;
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (TextUtils.isEmpty(serverMsg)) {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }
+                    SnackBarUtil.show(this, serverMsg);
                 }
             }
         });
@@ -222,6 +278,8 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(CardManageActivity.this, layoutManager.getOrientation());
         dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
         ui.rvCardList.addItemDecoration(dividerItemDecoration);
+
+        isUpdate = false;
     }
 
     /**
@@ -237,6 +295,15 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
      * @param list 목록에 표시할 카드 정보 리스트.
      */
     private void updateCardList(List<PaymtCardVO> list) {
+
+        if(adapter.getItemCount() != list.size()) {
+            // 카드 목록이 업데이트 되는 경우
+            if(!isUpdate) {
+                isUpdate = true;
+                setResult(ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode());
+            }
+        }
+
         if (list.size() > 0) {
             ui.rvCardList.setVisibility(View.VISIBLE);
             ui.tvEmptyList.setVisibility(View.GONE);
@@ -245,6 +312,11 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         } else {
             ui.rvCardList.setVisibility(View.GONE);
             ui.tvEmptyList.setVisibility(View.VISIBLE);
+
+            // 기존에 있던 목록 삭제
+            if (adapter.getItemCount() > 0)
+                adapter.clear();
+
         }
         updateCardCount(adapter.getItemCount());
     }
@@ -258,11 +330,24 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         ui.tvCardTotalCount.setText(String.format("총 %,3d개", count));
     }
 
+
+    /**
+     * 회원 가입 요청 함수
+     */
+    private void reqMemberReg() {
+        // 회원 가입 처리
+        MiddleDialog.dialogBlueWalnutSingIn(this, () -> {
+            startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+        }, () -> {
+
+        });
+    }
+
     /**
      * 카드 추가 함수.
      */
     private void addCard() {
-        // TODO 카드 추가 관련 로직이 필요. 카드 선택 Full WebView 화면 추가.
+        startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_CARD_REG), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
     }
 
     /**
@@ -273,14 +358,39 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
     private void deleteCard(PaymtCardVO vo) {
         Log.d("FID", "test :: deleteCard :: vo=" + vo);
 
+        targetDelCardId = vo.getCardId();
+
         if ("Y".equalsIgnoreCase(vo.getMainCardYN())) {
             // 삭제할 카드가 주 사용 카드로 설정된 경우 - 다음 순서의 카드를 주 카드로 설정하는 코드 추가.
+            List<PaymtCardVO> items = adapter.getItems();
+            if (items.size() > MIN_CARD_COUNT && items.get(MIN_CARD_COUNT) != null) {
+                // 주 결제 카드 이외 카드 있는 경우, 카드가 2개 이상일 경우
+                currCardDelReqType = CardDeleteReqTy.MAIN_CARD_DELETE_AND_CHANGE;
 
+                // 주 결제 카드 삭제 및 변경 안내 팝업 표시
+                MiddleDialog.dialogDeletePayCard01(this, () -> {
+                    setFavoritCard(items.get(MIN_CARD_COUNT));
+                }, () -> {
+
+                });
+            } else {
+                // 주 결제 카드만 존재하는 경우, 카드가 1개인 경우
+                currCardDelReqType = CardDeleteReqTy.ONLY_MAIN_CARD_DELETE;
+
+                // 주 결제 카드 삭제 안내 팝업 표시
+                MiddleDialog.dialogDeletePayCard02(this, () -> {
+                    chbViewModel.reqCHB1017(new CHB_1017.Request(APPIAInfo.SM_CGRV02_P01.getId(), targetDelCardId));
+                }, () -> {
+
+                });
+            }
         } else {
             // 삭제할 카드가 주 사용 카드가 아닌 경우 - 카드 삭제만 진행.
-            // TODO 팝업 표시 필요할 수 있음.
-            chbViewModel.reqCHB1017(new CHB_1017.Request(APPIAInfo.SM_CGRV02_P01.getId(), vo.getCardId()));
+            currCardDelReqType = CardDeleteReqTy.SUB_CARD_DELETE;
+
+            chbViewModel.reqCHB1017(new CHB_1017.Request(APPIAInfo.SM_CGRV02_P01.getId(), targetDelCardId));
         }
+
     }
 
     /**

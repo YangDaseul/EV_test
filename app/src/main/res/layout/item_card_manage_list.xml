@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="92dp"
-        android:background="@color/x_ffffff">
+        android:background="@drawable/bg_ffffff_underline_e5e5e5">
 
         <!--카드 삭제 버튼-->
         <ImageView
@@ -34,7 +34,6 @@
             android:id="@+id/iv_card_thumb"
             android:layout_width="67.6dp"
             android:layout_height="42dp"
-            android:background="#ff00ff"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_btn_delete"
@@ -51,6 +50,8 @@
             android:includeFontPadding="false"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="17dp"
             app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
             app:layout_constraintTop_toTopOf="@id/iv_card_thumb"
             tools:text="현대카드" />
@@ -66,6 +67,8 @@
             android:includeFontPadding="false"
             android:textColor="@color/x_262626"
             android:textSize="14dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="76dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_card_thumb"
             app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
             tools:text="1234 5678 1234 7890" />

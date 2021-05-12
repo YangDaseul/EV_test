@@ -228,5 +228,12 @@
     <string name="gm01_02_4">배출가스 관련\n부품 보증기간</string>
     <string name="gm01_02_5">전기차 별도\n보증 부품</string>
 
-    <string name="digital_wallet01_1">EV 멤버십 비밀번호 변경 </string>
+    <string name="digital_wallet01_1">디지털 월렛</string>
+    <string name="digital_wallet01_2">간편결제카드 관리</string>
+    <string name="digital_wallet01_3">제네시스 멤버십 카드</string>
+
+    <string name="digital_wallet02_1">에스트래픽 충전 카드</string>
+    <string name="digital_wallet02_2">비밀번호 변경</string>
+    <string name="digital_wallet02_3">NFC로 태그하기</string>
+    <string name="digital_wallet02_4">NFC 결제 종료</string>
 </resources>
