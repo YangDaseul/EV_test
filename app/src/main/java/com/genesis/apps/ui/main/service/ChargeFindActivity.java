@@ -3,15 +3,12 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
+import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -37,7 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
 
 /**
  * Class Name : ChargeSearchActivity
@@ -48,7 +52,6 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
-    private EvChargeStatusFragment evChargeStatusFragment;
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
@@ -79,7 +82,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         initialize();
         checkEnableGPS(() -> {
             //현대양재사옥위치
-            searchChargeStation(37.463936, 127.042953); // FIXME 고정된 위치값이 여러 곳에 사용중이어서 이 값은 한 곳에서 관리 할 수 있게 처리가 필요.
+            searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
         }, this::reqMyLocation);
     }
 
@@ -127,18 +130,25 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void setObserver() {
-        developersViewModel.getRES_EV_STATUS().observe(ChargeFindActivity.this, result -> {
+        developersViewModel.getRES_PARKLOCATION().observe(ChargeFindActivity.this, result -> {
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
+                    if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
+                        showProgressDialog(false);
+                        searchChargeStation(result.data.getLat(), result.data.getLon());
+                        reqMyLocation();
+                        break;
+                    }
                 default:
                     showProgressDialog(false);
-                    updateChargeStatus(result.data);
+                    searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                     break;
             }
         });
+
         eptViewModel.getRES_EPT_1001().observe(ChargeFindActivity.this, result -> {
             switch (result.status) {
                 case LOADING: {
@@ -147,21 +157,22 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 }
                 case SUCCESS: {
                     showProgressDialog(false);
-                    if (result.data != null) {
+                    if (result.data != null&&(RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd())||RETURN_CODE_EMPTY.equalsIgnoreCase(result.data.getRtCd()))) {
                         updateChargeList(result.data.getChgList());
+                        break;
                     }
-                    break;
                 }
                 default: {
                     String serverMsg = "";
                     try {
-                        serverMsg = getString(R.string.snackbar_etc_3);
+                        serverMsg = result.data.getRtMsg();
                         //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        updateChargeList(new ArrayList<>());
                     }
                 }
             }
@@ -196,7 +207,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 // 내 위치 기준 충전소 검색.
                 reqMyLocation();
             } else if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_CAR) {
-                // TODO 내 차량 위치 기준 충전소 검색
+                reqParkLocationToDevelopers();
             }
         }
     }
@@ -227,6 +238,21 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodes.REQ_CODE_GPS.getCode()) {
+            if (resultCode == RESULT_OK)
+                reqMyLocation();
+            else {
+                //현대양재사옥위치
+                searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+            }
+        }
+
+
+    }
+
     /****************************************************************************************************
      * Override Method - {@link SearchAddressHMNFragment.AddressSelectListener}
      ****************************************************************************************************/
@@ -240,7 +266,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      * Method - Private
      ****************************************************************************************************/
     private void initialize() {
-        evChargeStatusFragment = EvChargeStatusFragment.newInstance();
+        EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
         getSupportFragmentManager().beginTransaction()
@@ -264,20 +290,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         } catch (Exception e) {
             e.printStackTrace();
         }
-        getEvStatus();
-        reqMyLocation();
     }
 
-    private void getEvStatus() {
-        developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
-    }
 
     private void reqMyLocation() {
         showProgressDialog(true);
         findMyLocation(location -> {
             showProgressDialog(false);
             if (location == null) {
-                exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                 return;
             }
             runOnUiThread(() -> {
@@ -289,15 +310,18 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     private void searchChargeStation(double lat, double lot) {
         lgnViewModel.setMyPosition(lat, lot);
-        String chgSpeed = null;
-        String payType = null;
-        if (chgSpeedList.size() > 0) {
-            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+//        String chgSpeed = null;
+//        String payType = null;
+//        if (chgSpeedList.size() > 0) {
+//            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+//            chgSpeed = chgSpeed.replace("\\","");
+//        }
+//        if (payTypeList.size() > 0) {
+//            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+//        }
+        if(lat==VariableType.DEFAULT_POSITION[0]&&lot==VariableType.DEFAULT_POSITION[1]){
+            inputChargePlaceFragment.setGuideErrorMsg();
         }
-        if (payTypeList.size() > 0) {
-            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-        }
-
         eptViewModel.reqEPT1001(new EPT_1001.Request(
                 APPIAInfo.SM_EVSS01.getId(),
                 mainVehicleVO.getVin(),
@@ -305,20 +329,36 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 String.valueOf(lot),
                 reservYn,
                 chgCd,
-                chgSpeed,
-                payType
+                chgSpeedList,
+                payTypeList
         ));
     }
 
-    private void updateChargeStatus(EvStatus.Response data) {
-        if (evChargeStatusFragment != null) {
-            evChargeStatusFragment.updateEvChargeStatus(data);
+//    private void updateChargeStatus(EvStatus.Response data) {
+//        if (evChargeStatusFragment != null) {
+//            evChargeStatusFragment.updateEvChargeStatus(data);
+//        }
+//    }
+
+    private void updateChargeList(List<ChargeEptInfoVO> list) {
+        try {
+            adapter.setRows(list);
+            adapter.notifyDataSetChanged();
+        }catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            setEmptyView();
         }
     }
 
-    private void updateChargeList(List<ChargeEptInfoVO> list) {
-        adapter.setRows(list);
-        adapter.notifyDataSetChanged();
+    private void setEmptyView() {
+        if(adapter==null||adapter.getItemCount()<1){
+            ui.rvSearchResult.setVisibility(View.GONE);
+            ui.tvEmpty.setVisibility(View.VISIBLE);
+        }else{
+            ui.rvSearchResult.setVisibility(View.VISIBLE);
+            ui.tvEmpty.setVisibility(View.GONE);
+        }
     }
 
     private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
@@ -332,7 +372,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 if (item.getSelectedItem().size() > 0) {
                     ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
                     switch (chargeStation) {
-                        case GENESIS: // 제네시스 전용 충전소
+                        case GENESIS: // 제네시스 충전소
                         case E_PIT: {
                             // 관련 충전소 종류 코드 설정.
                             chgCd = chargeStation.getCode();
@@ -371,4 +411,13 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             }
         }
     }
+
+    private void reqParkLocationToDevelopers() {
+        if (developersViewModel.checkCarInfoToDevelopers(mainVehicleVO.getVin(), "") == STAT_AGREEMENT) {
+            developersViewModel.reqParkLocation(new ParkLocation.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
+        }else{
+            searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+        }
+    }
+
 } // end of class ChargeSearchActivity

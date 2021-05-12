@@ -29,6 +29,7 @@ import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeStationDetailBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +101,14 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
+
+        switch (v.getId()){
+            case R.id.tv_btn_reserve:
+                MiddleDialog.dialogEVServiceInfo(this, (Runnable) () -> {
+
+                });
+                break;
+        }
 
     }
 
@@ -326,7 +335,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         // 조회시간 표시 - TODO 전문에 해당 필드 추가되면 적용
 //        ui.tvDate.setText();
 
-        ChargerListAdapter chargerListAdapter = new ChargerListAdapter();
+        ChargerListAdapter chargerListAdapter = new ChargerListAdapter(onSingleClickListener);
         chargerListAdapter.setRows(data.getChgrList());
         ui.rvChargerList.setAdapter(chargerListAdapter);
 

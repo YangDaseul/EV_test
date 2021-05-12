@@ -5,13 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
+import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.databinding.FragmentEvChargeStatusBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
+import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
 
 /**
  * Class Name : EvChargeStatusFragment
@@ -22,6 +27,9 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
  */
 public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBinding> {
 
+    private DevelopersViewModel developersViewModel;
+    private VehicleVO mainVehicle;
+
     public static EvChargeStatusFragment newInstance() {
         Bundle args = new Bundle();
         EvChargeStatusFragment fragment = new EvChargeStatusFragment();
@@ -29,9 +37,8 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         return fragment;
     }
 
-    private EvStatus.Response evData;
-
     private EvChargeStatusFragment() {
+
     }
 
     /****************************************************************************************************
@@ -51,12 +58,15 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        me.setFragment(this);
         me.setLifecycleOwner(getViewLifecycleOwner());
+        setObserver();
     }
 
     @Override
     public void onRefresh() {
-
+        getMainVehicle();
+        getEvStatus();
     }
 
     @Override
@@ -66,13 +76,23 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
 
     @Override
     public void onClickCommon(View v) {
+        switch (v.getId()) {
+            case R.id.tv_btn_retry:
+                try {
+                    VehicleVO mainVehicleVO = developersViewModel.getMainVehicleSimplyFromDB();
+                    developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
+                } catch (Exception e) {
 
+                }
+                break;
+        }
     }
 
     /****************************************************************************************************
      * Method - Public
      ****************************************************************************************************/
     public void updateEvChargeStatus(EvStatus.Response data) {
+        me.lWhole.setVisibility(View.VISIBLE);
         if (data == null) {
             // 충전 정보 조회 실패.
             me.tvHasBattery.setText("- %");
@@ -81,12 +101,79 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
             me.tvBtnRetry.setVisibility(View.VISIBLE);
             me.dot.setVisibility(View.VISIBLE);
             me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
-            return;
+        } else {
+            //프로그레스바 셋팅
+            me.progress.setBackgroundColor(getContext().getColor(getProgressColor(data)));
+            me.progress.setProgress((int) data.getSoc());
+            //배터리 셋팅
+            me.tvHasBattery.setText(String.format("%.1f%%", data.getSoc()));
+            //거리 셋팅
+            if (data.getDte() != null && data.getDte().getDistance() != null) {
+                me.tvHasDistance.setText(DevelopersViewModel.getDistanceFormatByUnit((int) data.getDte().getDistance().getValue(), (int) data.getDte().getDistance().getUnit()).replace(" ", ""));
+            } else {
+                me.tvHasDistance.setText("- km");
+            }
+
+            //하단 메시지 표시
+            me.tvBtnRetry.setVisibility(View.GONE);
+            if (data.isBatteryCharge()) {
+                me.dot.setVisibility(View.VISIBLE);
+                me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
+                me.tvErrorChargeInfo.setText(String.format(getContext().getString(R.string.sm_evss01_38), developersViewModel.getBatteryChargeTime()));
+            } else {
+                me.dot.setVisibility(View.GONE);
+                me.tvErrorChargeInfo.setVisibility(View.GONE);
+            }
         }
-        me.tvBtnRetry.setVisibility(View.GONE);
-        me.dot.setVisibility(View.GONE);
-        me.tvErrorChargeInfo.setVisibility(View.GONE);
-        me.tvHasBattery.setText(String.format("%.1f%%", data.getSoc()));
+    }
+
+    /****************************************************************************************************
+     * Method - Private
+     ****************************************************************************************************/
+    private void getMainVehicle() {
+        try {
+            mainVehicle = developersViewModel.getMainVehicleSimplyFromDB();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void setObserver() {
+        developersViewModel = new ViewModelProvider(this).get(DevelopersViewModel.class);
+        developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                default:
+                    updateEvChargeStatus(result.data);
+                    break;
+            }
+        });
+    }
+
+
+    private int getProgressColor(EvStatus.Response data) {
+        int progressColor = R.color.x_996449;
+
+        if (data.isBatteryCharge()) {
+            //충전중
+            progressColor = R.color.x_2b9d49;
+        } else if (data.getSoc() <= 30) {
+            //30퍼 이하일 경우
+            progressColor = R.color.x_ce2d2d;
+        }
+
+        return progressColor;
+    }
+
+    private void getEvStatus() {
+        if (mainVehicle!=null&&developersViewModel.checkCarInfoToDevelopers(mainVehicle.getVin(), "") == STAT_AGREEMENT) {
+            me.lWhole.setVisibility(View.VISIBLE);
+            developersViewModel.reqEvStatus(new EvStatus.Request(developersViewModel.getCarId(mainVehicle.getVin())));
+        } else {
+            me.lWhole.setVisibility(View.GONE);
+        }
     }
 
 

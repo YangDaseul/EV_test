@@ -21,12 +21,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:textColor="@color/x_000000"
             android:textSize="20dp"
+            android:lineSpacingExtra="10dp"
+            android:letterSpacing="-0.01"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rg_location"
+            tools:text="원하시는 위치로\n충전소를 검색하세요."/>
+
+        <!--검색 기준 : 위치 에러 메시지-->
+        <TextView
+            android:id="@+id/tv_guide_location_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            android:lineSpacingExtra="6dp"
+            android:letterSpacing="-0.01"
+            android:includeFontPadding="false"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_guide_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="원하시는 위치로\n충전소를 검색하세요."/>
 
         <!--내 위치/차량 위치 선택-->
         <RadioGroup
@@ -91,10 +124,11 @@
             android:textColor="@drawable/selector_txt_a2a2a2_000000"
             android:textSize="15dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_guide_location"
+            app:layout_constraintTop_toBottomOf="@id/tv_guide_location_error"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible" />
 
         <!--충전소 목록 타이틀-->
@@ -116,7 +150,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_guide_location" />
+            app:layout_constraintTop_toBottomOf="@id/tv_search_addr" />
 
         <!--지도 버튼-->
         <ImageView

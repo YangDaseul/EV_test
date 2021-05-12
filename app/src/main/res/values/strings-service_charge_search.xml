@@ -9,7 +9,11 @@
     <string name="sm_evss01_05">100%</string>
     <string name="sm_evss01_06">다시 시도</string>
     <string name="sm_evss01_07"><![CDATA[<font color="#996449">내 현재위치</font>에서<br/>]]>가까운 충전소입니다.</string>
+    <string name="sm_evss01_07_0"><![CDATA[<font color="#996449">기본 위치</font>에서<br/>]]>가까운 충전소입니다.</string>
+    <string name="sm_evss01_07_1"><![CDATA[<font color="#996449">현대자동차 본사</font> 기준<br/>GPS 활성화 시, 내 위치 기준 검색 가능]]></string>
     <string name="sm_evss01_08"><![CDATA[<font color="#996449">내 차 위치</font>에서<br/>]]>가까운 충전소입니다.</string>
+    <string name="sm_evss01_08_0"><![CDATA[<font color="#996449">기본 위치</font>에서<br/>]]>가까운 충전소입니다.</string>
+    <string name="sm_evss01_08_1"><![CDATA[<font color="#996449">현대자동차 본사</font> 기준<br/>제네시스 커넥티드 서비스 가입 후<br/>내 차 위치 기준 검색 가능]]></string>
     <string name="sm_evss01_09"><![CDATA[<font color="#996449">원하시는 위치</font>로<br/>]]>충전소를 검색하세요.</string>
     <string name="sm_evss01_10">충전소 목록</string>
     <string name="sm_evss01_12">상세 경로보기</string>
@@ -18,7 +22,7 @@
     <string name="sm_evss01_15">예약가능 충전소</string>
     <string name="sm_evss01_16">충전소 종류</string>
     <string name="sm_evss01_17">전체</string>
-    <string name="sm_evss01_18">제네시스 전용 충전소</string>
+    <string name="sm_evss01_18">제네시스 충전소</string>
     <string name="sm_evss01_19">E-PIT 충전소</string>
     <string name="sm_evss01_20">Hi Charger</string>
     <string name="sm_evss01_21">충전 속도</string>
@@ -38,6 +42,7 @@
     <string name="sm_evss01_35">건물명 또는 주소를\n검색해 주세요.</string>
     <string name="sm_evss01_36">충전소 검색 필터</string>
     <string name="sm_evss01_37">연결에 실패하였습니다.</string>
+    <string name="sm_evss01_38">충전 중입니다.\n(충전 잔여시간 : %s / 100&#36; 충전기준)</string>
 
     <string name="sm_evss02_01">초고속 %d대</string>
     <string name="sm_evss02_02">급속 %d대</string>

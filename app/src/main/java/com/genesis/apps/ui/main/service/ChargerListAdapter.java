@@ -2,22 +2,22 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.ChargerStatus;
 import com.genesis.apps.comm.model.vo.ChargerEptVO;
 import com.genesis.apps.databinding.ItemChargerBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.Arrays;
+
+import androidx.annotation.NonNull;
 
 /**
  * Class Name : ChargerListAdapter
@@ -26,10 +26,17 @@ import java.util.Arrays;
  * @since 2021-04-29
  */
 public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
+
+    private OnSingleClickListener onSingleClickListener;
+
+    public ChargerListAdapter(OnSingleClickListener onSingleClickListener){
+        this.onSingleClickListener = onSingleClickListener;
+    }
+
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(getView(parent, R.layout.item_charger));
+        return new ItemViewHolder(getView(parent, R.layout.item_charger), onSingleClickListener);
     }
 
     @Override
@@ -38,8 +45,9 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
     }
 
     private static class ItemViewHolder extends BaseViewHolder<ChargerEptVO, ItemChargerBinding> {
-        public ItemViewHolder(View itemView) {
+        public ItemViewHolder(View itemView, OnSingleClickListener onSingleClickListener) {
             super(itemView);
+            getBinding().tvBtnReserve.setOnClickListener(onSingleClickListener);
         }
 
         @Override

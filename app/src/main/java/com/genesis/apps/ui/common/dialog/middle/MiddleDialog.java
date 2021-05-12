@@ -105,6 +105,21 @@ public class MiddleDialog {
         );
     }
 
+    public static void dialogEVServiceInfo(@NonNull Activity activity, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        R.string.sm_evsb01_p04_1,
+                        R.string.sm_evsb01_p04_2,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
 
     public static void dialogUpdate(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String newVersion, String versionType) {
         if (activity.isFinishing()) {

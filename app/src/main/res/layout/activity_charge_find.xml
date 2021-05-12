@@ -35,21 +35,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/x_f8f8f8"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical">
 
                 <!--충전 잔량 및 주행가능 거리-->
                 <FrameLayout
                     android:id="@+id/vg_ev_status_constainer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
 
                 <!--충전소 검색 입력 영역-->
                 <FrameLayout
                     android:id="@+id/vg_input_charge_place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:focusableInTouchMode="true" />
 
                 <!--충전소 검색 결과 목록-->
@@ -62,6 +61,19 @@
                     android:paddingTop="28dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="37dp" />
+
+                <TextView
+                    android:id="@+id/tv_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="532dp"
+                    android:background="@color/x_f8f8f8"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/snackbar_etc_3"
+                    android:textColor="@color/x_262626"
+                    android:textSize="18dp"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

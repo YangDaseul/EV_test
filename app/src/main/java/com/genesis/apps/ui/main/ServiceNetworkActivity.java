@@ -895,8 +895,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private void reqSearchChargeStation(double lat, double lot, List<ChargeSearchCategoryVO> filterList) {
         String reservYn = null;
         String chgCd = null;
-        String chgSpeed = null;
-        String payType = null;
+        List<String> chgSpeed = new ArrayList<>();
+        List<String> payType = new ArrayList<>();
         if (filterList != null && filterList.size() > 0) {
             for (ChargeSearchCategoryVO item : filterList) {
                 if (item.isSelected()) {
@@ -915,8 +915,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         }
                         case R.string.sm_evss01_21: {
                             // 충전 속도 필터.
+//                            if (item.getSelectedItem().size() > 0) {
+//                                chgSpeed = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+//                            }
+
                             if (item.getSelectedItem().size() > 0) {
-                                chgSpeed = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+                                chgSpeed.addAll(item.getSelectedItem().stream().map(it -> it.getCode()).collect(Collectors.toList()));
                             }
 
                             break;
@@ -924,7 +928,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         case R.string.sm_evss01_25: {
                             // 결제 방식 필터.
                             if (item.getSelectedItem().size() > 0) {
-                                payType = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+//                                payType = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+                                payType.addAll(item.getSelectedItem().stream().map(it -> it.getCode()).collect(Collectors.toList()));
                             }
                             break;
                         }

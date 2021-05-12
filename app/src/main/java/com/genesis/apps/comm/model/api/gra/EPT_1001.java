@@ -60,12 +60,12 @@ public class EPT_1001 extends BaseData {
         private String chgCd;
         @Expose
         @SerializedName("chgSpeed")
-        private String chgSpeed;
+        private List<String> chgSpeed;
         @Expose
         @SerializedName("payType")
-        private String payType;
+        private List<String> payType;
 
-        public Request(String menuId, String vin, String lat, String lot, String reservYn, String chgCd, String chgSpeed, String payType) {
+        public Request(String menuId, String vin, String lat, String lot, String reservYn, String chgCd, List<String> chgSpeed, List<String> payType) {
             this.vin = vin;
             this.lat = lat;
             this.lot = lot;

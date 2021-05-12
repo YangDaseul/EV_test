@@ -4,16 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.service.EvChargeStatusFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
         android:orientation="vertical"
         android:paddingTop="30dp"
-        android:paddingBottom="30dp">
+        android:paddingBottom="30dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/vg_charge_info"
@@ -194,6 +199,7 @@
             android:gravity="center"
             android:paddingTop="19dp"
             android:text="@string/sm_evss01_06"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
             android:visibility="gone"

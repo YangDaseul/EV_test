@@ -163,7 +163,7 @@
 
     <!-- SERVICE 탭 충전 -->
     <string name="sm_cg_sm02_1">충전</string>
-    <string name="sm_cg_sm02_2">충전소 검색</string>
+    <string name="sm_cg_sm02_2">충전소 찾기</string>
     <string name="sm_cg_sm02_3">충전소 예약/내역</string>
     <string name="sm_cg_sm02_4">원하는 시간과 장소에서\n충전서비스를 받으세요.</string>
     <string name="sm_cg_sm02_5">여행 경로 추천</string>
