@@ -15,8 +15,6 @@
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
         android:orientation="vertical"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -27,7 +25,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@color/x_f8f8f8"
-            android:paddingBottom="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -35,130 +34,113 @@
             <!--배터리 아이콘-->
             <ImageView
                 android:id="@+id/iv_ic_battery"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="39dp"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="12dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_battery"
-                app:layout_constraintBottom_toBottomOf="@id/line0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/line0" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <!--배터리 문구-->
+            <TextView
+                android:id="@+id/tv_title_battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
+                android:text="@string/sm_evss01_02"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_ic_battery"
+                app:layout_constraintStart_toEndOf="@+id/iv_ic_battery"
+                app:layout_constraintTop_toTopOf="@+id/iv_ic_battery"
+                tools:visibility="visible"/>
+
 
             <!--배터리 잔량 퍼센트-->
             <TextView
                 android:id="@+id/tv_has_battery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/medium_genesissanstextglobal"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
                 android:textColor="@color/x_996449"
-                android:textSize="22dp"
-                app:layout_constraintStart_toEndOf="@id/iv_ic_battery"
-                app:layout_constraintTop_toTopOf="@id/iv_ic_battery"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_ic_battery"
+                app:layout_constraintStart_toEndOf="@id/tv_title_battery"
+                app:layout_constraintTop_toTopOf="@+id/iv_ic_battery"
+                app:layout_goneMarginStart="5dp"
                 tools:text="100%" />
 
-            <!--배터리 문구-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="@string/sm_evss01_02"
-                android:textColor="@color/x_000000"
-                android:textSize="12dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_ic_battery"
-                app:layout_constraintStart_toStartOf="@id/tv_has_battery" />
 
             <!--중앙 라인-->
             <View
                 android:id="@+id/line0"
                 android:layout_width="1dp"
-                android:layout_height="36.2dp"
-                android:layout_marginTop="33.7dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="17.5dp"
                 android:background="@color/x_dbdbdb"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/tv_has_battery"
+                app:layout_constraintBottom_toBottomOf="@id/iv_ic_battery"
+                app:layout_constraintTop_toTopOf="@+id/iv_ic_battery"
+                tools:visibility="visible"/>
 
             <!--주행거리 아이콘-->
             <ImageView
                 android:id="@+id/iv_ic_distance"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="18.5dp"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="13.5dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_mileage"
-                app:layout_constraintBottom_toBottomOf="@id/line0"
-                app:layout_constraintStart_toEndOf="@id/line0"
-                app:layout_constraintTop_toTopOf="@id/line0" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/line0"
+                tools:visibility="visible"/>
+
+            <!--주행가능거리 문구-->
+            <TextView
+                android:id="@+id/tv_title_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:layout_marginStart="5dp"
+                android:includeFontPadding="false"
+                android:text="@string/sm_evss01_03"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_ic_distance"
+                app:layout_constraintTop_toTopOf="@id/iv_ic_distance"
+                app:layout_constraintStart_toEndOf="@+id/iv_ic_distance"
+                tools:visibility="visible"/>
 
             <!--주행가능거리-->
             <TextView
                 android:id="@+id/tv_has_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/medium_genesissanstextglobal"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
                 android:textColor="@color/x_996449"
-                android:textSize="22dp"
-                app:layout_constraintStart_toEndOf="@id/iv_ic_distance"
+                android:textSize="14dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/tv_title_distance"
                 app:layout_constraintTop_toTopOf="@id/iv_ic_distance"
-                tools:text="197km" />
-
-            <!--주행가능거리 문구-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="@string/sm_evss01_03"
-                android:textColor="@color/x_000000"
-                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_ic_distance"
-                app:layout_constraintStart_toStartOf="@id/tv_has_distance" />
-
-            <!--배터리 잔량 프로그래스바-->
-            <ProgressBar
-                android:id="@+id/progress"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="8dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="21.5dp"
-                android:layout_marginEnd="20dp"
-                android:max="100"
-                android:progress="30"
-                android:progressDrawable="@drawable/progress_b8bdbb_996449"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line0" />
-
-            <!--0 퍼센트 문구-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:includeFontPadding="false"
-                android:text="@string/sm_evss01_04"
-                android:textColor="@color/x_757575"
-                android:textSize="12dp"
-                app:layout_constraintStart_toStartOf="@id/progress"
-                app:layout_constraintTop_toBottomOf="@id/progress" />
-
-            <!--100 퍼센트 문구-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:includeFontPadding="false"
-                android:text="@string/sm_evss01_05"
-                android:textColor="@color/x_757575"
-                android:textSize="12dp"
-                app:layout_constraintEnd_toEndOf="@id/progress"
-                app:layout_constraintTop_toBottomOf="@id/progress" />
-
+                tools:text="197km"
+                tools:visibility="visible"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
@@ -178,12 +160,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:text="@string/sm_evss01_37"
             android:textColor="@color/x_666666"
             android:textSize="14dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/tv_btn_retry"
+            android:letterSpacing="-0.01"
+            app:layout_constraintTop_toBottomOf="@+id/vg_charge_info"
             app:layout_constraintStart_toEndOf="@id/dot"
             tools:visibility="visible" />
 
@@ -192,12 +176,14 @@
             android:id="@+id/tv_btn_retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"
+            android:letterSpacing="-0.01"
             android:background="@drawable/bg_trans_underline_000000_1dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
-            android:paddingTop="19dp"
             android:text="@string/sm_evss01_06"
             android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
             android:textColor="@color/x_000000"
