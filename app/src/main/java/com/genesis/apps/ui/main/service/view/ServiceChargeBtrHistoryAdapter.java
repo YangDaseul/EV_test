@@ -178,7 +178,7 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
                     OptionVO deliverVO = null;
                     OptionVO carwashVO = null;
                     for (OptionVO optVo : item.getOrderVO().getOptionList()) {
-                        if (optVo.getOptionType().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1)) {
+                        if (optVo.getOptionCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1)) {
                             deliverVO = optVo;
                             continue;
                         } else {

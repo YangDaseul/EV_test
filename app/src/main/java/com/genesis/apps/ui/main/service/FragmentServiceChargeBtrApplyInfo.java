@@ -100,7 +100,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
         // 예약 상품 표시 (충전 or 충전, 세차)
         String serviceNm = getString(R.string.service_charge_btr_word_05);
 
-        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2, resData.getOrderInfo().getOptionList());
+        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, resData.getOrderInfo().getOptionList());
         if (carwashVO != null)
             serviceNm += ", " + getString(R.string.service_charge_btr_word_06);
 
@@ -129,7 +129,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
         }
 
         // 탁송금액 표시
-        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, resData.getOrderInfo().getOptionList()).getOptionPrice();
+        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, resData.getOrderInfo().getOptionList()).getOptionPrice();
         me.lDeliveryPaymt.setMsg(StringUtil.getPriceString(deliverPrice));
         // 세차금액 표시
         if (carwashVO != null) {

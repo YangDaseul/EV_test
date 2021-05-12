@@ -11,6 +11,7 @@ import com.genesis.apps.comm.model.vo.carlife.OrderVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqInfoVO;
+import com.genesis.apps.comm.model.vo.carlife.ReqOrderVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -56,7 +57,7 @@ public class CHB_1010 extends BaseData {
         private List<LotVO> serviceLocationList;
         @Expose
         @SerializedName("orderInfo")
-        private OrderVO orderInfo;
+        private ReqOrderVO orderInfo;
         @Expose
         @SerializedName("membershipList")
         private List<MembershipVO> membershipList;
@@ -64,7 +65,7 @@ public class CHB_1010 extends BaseData {
         @SerializedName("paymentInfo")
         private PaymtCardVO paymentInfo;
 
-        public Request(String menuId, String txid, String hpNo, String userAgent, CarVO carInfo, ReqInfoVO requestInfo, List<LotVO> serviceLocationList, OrderVO orderInfo, List<MembershipVO> membershipList, PaymtCardVO paymentInfo) {
+        public Request(String menuId, String txid, String hpNo, String userAgent, CarVO carInfo, ReqInfoVO requestInfo, List<LotVO> serviceLocationList, ReqOrderVO orderInfo, List<MembershipVO> membershipList, PaymtCardVO paymentInfo) {
             this.txid = txid;
             this.hpNo = hpNo;
             this.userAgent = userAgent;

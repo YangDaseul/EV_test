@@ -17,7 +17,6 @@ import lombok.EqualsAndHashCode;
  * @see #carNo      차량번호(vrn)
  * @see #carCode    차종코드
  * @see #carName    차종명(선택)
- * @see #carColor   차량색상(선택)
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -35,7 +34,4 @@ class CarVO extends BaseData {
     @Expose
     @SerializedName("carName")
     private String carName;
-    @Expose
-    @SerializedName("carColor")
-    private String carColor;
 }

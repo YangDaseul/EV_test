@@ -55,6 +55,9 @@ public class CHB_1009 extends BaseData {
      * @brief CHB_1009 응답 항목
      * @see #txid           트랜잭션ID(주문ID)
      * @see #expireDtm      만료시간    YYYYMMDDHH24MISS
+     * @see #stMbrYn        에스트래픽 회원 여부
+     * Y:가입회원 N:미회원
+     *
      * @see #productCode    상품 코드
      * @see #productName    상품명
      * @see #productPrice   상품금액
@@ -75,6 +78,9 @@ public class CHB_1009 extends BaseData {
         @Expose
         @SerializedName("expireDtm")
         private String expireDtm;
+        @Expose
+        @SerializedName("stMbrYn")
+        private String stMbrYn;
         @Expose
         @SerializedName("productCode")
         private String productCode;
