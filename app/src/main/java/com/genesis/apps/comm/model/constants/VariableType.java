@@ -461,8 +461,8 @@ public class VariableType {
         }
     }
 
-    public static final String SERVICE_CHARGE_BTR_OPT_TYPE_1 = "OT01";  // 옵션 타입, 기본형(탁송)
-    public static final String SERVICE_CHARGE_BTR_OPT_TYPE_2 = "OT02";  // 옵션 타입, 추가형(세차)
+    public static final String SERVICE_CHARGE_BTR_OPT_CD_1 = "OI20210330000002";  // 옵션 타입, 기본형(탁송)
+    public static final String SERVICE_CHARGE_BTR_OPT_CD_2 = "OI20210330000001";  // 옵션 타입, 추가형(세차)
 
     public static final String SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF = "STRFF";  // 멤버십 구분 코드, 에스트래픽
 

@@ -28,6 +28,7 @@ import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.model.vo.carlife.OrderVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqInfoVO;
+import com.genesis.apps.comm.model.vo.carlife.ReqOrderVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -110,11 +111,11 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         // 충전 크레딧 포인트 정보 표시
         setLayoutCreditPoint();
         // 탁송금액 표시
-        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, contentsVO.getOptionList()).getOptionPrice();
+        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, contentsVO.getOptionList()).getOptionPrice();
         ui.tvDeliveryPaymt.setText(StringUtil.getPriceString(deliverPrice));
         ui.tvDeliveryPaymt.setTag(deliverPrice);
         // 세차금액 표시
-        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2, contentsVO.getOptionList());
+        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList());
         if(carwashVO != null) {
             ui.lCarwashPaymtInfo.setVisibility(View.VISIBLE);
             ui.lCarwashPrice.lWhole.setVisibility(View.VISIBLE);
@@ -261,25 +262,29 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
 
     private void reqChargeBtrApply(){
 
+        hpNo = hpNo.replaceAll("-", "");
+
         int estimatedPaymentAmount = (int) ui.tvSvcPaymt.getTag(); // 최종 결제 금액
         List<OptionVO> optList = new ArrayList<>();
-        optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_1, contentsVO.getOptionList()).getOptionCode(), 1));
+        optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, contentsVO.getOptionList()).getOptionCode(), 1));
 
         if(ui.cbCarwashOption.isChecked())
-            optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2, contentsVO.getOptionList()).getOptionCode(), 1));
+            optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList()).getOptionCode(), 1));
 
         int membershipUsePoint = 0;
-        List<MembershipVO> membershipVO = new ArrayList<>();
-        if(contentsVO.getStrafficInfo() != null)
+        List<MembershipVO> membershipVO = null;
+        if(contentsVO.getStrafficInfo() != null) {
+            membershipVO = new ArrayList<>();
             membershipVO.add(new MembershipVO(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF, contentsVO.getStrafficInfo().getCardNo(), membershipUsePoint));
+        }
 
         List<LotVO> lotVOList = new ArrayList<LotVO>();
         lotVOList.add(lotVO);
 
-//        if(selectedCardVo == null){
-//            SnackBarUtil.show(this, getString(R.string.service_charge_btr_err_15));
-//            return;
-//        }
+        if(selectedCardVo == null){
+            SnackBarUtil.show(this, getString(R.string.service_charge_btr_err_15));
+            return;
+        }
 
         if(TextUtils.isEmpty(userAgentString))
             userAgentString = new WebView(this).getSettings().getUserAgentString();
@@ -291,7 +296,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 , new CarVO(mainVehicle.getVin(), carNo, mainVehicle.getMdlCd(), mainVehicle.getMdlNm())
                 , new ReqInfoVO(rsvtDate, keyTransferType)
                 , lotVOList
-                , new OrderVO(contentsVO.getProductCode(), estimatedPaymentAmount, optList.size(), optList)
+                , new ReqOrderVO(contentsVO.getProductCode(), estimatedPaymentAmount, optList.size(), optList)
                 , membershipVO
                 , selectedCardVo != null ? new PaymtCardVO(selectedCardVo.getCardId(), selectedCardVo.getCardNo(), selectedCardVo.getCardCoCode()) : null));
     }
@@ -583,7 +588,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             intent.putExtra(KeyNames.KEY_NAME_CHB_ADDRESS, lotVO.getAddress());
 
             if (ui.cbCarwashOption.isChecked())
-                intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_TYPE_2);
+                intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_CD_2);
 
             startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
         }
