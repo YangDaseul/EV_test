@@ -31,7 +31,7 @@
         android:usesCleartextTraffic="true"
         android:largeHeap="true"
         android:windowSoftInputMode="stateHidden"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup,android:name">
 
         <activity
             android:name=".ui.intro.IntroActivity"
