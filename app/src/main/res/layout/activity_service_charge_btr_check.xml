@@ -358,8 +358,10 @@
                         android:id="@+id/l_carwash_paymt_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_paymt_tit">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_paymt_tit"
+                        tools:visibility="visible">
 
                         <ImageView
                             android:id="@+id/iv_line_4"
@@ -451,6 +453,31 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_mark_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/mark_666666"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_info_3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_info_3" />
+
+                    <TextView
+                        android:id="@+id/tv_info_3"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/service_charge_btr_msg_05"
+                        android:textColor="@color/x_666666"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_mark_3"
+                        app:layout_constraintTop_toBottomOf="@+id/l_carwash_paymt_info" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -551,6 +578,7 @@
                     android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_line_5">
@@ -603,7 +631,7 @@
                     android:paddingTop="20dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="30dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_paymt_amt">
