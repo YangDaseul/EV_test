@@ -272,9 +272,9 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList()).getOptionCode(), 1));
 
         int membershipUsePoint = 0;
-        List<MembershipVO> membershipVO = null;
+        List<MembershipVO> membershipVO = new ArrayList<>();
         if(contentsVO.getStrafficInfo() != null) {
-            membershipVO = new ArrayList<>();
+//            membershipVO = new ArrayList<>();
             membershipVO.add(new MembershipVO(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF, contentsVO.getStrafficInfo().getCardNo(), membershipUsePoint));
         }
 
