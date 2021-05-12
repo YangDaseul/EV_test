@@ -13,6 +13,8 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:paddingTop="30dp"
         android:background="@color/x_ffffff"
         android:orientation="vertical"
         android:visibility="gone"

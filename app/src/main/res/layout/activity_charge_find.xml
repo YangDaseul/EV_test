@@ -40,11 +40,8 @@
                 <!--충전 잔량 및 주행가능 거리-->
                 <FrameLayout
                     android:id="@+id/vg_ev_status_constainer"
-                    android:background="@color/x_ffffff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp"
                     android:layout_marginBottom="10dp"/>
 
                 <!--충전소 검색 입력 영역-->
