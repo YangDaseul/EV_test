@@ -53,7 +53,7 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
     private String targetDelCardId = null;
     private CardDeleteReqTy currCardDelReqType;  // 현재 카드 삭제 요청 타입
 
-    boolean isUpdate = false; // 간편결제 카드 관리 변경 사항 있는지 여부
+    boolean init = true;
 
     public enum CardDeleteReqTy {
         SUB_CARD_DELETE,        // 메인 이외 카드 삭제 요청 하는 경우
@@ -279,7 +279,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
         ui.rvCardList.addItemDecoration(dividerItemDecoration);
 
-        isUpdate = false;
     }
 
     /**
@@ -296,12 +295,9 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
      */
     private void updateCardList(List<PaymtCardVO> list) {
 
-        if(adapter.getItemCount() != list.size()) {
+        if (!init && adapter.getItemCount() != list.size()) {
             // 카드 목록이 업데이트 되는 경우
-            if(!isUpdate) {
-                isUpdate = true;
-                setResult(ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode());
-            }
+            setResult(ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode());
         }
 
         if (list.size() > 0) {
@@ -319,6 +315,8 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
         }
         updateCardCount(adapter.getItemCount());
+
+        if(init) init = false;
     }
 
     /**
