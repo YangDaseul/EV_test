@@ -26,7 +26,6 @@ import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -321,8 +320,6 @@ public class CHBRepo {
     public MutableLiveData<NetUIResponse<CHB_1015.Response>> REQ_CHB_1015(final CHB_1015.Request reqData) {
         RES_CHB_1015.setValue(NetUIResponse.loading(null));
 
-//        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"\",\"signInYN\":\"Y\",\"cardCount\":4,\"cardList\":[{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid01\",\"cardCoCode\":\"C002\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"KB카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid02\",\"cardCoCode\":\"C003\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"하나카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid03\",\"cardCoCode\":\"C004\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"삼성카드\",\"mainCardYN\":\"Y\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"}]}";
-//        RES_CHB_1015.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, CHB_1015.Response.class)));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -332,6 +329,7 @@ public class CHBRepo {
             @Override
             public void onFail(NetResult e) {
                 RES_CHB_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1015.setValue(NetUIResponse.success(TestCode.CHB_1015));
             }
 
             @Override
@@ -347,10 +345,6 @@ public class CHBRepo {
     public MutableLiveData<NetUIResponse<CHB_1016.Response>> REQ_CHB_1016(final CHB_1016.Request reqData) {
         RES_CHB_1016.setValue(NetUIResponse.loading(null));
 
-//        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"test message\"}";
-//        RES_CHB_1016.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, CHB_1016.Response.class)));
-
-
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -360,6 +354,7 @@ public class CHBRepo {
             @Override
             public void onFail(NetResult e) {
                 RES_CHB_1016.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1016.setValue(NetUIResponse.success(TestCode.CHB_1016));
             }
 
             @Override
@@ -375,10 +370,6 @@ public class CHBRepo {
     public MutableLiveData<NetUIResponse<CHB_1017.Response>> REQ_CHB_1017(final CHB_1017.Request reqData) {
         RES_CHB_1017.setValue(NetUIResponse.loading(null));
 
-//        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"test message\"}";
-//        RES_CHB_1016.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, CHB_1016.Response.class)));
-
-
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -388,6 +379,7 @@ public class CHBRepo {
             @Override
             public void onFail(NetResult e) {
                 RES_CHB_1017.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1017.setValue(NetUIResponse.success(TestCode.CHB_1017));
             }
 
             @Override

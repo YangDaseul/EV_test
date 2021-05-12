@@ -31,6 +31,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.api.gra.EVL_1001;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.EVLRepo;
@@ -38,6 +39,7 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -247,19 +249,29 @@ class CHBViewModel extends ViewModel {
 
     /**
      * 옵션 VO 조회
-     * @param optTy
+     * @param optCd
      * @return
      */
-    public OptionVO getOptionVO(String optTy, List<OptionVO> optionList) {
+    public OptionVO getOptionVO(String optCd, List<OptionVO> optionList) {
 
-        if (!TextUtils.isEmpty(optTy)) {
+        if (!TextUtils.isEmpty(optCd)) {
             for (OptionVO optVo : optionList) {
-                if (optVo.getOptionType().equalsIgnoreCase(optTy)) {
+                if (optVo.getOptionCode().equalsIgnoreCase(optCd)) {
                     return optVo;
                 }
             }
         }
 
         return null;
+    }
+
+    public boolean isValidCHB1015(){
+        return RES_CHB_1015!=null&&RES_CHB_1015.getValue()!=null&&RES_CHB_1015.getValue().data!=null;
+    }
+
+    public boolean isSignInYN() {
+//        return true;
+        return isValidCHB1015() &&
+                StringUtil.isValidString(RES_CHB_1015.getValue().data.getSignInYN()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
     }
 }

@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -40,7 +41,8 @@ public class CHB_1008 extends BaseData {
     /**
      * @brief CHB_1008 응답 항목
      * @see #dailyBookingSlotList 일자별 리스트
-     *
+     * @see #optionList 옵션 리스트
+     * 세차 서비스 표시하는데 이용
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -48,5 +50,8 @@ public class CHB_1008 extends BaseData {
         @Expose
         @SerializedName("dailyBookingSlotList")
         private List<BookingDateVO> dailyBookingSlotList;
+        @Expose
+        @SerializedName("optionList")
+        private List<OptionVO> optionList;
     }
 }

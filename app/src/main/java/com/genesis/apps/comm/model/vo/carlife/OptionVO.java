@@ -14,10 +14,9 @@ import lombok.EqualsAndHashCode;
  * @since 2021. 4. 5.
  *
  * @see #optionCode 옵션 상품 코드
+ * OI20210330000001 세차 서비스
+ * OI20210330000002 픽업(=탁송)
  * @see #optionType 옵션 타입
- * OT01: 기본형(= 탁속)
- * 0T02: 추가형(= 세차 서비스)
- *
  * @see #optionName 옵션 상품명
  * @see #optionPrice   옵션 상품 금액
  *
