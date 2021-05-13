@@ -2,17 +2,38 @@ package com.genesis.apps.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.DTW_1001;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.DTWViewModel;
 import com.genesis.apps.databinding.ActivityDigitalWalletBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.service.CardManageActivity;
 import com.straffic.cardemullib.CardService;
 
 public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBinding> {
+
+    private DigitalWalletViewpagerAdapter viewpagerAdapter;
+    private final int PAGE_NUM = 2;//카드 정보 화면, NFC 태그 화면
+
+    private DTWViewModel dtwViewModel;
+
+    private VehicleVO mainVehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +43,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         setViewModel();
         setObserver();
         initView();
+        initData();
     }
 
     @Override
@@ -39,49 +61,31 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     }
 
     private void initView() {
-        ui.lTitle.setTextBtnListener(onSingleClickListener); //완료
-        ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener); //설정
-        initTitleBar();
-
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.vg_container, FragmentCardFront.newInstance());
-        ft.commit();
+        viewpagerAdapter = new DigitalWalletViewpagerAdapter(this, PAGE_NUM);
+        ui.vpContents.setAdapter(viewpagerAdapter);
+        ui.vpContents.setUserInputEnabled(false);
+        ui.vpContents.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        ui.vpContents.setCurrentItem(0);
+        ui.vpContents.setOffscreenPageLimit(PAGE_NUM);
     }
 
-    private void initTitleBar() {
-        ui.lTitle.setValue(""); //타이틀 없음
-        ui.lTitle.setBtnText(""); //완료버튼제거
-        ui.lTitle.setIconId(getDrawable(R.drawable.ic_setting_b)); //설정버튼
-        ui.lTitle.lTitleBar.setBackgroundColor(getColor(R.color.x_f8f8f8));
-        SubActivity.setStatusBarColor(this, R.color.x_f8f8f8);
+    private void initData() {
+        try {
+            mainVehicle = dtwViewModel.getMainVehicleFromDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (mainVehicle != null) {
+                String userAgentString = new WebView(this).getSettings().getUserAgentString();
+                dtwViewModel.reqDTW1001(new DTW_1001.Request(APPIAInfo.PAY01.getId(), mainVehicle.getVin(), userAgentString));
+            } else {
+                exitPage("주 이용 차량 정보가 없습니다.\n차량을 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
+        }
     }
 
     @Override
     public void onClickCommon(View v) {
-
-        switch (v.getId()) {
-            case R.id.tv_titlebar_text_btn:
-                try {
-                    showProgressDialog(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    showProgressDialog(false);
-                }
-                break;
-            case R.id.btn_card_mgmt:
-                // NFC로 충전기에 카드 번호 전송 TODO 실제 조회된 카드 번호로 변경 필요
-                sendCardInfo("0000000000000000");
-                break;
-
-            case R.id.btn_card_open:
-                verticalOpen();
-                break;
-            case R.id.btn_card_close:
-                verticalClose();
-                break;
-        }
 
     }
 
@@ -89,30 +93,78 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         ui.setActivity(this);
+
+        dtwViewModel = new ViewModelProvider(this).get(DTWViewModel.class);
     }
 
     @Override
     public void setObserver() {
+        dtwViewModel.getRES_DTW_1001().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getBlueCardInfo() != null) {
 
+                        // 에스트래픽 회원인 경우
+                        if (dtwViewModel.isStcMbrYn()) {
+                            // 비밀번호 설정이 안되어 있는 경우
+                            if (!dtwViewModel.isStcPwdYn()) {
+                                MiddleDialog.dialogServiceRemoteOneButton(this, R.string.pay01_p02_1, R.string.pay01_p02_2, () -> {
+                                    // 비밀번호 설정 화면으로 이동
+                                });
+                                return;
+                            }
+                            // 보유 크레딧 부족한 경우
+                            if (!dtwViewModel.isStcCardUseYn()) {
+                                // 결제 카드 등록 여부 확인
+                                if (result.data.getPayInfo() != null &&
+                                        (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
+
+                                    // 신용카드 등록 후 서비스 이용 가능 안내 팝업 표시
+                                    MiddleDialog.dialogServiceRemoteTwoButton(
+                                            this,
+                                            R.string.pay01_p03_1,
+                                            R.string.pay01_p03_2,
+                                            () -> {
+                                                // 간편결제카드 관리 페이지로 이동
+                                                startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                                            }, () -> exitPage("", 0));
+                                    return;
+                                }
+                            }
+
+                        }
+
+                        // 미수금 있는 경우
+                        if (dtwViewModel.isUnpayYn()) {
+                            MiddleDialog.dialogServiceRemoteOneButton(this, R.string.pay01_p04_1, R.string.pay01_p04_2, () -> {
+                                // 미수금 결제 화면으로 이동
+                            });
+                            return;
+                        }
+
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
+                    break;
+            }
+        });
     }
 
     @Override
     public void getDataFromIntent() {
-    }
-
-    private void verticalOpen() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.anim_bottom_in,
-                R.anim.anim_bottom_out,
-                R.anim.anim_top_in,
-                R.anim.anim_top_out);
-        ft.replace(R.id.vg_container, FragmentCardBack.newInstance());
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    private void verticalClose() {
-        getSupportFragmentManager().popBackStack();
     }
 
     @Override

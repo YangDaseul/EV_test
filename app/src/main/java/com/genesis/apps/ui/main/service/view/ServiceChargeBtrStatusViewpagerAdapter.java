@@ -11,13 +11,13 @@ import com.genesis.apps.ui.main.service.FragmentServiceChargeBtrMap;
 
 public class ServiceChargeBtrStatusViewpagerAdapter extends FragmentStateAdapter {
 
-    public CHB_1021.Response mData;
-    public int mCount;
+    public CHB_1021.Response data;
+    public int count;
 
     public ServiceChargeBtrStatusViewpagerAdapter(Fragment fa, int count, CHB_1021.Response data) {
         super(fa);
-        mCount = count;
-        mData = data;
+        this.count = count;
+        this.data = data;
     }
 
     @NonNull
@@ -27,20 +27,20 @@ public class ServiceChargeBtrStatusViewpagerAdapter extends FragmentStateAdapter
 
         switch (index) {
             case 0:
-                return FragmentServiceChargeBtrApplyInfo.newInstance(mData);
+                return FragmentServiceChargeBtrApplyInfo.newInstance(data);
             default:
-                return FragmentServiceChargeBtrMap.newInstance(mData);
+                return FragmentServiceChargeBtrMap.newInstance(data);
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return mCount;
+        return count;
     }
 
     public int getRealPosition(int position) {
-        return position % mCount;
+        return position % count;
     }
 
 }
