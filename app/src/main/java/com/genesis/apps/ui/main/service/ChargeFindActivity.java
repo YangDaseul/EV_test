@@ -7,13 +7,11 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
@@ -32,7 +30,6 @@ import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -231,10 +228,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         // 충전소 찾기 지도 표시.
         Intent intent = new Intent(this, ServiceNetworkActivity.class)
                 .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE);
-
-        if (selectedFilterList != null && selectedFilterList.size() > 0) {
-            intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, inputChargePlaceFragment.getSearchCategoryList());
-        }
+        intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, inputChargePlaceFragment.getSearchCategoryList());
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
@@ -269,6 +263,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
+        selectedFilterList.add(inputChargePlaceFragment.getDefaultCategoryReserveYN());
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)

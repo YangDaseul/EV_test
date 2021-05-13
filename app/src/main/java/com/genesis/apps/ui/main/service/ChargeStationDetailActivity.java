@@ -300,15 +300,15 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         int slowSpeedCnt = 0;
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            superSpeedCnt = Integer.parseInt(chargeEptInfoVO.getSuperSpeedCnt());
+            superSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablSuperSpeedCnt());
         } catch (Exception ignored) {
         }
         try {
-            highSpeedCnt = Integer.parseInt(chargeEptInfoVO.getHighSpeedCnt());
+            highSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablHighSpeedCnt());
         } catch (Exception ignored) {
         }
         try {
-            slowSpeedCnt = Integer.parseInt(chargeEptInfoVO.getSlowSpeedCnt());
+            slowSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablSlowSpeedCnt());
         } catch (Exception ignored) {
         }
 
