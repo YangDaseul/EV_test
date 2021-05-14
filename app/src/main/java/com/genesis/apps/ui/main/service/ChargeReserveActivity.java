@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,13 +12,14 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.STC_1001;
-import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -25,6 +27,7 @@ import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeReserveBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.service.view.ChargeSTCPlaceListAdapter;
 
 import java.util.ArrayList;
@@ -47,7 +50,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
     private ChargeSTCPlaceListAdapter adapter;
 
-    private String reservYn;
+    private String reservYn = "Y";
     private String superSpeedYn;
     private String highSpeedYn;
     private String slowSpeedYn;
@@ -84,7 +87,28 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
-
+        Object tag = v.getTag();
+        switch (v.getId()) {
+            case R.id.tv_btn_route_detail: {
+                // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
+                PackageUtil.runApp(ChargeReserveActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR);
+                break;
+            }
+            case R.id.iv_arrow: {
+                // 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
+                if (tag instanceof ReserveVo) {
+                    ReserveVo reserveVo = (ReserveVo) tag;
+                    startActivitySingleTop(new Intent(ChargeReserveActivity.this, ChargeStationDetailActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveVo.getSid())
+                                    .putExtra(KeyNames.KEY_NAME_LAT, reserveVo.getLat())
+                                    .putExtra(KeyNames.KEY_NAME_LOT, reserveVo.getLot())
+                                    .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+                break;
+            }
+        }
     }
 
     /****************************************************************************************************
@@ -201,7 +225,11 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
 
     @Override
     public void onSearchMap() {
-
+        // 충전소 찾기 지도 표시.
+        Intent intent = new Intent(this, ServiceNetworkActivity.class)
+                .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE);
+        intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, inputChargePlaceFragment.getSearchCategoryList());
+        startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     /****************************************************************************************************
@@ -263,15 +291,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
 
     private void searchChargeStation(double lat, double lot) {
         lgnViewModel.setMyPosition(lat, lot);
-//        String chgSpeed = null;
-//        String payType = null;
-//        if (chgSpeedList.size() > 0) {
-//            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-//            chgSpeed = chgSpeed.replace("\\","");
-//        }
-//        if (payTypeList.size() > 0) {
-//            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-//        }
+
         if (lat == VariableType.DEFAULT_POSITION[0] && lot == VariableType.DEFAULT_POSITION[1]) {
             inputChargePlaceFragment.setGuideErrorMsg();
         }

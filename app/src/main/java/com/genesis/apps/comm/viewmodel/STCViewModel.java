@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.util.Log;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -66,6 +68,7 @@ class STCViewModel extends ViewModel {
     }
 
     public void reqSTC1001(final STC_1001.Request reqData) {
+        Log.d("FID", "test :: 11 :: req=" + reqData);
         repository.REQ_STC_1001(reqData);
     }
 

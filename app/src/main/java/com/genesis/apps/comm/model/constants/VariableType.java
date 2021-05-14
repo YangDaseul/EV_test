@@ -468,4 +468,7 @@ public class VariableType {
 
     public static final String EASY_PAY_WEBVIEW_TYPE_MEMBER_REG = "REG_MEMBER";
     public static final String EASY_PAY_WEBVIEW_TYPE_CARD_REG = "REG_CARD";
+
+    public static final int CHARGE_STATION_TYPE_EPT = 0;
+    public static final int CHARGE_STATION_TYPE_STC = 1;
 }

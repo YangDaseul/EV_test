@@ -293,8 +293,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     if (data.getChbStus() != null) {
 
                         // TODO 테스트용 임시 설정 값
-                        data.getChbStus().setStMbrYn("Y");
-                        data.setReservYn("N");
+//                        data.getChbStus().setStMbrYn("Y");
+//                        data.setReservYn("N");
 
                         if ("Y".equalsIgnoreCase(data.getChbStus().getStMbrYn())) {
                             // 에스트레픽 회원인 경우 - 예약 항목 체크 및 화면 분기 호출

@@ -6,10 +6,15 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.ChargerStatus;
+import com.genesis.apps.comm.model.constants.ChargerStatusSTT;
+import com.genesis.apps.comm.model.constants.ChargerTypeSTT;
 import com.genesis.apps.comm.model.vo.ChargerEptVO;
+import com.genesis.apps.comm.model.vo.ChargerSttVO;
 import com.genesis.apps.databinding.ItemChargerBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -17,26 +22,29 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.Arrays;
 
-import androidx.annotation.NonNull;
-
 /**
  * Class Name : ChargerListAdapter
  *
  * @author Ki-man Kim
  * @since 2021-04-29
  */
-public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
+public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO> {
+
+    private String reservYn;
+    private String chgPrice;
 
     private OnSingleClickListener onSingleClickListener;
 
-    public ChargerListAdapter(OnSingleClickListener onSingleClickListener) {
+    public ChargerSTCListAdapter(OnSingleClickListener onSingleClickListener) {
         this.onSingleClickListener = onSingleClickListener;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(getView(parent, R.layout.item_charger), onSingleClickListener);
+        return new ItemViewHolder(getView(parent, R.layout.item_charger), onSingleClickListener)
+                .setReservYn(reservYn)
+                .setChgPrice(chgPrice);
     }
 
     @Override
@@ -44,43 +52,49 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
         holder.onBindView(getItem(position), position);
     }
 
-    private static class ItemViewHolder extends BaseViewHolder<ChargerEptVO, ItemChargerBinding> {
+    public void setReservYn(String reservYn) {
+        this.reservYn = reservYn;
+    }
+
+    public void setChgPrice(String chgPrice) {
+        this.chgPrice = chgPrice;
+    }
+
+    private static class ItemViewHolder extends BaseViewHolder<ChargerSttVO, ItemChargerBinding> {
+        private String reservYn;
+        private String chgPrice;
+
         public ItemViewHolder(View itemView, OnSingleClickListener onSingleClickListener) {
             super(itemView);
             getBinding().tvBtnReserve.setOnClickListener(onSingleClickListener);
         }
 
         @Override
-        public void onBindView(ChargerEptVO item) {
+        public void onBindView(ChargerSttVO item) {
         }
 
         @Override
-        public void onBindView(ChargerEptVO item, int pos) {
+        public void onBindView(ChargerSttVO item, int pos) {
             Context context = getContext();
             ItemChargerBinding binding = getBinding();
 
+            binding.line0.setVisibility(pos == 0 ? View.VISIBLE : View.INVISIBLE);
+
             // 충전기 ID
-            binding.tvChargerId.setText(item.getCpid());
+            binding.tvChargerId.setText(item.getCid());
 
             // 충전기 속도 타입 표시
-            String type = "";
-            if (ChargeSearchCategorytype.SUPER_SPEED.getCode().equalsIgnoreCase(item.getChargeDiv())) {
-                // 초고속
-                type = context.getString(ChargeSearchCategorytype.SUPER_SPEED.getTitleResId());
-            } else if (ChargeSearchCategorytype.HIGH_SPEED.getCode().equalsIgnoreCase(item.getChargeDiv())) {
-                // 고속
-                type = context.getString(ChargeSearchCategorytype.HIGH_SPEED.getTitleResId());
-            } else if (ChargeSearchCategorytype.SLOW_SPEED.getCode().equalsIgnoreCase(item.getChargeDiv())) {
-                // 완속
-                type = context.getString(ChargeSearchCategorytype.SLOW_SPEED.getTitleResId());
-            }
+            try {
+                int titleId = Arrays.stream(ChargerTypeSTT.values()).filter(it -> it.getCode().equalsIgnoreCase(item.getCsupport())).findFirst().get().getTitleResId();
+                binding.tvChargerType.setText(context.getString(titleId) + " |");
+            } catch (Exception e) {
 
-            binding.tvChargerType.setText(type);
+            }
 
             // 충전기 상태
             int statusTitleId = 0;
             try {
-                statusTitleId = Arrays.stream(ChargerStatus.values()).filter(it -> it.name().equalsIgnoreCase(item.getStatusCd())).findFirst().get().getTitleResId();
+                statusTitleId = Arrays.stream(ChargerStatusSTT.values()).filter(it -> it.getCode().equalsIgnoreCase(item.getStusCd())).findFirst().get().getTitleResId();
             } catch (Exception ignored) {
 
             }
@@ -90,16 +104,16 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
             }
 
             // 충전 가격
-            String pay = item.getChargeUcost();
+            String pay = chgPrice;
             if (TextUtils.isEmpty(pay)) {
                 pay = "- ";
             }
-            binding.tvChargerPay.setText("| " +pay + context.getString(R.string.sm_evss04_16));
+            binding.tvChargerPay.setText("| " + pay + context.getString(R.string.sm_evss04_16));
 
             if (statusTitleId == R.string.sm_evss04_15) {
                 // 해당 충전기가 사용가능한 상태 - 상태, 가격 문구 색상 변경
                 binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_996449));
-                if ("Y".equalsIgnoreCase(item.getReservYn())) {
+                if ("Y".equalsIgnoreCase(reservYn)) {
                     // 예약 가능한 상태라면 예약 버튼 노출
                     binding.tvBtnReserve.setTag(item);
                     binding.tvBtnReserve.setVisibility(View.VISIBLE);
@@ -114,8 +128,18 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
         }
 
         @Override
-        public void onBindView(ChargerEptVO item, int pos, SparseBooleanArray selectedItems) {
+        public void onBindView(ChargerSttVO item, int pos, SparseBooleanArray selectedItems) {
 
+        }
+
+        public ItemViewHolder setReservYn(String reservYn) {
+            this.reservYn = reservYn;
+            return this;
+        }
+
+        public ItemViewHolder setChgPrice(String chgPrice) {
+            this.chgPrice = chgPrice;
+            return this;
         }
     } // end of class ViewHolder
 } // end of class ChargerListAdapter
