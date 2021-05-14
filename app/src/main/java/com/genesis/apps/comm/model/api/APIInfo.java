@@ -222,6 +222,7 @@ public enum APIInfo {
     GRA_CHB_1024("service + 픽업앤충전 서비스 신청쉬소", "CHB-1024", HttpRequest.METHOD_POST, getEvUri()+"chb/chbSvcCncl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1025("service + 회원탈퇴(픽업앤충전/간편결제)", "CHB-1025", HttpRequest.METHOD_POST, getEvUri()+"chb/withdrawal.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1026("service + 신청이력 상세정보", "CHB-1026", HttpRequest.METHOD_POST, getEvUri()+"chb/aplctHstryDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1027("service + 픽업앤충전 결제결과확인", "CHB-1027", HttpRequest.METHOD_POST, getEvUri()+"chb/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 디지털 월렛
     GRA_DTW_1001("디지털월렛 카드정보 조회", "DTW-1001", HttpRequest.METHOD_POST, getEvUri()+"dtw/cardInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

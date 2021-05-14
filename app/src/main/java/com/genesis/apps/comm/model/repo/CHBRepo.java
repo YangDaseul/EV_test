@@ -26,6 +26,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
+import com.genesis.apps.comm.model.api.gra.CHB_1027;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -62,6 +63,7 @@ public class CHBRepo {
     public final MutableLiveData<NetUIResponse<CHB_1024.Response>> RES_CHB_1024 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1025.Response>> RES_CHB_1025 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1026.Response>> RES_CHB_1026 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<CHB_1027.Response>> RES_CHB_1027 = new MutableLiveData<>();
 
 
     @Inject
@@ -575,5 +577,28 @@ public class CHBRepo {
         }, APIInfo.GRA_CHB_1026, reqData);
 
         return RES_CHB_1026;
+    }
+
+    public MutableLiveData<NetUIResponse<CHB_1027.Response>> REQ_CHB_1027(final CHB_1027.Request reqData) {
+        RES_CHB_1027.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_CHB_1027.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1027.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_CHB_1027.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CHB_1027.setValue(NetUIResponse.success(TestCode.CHB_1027));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_CHB_1027.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_CHB_1027, reqData);
+
+        return RES_CHB_1027;
     }
 }
