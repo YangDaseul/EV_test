@@ -25,7 +25,6 @@ import com.genesis.apps.comm.model.vo.carlife.CarVO;
 import com.genesis.apps.comm.model.vo.carlife.LotVO;
 import com.genesis.apps.comm.model.vo.carlife.MembershipVO;
 import com.genesis.apps.comm.model.vo.carlife.OptionVO;
-import com.genesis.apps.comm.model.vo.carlife.OrderVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqInfoVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqOrderVO;
@@ -35,12 +34,10 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrCheckBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarChargeBtr;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,21 +115,15 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList());
         if(carwashVO != null) {
             ui.lCarwashPaymtInfo.setVisibility(View.VISIBLE);
-            ui.lCarwashPrice.lWhole.setVisibility(View.VISIBLE);
             int carwashPrice = carwashVO.getOptionPrice();
             ui.tvCarwashPaymt.setText(StringUtil.getPriceString(carwashPrice));
             ui.tvCarwashPaymt.setTag(carwashPrice);
             ui.tvCarwashPrice.setText(StringUtil.getPriceString(carwashPrice));
         } else {
             ui.lCarwashPaymtInfo.setVisibility(View.GONE);
-            ui.lCarwashPrice.lWhole.setVisibility(View.GONE);
         }
 
         updateSvcPaymt();
-
-        // 하단 결제 상세 내역 정보 표시
-        ui.lChargePrice.setContent(StringUtil.getPriceString(contentsVO.getProductPrice()));
-        ui.lDeliveryPrice.setContent(StringUtil.getPriceString(deliverPrice));
     }
 
     /**
@@ -148,8 +139,6 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         int totalPaymt = chargePrice - discountPoint + opt1Price + opt2Price;
         ui.tvSvcPaymt.setText(StringUtil.getPriceString(totalPaymt));
         ui.tvSvcPaymt.setTag(totalPaymt);
-
-        ui.tvPaymtAmt.setText(StringUtil.getPriceString(totalPaymt));
     }
 
     /**
@@ -158,7 +147,6 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     private void setLayoutCreditPoint() {
         if(contentsVO.getStrafficInfo() == null) {
             ui.lCreditPointInfo.setVisibility(View.GONE);
-            ui.lCreditPoint.lWhole.setVisibility(View.GONE);
             return;
         }
 
@@ -174,11 +162,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         ui.tvCreditPointBalance.setText(String.format(Locale.getDefault(), getString(R.string.service_charge_btr_word_41), StringUtil.getPriceString(creditBalance)));
         ui.tvCreditPointInfo.setText(String.format(getString(R.string.service_charge_btr_msg_04), StringUtil.getPriceString(contentsVO.getProductPrice())));
 
-        // 하단 결제 상세 내역 정보 표시
-        ui.lCreditPoint.setContent(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_42));
-
         ui.lCreditPointInfo.setVisibility(View.VISIBLE);
-        ui.lCreditPoint.lWhole.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -221,24 +205,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     ui.ivSvcPaymtPadding.setVisibility(View.GONE);
                 }
                 break;
-            case R.id.l_paymt_amt:
-                if (ui.lPaymtAmtDetail.getVisibility() == View.VISIBLE) {
-                    ui.ivPaymtAmtArrow.setImageResource(R.drawable.btn_arrow_open);
-                    ui.lPaymtAmtDetail.setVisibility(View.GONE);
-                    ui.ivPaymtAmtPadding.setVisibility(View.VISIBLE);
-                } else {
-                    ui.ivPaymtAmtArrow.setImageResource(R.drawable.btn_arrow_close);
-                    ui.lPaymtAmtDetail.setVisibility(View.VISIBLE);
-                    ui.ivPaymtAmtPadding.setVisibility(View.GONE);
-                }
-                break;
             case R.id.cb_carwash_option:
                 ui.tvCarwashPaymt.setVisibility(ui.cbCarwashOption.isChecked() ? View.VISIBLE : View.GONE);
-                if (ui.cbCarwashOption.isChecked())
-                    ui.lCarwashPrice.setContent(ui.tvCarwashPrice.getText().toString());
-                else
-                    ui.lCarwashPrice.setContent(getString(R.string.service_charge_btr_word_42));
-
                 updateSvcPaymt();
                 break;
             case R.id.btn_card_reg:

@@ -53,7 +53,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dp">
+                android:paddingTop="30dp"
+                android:paddingBottom="40dp">
 
                 <!-- 예약 희망일 -->
                 <TextView
@@ -530,7 +531,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                    android:visibility="gone"
                     app:btnNm="@{@string/service_charge_btr_word_37}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_card_list_tit"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -559,150 +559,6 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/iv_line_5"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/x_f8f8f8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_paymt_card_selector" />
-
-                <!-- 결제 상세 -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_paymt_amt"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_line_5">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="10dp"
-                        android:text="@string/service_charge_btr_word_38"
-                        android:textColor="@color/x_000000"
-                        android:textSize="20dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_paymt_amt"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="2dp"
-                        android:textColor="@color/x_000000"
-                        android:textSize="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_paymt_amt_arrow"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="25,000원" />
-
-                    <ImageView
-                        android:id="@+id/iv_paymt_amt_arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/btn_arrow_close"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- 결제 상세 정보 -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_paymt_amt_detail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
-                    android:paddingStart="20dp"
-                    android:paddingTop="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="30dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_paymt_amt">
-
-                    <LinearLayout
-                        android:id="@+id/ll_paymt_amt_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_00000000_underline_e5e5e5"
-                        android:orientation="vertical"
-                        android:paddingBottom="20dp">
-
-                        <include
-                            android:id="@+id/l_charge_price"
-                            layout="@layout/item_service_charge_btr_paymt_info"
-                            app:title="@{@string/service_charge_btr_word_12}" />
-
-                        <include
-                            android:id="@+id/l_credit_point"
-                            layout="@layout/item_service_charge_btr_paymt_info"
-                            app:title="@{@string/service_charge_btr_word_19}" />
-
-                        <include
-                            android:id="@+id/l_delivery_price"
-                            layout="@layout/item_service_charge_btr_paymt_info"
-                            app:title="@{@string/service_charge_btr_word_13}" />
-
-                        <include
-                            android:id="@+id/l_carwash_price"
-                            layout="@layout/item_service_charge_btr_paymt_info"
-                            app:content="@{@string/service_charge_btr_word_42}"
-                            app:title="@{@string/service_charge_btr_word_14}" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/iv_mark_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/mark_666666"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_info_2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_info_2" />
-
-                    <TextView
-                        android:id="@+id/tv_info_2"
-                        style="@style/ServiceRemote.TextView_Font_RGSTG"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center_vertical|start"
-                        android:text="@string/service_charge_btr_msg_05"
-                        android:textColor="@color/x_666666"
-                        android:textSize="14dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/iv_mark_2"
-                        app:layout_constraintTop_toBottomOf="@+id/ll_paymt_amt_list" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/iv_paymt_amt_padding"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:background="@color/x_f8f8f8"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_paymt_amt_detail" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
