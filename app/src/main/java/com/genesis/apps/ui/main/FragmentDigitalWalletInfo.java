@@ -64,6 +64,8 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
 
         dtwViewModel.getRES_DTW_1001().observe(getActivity(), result -> {
             switch (result.status) {
+                case LOADING:
+                    break;
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getBlueCardInfo() != null) {
 
