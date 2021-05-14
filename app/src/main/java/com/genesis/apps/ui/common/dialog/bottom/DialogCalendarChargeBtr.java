@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalendarBinding> {
 
@@ -188,7 +189,12 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
 
         for (BookingDateVO bookingDateVO : bookingDateVOList) {
             if (bookingDateVO.getBookingDate().equalsIgnoreCase(yyyyMMdd)) {
-                serviceChargeBtrReserveTimeHorizontalAdapter.addRows(bookingDateVO.getSlotList());
+                try {
+                    serviceChargeBtrReserveTimeHorizontalAdapter.addRows(bookingDateVO.getSlotList().stream().filter(r -> r.getRemainCount() > 0).collect(Collectors.toList()));
+                }catch (Exception e) {
+
+                }
+                break;
             }
         }
         serviceChargeBtrReserveTimeHorizontalAdapter.notifyDataSetChanged();
