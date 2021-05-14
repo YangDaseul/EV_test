@@ -142,6 +142,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                         if (dtwViewModel.isUnpayYn()) {
                             MiddleDialog.dialogServiceRemoteOneButton(this, R.string.pay01_p04_1, R.string.pay01_p04_2, () -> {
                                 // 미수금 결제 화면으로 이동
+                                startActivitySingleTop(new Intent(this, UnpaidPayRequestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                             });
                             return;
                         }

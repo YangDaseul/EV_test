@@ -710,6 +710,11 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /><!-- 디지털 월렛 -->
+        <activity
+            android:name=".ui.main.UnpaidPayRequestActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 미수금 결제 요청 -->
 
         <meta-data
             android:name="android.allow_multiple_resumed_activities"

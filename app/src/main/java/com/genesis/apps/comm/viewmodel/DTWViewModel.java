@@ -13,17 +13,23 @@ import com.genesis.apps.comm.model.api.gra.DTW_1004;
 import com.genesis.apps.comm.model.api.gra.DTW_1007;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
+import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.comm.model.repo.DTWRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import lombok.Data;
+
+import static java.util.stream.Collectors.toList;
 
 public @Data
 class DTWViewModel extends ViewModel {
@@ -150,5 +156,69 @@ class DTWViewModel extends ViewModel {
         return isValidDTW1001() &&
                 RES_DTW_1001.getValue().data.getPayInfo() != null &&
                 StringUtil.isValidString(RES_DTW_1001.getValue().data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+    }
+
+
+    public boolean isValidDTW1003(){
+        return RES_DTW_1003!=null&&RES_DTW_1003.getValue()!=null&&RES_DTW_1003.getValue().data!=null;
+    }
+
+    /**
+     * 간편결제 카드 리스트
+     *
+     * @return
+     */
+    public List<PaymtCardVO> getPaymtCardList() {
+
+        List<PaymtCardVO> list = new ArrayList<>();
+
+        if(isValidDTW1003()){
+            try{
+                list.addAll(RES_DTW_1003.getValue().data.getCardInfo());
+            }catch (Exception e){
+                list = new ArrayList<>();
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 결제 수단 카드명 조회
+     * @param paymtCardVOList
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public List<String> getPaymtCardNm(List<PaymtCardVO> paymtCardVOList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<String>> future = es.getListeningExecutorService().submit(() -> {
+            List<String> list = new ArrayList<>();
+            try {
+                list = paymtCardVOList.stream().map(PaymtCardVO::getCardName).collect(toList());
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                list = null;
+            }
+            return list;
+        });
+
+        try {
+            return future.get();
+        } finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public PaymtCardVO getPaymtCardVO(String cardNm) {
+
+        if (isValidDTW1003() && RES_DTW_1003.getValue().data.getCardInfo() != null) {
+            for (PaymtCardVO vo : RES_DTW_1003.getValue().data.getCardInfo()) {
+                if (vo.getCardName().equalsIgnoreCase(cardNm)) {
+                    return vo;
+                }
+            }
+        }
+
+        return null;
     }
 }
