@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemChargePlaceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -56,16 +57,14 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
                 // 운영중인 경우 - 예약 상태 표시
                 Context context = getContext();
                 StringBuilder strBuilder = new StringBuilder();
-                int superSpeedCnt = 0;
-                int highSpeedCnt = 0;
-                int slowSpeedCnt = 0;
-                try {
-                    superSpeedCnt = Integer.parseInt(item.getUsablSuperSpeedCnt());
-                    highSpeedCnt = Integer.parseInt(item.getUsablHighSpeedCnt());
-                    slowSpeedCnt = Integer.parseInt(item.getUsablSlowSpeedCnt());
-                } catch (Exception e) {
+                int superSpeedCnt;
+                int highSpeedCnt;
+                int slowSpeedCnt;
 
-                }
+                superSpeedCnt = StringUtil.isValidInteger(item.getUsablSuperSpeedCnt());
+                highSpeedCnt = StringUtil.isValidInteger(item.getUsablHighSpeedCnt());
+                slowSpeedCnt = StringUtil.isValidInteger(item.getUsablSlowSpeedCnt());
+
                 if (superSpeedCnt > 0) {
                     strBuilder.append(String.format(context.getString(R.string.sm_evss02_01), superSpeedCnt));
                 }
