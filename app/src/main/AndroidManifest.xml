@@ -695,6 +695,12 @@
             android:screenOrientation="portrait" /><!-- 픽업앤충전 신청 완료 -->
 
         <activity
+            android:name=".ui.main.service.ServiceChargeBtrFailActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 픽업앤충전 신청 실패 -->
+
+        <activity
             android:name=".ui.main.service.ServiceChargeBtrReserveHistoryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"

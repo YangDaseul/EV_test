@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1010;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
+import com.genesis.apps.comm.model.api.gra.CHB_1027;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -391,6 +392,24 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     break;
             }
         });
+
+        chbViewModel.getRES_CHB_1027().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                        startActivitySingleTop(new Intent(this, ServiceChargeBtrResultActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    startActivitySingleTop(new Intent(this, ServiceChargeBtrFailActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                    break;
+            }
+        });
     }
 
     @Override
@@ -542,11 +561,18 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
-            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
-        } else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+
+        if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+            // 간편결제카드 관리 변동 사항 있음.
             chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
+            // 픽업앤충전 서비스 예약 완료!
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode()) {
+            // 픽업앤충전 서비스 예약 실패
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode());
         } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode()) {
+            // 블루월넛 결제 요청 성공!
             Intent intent = new Intent(this, ServiceChargeBtrResultActivity.class);
             intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, carNo);
             intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
@@ -556,6 +582,9 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_CD_2);
 
             startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+        } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
+            // 블루월넛 결제 화면 종료
+            chbViewModel.reqCHB1027(new CHB_1027.Request(APPIAInfo.SM_CGRV02.getId(), contentsVO.getTxid()));
         }
     }
 

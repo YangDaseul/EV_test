@@ -35,6 +35,7 @@ public enum ResultCodes {
     REQ_CODE_CHARGE_RESERVATION_FINISH(32,"충전소 예약 완료"),
     
     REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH(50,"픽업앤충전 예약 완료"),
+    REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL(51,"픽업앤충전 예약 실패"),
 
     REQ_CODE_PAYMENT_CARD_CHANGE(60,"결제 카드 목록 변경"),
     REQ_CODE_BLUEWALNUT_PAYMENT_SUCC(61,"블루월넛 결제 요청 성공"),
