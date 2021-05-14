@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.PackageUtil;
+import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
@@ -54,7 +55,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
     private ChargePlaceListAdapter adapter;
 
-    private String reservYn;
+    private String reservYn=VariableType.COMMON_MEANS_YES;
     private String chgCd;
     private ArrayList<String> chgSpeedList = new ArrayList<>();
     private ArrayList<String> payTypeList = new ArrayList<>();
@@ -92,7 +93,16 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         switch (v.getId()) {
             case R.id.tv_btn_route_detail: {
                 // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
-                PackageUtil.runApp(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR);
+                ChargeEptInfoVO item = (ChargeEptInfoVO)v.getTag(R.id.item);
+                if(item!=null&&!TextUtils.isEmpty(item.getLat())&&!TextUtils.isEmpty(item.getLot())){
+                    QueryString q = new QueryString();
+                    q.add("lat", item.getLat());
+                    q.add("lon", item.getLot());
+                    q.add("address", "");
+                    q.add("title", "");
+                    q.add("phone", "");
+                    PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, "mgenesis://sendtocar"+q.getQuery());
+                }
                 break;
             }
             case R.id.iv_arrow: {
@@ -324,8 +334,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 String.valueOf(lot),
                 reservYn,
                 chgCd,
-                chgSpeedList,
-                payTypeList
+                chgSpeedList.size()<1 ? null : chgSpeedList,
+                payTypeList.size()<1 ? null : payTypeList
         ));
     }
 

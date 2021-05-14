@@ -50,6 +50,7 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
             binding.tvChargeName.setText(item.getCsnm());
             binding.tvDist.setText(item.getDist() + "km");
             binding.ivArrow.setTag(item);
+            binding.tvBtnRouteDetail.setTag(R.id.item, item);
 
             if ("Y".equalsIgnoreCase(item.getUseYn())) {
                 // 운영중인 경우 - 예약 상태 표시
