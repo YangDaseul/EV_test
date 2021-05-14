@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.STC_1001;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -22,14 +25,15 @@ import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeReserveBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 import com.genesis.apps.ui.main.service.view.ChargeSTCPlaceListAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
 
 /**
  * Class Name : ChargeReserveActivity
@@ -37,18 +41,18 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
  * @author Ki-man Kim
  * @since 2021-05-14
  */
-public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserveBinding> implements InputChargePlaceFragment.FilterChangeListener {
+public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserveBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
     private ChargeSTCPlaceListAdapter adapter;
 
     private String reservYn;
-    private String chgCd;
-    private ArrayList<String> chgSpeedList = new ArrayList<>();
-    private ArrayList<String> payTypeList = new ArrayList<>();
+    private String superSpeedYn;
+    private String highSpeedYn;
+    private String slowSpeedYn;
 
-    private int pageNo;
+    private int pageNo = 1;
     private final String MAX_PAGE_CNT = "10";
 
     private VehicleVO mainVehicleVO;
@@ -165,12 +169,13 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
             selectedFilterList.addAll(filterList);
             // 예약가능여부 값 초기화.
             reservYn = null;
-            // 충전소 구분 코드 초기화.
-            chgCd = null;
             // 충전 속도 값 초기화
-            chgSpeedList.clear();
-            // 결제 방식 값 초기화.
-            payTypeList.clear();
+            superSpeedYn = null;
+            highSpeedYn = null;
+            slowSpeedYn = null;
+
+            // 페이지 번호 초기화
+            pageNo = 1;
 
             updateFilterValue(selectedFilterList);
 
@@ -185,12 +190,27 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
 
     @Override
     public void onSearchAddress() {
-
+        // 주소 검색
+        Bundle bundle = new Bundle();
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_evss01_34);
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_evss01_35);
+        SearchAddressHMNFragment fragment = new SearchAddressHMNFragment();
+        fragment.setAddressSelectListener(this);
+        showFragment(fragment, bundle);
     }
 
     @Override
     public void onSearchMap() {
 
+    }
+
+    /****************************************************************************************************
+     * Override Method - {@link SearchAddressHMNFragment.AddressSelectListener}
+     ****************************************************************************************************/
+    @Override
+    public void onAddressSelected(AddressVO selectedAddr) {
+        inputChargePlaceFragment.setAddress(getAddress(selectedAddr));
+        searchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
     }
 
     /****************************************************************************************************
@@ -200,6 +220,12 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeReserveActivity.this);
+        inputChargePlaceFragment.setSearchCategoryList(new ArrayList(Arrays.asList(
+                inputChargePlaceFragment.getDefaultCategoryReserveYN(),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true)
+        )));
         selectedFilterList.add(inputChargePlaceFragment.getDefaultCategoryReserveYN());
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
@@ -255,9 +281,9 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 lat,
                 lot,
                 reservYn,
-                chgSpeedList.contains(ChargeSearchCategorytype.SUPER_SPEED.getCode()) ? "Y" : null,
-                chgSpeedList.contains(ChargeSearchCategorytype.HIGH_SPEED.getCode()) ? "Y": null,
-                chgSpeedList.contains(ChargeSearchCategorytype.SLOW_SPEED.getCode()) ? "Y" : null,
+                superSpeedYn,
+                highSpeedYn,
+                slowSpeedYn,
                 String.valueOf(pageNo),
                 MAX_PAGE_CNT
         ));
@@ -290,48 +316,24 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
             if (item.getTitleResId() == R.string.sm_evss01_15) {
                 // 예약가능 충전소 필터
                 reservYn = item.isSelected() ? "Y" : "N";
-            } else if (item.getTitleResId() == R.string.sm_evss01_16) {
-                // 충전소 종류 필터
-                if (item.getSelectedItem().size() > 0) {
-                    ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
-                    switch (chargeStation) {
-                        case GENESIS: // 제네시스 충전소
-                        case E_PIT: {
-                            // 관련 충전소 종류 코드 설정.
-                            chgCd = chargeStation.getCode();
-                            break;
-                        }
-                        case ALL:
-                        case HI_CHARGER:
-                        default: {
-                            // 관련 코드가 없어 전체 조회하는 것으로 처리.
-                            chgCd = null;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                // 충전 속도, 결제 방식 필터.
-                // 필터별 필터 코드 적용.
-                for (ChargeSearchCategorytype filterItem : item.getSelectedItem()) {
-                    switch (filterItem) {
-                        case SUPER_SPEED:
-                        case HIGH_SPEED:
-                        case SLOW_SPEED: {
-                            chgSpeedList.add(filterItem.getCode());
-                            break;
-                        }
-                        case CAR_PAY:
-                        case S_TRAFFIC_CRADIT_PAY: {
-                            payTypeList.add(filterItem.getCode());
-                        }
-                        default: {
-                            // Nothing
-                            break;
-                        }
-                    }
-                }
+            } else if (item.getTitleResId() == R.string.sm_evss01_22) {
+                // 초고속 충전소 필터
+                superSpeedYn = item.isSelected() ? "Y" : "N";
+            } else if (item.getTitleResId() == R.string.sm_evss01_23) {
+                // 초고속 충전소 필터
+                highSpeedYn = item.isSelected() ? "Y" : "N";
+            } else if (item.getTitleResId() == R.string.sm_evss01_24) {
+                // 초고속 충전소 필터
+                slowSpeedYn = item.isSelected() ? "Y" : "N";
             }
+        }
+    }
+
+    private void reqParkLocationToDevelopers() {
+        if (developersViewModel.checkCarInfoToDevelopers(mainVehicleVO.getVin(), "") == STAT_AGREEMENT) {
+            developersViewModel.reqParkLocation(new ParkLocation.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
+        } else {
+            searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
         }
     }
 } // end of class ChargeReserveActivity

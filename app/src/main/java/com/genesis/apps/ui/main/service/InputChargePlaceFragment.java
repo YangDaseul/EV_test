@@ -342,4 +342,8 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     public ArrayList<ChargeSearchCategoryVO> getSearchCategoryList() {
         return searchCategoryList;
     }
+
+    public void setSearchCategoryList(ArrayList<ChargeSearchCategoryVO> searchCategoryList) {
+        this.searchCategoryList = searchCategoryList;
+    }
 } // end of class InputChargePlaceFragment
