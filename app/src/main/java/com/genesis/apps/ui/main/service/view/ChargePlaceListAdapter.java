@@ -1,8 +1,6 @@
 package com.genesis.apps.ui.main.service.view;
 
 import android.content.Context;
-import android.text.Html;
-import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.ChargePlaceStatus;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.databinding.ItemChargePlaceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -62,9 +59,9 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
                 int highSpeedCnt = 0;
                 int slowSpeedCnt = 0;
                 try {
-                    superSpeedCnt = Integer.parseInt(item.getSuperSpeedCnt());
-                    highSpeedCnt = Integer.parseInt(item.getHighSpeedCnt());
-                    slowSpeedCnt = Integer.parseInt(item.getSlowSpeedCnt());
+                    superSpeedCnt = Integer.parseInt(item.getUsablSuperSpeedCnt());
+                    highSpeedCnt = Integer.parseInt(item.getUsablHighSpeedCnt());
+                    slowSpeedCnt = Integer.parseInt(item.getUsablSlowSpeedCnt());
                 } catch (Exception e) {
 
                 }

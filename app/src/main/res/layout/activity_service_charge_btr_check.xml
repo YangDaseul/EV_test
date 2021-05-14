@@ -199,108 +199,119 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="16,000원" />
 
-                    <ImageView
-                        android:id="@+id/iv_line_2"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/x_e5e5e5"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_charge_paymt_tit" />
-
-                    <!-- 충전 크레딧 포인트 -->
-                    <TextView
-                        android:id="@+id/tv_credit_point_tit"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="6dp"
-                        android:text="@string/service_charge_btr_word_19"
-                        android:textColor="@color/x_000000"
-                        android:textSize="16dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_line_2" />
-
-                    <TextView
-                        android:id="@+id/tv_credit_point"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="6dp"
-                        android:textColor="@color/x_996449"
-                        android:textSize="16dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_credit_point_tit"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_credit_point_tit"
-                        tools:text="-16,000원" />
-
-                    <!-- 충전 크레딧 보유 포인트 정보 -->
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/l_credit_point_balance"
-                        android:layout_width="0dp"
+                        android:id="@+id/l_credit_point_info"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-                        android:paddingStart="20dp"
-                        android:paddingTop="30dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="30dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_credit_point_tit">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_charge_paymt_tit"
+                        tools:visibility="visible">
 
+                        <ImageView
+                            android:id="@+id/iv_line_2"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="30dp"
+                            android:background="@color/x_e5e5e5"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- 충전 크레딧 포인트 -->
                         <TextView
+                            android:id="@+id/tv_credit_point_tit"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="6dp"
                             android:text="@string/service_charge_btr_word_19"
                             android:textColor="@color/x_000000"
-                            android:textSize="15dp"
+                            android:textSize="16dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/iv_line_2" />
 
                         <TextView
-                            android:id="@+id/tv_credit_point_balance"
+                            android:id="@+id/tv_credit_point"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="6dp"
-                            android:textColor="@color/x_000000"
-                            android:textSize="15dp"
+                            android:textColor="@color/x_996449"
+                            android:textSize="16dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_credit_point_tit"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:text="1,000,000원 보유" />
+                            app:layout_constraintTop_toTopOf="@+id/tv_credit_point_tit"
+                            tools:text="-16,000원" />
 
-                        <ImageView
-                            android:id="@+id/iv_mark_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/mark_666666"
-                            app:layout_constraintEnd_toStartOf="@+id/tv_credit_point_info"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tv_credit_point_info" />
-
-                        <TextView
-                            android:id="@+id/tv_credit_point_info"
-                            style="@style/ServiceRemote.TextView_Font_RGSTG"
+                        <!-- 충전 크레딧 보유 포인트 정보 -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/l_credit_point_balance"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:layout_marginStart="6dp"
-                            android:gravity="center_vertical|start"
-                            android:textColor="@color/x_666666"
-                            android:textSize="14dp"
+                            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+                            android:paddingStart="20dp"
+                            android:paddingTop="30dp"
+                            android:paddingEnd="20dp"
+                            android:paddingBottom="30dp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_credit_point_balance" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_credit_point_tit">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular_genesissanstextglobal"
+                                android:letterSpacing="-0.01"
+                                android:lineSpacingExtra="6dp"
+                                android:text="@string/service_charge_btr_word_19"
+                                android:textColor="@color/x_000000"
+                                android:textSize="15dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_credit_point_balance"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular_genesissanstextglobal"
+                                android:letterSpacing="-0.01"
+                                android:lineSpacingExtra="6dp"
+                                android:textColor="@color/x_000000"
+                                android:textSize="15dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="1,000,000원 보유" />
+
+                            <ImageView
+                                android:id="@+id/iv_mark_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/mark_666666"
+                                app:layout_constraintEnd_toStartOf="@+id/tv_credit_point_info"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/tv_credit_point_info" />
+
+                            <TextView
+                                android:id="@+id/tv_credit_point_info"
+                                style="@style/ServiceRemote.TextView_Font_RGSTG"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginStart="6dp"
+                                android:gravity="center_vertical|start"
+                                android:textColor="@color/x_666666"
+                                android:textSize="14dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_credit_point_balance" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -312,7 +323,7 @@
                         android:background="@color/x_e5e5e5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_credit_point_balance" />
+                        app:layout_constraintTop_toBottomOf="@+id/l_credit_point_info" />
 
                     <!-- 탁송 금액 -->
                     <TextView
@@ -343,92 +354,101 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_delivery_paymt_tit"
                         tools:text="20,000원" />
 
-                    <ImageView
-                        android:id="@+id/iv_line_4"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/x_e5e5e5"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_paymt_tit" />
-
-                    <!-- 세차 금액 -->
-                    <TextView
-                        android:id="@+id/tv_carwash_paymt_tit"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="6dp"
-                        android:text="@string/service_charge_btr_word_14"
-                        android:textColor="@color/x_000000"
-                        android:textSize="16dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_line_4" />
-
-                    <TextView
-                        android:id="@+id/tv_carwash_paymt"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="6dp"
-                        android:textColor="@color/x_000000"
-                        android:textSize="16dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_carwash_paymt_tit"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_carwash_paymt_tit"
-                        tools:text="20,000원" />
-
-                    <!-- 세차 옵션 선택 레이아웃 -->
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/l_carwash_option"
-                        android:layout_width="0dp"
+                        android:id="@+id/l_carwash_paymt_info"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-                        android:paddingStart="20dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_carwash_paymt_tit">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_paymt_tit">
 
-                        <CheckBox
-                            android:id="@+id/cb_carwash_option"
+                        <ImageView
+                            android:id="@+id/iv_line_4"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:button="@null"
-                            android:drawableStart="@drawable/checkbox_selector"
-                            android:drawablePadding="8dp"
-                            android:fontFamily="@font/regular_genesissanstextglobal"
-                            android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="3dp"
-                            android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                            android:text="@string/service_charge_btr_word_34"
-                            android:textColor="@color/x_000000"
-                            android:textSize="15dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="30dp"
+                            android:background="@color/x_e5e5e5"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                        <!-- 세차 금액 -->
                         <TextView
-                            android:id="@+id/tv_carwash_price"
+                            android:id="@+id/tv_carwash_paymt_tit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="6dp"
+                            android:text="@string/service_charge_btr_word_14"
+                            android:textColor="@color/x_000000"
+                            android:textSize="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_line_4" />
+
+                        <TextView
+                            android:id="@+id/tv_carwash_paymt"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="6dp"
                             android:textColor="@color/x_000000"
-                            android:textSize="15dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/cb_carwash_option"
+                            android:textSize="16dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_carwash_paymt_tit"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/cb_carwash_option"
-                            tools:text="5,000원" />
+                            app:layout_constraintTop_toTopOf="@+id/tv_carwash_paymt_tit"
+                            tools:text="20,000원" />
+
+                        <!-- 세차 옵션 선택 레이아웃 -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/l_carwash_option"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+                            android:paddingStart="20dp"
+                            android:paddingTop="15dp"
+                            android:paddingEnd="20dp"
+                            android:paddingBottom="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_carwash_paymt_tit">
+
+                            <CheckBox
+                                android:id="@+id/cb_carwash_option"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:button="@null"
+                                android:drawableStart="@drawable/checkbox_selector"
+                                android:drawablePadding="8dp"
+                                android:fontFamily="@font/regular_genesissanstextglobal"
+                                android:letterSpacing="-0.01"
+                                android:lineSpacingExtra="3dp"
+                                android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
+                                android:text="@string/service_charge_btr_word_34"
+                                android:textColor="@color/x_000000"
+                                android:textSize="15dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_carwash_price"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular_genesissanstextglobal"
+                                android:letterSpacing="-0.01"
+                                android:lineSpacingExtra="6dp"
+                                android:textColor="@color/x_000000"
+                                android:textSize="15dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/cb_carwash_option"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/cb_carwash_option"
+                                tools:text="5,000원" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

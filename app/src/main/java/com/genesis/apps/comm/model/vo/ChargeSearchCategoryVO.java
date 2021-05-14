@@ -1,6 +1,8 @@
 package com.genesis.apps.comm.model.vo;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.StringRes;
@@ -23,7 +25,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
-class ChargeSearchCategoryVO extends BaseData {
+class ChargeSearchCategoryVO extends BaseData implements Parcelable {
     @StringRes
     private int titleResId;
     private List<ChargeSearchCategorytype> typeList;
@@ -42,6 +44,25 @@ class ChargeSearchCategoryVO extends BaseData {
         this.titleResId = titleResId;
         this.componentType = componentType;
         this.typeList = typeList;
+    }
+
+    protected ChargeSearchCategoryVO(Parcel in) {
+        titleResId = in.readInt();
+        componentType = COMPONENT_TYPE.valueOf(in.readString());
+        isSelected = in.readByte() != 0;
+
+        ArrayList<String> orgSelectedList = new ArrayList<>();
+        in.readList(orgSelectedList, String.class.getClassLoader());
+        selectedItem.addAll(orgSelectedList.stream().map(ChargeSearchCategorytype::valueOf).collect(Collectors.toList()));
+
+        if (in.readInt() > 0) {
+            typeList = new ArrayList<>();
+            ArrayList<String> orgTypeList = new ArrayList<>();
+            in.readList(orgTypeList, String.class.getClassLoader());
+            if (orgTypeList != null) {
+                typeList.addAll(orgTypeList.stream().map(ChargeSearchCategorytype::valueOf).collect(Collectors.toList()));
+            }
+        }
     }
 
     public List<String> getTypeStringList(Context context) {
@@ -72,6 +93,35 @@ class ChargeSearchCategoryVO extends BaseData {
         this.isSelected = false;
         this.selectedItem.clear();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(titleResId);
+        dest.writeString(componentType.name());
+        dest.writeByte((byte) (isSelected ? 1 : 0));
+        dest.writeList(selectedItem.stream().map(Enum::name).collect(Collectors.toList()));
+        dest.writeInt(typeList == null ? 0 : typeList.size());
+        if (typeList != null) {
+            dest.writeList(typeList.stream().map(Enum::name).collect(Collectors.toList()));
+        }
+    }
+
+    public static final Creator<ChargeSearchCategoryVO> CREATOR = new Creator<ChargeSearchCategoryVO>() {
+        @Override
+        public ChargeSearchCategoryVO createFromParcel(Parcel in) {
+            return new ChargeSearchCategoryVO(in);
+        }
+
+        @Override
+        public ChargeSearchCategoryVO[] newArray(int size) {
+            return new ChargeSearchCategoryVO[size];
+        }
+    };
 
     @Override
     public Object clone() throws CloneNotSupportedException {

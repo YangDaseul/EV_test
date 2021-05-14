@@ -125,6 +125,18 @@ public class EvStatus extends BaseData {
         @Expose
         @SerializedName("unit")
         private float unit;
+
+        public String getUnitString() {
+            if(unit == 0f) {
+                return "feet";
+            } else if(unit == 2f) {
+                return "meter";
+            } else if(unit == 3f) {
+                return "miles";
+            } else {
+                return "km";
+            }
+        }
     }
     /**
      * @author hjpark
@@ -155,6 +167,18 @@ public class EvStatus extends BaseData {
         @Expose
         @SerializedName("unit")
         private float unit;
+
+        public String getUnitStringKo() {
+            if(unit == 0f) {
+                return "시간";
+            } else if(unit == 1f) {
+                return "분";
+            } else if(unit == 2f) {
+                return "밀리초";
+            } else {
+                return "초";
+            }
+        }
     }
 
 }

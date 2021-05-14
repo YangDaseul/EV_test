@@ -46,12 +46,16 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         ADDRESS
     }
 
-    private List<ChargeSearchCategoryVO> searchCategoryList = Arrays.asList(
-            new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null),
+    private ArrayList<ChargeSearchCategoryVO> searchCategoryList = new ArrayList(Arrays.asList(
+            getDefaultCategoryReserveYN(),
             new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER)),
             new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
             new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
-    );
+    ));
+
+    public ChargeSearchCategoryVO getDefaultCategoryReserveYN() {
+        return new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true);
+    }
 
     private String[] address;
     private SEARCH_TYPE currentType;
@@ -92,7 +96,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
 
     @Override
     public void onRefresh() {
-        updateSearchType(currentType);
+//        updateSearchType(currentType);
     }
 
     @Override
@@ -173,6 +177,23 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         }
     }
 
+    public void setGuideErrorMsg(){
+        me.tvGuideLocationError.setVisibility(View.VISIBLE);
+        switch (currentType){
+            case MY_LOCATION:
+                me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_07_0), Html.FROM_HTML_MODE_COMPACT));
+                me.tvGuideLocationError.setText(Html.fromHtml(getString(R.string.sm_evss01_07_1), Html.FROM_HTML_MODE_COMPACT));
+                break;
+            case MY_CAR:
+                me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_08_0), Html.FROM_HTML_MODE_COMPACT));
+                me.tvGuideLocationError.setText(Html.fromHtml(getString(R.string.sm_evss01_08_1), Html.FROM_HTML_MODE_COMPACT));
+                break;
+            default:
+                me.tvGuideLocationError.setVisibility(View.GONE);
+                break;
+        }
+    }
+
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
@@ -197,9 +218,9 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 // 내 현재 위치 기준
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_07), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.GONE);
-
+                me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
-                me.ivBtnMap.setVisibility(View.VISIBLE);
+                me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
                 me.line0.setVisibility(View.VISIBLE);
                 break;
@@ -208,9 +229,9 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 // 내 차량 위치 기준
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_08), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.GONE);
-
+                me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
-                me.ivBtnMap.setVisibility(View.VISIBLE);
+                me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
                 me.line0.setVisibility(View.VISIBLE);
                 break;
@@ -219,17 +240,17 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 // 주소 검색 기준
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_09), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.VISIBLE);
-
+                me.tvGuideLocationError.setVisibility(View.GONE);
                 if (this.address == null || this.address.length == 0) {
                     me.tvFilter.setVisibility(View.GONE);
-                    me.ivBtnMap.setVisibility(View.GONE);
+                    me.ivBtnMap.lWhole.setVisibility(View.GONE);
                     me.rvFilter.setVisibility(View.GONE);
                     me.line0.setVisibility(View.GONE);
                     me.tvSearchAddr.setText(R.string.sm_evss01_14);
                     me.tvSearchAddr.setSelected(false);
                 } else {
                     me.tvFilter.setVisibility(View.VISIBLE);
-                    me.ivBtnMap.setVisibility(View.VISIBLE);
+                    me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                     me.rvFilter.setVisibility(View.VISIBLE);
                     me.line0.setVisibility(View.VISIBLE);
                     StringBuilder stringBuilder = new StringBuilder();
@@ -316,5 +337,9 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
 
     public void setOnFilterChangedListener(FilterChangeListener listener) {
         this.listener = listener;
+    }
+
+    public ArrayList<ChargeSearchCategoryVO> getSearchCategoryList() {
+        return searchCategoryList;
     }
 } // end of class InputChargePlaceFragment

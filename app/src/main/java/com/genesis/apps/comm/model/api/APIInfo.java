@@ -181,9 +181,9 @@ public enum APIInfo {
     GRA_SOS_3013("긴급충전출동 약관동의", "SOS-3013", HttpRequest.METHOD_POST, getEvUri()+"sos/receAgreeEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - E-PIT
-    GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "EPT-1001", HttpRequest.METHOD_POST, getEvUri()+"chgListGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_EPT_1002("service + E-PIT 충전소 상세 조회", "EPT-1002", HttpRequest.METHOD_POST, getEvUri()+"chgDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_EPT_1003("service + E-PIT 충전소 상세 리뷰", "EPT-1003", HttpRequest.METHOD_POST, getEvUri()+"detailRevwGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "EPT-1001", HttpRequest.METHOD_POST, getEvUri()+"ept/chgListGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1002("service + E-PIT 충전소 상세 조회", "EPT-1002", HttpRequest.METHOD_POST, getEvUri()+"ept/chgDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1003("service + E-PIT 충전소 상세 리뷰", "EPT-1003", HttpRequest.METHOD_POST, getEvUri()+"ept/detailRevwGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - 에스트레픽
     GRA_STC_1001("service + S-트래픽 충전소 조회", "STC-1001", HttpRequest.METHOD_POST, getEvUri()+"stc/chgInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -222,6 +222,15 @@ public enum APIInfo {
     GRA_CHB_1024("service + 픽업앤충전 서비스 신청쉬소", "CHB-1024", HttpRequest.METHOD_POST, getEvUri()+"chb/chbSvcCncl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1025("service + 회원탈퇴(픽업앤충전/간편결제)", "CHB-1025", HttpRequest.METHOD_POST, getEvUri()+"chb/withdrawal.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1026("service + 신청이력 상세정보", "CHB-1026", HttpRequest.METHOD_POST, getEvUri()+"chb/aplctHstryDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    // 디지털 월렛
+    GRA_DTW_1001("디지털월렛 카드정보 조회", "DTW-1001", HttpRequest.METHOD_POST, getEvUri()+"dtw/cardInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1002("디지털월렛 선불카드 비밀번호설정", "DTW-1002", HttpRequest.METHOD_POST, getEvUri()+"dtw/passwd.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1003("디지털월렛 미수금 조회", "DTW-1003", HttpRequest.METHOD_POST, getEvUri()+"dtw/unpaidInq.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1004("디지털월렛 미수금 결제요청", "DTW-1004", HttpRequest.METHOD_POST, getEvUri()+"dtw/unpaidPay.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1005("에스트래픽회원가입", "DTW-1005", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberIn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1006("에스트래픽회원탈퇴", "DTW-1006", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberOut.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1007("미수금결제완료 시그널", "DTW-1007", HttpRequest.METHOD_POST, getEvUri()+"dtw/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
     DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

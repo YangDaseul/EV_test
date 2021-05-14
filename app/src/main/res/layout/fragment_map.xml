@@ -47,13 +47,12 @@
         <!-- refresh 버튼 -->
         <ImageView
             android:id="@+id/btn_pos_refresh"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/ripple_bg_ffffff_round_05"
             android:elevation="2dp"
-            android:src="@drawable/btn_repeat"
+            android:src="@drawable/ic_car_repeat"
             app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
             app:layout_constraintEnd_toEndOf="parent" />
 

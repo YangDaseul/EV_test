@@ -163,7 +163,7 @@
 
     <!-- SERVICE 탭 충전 -->
     <string name="sm_cg_sm02_1">충전</string>
-    <string name="sm_cg_sm02_2">충전소 검색</string>
+    <string name="sm_cg_sm02_2">충전소 찾기</string>
     <string name="sm_cg_sm02_3">충전소 예약/내역</string>
     <string name="sm_cg_sm02_4">원하는 시간과 장소에서\n충전서비스를 받으세요.</string>
     <string name="sm_cg_sm02_5">여행 경로 추천</string>
@@ -227,4 +227,13 @@
     <string name="gm01_02_3">일반 보증 기간</string>
     <string name="gm01_02_4">배출가스 관련\n부품 보증기간</string>
     <string name="gm01_02_5">전기차 별도\n보증 부품</string>
+
+    <string name="digital_wallet01_1">디지털 월렛</string>
+    <string name="digital_wallet01_2">간편결제카드 관리</string>
+    <string name="digital_wallet01_3">제네시스 멤버십 카드</string>
+
+    <string name="digital_wallet02_1">에스트래픽 충전 카드</string>
+    <string name="digital_wallet02_2">비밀번호 변경</string>
+    <string name="digital_wallet02_3">NFC로 태그하기</string>
+    <string name="digital_wallet02_4">NFC 결제 종료</string>
 </resources>

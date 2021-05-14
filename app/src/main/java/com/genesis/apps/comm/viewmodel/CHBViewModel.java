@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -29,12 +31,15 @@ import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.api.gra.EVL_1001;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.EVLRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -215,6 +220,13 @@ class CHBViewModel extends ViewModel {
         }
     }
 
+    /**
+     * 결제 수단 카드명 조회
+     * @param paymtCardVOList
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<String> getPaymtCardNm(List<PaymtCardVO> paymtCardVOList) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<List<String>> future = es.getListeningExecutorService().submit(() -> {
@@ -233,5 +245,33 @@ class CHBViewModel extends ViewModel {
         } finally {
             es.shutDownExcutor();
         }
+    }
+
+    /**
+     * 옵션 VO 조회
+     * @param optCd
+     * @return
+     */
+    public OptionVO getOptionVO(String optCd, List<OptionVO> optionList) {
+
+        if (!TextUtils.isEmpty(optCd)) {
+            for (OptionVO optVo : optionList) {
+                if (optVo.getOptionCode().equalsIgnoreCase(optCd)) {
+                    return optVo;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public boolean isValidCHB1015(){
+        return RES_CHB_1015!=null&&RES_CHB_1015.getValue()!=null&&RES_CHB_1015.getValue().data!=null;
+    }
+
+    public boolean isSignInYN() {
+//        return true;
+        return isValidCHB1015() &&
+                StringUtil.isValidString(RES_CHB_1015.getValue().data.getSignInYN()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
     }
 }

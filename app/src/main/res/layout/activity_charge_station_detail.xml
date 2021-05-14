@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/vg_nsv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--충전 상태-->
+                <FrameLayout
+                    android:id="@+id/vg_ev_status_constainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--충전소 상세-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_station_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vg_ev_status_constainer" />
+
+                <!--중간 라인-->
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/x_f8f8f8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_station_detail" />
+
+                <!--충전기 총 대수-->
+                <TextView
+                    android:id="@+id/tv_charger_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line"
+                    tools:text="초고속 1대, 급속 2대 사용가능" />
+
+                <!--조회시간-->
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/x_262626"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_charger_count"
+                    app:layout_constraintTop_toBottomOf="@id/tv_charger_count"
+                    tools:text="2021.03.25 12:35" />
+
+                <!--안내문구 앞 점-->
+                <View
+                    android:id="@+id/dot"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/x_666666"
+                    app:layout_constraintEnd_toStartOf="@id/tv_guide"
+                    app:layout_constraintStart_toStartOf="@id/tv_date"
+                    app:layout_constraintTop_toTopOf="@id/tv_guide" />
+
+                <!--안내문구-->
+                <TextView
+                    android:id="@+id/tv_guide"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:includeFontPadding="false"
+                    android:text="@string/sm_evss04_09"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/dot"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+                <!--충전기 목록-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_charger_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/vg_map"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_guide" />
+
+                <!--지도-->
+                <FrameLayout
+                    android:id="@+id/vg_map"
+                    android:layout_width="0dp"
+                    android:layout_height="216dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_review_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_charger_list" />
+
+                <!--리뷰 타이틀-->
+                <TextView
+                    android:id="@+id/tv_review_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_00000000_underline_262626"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:includeFontPadding="false"
+                    android:paddingStart="20dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/sm_evss04_19"
+                    android:textColor="@color/x_262626"
+                    android:textSize="13dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/rv_review_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vg_map"
+                    tools:text="리뷰(2)" />
+
+                <!--리뷰 목록-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_review_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_review_title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

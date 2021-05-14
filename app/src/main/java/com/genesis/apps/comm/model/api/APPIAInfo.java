@@ -220,7 +220,7 @@ public enum APPIAInfo {
     SM_R_RSV_P03("SM_R_RSV_P03", null, VariableType.QUICK_MENU_CODE_NONE, "정비 예약 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_R_RSV03("SM_R_RSV03", null, VariableType.QUICK_MENU_CODE_NONE, "3단계 예약 정보 확인",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_R_RSV04("SM_R_RSV04", null, VariableType.QUICK_MENU_CODE_NONE, "4단계 예약완료",VariableType.QUICK_MENU_CATEGORY_NONE,""),
-    SM_R_RSV05("SM_R_RSV05", ServiceRepairReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_OV, "정비 예약/현황/이력",VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
+    SM_R_RSV05("SM_R_RSV05", ServiceRepairReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_OV, "정비 예약 내역/이력",VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
     SM_R_RSV05_P01("SM_R_RSV05_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약 취소 사유 선택 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_R_RSV05_P02("SM_R_RSV05_P02", null, VariableType.QUICK_MENU_CODE_NONE, "예약 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
@@ -306,7 +306,7 @@ public enum APPIAInfo {
     SM_REVIEW01_P03("SM_REVIEW01_P03", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (대리)",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_REVIEW01_P04("SM_REVIEW01_P04", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (픽업앤충전)", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    SM_EVSS01("SM_EVSS01", ChargeFindActivity.class, VariableType.QUICK_MENU_CODE_CV, "충전소 찾기 리스트", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
+    SM_EVSS01("SM_EVSS01", ChargeFindActivity.class, VariableType.QUICK_MENU_CODE_CV, "충전소 찾기", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
     SM_EVSS01_P01("SM_EVSS01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 찾기 리스트 검색 필터", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSS02("SM_EVSS02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 찾기 지도", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSS02_P01("SM_EVSS02_P01", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 찾기 지도 검색 필터", VariableType.QUICK_MENU_CATEGORY_NONE,""),

@@ -97,6 +97,13 @@ public interface KeyNames {
 
     String KEY_NAME_CAR_REG_NO = "carRegNo";
 
+    String KEY_NAME_FILTER_INFO = "filterInfo";
+
+    String KEY_NAME_CHARGE_STATION_SPID = "chargeStationSPID";
+    String KEY_NAME_CHARGE_STATION_CSID = "chargeStationCSID";
+    String KEY_NAME_LAT = "lat";
+    String KEY_NAME_LOT = "lot";
+
     String KEY_NAME_CHARGE_TYPE = "chargeType";
 
     String KEY_NAME_IS_DK_AVL = "isDkAvl";

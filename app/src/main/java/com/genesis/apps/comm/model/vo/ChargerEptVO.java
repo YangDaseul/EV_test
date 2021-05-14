@@ -68,5 +68,5 @@ class ChargerEptVO extends BaseData {
     private String reservYn;
     @Expose
     @SerializedName("payType")
-    private String payType;
+    private String[] payType;
 } // end of class ChargerEptVO

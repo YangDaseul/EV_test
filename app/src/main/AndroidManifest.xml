@@ -31,7 +31,7 @@
         android:usesCleartextTraffic="true"
         android:largeHeap="true"
         android:windowSoftInputMode="stateHidden"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup,android:name">
 
         <activity
             android:name=".ui.intro.IntroActivity"
@@ -619,6 +619,11 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
+        <activity android:name=".ui.main.service.ChargeStationDetailActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout" />
         <activity
             android:name=".ui.main.service.ChargePlaceListActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -694,6 +699,17 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /><!-- 픽업앤충전 예약 현황/내역 -->
+        <activity
+            android:name=".ui.common.activity.BluewalnutWebActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 간편결제 웹뷰 -->
+
+        <activity
+            android:name=".ui.main.DigitalWalletActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 디지털 월렛 -->
 
         <meta-data
             android:name="android.allow_multiple_resumed_activities"

@@ -105,6 +105,21 @@ public class MiddleDialog {
         );
     }
 
+    public static void dialogEVServiceInfo(@NonNull Activity activity, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        R.string.sm_evsb01_p04_1,
+                        R.string.sm_evsb01_p04_2,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
 
     public static void dialogUpdate(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String newVersion, String versionType) {
         if (activity.isFinishing()) {
@@ -318,15 +333,16 @@ public class MiddleDialog {
      * @param activity
      * @param ok
      * @param cancel
-     * @brief 원격진단안내팝업
+     * @brief 원격진단안내팝업 EV 체크
      */
-    public static void dialogServiceRemoteInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+    public static void dialogServiceRemoteInfo(@NonNull Activity activity, boolean isEv, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;
         }
         activity.runOnUiThread(() ->
                 new CustomDialog(activity, dialog -> {
                     DialogServiceRemoteInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_info, null, false);
+                    binding.setIsEv(isEv);
                     dialog.setContentView(binding.getRoot());
 
                     binding.btnCancel.setOnClickListener(v -> {
@@ -339,6 +355,16 @@ public class MiddleDialog {
                     });
                 }).show()
         );
+    }
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 원격진단안내팝업
+     */
+    public static void dialogServiceRemoteInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        dialogServiceRemoteInfo(activity, false, ok, cancel);
     }
 
     /**
@@ -1159,7 +1185,6 @@ public class MiddleDialog {
     }
 
     /**
-     *
      * @param activity
      * @param ok
      * @param cancel
@@ -1182,7 +1207,6 @@ public class MiddleDialog {
     }
 
     /**
-     *
      * @param activity
      * @param ok
      * @param cancel
@@ -1198,6 +1222,49 @@ public class MiddleDialog {
                         cancel,
                         R.string.pop03_1,
                         R.string.service_charge_btr_popup_msg_03,
+                        R.string.dialog_common_7,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 주 카드 삭제 팝업 1_주 카드 이외 카드가 존재 하는 경우
+     */
+    public static void dialogDeletePayCard01(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.pop03_1,
+                        R.string.pay03_p01_1,
+                        R.string.dialog_common_7,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 주 카드 삭제 팝업 2_주 카드 이외 카드가 없는 경우
+     */
+    public static void dialogDeletePayCard02(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.pop03_1,
+                        R.string.pay03_p02_1,
                         R.string.dialog_common_7,
                         R.string.dialog_common_4
                 ).show()

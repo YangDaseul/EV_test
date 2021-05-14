@@ -20,7 +20,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="@drawable/selector_bg_ffffff_757575_996449"
+            android:background="@drawable/selector_bg_00000000_757575_996449"
             android:drawablePadding="5dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
@@ -33,6 +33,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="제네시스 전용 충전소" />
+            tools:text="제네시스 충전소" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

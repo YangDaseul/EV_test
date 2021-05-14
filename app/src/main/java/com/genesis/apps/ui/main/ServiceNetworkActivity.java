@@ -56,6 +56,7 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
 import com.genesis.apps.ui.main.service.ChargeFindActivity;
+import com.genesis.apps.ui.main.service.ChargeStationDetailActivity;
 import com.genesis.apps.ui.main.service.SearchAddressHMNFragment;
 import com.google.gson.Gson;
 import com.hmns.playmap.PlayMapPoint;
@@ -66,6 +67,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
@@ -87,6 +89,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private REQViewModel reqViewModel;
     private EPTViewModel eptViewModel;
     private BtrVO btrVO = null;
+    private ChargeEptInfoVO selectedChargeEptInfo;
     private LayoutMapOverlayUiBottomSelectNewBinding bottomSelectBinding;
     private LayoutMapOverlayUiBottomEvChargeBinding evBottomSelectBinding;
     private String fillerCd = "";
@@ -95,7 +98,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private String addrDtl = "";
     private VehicleVO mainVehicle = null;
 
-    private List<ChargeSearchCategoryVO> searchCategoryList = new ArrayList<>();
+    private List<ChargeSearchCategoryVO> searchCategoryList;
 
     public final static int PAGE_TYPE_BTR = 0;//버틀러 변경
     public final static int PAGE_TYPE_RENT = 1;//렌트리스 등록
@@ -132,15 +135,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 ui.btnMyPosition.setVisibility(View.GONE);
                 ui.btnMyPosition2.setOnClickListener(onSingleClickListener);
                 ui.btnCarPosition.setOnClickListener(onSingleClickListener);
-                // 필터값 초기 셋팅
-                searchCategoryList.addAll(Arrays.asList(
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null)
-                                .setSelected(true), // 기본 선택 값 설정.
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER))
-                                .addSelectedItem(ChargeSearchCategorytype.ALL),// 기본 선택 값 설정.
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
-                        new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
-                ));
                 break;
             }
             case PAGE_TYPE_BTR:
@@ -216,9 +210,35 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             btrVO = (BtrVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
             pageType = getIntent().getIntExtra(KeyNames.KEY_NAME_PAGE_TYPE, PAGE_TYPE_SERVICE);
             rparTypCd = getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
+
+            if(pageType == PAGE_TYPE_EVCHARGE) {
+                searchCategoryList = getIntent().getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO);
+                if (searchCategoryList == null) {
+                    // 필터값 초기 셋팅
+                    searchCategoryList = new ArrayList<>();
+                    searchCategoryList.addAll(Arrays.asList(
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null),
+                            getChargeTypeAll(),// 기본 선택 값 설정.
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
+                            new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
+                    ));
+                }else{
+                    ChargeSearchCategoryVO chargeSearchCategoryVO = searchCategoryList.stream().filter(data->data.getTitleResId()==R.string.sm_evss01_16).findFirst().orElse(null);
+                    if(chargeSearchCategoryVO==null){
+                        searchCategoryList.add(getChargeTypeAll());
+                    }else if(chargeSearchCategoryVO.getSelectedItem()==null||chargeSearchCategoryVO.getSelectedItem().size()<1){
+                        chargeSearchCategoryVO.addSelectedItem(ChargeSearchCategorytype.ALL);
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private ChargeSearchCategoryVO getChargeTypeAll(){
+        return new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER))
+                .addSelectedItem(ChargeSearchCategorytype.ALL);
     }
 
     @Override
@@ -459,7 +479,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         });
 
         eptViewModel.getRES_EPT_1001().observe(this, result -> {
-            Log.d("FID", "test :: getRES_STC_1001 :: result=" + result);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -467,20 +486,16 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
                 case SUCCESS: {
                     showProgressDialog(false);
-                    Log.d("FID", "test :: getRES_STC_1001 :; data=" + result.data);
                     try {
-                        List<ChargeEptInfoVO> list = result.data.getChgList();
-                        if (list != null && list.size() > 0) {
-                            // 충전소 목록 데이터가 있는 경우.
-                            setPositionChargeStation(result.data.getChgList(), result.data.getChgList().get(0), false);
-                        } else {
-                            // 충전소 목록 데이터가 없는 경우 - TODO 예외 처리 필요해 보임.
-
+                        if (result.data != null&&(RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd()))) {
+                            setPositionChargeStation(result.data.getChgList()
+                                    , (result.data.getChgList()!=null&&result.data.getChgList().size()>0) ? result.data.getChgList().get(0) : null
+                                    , false);
+                            break;
                         }
                     } catch (Exception e) {
 
                     }
-                    break;
                 }
                 default: {
                     String serverMsg = "";
@@ -613,8 +628,16 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         exitPage(new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO), ResultCodes.REQ_CODE_BTR.getCode());
                         break;
                     case PAGE_TYPE_EVCHARGE: {
-                        // TODO 충전소 찾기 - 자세히 보기 처리
-                        Log.d("FID", "test :: onClickCommon :: btn_right_black");
+                        // 충전소 찾기
+                        if(selectedChargeEptInfo != null) {
+                            startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
+                                            .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, selectedChargeEptInfo.getSpid())
+                                            .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectedChargeEptInfo.getCsid())
+                                            .putExtra(KeyNames.KEY_NAME_LAT, selectedChargeEptInfo.getLat())
+                                            .putExtra(KeyNames.KEY_NAME_LOT, selectedChargeEptInfo.getLot()),
+                                    RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                    VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        }
                         break;
                     }
                     case PAGE_TYPE_SERVICE:
@@ -878,8 +901,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private void reqSearchChargeStation(double lat, double lot, List<ChargeSearchCategoryVO> filterList) {
         String reservYn = null;
         String chgCd = null;
-        String chgSpeed = null;
-        String payType = null;
+        List<String> chgSpeed = new ArrayList<>();
+        List<String> payType = new ArrayList<>();
         if (filterList != null && filterList.size() > 0) {
             for (ChargeSearchCategoryVO item : filterList) {
                 if (item.isSelected()) {
@@ -898,8 +921,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         }
                         case R.string.sm_evss01_21: {
                             // 충전 속도 필터.
+//                            if (item.getSelectedItem().size() > 0) {
+//                                chgSpeed = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+//                            }
+
                             if (item.getSelectedItem().size() > 0) {
-                                chgSpeed = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+                                chgSpeed.addAll(item.getSelectedItem().stream().map(it -> it.getCode()).collect(Collectors.toList()));
                             }
 
                             break;
@@ -907,7 +934,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         case R.string.sm_evss01_25: {
                             // 결제 방식 필터.
                             if (item.getSelectedItem().size() > 0) {
-                                payType = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+//                                payType = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+                                payType.addAll(item.getSelectedItem().stream().map(it -> it.getCode()).collect(Collectors.toList()));
                             }
                             break;
                         }
@@ -1115,6 +1143,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             return;
         }
 
+        selectedChargeEptInfo = selectItemVo;
+
         ui.pmvMapView.removeAllMarkerItem();
 
         if (evBottomSelectBinding == null) {
@@ -1137,9 +1167,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     int highSpeedCnt = 0;
                     int slowSpeedCnt = 0;
                     try {
-                        superSpeedCnt = Integer.parseInt(selectItemVo.getSuperSpeedCnt());
-                        highSpeedCnt = Integer.parseInt(selectItemVo.getHighSpeedCnt());
-                        slowSpeedCnt = Integer.parseInt(selectItemVo.getSlowSpeedCnt());
+                        superSpeedCnt = Integer.parseInt(selectItemVo.getUsablSuperSpeedCnt());
+                        highSpeedCnt = Integer.parseInt(selectItemVo.getUsablHighSpeedCnt());
+                        slowSpeedCnt = Integer.parseInt(selectItemVo.getUsablSlowSpeedCnt());
                     } catch (Exception e) {
 
                     }

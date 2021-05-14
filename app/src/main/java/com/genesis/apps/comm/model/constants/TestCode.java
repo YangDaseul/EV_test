@@ -4,13 +4,17 @@ import com.genesis.apps.comm.model.api.gra.CHB_1007;
 import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1010;
+import com.genesis.apps.comm.model.api.gra.CHB_1011;
+import com.genesis.apps.comm.model.api.gra.CHB_1013;
+import com.genesis.apps.comm.model.api.gra.CHB_1015;
+import com.genesis.apps.comm.model.api.gra.CHB_1016;
+import com.genesis.apps.comm.model.api.gra.CHB_1017;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
-import com.genesis.apps.comm.model.api.gra.SOS_3001;
 import com.google.gson.Gson;
 
 //
@@ -4139,7 +4143,7 @@ public class TestCode {
             "  \"rtMsg\": \"Success\",\n" +
             "  \"dailyBookingSlotList\": [\n" +
             "    {\n" +
-            "      \"bookingDate\": \"20210422\",\n" +
+            "      \"bookingDate\": \"20210429\",\n" +
             "      \"slotList\": [\n" +
             "           {\n" +
             "           \"bookingTime\": \"1400\",\n" +
@@ -4148,12 +4152,7 @@ public class TestCode {
             "       ]\n" +
             "    },\n" +
             "    {\n" +
-            "      \"bookingDate\": \"20210423\",\n" +
-            "      \"slotList\": [\n" +
-            "       ]\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"bookingDate\": \"20210426\",\n" +
+            "      \"bookingDate\": \"20210430\",\n" +
             "      \"slotList\": [\n" +
             "           {\n" +
             "           \"bookingTime\": \"1100\",\n" +
@@ -4167,6 +4166,11 @@ public class TestCode {
             "           \"bookingTime\": \"1300\",\n" +
             "           \"remainCount\": 1\n" +
             "           }\n" +
+            "       ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"bookingDate\": \"20210501\",\n" +
+            "      \"slotList\": [\n" +
             "       ]\n" +
             "    }\n" +
             "  ]\n" +
@@ -4254,8 +4258,75 @@ public class TestCode {
 
     public static CHB_1010.Response CHB_1010 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
-            "  \"rtMsg\": \"Success\"\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"paymentFormData\" : \n" +
+            "   {\n" +
+            "       \"chnlCd\": \"CLPF\",\n" +
+            "       \"svrEncKey\": \"enckey\",\n" +
+            "       \"chnlMbrIdfKey\": \"string\",\n" +
+            "       \"bpayCardId\": \"string\",\n" +
+            "       \"srcCoCd\": \"C001\",\n" +
+            "       \"chnlMid\": \"string\",\n" +
+            "       \"mOid\": \"string\",\n" +
+            "       \"prdtNm\": \"버틀러서비스\",\n" +
+            "       \"stlmAmt\": 0,\n" +
+            "       \"vlsp\": 0,\n" +
+            "       \"srtx\": 0,\n" +
+            "       \"srfe\": 0,\n" +
+            "       \"nonMptx\": 0,\n" +
+            "       \"isMth\": 3,\n" +
+            "       \"closeUrl\": \"string\",\n" +
+            "       \"redirectUrl\": \"https://myhyundai.com/card/list\",\n" +
+            "       \"userAgent\": \"Android 6.0/Mozillar\",\n" +
+            "       \"dvceCd\": \"string\",\n" +
+            "       \"deceUuid\": \"string\",\n" +
+            "       \"ediDate\": \"20210318141600\",\n" +
+            "       \"filler\": \"string\",\n" +
+            "       \"hashVal\": \"string\",\n" +
+            "       \"formUrl\": \"https://devhpay.bluewalnut.co.kr/mem/registMemberCi.do/\"\n" +
+            "   }\n" +
             "}", CHB_1010.Response.class);
+
+    public static CHB_1011.Response CHB_1011 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"chnlCd\": \"CLPF\",\n" +
+            "  \"svrEncKey\": \"enckey\",\n" +
+            "  \"chnlMbrIdfKey\": \"string\",\n" +
+            "  \"mbrCi\": \"userciciciciciicicici\",\n" +
+            "  \"mbrNm\": \"김현대\",\n" +
+            "  \"mbPhNo\": \"01022223333\",\n" +
+            "  \"mvmtCtCoCd\": \"SKT\",\n" +
+            "  \"rsdtNo\": \"enc_rgst_no\",\n" +
+            "  \"closeUrl\": \"string\",\n" +
+            "  \"redirectUrl\": \"https://myhyundai.com/card/list\",\n" +
+            "  \"userAgent\": \"Android 6.0/Mozillar\",\n" +
+            "  \"dvceCd\": \"string\",\n" +
+            "  \"deceUuid\": \"string\",\n" +
+            "  \"ediDate\": \"20210318141600\",\n" +
+            "  \"filler\": \"string\",\n" +
+            "  \"hashVal\": \"string\",\n" +
+            "  \"formUrl\": \"https://devhpay.bluewalnut.co.kr/mem/registMemberCi.do/\"\n" +
+            "}", CHB_1011.Response.class);
+
+    public static CHB_1013.Response CHB_1013 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"chnlCd\": \"CLPF\",\n" +
+            "  \"svrEncKey\": \"enckey\",\n" +
+            "  \"chnlMbrIdfKey\": \"string\",\n" +
+            "  \"closeUrl\": \"string\",\n" +
+            "  \"redirectUrl\": \"https://myhyundai.com/card/list\",\n" +
+            "  \"ediDate\": \"20210318141600\",\n" +
+            "  \"filler\": \"string\",\n" +
+            "  \"hashVal\": \"string\",\n" +
+            "  \"formUrl\": \"https://devhpay.bluewalnut.co.kr/myp/selectCardCompany.do\"\n" +
+            "}", CHB_1013.Response.class);
+
+    public static CHB_1015.Response CHB_1015 = new Gson().fromJson("{\"rtCd\":\"0000\",\"rtMsg\":\"\",\"signInYN\":\"Y\",\"cardCount\":4,\"cardList\":[{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid01\",\"cardCoCode\":\"C002\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"KB카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid02\",\"cardCoCode\":\"C003\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"하나카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid03\",\"cardCoCode\":\"C004\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"삼성카드\",\"mainCardYN\":\"Y\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"N\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"}]}", CHB_1015.Response.class);
+
+    public static CHB_1016.Response CHB_1016 = new Gson().fromJson("{\"rtCd\":\"0000\",\"rtMsg\":\"test message\"}", CHB_1016.Response.class);
+    public static CHB_1017.Response CHB_1017 = new Gson().fromJson("{\"rtCd\":\"0000\",\"rtMsg\":\"test message\"}", CHB_1017.Response.class);
 
     public static CHB_1021.Response CHB_1021 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
@@ -4535,118 +4606,5 @@ public class TestCode {
             "  }\n" +
             "}", CHB_1026.Response.class);
 
-    public static SOS_3001.Response SOS_3001 = new Gson().fromJson("{\n" +
-            "  \"rtCd\": \"0000\",\n" +
-            "  \"rtMsg\": \"Success\",\n" +
-            "  \"sosStus\": {\n" +
-            "    \"trmsAgmtYn\": \"N\",\n" +
-            "    \"termList\": [\n" +
-            "      {\n" +
-            "        \"termVer\": \"10000\",\n" +
-            "        \"termCd\": \"0000\",\n" +
-            "        \"termNm\": \"개인정보 수집/이용 안내 동의\",\n" +
-            "        \"termEsnAgmtYn\": \"Y\",\n" +
-            "        \"termCont\": \"테스트중\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"termVer\": \"10000\",\n" +
-            "        \"termCd\": \"2000\",\n" +
-            "        \"termNm\": \"위치기반서비스 이용 안내에 대한 동의\",\n" +
-            "        \"termEsnAgmtYn\": \"Y\",\n" +
-            "        \"termCont\": \"테스트중\"\n" +
-            "      }\n" +
-            "    ],\n" +
-            "    \"useYn\": \"Y\",\n" +
-            "    \"dataCount\": \"5\",\n" +
-            "    \"subspYn\": \"N\",\n" +
-            "    \"tmpAcptNo\": \"28843\",\n" +
-            "    \"pgrsStusCd\": \"R\"\n" +
-            "  },\n" +
-            "  \"chbStus\": {\n" +
-            "    \"stMbrYn\": \"Y\",\n" +
-            "    \"prvcyInfoAgmtYn\": \"N\",\n" +
-            "    \"scrnCntn\": \"테스트\",\n" +
-            "    \"status\": \"1000\",\n" +
-            "    \"statusNm\": \"예약완료\"\n" +
-            "  },\n" +
-            "  \"reservYn\": \"N\"\n" +
-            "}", SOS_3001.Response.class);
-
-    //찾아가는 충전 서비스 정보제공동의완료 후
-    public static SOS_3001.Response SOS_3001_2 = new Gson().fromJson("{\n" +
-            "  \"rtCd\": \"0000\",\n" +
-            "  \"rtMsg\": \"Success\",\n" +
-            "  \"sosStus\": {\n" +
-            "    \"trmsAgmtYn\": \"Y\",\n" +
-            "    \"termList\": [\n" +
-            "      {\n" +
-            "        \"termVer\": \"10000\",\n" +
-            "        \"termCd\": \"0000\",\n" +
-            "        \"termNm\": \"개인정보 수집/이용 안내 동의\",\n" +
-            "        \"termEsnAgmtYn\": \"Y\",\n" +
-            "        \"termCont\": \"테스트중\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"termVer\": \"10000\",\n" +
-            "        \"termCd\": \"2000\",\n" +
-            "        \"termNm\": \"위치기반서비스 이용 안내에 대한 동의\",\n" +
-            "        \"termEsnAgmtYn\": \"Y\",\n" +
-            "        \"termCont\": \"테스트중\"\n" +
-            "      }\n" +
-            "    ],\n" +
-            "    \"useYn\": \"Y\",\n" +
-            "    \"dataCount\": \"5\",\n" +
-            "    \"subspYn\": \"N\",\n" +
-            "    \"tmpAcptNo\": \"28843\",\n" +
-            "    \"pgrsStusCd\": \"R\"\n" +
-            "  },\n" +
-            "  \"chbStus\": {\n" +
-            "    \"stMbrYn\": \"Y\",\n" +
-            "    \"prvcyInfoAgmtYn\": \"N\",\n" +
-            "    \"scrnCntn\": \"테스트\",\n" +
-            "    \"status\": \"1000\",\n" +
-            "    \"statusNm\": \"예약완료\"\n" +
-            "  },\n" +
-            "  \"reservYn\": \"N\"\n" +
-            "}", SOS_3001.Response.class);
-
-
-    //찾아가는 충전 서비스 신청 완료 후
-    public static SOS_3001.Response SOS_3001_3 = new Gson().fromJson("{\n" +
-            "  \"rtCd\": \"0000\",\n" +
-            "  \"rtMsg\": \"Success\",\n" +
-            "  \"sosStus\": {\n" +
-            "    \"trmsAgmtYn\": \"Y\",\n" +
-            "    \"termList\": [\n" +
-            "      {\n" +
-            "        \"termVer\": \"10000\",\n" +
-            "        \"termCd\": \"0000\",\n" +
-            "        \"termNm\": \"개인정보 수집/이용 안내 동의\",\n" +
-            "        \"termEsnAgmtYn\": \"Y\",\n" +
-            "        \"termCont\": \"테스트중\"\n" +
-            "      },\n" +
-            "      {\n" +
-            "        \"termVer\": \"10000\",\n" +
-            "        \"termCd\": \"2000\",\n" +
-            "        \"termNm\": \"위치기반서비스 이용 안내에 대한 동의\",\n" +
-            "        \"termEsnAgmtYn\": \"Y\",\n" +
-            "        \"termCont\": \"테스트중\"\n" +
-            "      }\n" +
-            "    ],\n" +
-            "    \"useYn\": \"Y\",\n" +
-            "    \"dataCount\": \"4\",\n" +
-            "    \"subspYn\": \"Y\",\n" +
-            "    \"tmpAcptNo\": \"28843\",\n" +
-            "    \"pgrsStusCd\": \"S\"\n" +
-            "  },\n" +
-            "  \"chbStus\": {\n" +
-            "    \"stMbrYn\": \"Y\",\n" +
-            "    \"prvcyInfoAgmtYn\": \"N\",\n" +
-            "    \"scrnCntn\": \"테스트\",\n" +
-            "    \"status\": \"1000\",\n" +
-            "    \"statusNm\": \"예약완료\"\n" +
-            "  },\n" +
-            "  \"reservYn\": \"N\"\n" +
-            "}", SOS_3001.Response.class);
-
+//    public static EPT_1001.Response EPT_1001 = new Gson().fromJson("{\"rtCd\":\"0000\",\"rtMsg\":\"test message\",\"chgList\":[{\"spid\":\"11\",\"csid\":\"22222222\",\"espid\":\"333\",\"ecsid\":\"1234567890123456789012345678901234560\",\"csnm\":\"현대EV스테이션 현대EV스테이션 현대EV스테이션 강남\",\"dist\":\"1.1\",\"lat\":\"37.480511\",\"lot\":\"126.883668\",\"daddr\":\"서울특별시 금천구 가산동 602-13\",\"addrDtl\":\"우림라이온스밸리 12층\",\"spnm\":\"운영사업자명\",\"useYn\":\"Y\",\"useTime\":\"12:00 ~ 13:00\",\"spcall\":\"00-0000-0000\",\"reservYn\":\"Y\",\"gcpYn\":\"Y\",\"genYn\":\"Y\",\"superSpeedCnt\":\"11\",\"highSpeedCnt\":\"2\",\"slowSpeedCnt\":\"1\"},{\"spid\":\"11\",\"csid\":\"22222223\",\"espid\":\"333\",\"ecsid\":\"1234567890123456789012345678901234561\",\"csnm\":\"현대EV스테이션 1\",\"dist\":\"1.1\",\"lat\":\"37.482991\",\"lot\":\"126.881369\",\"daddr\":\"서울특별시 금천구 470-5\",\"addrDtl\":\"에이스테크\",\"spnm\":\"운영사업자명\",\"useYn\":\"Y\",\"useTime\":\"12:00 ~ 13:00\",\"spcall\":\"00-0000-0000\",\"reservYn\":\"Y\",\"gcpYn\":\"Y\",\"genYn\":\"Y\",\"superSpeedCnt\":\"11\",\"highSpeedCnt\":\"2\",\"slowSpeedCnt\":\"0\"},{\"spid\":\"11\",\"csid\":\"22222223\",\"espid\":\"333\",\"ecsid\":\"1234567890123456789012345678901234562\",\"csnm\":\"현대EV스테이션 2\",\"dist\":\"11.1\",\"lat\":\"37.479533\",\"lot\":\"126.879282\",\"daddr\":\"서울특별시 금천구 가산동\",\"addrDtl\":\"\",\"spnm\":\"운영사업자명\",\"useYn\":\"Y\",\"useTime\":\"12:00 ~ 13:00\",\"spcall\":\"00-0000-0000\",\"reservYn\":\"Y\",\"gcpYn\":\"Y\",\"genYn\":\"Y\",\"superSpeedCnt\":\"11\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"1\"},{\"spid\":\"11\",\"csid\":\"22222223\",\"espid\":\"333\",\"ecsid\":\"1234567890123456789012345678901234563\",\"csnm\":\"현대EV스테이션 3\",\"dist\":\"11.1\",\"lat\":\"37.477494\",\"lot\":\"126.885952\",\"daddr\":\"서울특별시 금천구 가산동\",\"addrDtl\":\"\",\"spnm\":\"운영사업자명\",\"useYn\":\"Y\",\"useTime\":\"12:00 ~ 13:00\",\"spcall\":\"00-0000-0000\",\"reservYn\":\"N\",\"gcpYn\":\"Y\",\"genYn\":\"Y\",\"superSpeedCnt\":\"11\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"1\"}]}", EPT_1001.Response.class);
 }

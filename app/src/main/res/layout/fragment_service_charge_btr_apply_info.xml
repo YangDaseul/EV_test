@@ -131,7 +131,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:msg="@{data.getCarInfo() != null ? (TextUtils.isEmpty(data.getCarInfo().carNo) ? `` : data.getCarInfo().carNo) : `-`}"
+                            app:msg="@{(data.getCarInfo().getCarNo() ?? ``) ?? ``}"
                             app:title="@{@string/service_charge_btr_word_00}" />
 
                         <!-- "예약일시" -->
@@ -145,7 +145,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
-                            app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBookingDt() ??``),DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)}"
+                            app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBookingDt() ??``),DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)}"
                             app:title="@{@string/service_charge_btr_word_02}" />
 
                         <!-- "픽업" 위치 정보 -->
@@ -160,7 +160,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
                             app:maxLine="@{Integer.MAX_VALUE}"
-                            app:msg="@{data.getLocationCount() > 0 ? data.getLocationList().get(0).getAddress() : `-`}"
                             app:title="@{@string/service_charge_btr_word_03}" />
 
 
@@ -175,7 +174,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_pickup_addr"
-                            app:msg="@{data.getOrderInfo().getOptionCount() > 0 ? data.getOrderInfo().getOptionList().get(0).getOptionName() : ``}"
                             app:title="@{@string/service_charge_btr_word_04}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -231,8 +229,22 @@
                             app:msg="@{data.getOrderInfo() != null ? StringUtil.getPriceString(data.getOrderInfo().getProductPrice()) : ``}"
                             app:title="@{@string/service_charge_btr_word_12}" />
 
-                        <!-- 충전 금액-선결제 표시 -->
+                        <!-- 포인트 사용 -->
+                        <include
+                            android:id="@+id/l_credit_point"
+                            layout="@layout/item_rpar_bg_white"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            app:isRight="@{true}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/l_advance_paymt"
+                            app:title="@{@string/service_charge_btr_word_15}" />
+
+                        <!-- 포인트사용-충전 크레딧 포인트 표시 -->
                         <TextView
+                            android:id="@+id/txt_credit_point"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="115dp"
@@ -240,13 +252,12 @@
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="4dp"
-                            android:visibility="gone"
-                            android:text="@string/service_charge_btr_word_18"
+                            android:text="@string/service_charge_btr_word_19"
                             android:textColor="@color/x_262626"
                             android:textSize="14dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/l_advance_paymt"
+                            app:layout_constraintBottom_toBottomOf="@+id/l_credit_point"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/l_advance_paymt" />
+                            app:layout_constraintTop_toTopOf="@+id/l_credit_point" />
 
                         <!-- 탁송 금액 -->
                         <include
@@ -258,7 +269,7 @@
                             app:isRight="@{true}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/l_advance_paymt"
+                            app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
                             app:title="@{@string/service_charge_btr_word_13}" />
 
                         <!-- 세차 금액 -->
@@ -275,34 +286,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/l_delivery_paymt"
                             app:title="@{@string/service_charge_btr_word_14}" />
 
-                        <!-- 포인트 사용 -->
-                        <include
-                            android:id="@+id/l_credit_point"
-                            layout="@layout/item_rpar_bg_white"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            app:isRight="@{true}"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
-                            app:title="@{@string/service_charge_btr_word_15}" />
-
-                        <!-- 포인트사용-충전 크레딧 포인트 표시 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="115dp"
-                            android:background="@color/x_ffffff"
-                            android:fontFamily="@font/regular_genesissanstextglobal"
-                            android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="4dp"
-                            android:text="@string/service_charge_btr_word_19"
-                            android:textColor="@color/x_262626"
-                            android:textSize="14dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/l_credit_point"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/l_credit_point" />
 
                         <!-- 최종 결제 금액 -->
                         <include
@@ -312,10 +295,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             app:isRight="@{true}"
+                            app:textColor="@{@color/x_996449}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
-                            app:msg="@{data.getOrderInfo() != null ? StringUtil.getPriceString(data.getOrderInfo().getPaymentAmount()) : ``}"
+                            app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
                             app:title="@{@string/service_charge_btr_word_16}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

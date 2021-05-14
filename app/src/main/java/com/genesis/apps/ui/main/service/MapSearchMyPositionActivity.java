@@ -356,7 +356,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                                         "" + selectAddressVO.getCenterLon(),
                                         "" + selectAddressVO.getCenterLat()));
                     } else if(titleId == R.string.service_charge_btr_01){
-                        chbViewModel.reqCHB1007(new CHB_1007.Request(APPIAInfo.SM_CGRV01_01.getId(), selectAddressVO.getAddr(), null, selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon(), selectAddressVO.getCname()));
+                        String[] addressInfo = getAddress(selectAddressVO);
+                        chbViewModel.reqCHB1007(new CHB_1007.Request(APPIAInfo.SM_CGRV01_01.getId(), addressInfo[0], null, selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon(), addressInfo[1]));
                     } else {
                         exitPageWithAddress();
                     }
