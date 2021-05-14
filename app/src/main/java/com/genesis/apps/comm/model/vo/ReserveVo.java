@@ -19,9 +19,12 @@ import lombok.EqualsAndHashCode;
  * @see #carPayUseYn 카페이사용가능여부
  * @see #lat 충전소위치-위도
  * @see #lot 충전소위치-경도
- * @see #superSpeedCnt 초고속충전기수
- * @see #highSpeedCnt 급속충전기수
- * @see #slowSpeedCnt 완속충전기수
+ * @see #useSuperSpeedCnt 사용중 초고속충전기수
+ * @see #useHighSpeedCnt 사용중 급속충전기수
+ * @see #useSlowSpeedCnt 사용중 완속충전기수
+ * @see #usablSuperSpeedCnt 사용가능 초고속충전기수
+ * @see #usablHighSpeedCnt 사용가능 급속충전기수
+ * @see #usablSlowSpeedCnt 사용가능 완속충전기수
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -49,12 +52,21 @@ class ReserveVo extends BaseData {
     @SerializedName("lot")
     private String lot;
     @Expose
-    @SerializedName("superSpeedCnt")
-    private String superSpeedCnt;
+    @SerializedName("useSuperSpeedCnt")
+    private String useSuperSpeedCnt;
     @Expose
-    @SerializedName("highSpeedCnt")
-    private String highSpeedCnt;
+    @SerializedName("useHighSpeedCnt")
+    private String useHighSpeedCnt;
     @Expose
-    @SerializedName("slowSpeedCnt")
-    private String slowSpeedCnt;
+    @SerializedName("useSlowSpeedCnt")
+    private String useSlowSpeedCnt;
+    @Expose
+    @SerializedName("usablSuperSpeedCnt")
+    private String usablSuperSpeedCnt;
+    @Expose
+    @SerializedName("usablHighSpeedCnt")
+    private String usablHighSpeedCnt;
+    @Expose
+    @SerializedName("usablSlowSpeedCnt")
+    private String usablSlowSpeedCnt;
 } // end of class ReservVo

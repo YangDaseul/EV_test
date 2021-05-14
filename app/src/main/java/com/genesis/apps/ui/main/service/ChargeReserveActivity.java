@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -8,10 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.EPT_1001;
+import com.genesis.apps.comm.model.api.gra.STC_1001;
+import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
+import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
@@ -19,9 +23,13 @@ import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeReserveBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
+import com.genesis.apps.ui.main.service.view.ChargeSTCPlaceListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
  * Class Name : ChargeReserveActivity
@@ -33,12 +41,15 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
-    private ChargePlaceListAdapter adapter;
+    private ChargeSTCPlaceListAdapter adapter;
 
     private String reservYn;
     private String chgCd;
     private ArrayList<String> chgSpeedList = new ArrayList<>();
     private ArrayList<String> payTypeList = new ArrayList<>();
+
+    private int pageNo;
+    private final String MAX_PAGE_CNT = "10";
 
     private VehicleVO mainVehicleVO;
 
@@ -105,6 +116,35 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                     break;
             }
         });
+
+        stcViewModel.getRES_STC_1001().observe(ChargeReserveActivity.this, result -> {
+            switch (result.status) {
+                case LOADING: {
+                    showProgressDialog(true);
+                    break;
+                }
+                case SUCCESS: {
+                    showProgressDialog(false);
+                    if (result.data != null && (RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd()) || RETURN_CODE_EMPTY.equalsIgnoreCase(result.data.getRtCd()))) {
+                        updateChargeList(result.data.getSearchList());
+                        break;
+                    }
+                }
+                default: {
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                        //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        showProgressDialog(false);
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        updateChargeList(new ArrayList<>());
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -117,7 +157,30 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
      ****************************************************************************************************/
     @Override
     public void onFilterChanged(InputChargePlaceFragment.SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList) {
+        if (type == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
+            // 주소 검색은 별도 처리 없음.
+        } else {
+            // 나머지 내 위치, 내 차량 위치 기준 검색.
+            selectedFilterList.clear();
+            selectedFilterList.addAll(filterList);
+            // 예약가능여부 값 초기화.
+            reservYn = null;
+            // 충전소 구분 코드 초기화.
+            chgCd = null;
+            // 충전 속도 값 초기화
+            chgSpeedList.clear();
+            // 결제 방식 값 초기화.
+            payTypeList.clear();
 
+            updateFilterValue(selectedFilterList);
+
+            if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_LOCATION) {
+                // 내 위치 기준 충전소 검색.
+                reqMyLocation();
+            } else if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_CAR) {
+                reqParkLocationToDevelopers();
+            }
+        }
     }
 
     @Override
@@ -146,6 +209,15 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeReserveActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ui.rvSearchResult.setLayoutManager(layoutManager);
+
+        adapter = new ChargeSTCPlaceListAdapter(ChargeReserveActivity.this);
+        ui.rvSearchResult.setAdapter(adapter);
+
+        try {
+            mainVehicleVO = reqViewModel.getMainVehicle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void reqMyLocation() {
@@ -177,15 +249,89 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         if (lat == VariableType.DEFAULT_POSITION[0] && lot == VariableType.DEFAULT_POSITION[1]) {
             inputChargePlaceFragment.setGuideErrorMsg();
         }
-//        eptViewModel.reqEPT1001(new EPT_1001.Request(
-//                APPIAInfo.SM_EVSS01.getId(),
-//                mainVehicleVO.getVin(),
-//                String.valueOf(lat),
-//                String.valueOf(lot),
-//                reservYn,
-//                chgCd,
-//                chgSpeedList,
-//                payTypeList
-//        ));
+        stcViewModel.reqSTC1001(new STC_1001.Request(
+                APPIAInfo.SM_EVSB01.getId(),
+                mainVehicleVO.getVin(),
+                lat,
+                lot,
+                reservYn,
+                chgSpeedList.contains(ChargeSearchCategorytype.SUPER_SPEED.getCode()) ? "Y" : null,
+                chgSpeedList.contains(ChargeSearchCategorytype.HIGH_SPEED.getCode()) ? "Y": null,
+                chgSpeedList.contains(ChargeSearchCategorytype.SLOW_SPEED.getCode()) ? "Y" : null,
+                String.valueOf(pageNo),
+                MAX_PAGE_CNT
+        ));
+    }
+
+    private void updateChargeList(List<ReserveVo> list) {
+        try {
+            adapter.setRows(list);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            setEmptyView();
+        }
+    }
+
+    private void setEmptyView() {
+        if (adapter == null || adapter.getItemCount() < 1) {
+            ui.rvSearchResult.setVisibility(View.GONE);
+            ui.tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            ui.rvSearchResult.setVisibility(View.VISIBLE);
+            ui.tvEmpty.setVisibility(View.GONE);
+        }
+    }
+
+    private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
+        // 설정된 필터값 적용.
+        for (ChargeSearchCategoryVO item : filterList) {
+            if (item.getTitleResId() == R.string.sm_evss01_15) {
+                // 예약가능 충전소 필터
+                reservYn = item.isSelected() ? "Y" : "N";
+            } else if (item.getTitleResId() == R.string.sm_evss01_16) {
+                // 충전소 종류 필터
+                if (item.getSelectedItem().size() > 0) {
+                    ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
+                    switch (chargeStation) {
+                        case GENESIS: // 제네시스 충전소
+                        case E_PIT: {
+                            // 관련 충전소 종류 코드 설정.
+                            chgCd = chargeStation.getCode();
+                            break;
+                        }
+                        case ALL:
+                        case HI_CHARGER:
+                        default: {
+                            // 관련 코드가 없어 전체 조회하는 것으로 처리.
+                            chgCd = null;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                // 충전 속도, 결제 방식 필터.
+                // 필터별 필터 코드 적용.
+                for (ChargeSearchCategorytype filterItem : item.getSelectedItem()) {
+                    switch (filterItem) {
+                        case SUPER_SPEED:
+                        case HIGH_SPEED:
+                        case SLOW_SPEED: {
+                            chgSpeedList.add(filterItem.getCode());
+                            break;
+                        }
+                        case CAR_PAY:
+                        case S_TRAFFIC_CRADIT_PAY: {
+                            payTypeList.add(filterItem.getCode());
+                        }
+                        default: {
+                            // Nothing
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 } // end of class ChargeReserveActivity
