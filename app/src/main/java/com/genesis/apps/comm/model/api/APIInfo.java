@@ -197,9 +197,9 @@ public enum APIInfo {
 
     // 픽업앤충전 서비스/간편결제
     GRA_CHB_1001("service + 픽업앤충전 서비스 상태 >> 삭제", "CHB-1001", HttpRequest.METHOD_POST, getEvUri()+"chb/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CHB_1002("service + 픽업앤충전 정보제공동의화면", "CHB-1002", HttpRequest.METHOD_POST, getEvUri()+"chb/infoAgmtView.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CHB_1003("service + 픽업앤충전 정보제공동의 설정", "CHB-1003", HttpRequest.METHOD_POST, getEvUri()+"chb/infoAgmtSet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CHB_1004("service + 픽업앤충전 제공동의 조회", "CHB-1004", HttpRequest.METHOD_POST, getEvUri()+"chb/infoAgmtGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1002("service + 픽업앤충전 정보제공동의화면 >> 삭제", "CHB-1002", HttpRequest.METHOD_POST, getEvUri()+"chb/infoAgmtView.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1003("service + 픽업앤충전 정보제공동의 설정 >> 삭제", "CHB-1003", HttpRequest.METHOD_POST, getEvUri()+"chb/infoAgmtSet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1004("service + 픽업앤충전 제공동의 조회 >> 삭제", "CHB-1004", HttpRequest.METHOD_POST, getEvUri()+"chb/infoAgmtGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1005("service + 픽업앤충전 서비스 소개", "CHB-1005", HttpRequest.METHOD_POST, getEvUri()+"chb/chbSvcIntro.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1006("service + 디지털키 공유가능 여부", "CHB-1006", HttpRequest.METHOD_POST, getEvUri()+"chb/dgtlKeyShaYn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1007("service + 픽업앤충전 서비스 가능지역 확인", "CHB-1007", HttpRequest.METHOD_POST, getEvUri()+"chb/sevPosLocCheck.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -220,7 +220,7 @@ public enum APIInfo {
     GRA_CHB_1022("service + 픽업앤충전 서비스 기사위치 정보 조회", "CHB-1022", HttpRequest.METHOD_POST, getEvUri()+"chb/workerLocGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1023("service + 픽업앤충전 서비스 신청이력 조회", "CHB-1023", HttpRequest.METHOD_POST, getEvUri()+"chb/aplctHstryGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1024("service + 픽업앤충전 서비스 신청쉬소", "CHB-1024", HttpRequest.METHOD_POST, getEvUri()+"chb/chbSvcCncl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CHB_1025("service + 회원탈퇴(픽업앤충전/간편결제)", "CHB-1025", HttpRequest.METHOD_POST, getEvUri()+"chb/withdrawal.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1025("service + 회원탈퇴(픽업앤충전/간편결제) >> 삭제", "CHB-1025", HttpRequest.METHOD_POST, getEvUri()+"chb/withdrawal.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1026("service + 신청이력 상세정보", "CHB-1026", HttpRequest.METHOD_POST, getEvUri()+"chb/aplctHstryDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1027("service + 픽업앤충전 결제결과확인", "CHB-1027", HttpRequest.METHOD_POST, getEvUri()+"chb/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
@@ -229,8 +229,8 @@ public enum APIInfo {
     GRA_DTW_1002("디지털월렛 선불카드 비밀번호설정", "DTW-1002", HttpRequest.METHOD_POST, getEvUri()+"dtw/passwd.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DTW_1003("디지털월렛 미수금 조회", "DTW-1003", HttpRequest.METHOD_POST, getEvUri()+"dtw/unpaidInq.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DTW_1004("디지털월렛 미수금 결제요청", "DTW-1004", HttpRequest.METHOD_POST, getEvUri()+"dtw/unpaidPay.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_DTW_1005("에스트래픽회원가입", "DTW-1005", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberIn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_DTW_1006("에스트래픽회원탈퇴", "DTW-1006", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberOut.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1005("에스트래픽회원가입 >> 삭제", "DTW-1005", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberIn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_DTW_1006("에스트래픽회원탈퇴 >> 삭제", "DTW-1006", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberOut.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DTW_1007("미수금결제완료 시그널", "DTW-1007", HttpRequest.METHOD_POST, getEvUri()+"dtw/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용

@@ -13,27 +13,40 @@ import lombok.EqualsAndHashCode;
 public class DTW_1007 extends BaseData {
     /**
      * @brief DTW_1007 요청 항목
-     * @see #mOid   채널 주문번호
+     * @see #payTrxId   결제트랜잭션ID
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("mOid")
-        private String mOid;
+        @SerializedName("payTrxId")
+        private String payTrxId;
 
-        public Request(String menuId, String mOid) {
-            this.mOid = mOid;
+        public Request(String menuId, String payTrxId) {
+            this.payTrxId = payTrxId;
             setData(APIInfo.GRA_DTW_1007.getIfCd(), menuId);
         }
     }
 
     /**
      * @brief DTW_1007 응답 항목
+     *
+     * @see #chgEndDtm  사용일시 YYYYMMDDHH24MISS
+     * @see #chgNm  충전소명
+     * @see #payAmt 고객청구금액
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        @Expose
+        @SerializedName("chgEndDtm")
+        private String chgEndDtm;
+        @Expose
+        @SerializedName("chgNm")
+        private String chgNm;
+        @Expose
+        @SerializedName("payAmt")
+        private String payAmt;
     }
 }
