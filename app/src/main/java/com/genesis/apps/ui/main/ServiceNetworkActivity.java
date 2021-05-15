@@ -511,6 +511,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         e.printStackTrace();
                     } finally {
                         showProgressDialog(false);
+                        setPositionChargeStation(null, null, false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? "충전 예약이 불가능합니다.\n다른 지점을 선택해 주세요." : serverMsg);
                     }
                 }
@@ -1182,7 +1183,10 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         }
 
         if (list == null || list.size() == 0) {
-            // 검색된 충전소 데이터가 없음. - TODO 예외 처리가 필요할 수 있음.
+            if(evBottomSelectBinding!=null){
+                evBottomSelectBinding.lWhole.setVisibility(View.GONE);
+            }
+            // 검색된 충전소 데이터가 없음.
             return;
         }
         selectedChargeEptInfo = selectItemVo;
@@ -1195,36 +1199,10 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_ev_charge, (viewStub, inflated) -> {
                 evBottomSelectBinding = DataBindingUtil.bind(inflated);
                 evBottomSelectBinding.setActivity(ServiceNetworkActivity.this);
-                evBottomSelectBinding.tvBtnRouteDetail.setTag(R.id.item, selectItemVo);
-                evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
-                evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
-                evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
-                evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
-                evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
-                if (selectItemVo.isReserve()) {
-                    // 예약 가능한 상태.
-                    evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
-                    evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
-                } else {
-                    // 예약 불가능한 상태.
-                    evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
-                }
+                setViewEVBottom(selectItemVo);
             });
         } else {
-            evBottomSelectBinding.tvBtnRouteDetail.setTag(R.id.item, selectItemVo);
-            evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
-            evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
-            evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
-            evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
-            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
-            if (selectItemVo.isReserve()) {
-                // 예약 가능한 상태.
-                evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
-                evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
-            } else {
-                // 예약 불가능한 상태.
-                evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
-            }
+            setViewEVBottom(selectItemVo);
         }
 
         try {
@@ -1243,6 +1221,26 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         } catch (Exception e) {
             // 좌표 파싱 에러.
             e.printStackTrace();
+        }
+    }
+
+    private void setViewEVBottom(ChargeEptInfoVO selectItemVo){
+        if(evBottomSelectBinding!=null){
+            evBottomSelectBinding.lWhole.setVisibility(View.VISIBLE);
+            evBottomSelectBinding.tvBtnRouteDetail.setTag(R.id.item, selectItemVo);
+            evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
+            evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
+            evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
+            evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
+            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
+            if (selectItemVo.isReserve()) {
+                // 예약 가능한 상태.
+                evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
+                evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
+            } else {
+                // 예약 불가능한 상태.
+                evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
+            }
         }
     }
 

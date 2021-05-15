@@ -22,6 +22,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
         style="@style/MapOverlayBoxWhite"
         android:clickable="true"
         android:focusable="true"
