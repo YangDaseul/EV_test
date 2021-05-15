@@ -282,7 +282,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case PAGE_TYPE_EVCHARGE:
                     try {
                         mainVehicle = reqViewModel.getMainVehicle();
-                        reqSearchChargeStation(doubles.get(0), doubles.get(1), null);
+                        reqSearchChargeStation(doubles.get(0), doubles.get(1), searchCategoryList);
                     } catch (Exception e) {
 
                     }
@@ -557,6 +557,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 .setLayoutManager(layoutManager)
                 .setButtonClickListener((view) -> {
                     searchCategoryList = adapter.getItems();
+                    ArrayList<ChargeSearchCategoryVO> list = new ArrayList<>();
+                    list.addAll(searchCategoryList);
+                    setResult(ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode(), new Intent().putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, list));
                     reqSearchChargeStation(lgnViewModel.getPosition().getValue().get(0), lgnViewModel.getPosition().getValue().get(1), adapter.getItems());
                 })
                 .build();

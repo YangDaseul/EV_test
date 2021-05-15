@@ -12,6 +12,7 @@ import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
@@ -51,7 +52,6 @@ import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_A
 public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
     private InputChargePlaceFragment inputChargePlaceFragment;
 
-    private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
     private ChargePlaceListAdapter adapter;
 
     private String reservYn=VariableType.COMMON_MEANS_YES;
@@ -189,20 +189,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         if (type == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
             // 주소 검색은 별도 처리 없음.
         } else {
-            // 나머지 내 위치, 내 차량 위치 기준 검색.
-            selectedFilterList.clear();
-            selectedFilterList.addAll(filterList);
-            // 예약가능여부 값 초기화.
-            reservYn = null;
-            // 충전소 구분 코드 초기화.
-            chgCd = null;
-            // 충전 속도 값 초기화
-            chgSpeedList.clear();
-            // 결제 방식 값 초기화.
-            payTypeList.clear();
-
-            updateFilterValue(selectedFilterList);
-
+            updateFilterValue(filterList);
             if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_LOCATION) {
                 // 내 위치 기준 충전소 검색.
                 reqMyLocation();
@@ -246,9 +233,20 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 //현대양재사옥위치
                 searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
             }
+        }else if(resultCode== ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode()){
+            if(data!=null){
+                try {
+                    ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
+                    filterList.addAll(data.getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO));
+                    if(filterList!=null&&filterList.size()>0){
+                        inputChargePlaceFragment.updateFilter(filterList);
+                        onFilterChanged(inputChargePlaceFragment.getCurrentType(), filterList);
+                    }
+                }catch (Exception e){
+
+                }
+            }
         }
-
-
     }
 
     /****************************************************************************************************
@@ -267,7 +265,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
-        selectedFilterList.add(inputChargePlaceFragment.getDefaultCategoryReserveYN());
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
@@ -361,6 +358,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     }
 
     private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
+        // 예약가능여부 값 초기화.
+        reservYn = null;
+        // 충전소 구분 코드 초기화.
+        chgCd = null;
+        // 충전 속도 값 초기화
+        chgSpeedList.clear();
+        // 결제 방식 값 초기화.
+        payTypeList.clear();
+
         // 설정된 필터값 적용.
         for (ChargeSearchCategoryVO item : filterList) {
             if (item.getTitleResId() == R.string.sm_evss01_15) {
