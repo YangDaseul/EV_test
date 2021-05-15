@@ -1,6 +1,11 @@
 package com.genesis.apps.comm.model.vo;
 
+import android.content.Context;
+
+import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.QueryString;
+import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -119,4 +124,78 @@ class ChargeEptInfoVO extends BaseData {
     @Expose
     @SerializedName("usablSlowSpeedCnt")
     private String usablSlowSpeedCnt;
+
+
+    public String getChargeStatus(Context context){
+        StringBuilder strBuilder = new StringBuilder();
+        //사용가능
+        int usablSuperSpeedCnt;
+        int usablHighSpeedCnt;
+        int usablSlowSpeedCnt;
+        int totalUseAbleCnt;
+        //사용중
+        int useSuperSpeedCnt;
+        int useHighSpeedCnt;
+        int useSlowSpeedCnt;
+        int totalUseCnt;
+
+        usablSuperSpeedCnt = StringUtil.isValidInteger(getUsablSuperSpeedCnt());
+        usablHighSpeedCnt = StringUtil.isValidInteger(getUsablHighSpeedCnt());
+        usablSlowSpeedCnt = StringUtil.isValidInteger(getUsablSlowSpeedCnt());
+        totalUseAbleCnt = usablSuperSpeedCnt + usablHighSpeedCnt + usablSlowSpeedCnt;
+
+        useSuperSpeedCnt = StringUtil.isValidInteger(getUseSuperSpeedCnt());
+        useHighSpeedCnt = StringUtil.isValidInteger(getUseHighSpeedCnt());
+        useSlowSpeedCnt = StringUtil.isValidInteger(getUseSlowSpeedCnt());
+        totalUseCnt = useSuperSpeedCnt + useHighSpeedCnt + useSlowSpeedCnt;
+
+
+        if(totalUseAbleCnt>0){
+            //1대의 충전기라도 사용 가능 할 경우
+            if (usablSuperSpeedCnt > 0) {
+                strBuilder.append(String.format(context.getString(R.string.sm_evss02_01), usablSuperSpeedCnt));
+            }
+            if (usablHighSpeedCnt > 0) {
+                if (strBuilder.length() > 0) {
+                    strBuilder.append(", ");
+                }
+                strBuilder.append(String.format(context.getString(R.string.sm_evss02_02), usablHighSpeedCnt));
+            }
+            if (usablSlowSpeedCnt > 0) {
+                if (strBuilder.length() > 0) {
+                    strBuilder.append(", ");
+                }
+                strBuilder.append(String.format(context.getString(R.string.sm_evss02_03), usablSlowSpeedCnt));
+            }
+
+            strBuilder.append(" "+context.getString(R.string.sm_evss03_04));
+        }else if(totalUseAbleCnt==0&&totalUseCnt>0){
+            //사용가능한 충전기는 없고 사용중인게 0대 이상인 경우 사용중
+            strBuilder.append(context.getString(R.string.sm_evss01_33));
+        }else{
+            //사용가능한 충전기도 없고 사용중인 충전기도 없으면 점검중
+            strBuilder.append(context.getString(R.string.sm_evss01_32));
+        }
+
+        return strBuilder.toString();
+    }
+
+    public boolean isReserve(){
+        //사용가능
+        int totalUseAbleCnt = StringUtil.isValidInteger(getUsablSuperSpeedCnt()) + StringUtil.isValidInteger(getUsablHighSpeedCnt()) + StringUtil.isValidInteger(getUsablSlowSpeedCnt());
+        //사용중
+        int totalUseCnt = StringUtil.isValidInteger(getUseSuperSpeedCnt()) + StringUtil.isValidInteger(getUseHighSpeedCnt()) + StringUtil.isValidInteger(getUseSlowSpeedCnt());
+
+        return "Y".equalsIgnoreCase(getReservYn())&& (totalUseAbleCnt>0||totalUseAbleCnt==0&&totalUseCnt>0);
+    }
+
+    public String getGCSScheme(){
+        QueryString q = new QueryString();
+        q.add("lat", getLat());
+        q.add("lon", getLot());
+        q.add("address", "");
+        q.add("title", "");
+        q.add("phone", "");
+        return "mgenesis://sendtocar"+q.getQuery();
+    }
 } // end of class ChargeEptInfoVO

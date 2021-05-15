@@ -82,6 +82,7 @@
             android:maxLines="2"
             android:textColor="@color/x_666666"
             android:textSize="16dp"
+            android:lineSpacingExtra="4dp"
             app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_dist"

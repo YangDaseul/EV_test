@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,13 +13,6 @@ import android.view.View;
 import android.view.ViewStub;
 import android.webkit.WebView;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -67,7 +61,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
@@ -171,8 +171,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                                     list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
                                     break;
                                 case PAGE_TYPE_EVCHARGE: {
-                                    // TODO 충전소 찾기
-                                    Log.d("FID", "test :: initView :: onMapTouchUpListener");
+                                    setPositionChargeStation(eptViewModel.getRES_EPT_1001().getValue().data.getChgList()
+                                            , (eptViewModel.getChargeEptInfoVO(makerList.get(0).getId())), true);
                                     break;
                                 }
                                 case PAGE_TYPE_SERVICE:
@@ -489,8 +489,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     try {
                         if (result.data != null&&(RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd()))) {
                             setPositionChargeStation(result.data.getChgList()
-                                    , (result.data.getChgList()!=null&&result.data.getChgList().size()>0) ? result.data.getChgList().get(0) : null
-                                    , false);
+                                    , (result.data.getChgList()!=null&&result.data.getChgList().size()>0) ? result.data.getChgList().get(0) : null, false
+                            );
                             break;
                         }
                     } catch (Exception e) {
@@ -750,7 +750,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             }
             case R.id.tv_btn_route_detail: {
                 // 상세 경로 보기. 제네시스 커넥티드 앱 호출
-                PackageUtil.runApp(ServiceNetworkActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR);
+                // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
+                ChargeEptInfoVO item = (ChargeEptInfoVO)v.getTag(R.id.item);
+                if(item!=null&&!TextUtils.isEmpty(item.getLat())&&!TextUtils.isEmpty(item.getLot())){
+                    PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                }
+
                 break;
             }
             case R.id.btn_search:
@@ -820,6 +825,23 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
 
         String strId = btrVO.getAsnCd();
+        ui.pmvMapView.removeMarkerItem(strId);
+        ui.pmvMapView.addMarkerItem(strId, markerItem);
+    }
+
+    public void modifyMarkerItemCharge(ChargeEptInfoVO chargeEptInfoVO, int iconId) {
+        PlayMapMarker markerItem = new PlayMapMarker();
+//        PlayMapPoint point = mapView.getMapCenterPoint();
+        PlayMapPoint point = new PlayMapPoint(Double.parseDouble(chargeEptInfoVO.getLat()), Double.parseDouble(chargeEptInfoVO.getLot()));
+        markerItem.setMapPoint(point);
+//        markerItem.setCalloutTitle("제목");
+//        markerItem.setCalloutSubTitle("내용");
+        markerItem.setCanShowCallout(false);
+        markerItem.setAutoCalloutVisible(false);
+        markerItem.setIcon(((BitmapDrawable) getResources().getDrawable(iconId, null)).getBitmap());
+
+
+        String strId = chargeEptInfoVO.getCsid();
         ui.pmvMapView.removeMarkerItem(strId);
         ui.pmvMapView.addMarkerItem(strId, markerItem);
     }
@@ -951,8 +973,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 String.valueOf(lot),
                 reservYn,
                 chgCd,
-                chgSpeed,
-                payType
+                chgSpeed.size()<1 ? null : chgSpeed,
+                payType.size()<1 ? null : payType
         ));
     }
 
@@ -972,7 +994,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                     case PAGE_TYPE_EVCHARGE: {
                         // TODO 충전소 찾기
-                        Log.d("FID", "test :: onActivityResult :: ");
                         break;
                     }
                     case PAGE_TYPE_REPAIR:
@@ -1138,14 +1159,25 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     }
 
     private void setPositionChargeStation(List<ChargeEptInfoVO> list, ChargeEptInfoVO selectItemVo, boolean isSelect) {
+
+        ChargeEptInfoVO beforeChargeEptInfoVO = null;
+
+        if (!isSelect)
+            ui.pmvMapView.removeAllMarkerItem();
+        else {
+            try {
+                beforeChargeEptInfoVO = ((ChargeEptInfoVO) this.selectedChargeEptInfo.clone());
+            } catch (Exception e) {
+
+            }
+        }
+
         if (list == null || list.size() == 0) {
             // 검색된 충전소 데이터가 없음. - TODO 예외 처리가 필요할 수 있음.
             return;
         }
-
         selectedChargeEptInfo = selectItemVo;
 
-        ui.pmvMapView.removeAllMarkerItem();
 
         if (evBottomSelectBinding == null) {
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) findViewById(R.id.vs_map_overlay_bottom_box).getLayoutParams();
@@ -1154,66 +1186,49 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_ev_charge, (viewStub, inflated) -> {
                 evBottomSelectBinding = DataBindingUtil.bind(inflated);
                 evBottomSelectBinding.setActivity(ServiceNetworkActivity.this);
-
+                evBottomSelectBinding.tvBtnRouteDetail.setTag(R.id.item, selectItemVo);
                 evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
                 evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
                 evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
                 evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
-
-                if ("Y".equalsIgnoreCase(selectItemVo.getUseYn())) {
-                    // 운영중인 경우 - 예약 상태 표시
-                    StringBuilder strBuilder = new StringBuilder();
-                    int superSpeedCnt = 0;
-                    int highSpeedCnt = 0;
-                    int slowSpeedCnt = 0;
-                    try {
-                        superSpeedCnt = Integer.parseInt(selectItemVo.getUsablSuperSpeedCnt());
-                        highSpeedCnt = Integer.parseInt(selectItemVo.getUsablHighSpeedCnt());
-                        slowSpeedCnt = Integer.parseInt(selectItemVo.getUsablSlowSpeedCnt());
-                    } catch (Exception e) {
-
-                    }
-                    if (superSpeedCnt > 0) {
-                        strBuilder.append(String.format(getString(R.string.sm_evss02_01), superSpeedCnt));
-                    }
-                    if (highSpeedCnt > 0) {
-                        if (strBuilder.length() > 0) {
-                            strBuilder.append(", ");
-                        }
-                        strBuilder.append(String.format(getString(R.string.sm_evss02_02), highSpeedCnt));
-                    }
-                    if (slowSpeedCnt > 0) {
-                        if (strBuilder.length() > 0) {
-                            strBuilder.append(", ");
-                        }
-                        strBuilder.append(String.format(getString(R.string.sm_evss02_03), slowSpeedCnt));
-                    }
-                    if ("Y".equalsIgnoreCase(selectItemVo.getReservYn())) {
-                        // 예약 가능한 상태.
-                        evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
-                        evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
-                        evBottomSelectBinding.tvChargeUnit.setText(strBuilder.toString() + " " + getString(R.string.sm_evss03_04));
-                    } else {
-                        // 예약 불가능한 상태.
-                        evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
-                        evBottomSelectBinding.tvChargeUnit.setText(R.string.sm_evss01_33);
-                    }
+                evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
+                if (selectItemVo.isReserve()) {
+                    // 예약 가능한 상태.
+                    evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
+                    evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
                 } else {
-                    // 기타 상태 - 점검중으로 표시.
+                    // 예약 불가능한 상태.
                     evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
-                    evBottomSelectBinding.tvChargeUnit.setText(R.string.sm_evss01_32);
                 }
             });
         } else {
-
+            evBottomSelectBinding.tvBtnRouteDetail.setTag(R.id.item, selectItemVo);
+            evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
+            evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
+            evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
+            evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
+            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
+            if (selectItemVo.isReserve()) {
+                // 예약 가능한 상태.
+                evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
+                evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
+            } else {
+                // 예약 불가능한 상태.
+                evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
+            }
         }
 
         try {
-            for (ChargeEptInfoVO item : list) {
-                drawMarkerItem(item.getEspid(),
-                        Double.parseDouble(item.getLat()),
-                        Double.parseDouble(item.getLot()),
-                        item == selectItemVo ? R.drawable.ic_pin_carcenter : R.drawable.ic_pin);
+            if(!isSelect) {
+                for (ChargeEptInfoVO item : list) {
+                    drawMarkerItem(item.getCsid(),
+                            Double.parseDouble(item.getLat()),
+                            Double.parseDouble(item.getLot()),
+                            StringUtil.isValidString(item.getCsid()).equalsIgnoreCase(StringUtil.isValidString(selectItemVo.getCsid())) ? R.drawable.ic_pin_carcenter : R.drawable.ic_pin);
+                }
+            }else{
+                if (beforeChargeEptInfoVO != null) modifyMarkerItemCharge(beforeChargeEptInfoVO, R.drawable.ic_pin);
+                if (selectItemVo != null) modifyMarkerItemCharge(selectItemVo, R.drawable.ic_pin_carcenter);
             }
             ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(Double.parseDouble(selectItemVo.getLat()), Double.parseDouble(selectItemVo.getLot())), 500);
         } catch (Exception e) {

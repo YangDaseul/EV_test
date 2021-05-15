@@ -115,7 +115,7 @@
             android:background="@drawable/bg_trans_underline_000000_1dp"
             android:includeFontPadding="false"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:paddingBottom="2dp"
+            android:paddingBottom="4dp"
             android:text="@string/sm_evss01_12"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"

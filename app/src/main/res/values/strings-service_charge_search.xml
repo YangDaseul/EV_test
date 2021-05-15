@@ -50,8 +50,8 @@
     <string name="sm_evss01_43">위치 검색</string>
     <string name="sm_evss01_44">지도로 보기</string>
 
-    <string name="sm_evss02_01">초고속 %d대</string>
-    <string name="sm_evss02_02">급속 %d대</string>
-    <string name="sm_evss02_03">완속 %d대</string>
+    <string name="sm_evss02_01"><![CDATA[초고속 <font color="#996449">%d</font>]]>대</string>
+    <string name="sm_evss02_02"><![CDATA[급속 <font color="#996449">%d</font>]]>대</string>
+    <string name="sm_evss02_03"><![CDATA[완속 <font color="#996449">%d</font>]]>대</string>
     <string name="sm_evss03_04">사용가능</string>
 </resources>
