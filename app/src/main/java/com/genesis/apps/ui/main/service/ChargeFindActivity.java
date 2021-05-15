@@ -186,19 +186,20 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void onFilterChanged(InputChargePlaceFragment.SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList) {
-        if (type == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
-            // 주소 검색은 별도 처리 없음.
-        } else {
-            updateFilterValue(filterList);
-            if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_LOCATION) {
-                // 내 위치 기준 충전소 검색.
-                reqMyLocation();
-            } else if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_CAR) {
+        updateFilterValue(filterList);
+        switch (type){
+            case ADDRESS:
+                reqAddress(type.getAddressVO());
+                break;
+            case MY_CAR:
                 reqParkLocationToDevelopers();
-            }
+                break;
+            case MY_LOCATION:
+            default:
+                reqMyLocation();
+                break;
         }
     }
-
     /****************************************************************************************************
      * Override Method - {@link InputChargePlaceFragment.FilterChangeListener}
      ****************************************************************************************************/
@@ -254,7 +255,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      ****************************************************************************************************/
     @Override
     public void onAddressSelected(AddressVO selectedAddr) {
-        inputChargePlaceFragment.setAddress(getAddress(selectedAddr));
+        inputChargePlaceFragment.setAddress(selectedAddr);
         searchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
     }
 
@@ -273,10 +274,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeFindActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ui.rvSearchResult.setLayoutManager(layoutManager);
-
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ChargeFindActivity.this, layoutManager.getOrientation());
-//        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
-//        ui.rvSearchResult.addItemDecoration(dividerItemDecoration);
 
         adapter = new ChargePlaceListAdapter(ChargeFindActivity.this);
         ui.rvSearchResult.setAdapter(adapter);
@@ -306,15 +303,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     private void searchChargeStation(double lat, double lot) {
         lgnViewModel.setMyPosition(lat, lot);
-//        String chgSpeed = null;
-//        String payType = null;
-//        if (chgSpeedList.size() > 0) {
-//            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-//            chgSpeed = chgSpeed.replace("\\","");
-//        }
-//        if (payTypeList.size() > 0) {
-//            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
-//        }
         if(lat==VariableType.DEFAULT_POSITION[0]&&lot==VariableType.DEFAULT_POSITION[1]){
             inputChargePlaceFragment.setGuideErrorMsg();
         }
@@ -329,12 +317,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 payTypeList.size()<1 ? null : payTypeList
         ));
     }
-
-//    private void updateChargeStatus(EvStatus.Response data) {
-//        if (evChargeStatusFragment != null) {
-//            evChargeStatusFragment.updateEvChargeStatus(data);
-//        }
-//    }
 
     private void updateChargeList(List<ChargeEptInfoVO> list) {
         try {
@@ -422,6 +404,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             developersViewModel.reqParkLocation(new ParkLocation.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
         }else{
             searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+        }
+    }
+
+    private void reqAddress(AddressVO addressVO) {
+        if(addressVO!=null){
+            searchChargeStation(addressVO.getCenterLat(), addressVO.getCenterLon());
+        }else{
+            updateChargeList(new ArrayList<>());
+            setEmptyView();
         }
     }
 

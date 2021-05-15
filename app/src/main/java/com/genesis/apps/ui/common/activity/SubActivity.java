@@ -309,7 +309,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
      * @brief 주소 정보에서 도로명주소 혹은 도로지번 주소를 결정
      * (도로명 주소가 우선순위)
      */
-    public String[] getAddress(AddressVO addressVO) {
+    public static String[] getAddress(AddressVO addressVO) {
         String[] address = new String[2];
 
         try {
