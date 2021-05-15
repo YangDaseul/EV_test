@@ -280,6 +280,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
         try {
             mainVehicleVO = reqViewModel.getMainVehicle();
+            setViewBatteryStatus();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -413,6 +414,33 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         }else{
             updateChargeList(new ArrayList<>());
             setEmptyView();
+        }
+    }
+
+    /**
+     * 정보 제공 동의 유무에 따라서 FRAGMENT VISIBLE/GONE 결정
+     * (top margin 제거 목적)
+     */
+    private void setViewBatteryStatus() {
+        try {
+            if (mainVehicleVO != null) {
+                //정보제공동의유무확인
+                switch (developersViewModel.checkCarInfoToDevelopers(mainVehicleVO.getVin(), "")) {
+                    case STAT_AGREEMENT:
+                        //동의한경우
+                        ui.vgEvStatusConstainer.setVisibility(View.VISIBLE);
+                        break;
+                    case STAT_DISAGREEMENT:
+                    case STAT_DISABLE:
+                    default:
+                        ui.vgEvStatusConstainer.setVisibility(View.GONE);
+                        break;
+                }
+            } else {
+                ui.vgEvStatusConstainer.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+
         }
     }
 
