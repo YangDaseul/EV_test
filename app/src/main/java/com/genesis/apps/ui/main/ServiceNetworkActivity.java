@@ -99,6 +99,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private VehicleVO mainVehicle = null;
 
     private List<ChargeSearchCategoryVO> searchCategoryList;
+    private AddressVO initAddressVO;
 
     public final static int PAGE_TYPE_BTR = 0;//버틀러 변경
     public final static int PAGE_TYPE_RENT = 1;//렌트리스 등록
@@ -115,13 +116,18 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         setViewModel();
         setObserver();
         initView();
-        checkEnableGPS(() -> {
-            //현대양재사옥위치
-            lgnViewModel.setPosition(37.463936, 127.042953);
-            lgnViewModel.setMyPosition(37.463936, 127.042953);
-        }, () -> {
-            reqMyLocation();
-        });
+
+        if(initAddressVO!=null&&initAddressVO.getCenterLon()>0&&initAddressVO.getCenterLat()>0){
+            lgnViewModel.setPosition(initAddressVO.getCenterLat(), initAddressVO.getCenterLon());
+        }else {
+            checkEnableGPS(() -> {
+                //현대양재사옥위치
+                lgnViewModel.setPosition(37.463936, 127.042953);
+                lgnViewModel.setMyPosition(37.463936, 127.042953);
+            }, () -> {
+                reqMyLocation();
+            });
+        }
     }
 
     private void initView() {
@@ -129,12 +135,14 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         switch (pageType) {
             case PAGE_TYPE_EVCHARGE: {
                 // 충전소 검색
-                ui.rgLocation.setVisibility(View.VISIBLE);
+                ui.rgLocation.setVisibility(View.GONE);
                 ui.ivBtnFilter.setVisibility(View.VISIBLE);
                 ui.ivBtnFilter.setOnClickListener(onSingleClickListener);
                 ui.btnMyPosition.setVisibility(View.GONE);
                 ui.btnMyPosition2.setOnClickListener(onSingleClickListener);
                 ui.btnCarPosition.setOnClickListener(onSingleClickListener);
+                ui.lMapOverlayTitle.btnSearch.setVisibility(View.GONE);
+                ui.lMapOverlayTitle.btnSearchList.setVisibility(View.GONE);
                 break;
             }
             case PAGE_TYPE_BTR:
@@ -210,6 +218,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             btrVO = (BtrVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
             pageType = getIntent().getIntExtra(KeyNames.KEY_NAME_PAGE_TYPE, PAGE_TYPE_SERVICE);
             rparTypCd = getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
+            initAddressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
 
             if(pageType == PAGE_TYPE_EVCHARGE) {
                 searchCategoryList = getIntent().getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO);
@@ -270,6 +279,14 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case PAGE_TYPE_RENT:
                     btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)), "", "", fillerCd));
                     break;
+                case PAGE_TYPE_EVCHARGE:
+                    try {
+                        mainVehicle = reqViewModel.getMainVehicle();
+                        reqSearchChargeStation(doubles.get(0), doubles.get(1), null);
+                    } catch (Exception e) {
+
+                    }
+                    break;
                 case PAGE_TYPE_REPAIR:
                     if (btrVO != null) {
                         try {
@@ -280,17 +297,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         }
                         break;
                     }
-                case PAGE_TYPE_EVCHARGE: {
-                    // TODO 충전소 찾기
-                    Log.d("FID", "test :: setObserver :: initMap");
-                    try {
-                        mainVehicle = reqViewModel.getMainVehicle();
-                        reqSearchChargeStation(doubles.get(0), doubles.get(1), null);
-                    } catch (Exception e) {
-
-                    }
-                    break;
-                }
                 case PAGE_TYPE_SERVICE:
                 default:
                     try {
@@ -723,17 +729,17 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 });
 
                 break;
-            case R.id.btn_my_position_2: {
-                // EV충전소 찾기 > 내 위치 기준 조회.
-                reqMyLocation();
-                break;
-            }
-            case R.id.btn_car_position: {
-                // EV 충전소 찾기 > 내 차량 위치 기준 조회.
-                Log.d("FID", "test :: onClickCommon :: btn_car_position");
-                // TODO 차량 위치로 조회 처리.
-                break;
-            }
+//            case R.id.btn_my_position_2: {
+//                // EV충전소 찾기 > 내 위치 기준 조회.
+//                reqMyLocation();
+//                break;
+//            }
+//            case R.id.btn_car_position: {
+//                // EV 충전소 찾기 > 내 차량 위치 기준 조회.
+//                Log.d("FID", "test :: onClickCommon :: btn_car_position");
+//                // TODO 차량 위치로 조회 처리.
+//                break;
+//            }
             case R.id.iv_btn_filter: {
                 // EV 충전소 찾기 > 필터 - 필터 표시.
                 try {
