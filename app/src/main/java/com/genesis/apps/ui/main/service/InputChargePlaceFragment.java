@@ -77,7 +77,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         return currentType;
     }
 
-    private InputChargePlaceFragment() {
+    public InputChargePlaceFragment() {
     }
 
     /****************************************************************************************************

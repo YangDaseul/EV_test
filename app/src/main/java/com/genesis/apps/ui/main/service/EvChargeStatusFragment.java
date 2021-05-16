@@ -38,7 +38,7 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         return fragment;
     }
 
-    private EvChargeStatusFragment() {
+    public EvChargeStatusFragment() {
 
     }
 
@@ -122,7 +122,7 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
                 //충전 중 일경우
                 //안내메시지 셋팅
                 me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
-                me.tvErrorChargeInfo.setText(String.format(getContext().getString(R.string.sm_evss01_38), developersViewModel.getBatteryChargeTime()));
+                me.tvErrorChargeInfo.setText(String.format(getContext().getString(R.string.sm_evss01_38), developersViewModel.getBatteryChargeTime(), "100%"));
                 me.tvHasBattery.setText(Html.fromHtml(getString(R.string.sm_evss01_39), Html.FROM_HTML_MODE_COMPACT));
                 me.line0.setVisibility(View.GONE);
                 me.tvTitleDistance.setVisibility(View.GONE);
