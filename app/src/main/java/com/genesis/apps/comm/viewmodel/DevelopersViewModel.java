@@ -691,13 +691,13 @@ class DevelopersViewModel extends ViewModel {
                 case 2:
                     //mesce
                     hour = value / 3600000;
-                    min = value % 3600000;
+                    min = value % 3600000 / 60 / 1000;
                     time = String.format(Locale.getDefault(), TIME_FORMAT, hour, min);
                     break;
                 case 3:
                     //sec
                     hour = value / 3600;
-                    min = value % 3600;
+                    min = value % 3600 / 60;
                     time = String.format(Locale.getDefault(), TIME_FORMAT, hour, min);
                     break;
                 default:

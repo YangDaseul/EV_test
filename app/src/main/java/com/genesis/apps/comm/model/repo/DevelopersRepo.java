@@ -1,7 +1,5 @@
 package com.genesis.apps.comm.model.repo;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.developers.Agreements;
@@ -28,6 +26,8 @@ import com.genesis.apps.comm.net.NetUIResponse;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class DevelopersRepo {
 
@@ -385,6 +385,7 @@ public class DevelopersRepo {
             @Override
             public void onFail(NetResult e) {
                 RES_EV_STATUS.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_EV_STATUS.setValue(NetUIResponse.success(TestCode.EvStatus));
             }
 
             @Override
