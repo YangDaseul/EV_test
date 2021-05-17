@@ -103,15 +103,4 @@ class ChargeSttInfoVO extends BaseData {
     @Expose
     @SerializedName("usablSlowSpeedCnt")
     private String usablSlowSpeedCnt;
-
-    public String getGCSScheme(){
-        QueryString q = new QueryString();
-        q.add("lat", getLat());
-        q.add("lon", getLot());
-        q.add("address", "");
-        q.add("title", "");
-        q.add("phone", "");
-        return "mgenesis://sendtocar"+q.getQuery();
-    }
-
 } // end of class ChargeSttInfoVO

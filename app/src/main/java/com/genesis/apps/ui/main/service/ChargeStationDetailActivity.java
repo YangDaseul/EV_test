@@ -127,7 +127,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                     switch (type){
                         case ADDRESS:
                             try {
-                                PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, chargeStcInfoVO != null ? chargeStcInfoVO.getGCSScheme() : chargeEptInfoVO.getGCSScheme());
+                                PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, chargeStcInfoVO != null ? VariableType.getGCSScheme(chargeStcInfoVO.getLat(), chargeStcInfoVO.getLot()) : VariableType.getGCSScheme(chargeEptInfoVO.getLat(), chargeEptInfoVO.getLot()));
                             }catch (Exception e){
 
                             }
