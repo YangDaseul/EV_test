@@ -4,36 +4,38 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.EPT_1002;
 import com.genesis.apps.comm.model.api.gra.EPT_1003;
+import com.genesis.apps.comm.model.api.gra.STC_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.model.vo.ChargeSttInfoVO;
 import com.genesis.apps.comm.model.vo.ReviewVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
+import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeStationDetailBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static com.genesis.apps.comm.model.constants.VariableType.CHARGE_STATION_TYPE_EPT;
+import static com.genesis.apps.comm.model.constants.VariableType.CHARGE_STATION_TYPE_STC;
 
 /**
  * Class Name : ChargeStationDetailActivity
@@ -43,14 +45,14 @@ import java.util.Objects;
  */
 public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeStationDetailBinding> implements NestedScrollView.OnScrollChangeListener {
 
+    private int stationType = CHARGE_STATION_TYPE_EPT;
     /**
      * 환경부-기관ID
      * 환경부에서 발급한 ID
      */
     private String spid;
     /**
-     * 환경부-충전소ID
-     * 환경부에서 발급한 ID
+     * 충전소ID
      */
     private String csid;
     /**
@@ -64,8 +66,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      */
     private String lot;
 
-    // 조회된 충전소 정보
-    ChargeEptInfoVO chargeEptInfoVO;
+    // 조회된 충전소 정보 - E-PIT
+    private ChargeEptInfoVO chargeEptInfoVO;
+    // 조회된 충전소 정보 - 에스트레픽
+    private ChargeSttInfoVO chargeStcInfoVO;
+
     // 리뷰 현재 페이지 번호
     private int pageNo = 1;
     // 리뷰를 조회 단위 개수
@@ -80,6 +85,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
     private REQViewModel reqViewModel;
     private EPTViewModel eptViewModel;
+    private STCViewModel stcViewModel;
 
     private EvChargeStatusFragment evChargeStatusFragment;
 
@@ -102,7 +108,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     @Override
     public void onClickCommon(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_btn_reserve:
                 MiddleDialog.dialogEVServiceInfo(this, (Runnable) () -> {
 
@@ -132,6 +138,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ui.setLifecycleOwner(ChargeStationDetailActivity.this);
         reqViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(REQViewModel.class);
         eptViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(EPTViewModel.class);
+        stcViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(STCViewModel.class);
     }
 
     @Override
@@ -170,7 +177,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         eptViewModel.getRES_EPT_1003().observe(ChargeStationDetailActivity.this, result -> {
             switch (result.status) {
-                case LOADING:{
+                case LOADING: {
                     // Nothing
                 }
                 case SUCCESS: {
@@ -189,6 +196,38 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 }
             }
         });
+
+        stcViewModel.getRES_STC_1002().observe(ChargeStationDetailActivity.this, result -> {
+            switch (result.status) {
+                case LOADING: {
+                    showProgressDialog(true);
+                    break;
+                }
+                case SUCCESS: {
+                    showProgressDialog(false);
+                    STC_1002.Response data = result.data;
+                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())) {
+                        updateStation(data);
+                        break;
+                    }
+                }
+                default: {
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+                }
+            }
+        });
     }
 
     @Override
@@ -198,6 +237,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         csid = getIntent.getStringExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID);
         lat = getIntent.getStringExtra(KeyNames.KEY_NAME_LAT);
         lot = getIntent.getStringExtra(KeyNames.KEY_NAME_LOT);
+        stationType = getIntent.getIntExtra(KeyNames.KEY_STATION_TYPE, CHARGE_STATION_TYPE_EPT);
 
         if (TextUtils.isEmpty(spid) || TextUtils.isEmpty(csid) || TextUtils.isEmpty(lat) || TextUtils.isEmpty(lot)) {
             // 데이터가 전달되지 않아 조회 할수 없음. - TODO 안내 처리 필요.
@@ -216,15 +256,28 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         ui.rvStationDetail.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         ui.rvChargerList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-        ui.rvReviewList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
 
-        reviewListAdapter = new ReviewListAdapter();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ChargeStationDetailActivity.this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
-        ui.rvReviewList.addItemDecoration(dividerItemDecoration);
-        ui.rvReviewList.setAdapter(reviewListAdapter);
-
-        ui.vgNsv.setOnScrollChangeListener(ChargeStationDetailActivity.this);
+        switch (stationType) {
+            // 에스트레픽 충전소
+            case CHARGE_STATION_TYPE_STC: {
+                // 리뷰 정보가 없기에 비노출
+                ui.tvReviewTitle.setVisibility(View.GONE);
+                ui.rvReviewList.setVisibility(View.GONE);
+                break;
+            }
+            default:
+            case CHARGE_STATION_TYPE_EPT: {
+                // 리뷰 정보가 있기에 설정.
+                ui.rvReviewList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
+                reviewListAdapter = new ReviewListAdapter();
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ChargeStationDetailActivity.this, DividerItemDecoration.VERTICAL);
+                dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
+                ui.rvReviewList.addItemDecoration(dividerItemDecoration);
+                ui.rvReviewList.setAdapter(reviewListAdapter);
+                ui.vgNsv.setOnScrollChangeListener(ChargeStationDetailActivity.this);
+                break;
+            }
+        }
 
         try {
             mainVehicleVO = reqViewModel.getMainVehicle();
@@ -236,16 +289,32 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     }
 
     private void getChargeStationInfo() {
-        eptViewModel.reqEPT1002(new EPT_1002.Request(
-                APPIAInfo.SM_EVSS04.getId(),
-                mainVehicleVO.getVin(),
-                spid,
-                csid,
-                lat,
-                lot));
-        // 리뷰 목록 페이지 번호 초기화
-        pageNo = 0;
-        reviewList.clear();
+        switch (stationType) {
+            case CHARGE_STATION_TYPE_STC: {
+                stcViewModel.reqSTC1002(new STC_1002.Request(
+                        APPIAInfo.SM_EVSS04.getId(),
+                        mainVehicleVO.getVin(),
+                        lat,
+                        lot,
+                        csid
+                ));
+                break;
+            }
+            default:
+            case CHARGE_STATION_TYPE_EPT: {
+                eptViewModel.reqEPT1002(new EPT_1002.Request(
+                        APPIAInfo.SM_EVSS04.getId(),
+                        mainVehicleVO.getVin(),
+                        spid,
+                        csid,
+                        lat,
+                        lot));
+                // 리뷰 목록 페이지 번호 초기화
+                pageNo = 0;
+                reviewList.clear();
+                break;
+            }
+        }
     }
 
     private void getReviewList(ChargeEptInfoVO chargeEptInfoVO, int pageNo) {
@@ -266,6 +335,104 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 pageCnt));
     }
 
+    /**
+     * 충전소 정보 업데이트(에스트레픽)
+     *
+     * @param data
+     */
+    private void updateStation(STC_1002.Response data) {
+        chargeStcInfoVO = data.getChgSttnInfo();
+
+        // 상단 타이틀 - 충전소 이름, 거리 표시. TODO STC-1002 전문이 수정되면 반영 필요
+        ui.lTitle.setValue(chargeStcInfoVO.getChgName());
+
+        // 충전소 정보 목록 셋팅
+        ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, chargeStcInfoVO.getDaddr() + "\n" + chargeStcInfoVO.getDaddrDtl()));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
+
+        StringBuilder payStringBuilder = new StringBuilder();
+        // 신용카드 고정 노출
+        payStringBuilder.append(getString(R.string.sm_evss04_06));
+        // TODO 충전크래딧 지원 여부 데이터가 필요.
+        if ("Y".equalsIgnoreCase(chargeStcInfoVO.getCarPayUseYn())) {
+            // 카페이 지원할 경우 항목 추가.
+            payStringBuilder.append("\n")
+                    .append(getString(R.string.sm_evss04_08));
+        }
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
+
+        // 충전소 상세 표시
+        ChargeStationDetailListAdapter adapter = new ChargeStationDetailListAdapter();
+        adapter.setRows(list);
+        ui.rvStationDetail.setAdapter(adapter);
+
+        // 충전기 사용가능 총 가능 대수 표시
+        int superSpeedCnt = 0;
+        int highSpeedCnt = 0;
+        int slowSpeedCnt = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            superSpeedCnt = Integer.parseInt(chargeStcInfoVO.getUsablSuperSpeedCnt());
+        } catch (Exception ignored) {
+        }
+        try {
+            highSpeedCnt = Integer.parseInt(chargeStcInfoVO.getUsablHighSpeedCnt());
+        } catch (Exception ignored) {
+        }
+        try {
+            slowSpeedCnt = Integer.parseInt(chargeStcInfoVO.getUsablSlowSpeedCnt());
+        } catch (Exception ignored) {
+        }
+
+        if (superSpeedCnt > 0) {
+            stringBuilder.append(String.format(getString(R.string.sm_evss04_11), superSpeedCnt));
+        }
+        if (highSpeedCnt > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(String.format(getString(R.string.sm_evss04_12), highSpeedCnt));
+        }
+        if (slowSpeedCnt > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(String.format(getString(R.string.sm_evss04_13), slowSpeedCnt));
+        }
+        if (stringBuilder.length() > 0) {
+            stringBuilder.append(" ").append(getString(R.string.sm_evss04_15));
+            ui.tvChargerCount.setText(DeviceUtil.fromHtml(stringBuilder.toString()));
+            ui.tvChargerCount.setVisibility(View.VISIBLE);
+        } else {
+            ui.tvChargerCount.setVisibility(View.GONE);
+        }
+
+        ChargerSTCListAdapter chargerListAdapter = new ChargerSTCListAdapter(onSingleClickListener);
+        chargerListAdapter.setChgPrice(chargeStcInfoVO.getChgPrice());
+        chargerListAdapter.setReservYn(chargeStcInfoVO.getReservYn());
+        chargerListAdapter.setRows(data.getChgrList());
+        ui.rvChargerList.setAdapter(chargerListAdapter);
+
+        // 지도 표시
+        try {
+            double lat = Double.parseDouble(chargeStcInfoVO.getLat());
+            double lot = Double.parseDouble(chargeStcInfoVO.getLot());
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot))
+                    .commit();
+        } catch (Exception e) {
+            // 좌표 파싱 에러로 지도를 표시할 수 없음.
+            ui.vgMap.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 충전소 정보 업데이트 함수(E-PIT)
+     *
+     * @param data
+     */
     private void updateStation(EPT_1002.Response data) {
         chargeEptInfoVO = data.getChgInfo();
 
@@ -300,15 +467,15 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         int slowSpeedCnt = 0;
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            superSpeedCnt = Integer.parseInt(chargeEptInfoVO.getSuperSpeedCnt());
+            superSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablSuperSpeedCnt());
         } catch (Exception ignored) {
         }
         try {
-            highSpeedCnt = Integer.parseInt(chargeEptInfoVO.getHighSpeedCnt());
+            highSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablHighSpeedCnt());
         } catch (Exception ignored) {
         }
         try {
-            slowSpeedCnt = Integer.parseInt(chargeEptInfoVO.getSlowSpeedCnt());
+            slowSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablSlowSpeedCnt());
         } catch (Exception ignored) {
         }
 

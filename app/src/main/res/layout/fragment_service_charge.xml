@@ -14,20 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/x_ffffff"
-            android:orientation="vertical">
+            android:background="@color/x_ffffff">
 
             <!-- 충전 상태 -->
             <FrameLayout
                 android:id="@+id/vg_ev_status_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:visibility="gone"/>
 
             <!-- 충전소 검색 -->
@@ -35,10 +35,9 @@
                 android:id="@+id/btn_service_charge_search"
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
                 android:background="@drawable/ripple_bg_000000"
                 android:clickable="true"
                 android:focusable="true"
@@ -49,34 +48,59 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="16dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:layout_goneMarginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vg_ev_status_container"
                 app:drawableEndCompat="@drawable/btn_arrow_open_r_w" />
 
             <!--  충전소 예약 내역 -->
             <include
                 android:id="@+id/l_service_charge_reservation_list"
                 layout="@layout/item_service_maintenance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm_cg_sm02_4}"
                 app:icon="@{@drawable/ic_service}"
                 app:title="@{@string/sm_cg_sm02_3}"
                 app:isCharge="@{true}"
-                app:fragment="@{fragment}"/>
+                app:fragment="@{fragment}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_service_charge_search"/>
 
             <!--  여행 경로 추천 -->
             <include
                 android:id="@+id/l_service_charge_recommend_trip"
                 layout="@layout/item_service_maintenance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 android:visibility="gone"
                 app:desc="@{@string/sm_cg_sm02_6}"
                 app:icon="@{@drawable/ic_service_list}"
                 app:isCharge="@{true}"
-                app:title="@{@string/sm_cg_sm02_5}" />
+                app:title="@{@string/sm_cg_sm02_5}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_service_charge_reservation_list"/>
 
             <!--  픽업앤충전 서비스 -->
             <include
                 android:id="@+id/l_service_charge_btr_service"
                 layout="@layout/item_service_maintenance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm_cg_sm02_8}"
                 app:icon="@{@drawable/ic_service_charge_btr}"
@@ -84,12 +108,21 @@
                 app:btnWhite="@{@string/sm_cg_sm02_9}"
                 app:btnBlack="@{@string/sm_cg_sm02_10}"
                 app:isCharge="@{true}"
-                app:fragment="@{fragment}"/>
+                app:fragment="@{fragment}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_service_charge_recommend_trip"/>
 
             <!--  찾아가는 충전 서비스 -->
             <include
                 android:id="@+id/l_service_charge_service"
                 layout="@layout/item_service_maintenance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm_cg_sm02_12}"
                 app:icon="@{@drawable/ic_service_charge}"
@@ -97,7 +130,11 @@
                 app:btnWhite="@{@string/sm_cg_sm02_13}"
                 app:btnBlack="@{@string/sm_cg_sm02_14}"
                 app:isCharge="@{true}"
-                app:fragment="@{fragment}"/>
-        </LinearLayout>
+                app:fragment="@{fragment}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_service_charge_btr_service"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

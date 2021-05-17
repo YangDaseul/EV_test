@@ -1,21 +1,22 @@
 package com.genesis.apps.comm.viewmodel;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.api.gra.EPT_1002;
 import com.genesis.apps.comm.model.api.gra.EPT_1003;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.EPTRepo;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 
 import java.util.List;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 /**
@@ -63,4 +64,18 @@ class EPTViewModel extends ViewModel {
     public void reqEPT1003(final EPT_1003.Request reqData) {
         repository.REQ_EPT_1003(reqData);
     }
+
+    public ChargeEptInfoVO getChargeEptInfoVO(String csid){
+
+        if(RES_EPT_1001.getValue()!=null&&RES_EPT_1001.getValue().data!=null&&RES_EPT_1001.getValue().data.getChgList()!=null) {
+            for (ChargeEptInfoVO chargeEptInfoVO : RES_EPT_1001.getValue().data.getChgList()) {
+                if (StringUtil.isValidString(chargeEptInfoVO.getCsid()).equalsIgnoreCase(StringUtil.isValidString(csid))) {
+                    return chargeEptInfoVO;
+                }
+            }
+        }
+
+        return null;
+    }
+
 } // end of class EPTViewModel

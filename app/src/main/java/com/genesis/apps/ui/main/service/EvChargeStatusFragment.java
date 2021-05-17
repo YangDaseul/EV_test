@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         return fragment;
     }
 
-    private EvChargeStatusFragment() {
+    public EvChargeStatusFragment() {
 
     }
 
@@ -93,20 +94,23 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
      ****************************************************************************************************/
     public void updateEvChargeStatus(EvStatus.Response data) {
         me.lWhole.setVisibility(View.VISIBLE);
+        me.line0.setVisibility(View.VISIBLE);
+        me.tvTitleDistance.setVisibility(View.VISIBLE);
+        me.tvHasDistance.setVisibility(View.VISIBLE);
+        me.ivIcDistance.setVisibility(View.VISIBLE);
+        me.tvTitleBattery.setVisibility(View.VISIBLE);
+
         if (data == null) {
             // 충전 정보 조회 실패.
             me.tvHasBattery.setText("- %");
             me.tvHasDistance.setText("- km");
-            me.progress.setProgress(0);
             me.tvBtnRetry.setVisibility(View.VISIBLE);
-            me.dot.setVisibility(View.VISIBLE);
             me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
         } else {
-            //프로그레스바 셋팅
-            me.progress.setBackgroundColor(getContext().getColor(getProgressColor(data)));
-            me.progress.setProgress((int) data.getSoc());
+            //다시보기 버튼 제 거
+            me.tvBtnRetry.setVisibility(View.GONE);
             //배터리 셋팅
-            me.tvHasBattery.setText(String.format("%.1f%%", data.getSoc()));
+            me.tvHasBattery.setText((int)data.getSoc()+"%");
             //거리 셋팅
             if (data.getDte() != null && data.getDte().getDistance() != null) {
                 me.tvHasDistance.setText(DevelopersViewModel.getDistanceFormatByUnit((int) data.getDte().getDistance().getValue(), (int) data.getDte().getDistance().getUnit()).replace(" ", ""));
@@ -114,15 +118,26 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
                 me.tvHasDistance.setText("- km");
             }
 
-            //하단 메시지 표시
-            me.tvBtnRetry.setVisibility(View.GONE);
             if (data.isBatteryCharge()) {
-                me.dot.setVisibility(View.VISIBLE);
+                //충전 중 일경우
+                //안내메시지 셋팅
                 me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
-                me.tvErrorChargeInfo.setText(String.format(getContext().getString(R.string.sm_evss01_38), developersViewModel.getBatteryChargeTime()));
+                me.tvErrorChargeInfo.setText(String.format(getContext().getString(R.string.sm_evss01_38), developersViewModel.getBatteryChargeTime(), "100%"));
+                me.tvHasBattery.setText(Html.fromHtml(getString(R.string.sm_evss01_39), Html.FROM_HTML_MODE_COMPACT));
+                me.line0.setVisibility(View.GONE);
+                me.tvTitleDistance.setVisibility(View.GONE);
+                me.tvHasDistance.setVisibility(View.GONE);
+                me.ivIcDistance.setVisibility(View.GONE);
+                me.tvTitleBattery.setVisibility(View.GONE);
             } else {
-                me.dot.setVisibility(View.GONE);
-                me.tvErrorChargeInfo.setVisibility(View.GONE);
+                if(data.getSoc()<=30){
+                    //충전량이 30프로 이하인 경우
+                    me.tvErrorChargeInfo.setVisibility(View.VISIBLE);
+                    me.tvErrorChargeInfo.setText(R.string.sm_evss01_40);
+                }else{
+                    //그 외
+                    me.tvErrorChargeInfo.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -143,6 +158,7 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
+                    me.tvBtnRetry.setVisibility(View.GONE);
                     break;
                 case SUCCESS:
                 default:
@@ -150,21 +166,6 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
                     break;
             }
         });
-    }
-
-
-    private int getProgressColor(EvStatus.Response data) {
-        int progressColor = R.color.x_996449;
-
-        if (data.isBatteryCharge()) {
-            //충전중
-            progressColor = R.color.x_2b9d49;
-        } else if (data.getSoc() <= 30) {
-            //30퍼 이하일 경우
-            progressColor = R.color.x_ce2d2d;
-        }
-
-        return progressColor;
     }
 
     private void getEvStatus() {

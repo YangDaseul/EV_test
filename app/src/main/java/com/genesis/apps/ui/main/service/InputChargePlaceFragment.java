@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.databinding.FragmentInputChargePlaceBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomCheckListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -41,19 +43,25 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     }
 
     public enum SEARCH_TYPE {
-        MY_LOCATION,
-        MY_CAR,
-        ADDRESS
+        MY_LOCATION(null),
+        MY_CAR(null),
+        ADDRESS(null);
+
+        private AddressVO addressVO;
+
+        SEARCH_TYPE(AddressVO addressVO){
+            this.addressVO = addressVO;
+        }
+
+        public AddressVO getAddressVO() {
+            return addressVO;
+        }
+
+        public void setAddressVO(AddressVO addressVO) {
+            this.addressVO = addressVO;
+        }
     }
 
-    private ArrayList<ChargeSearchCategoryVO> searchCategoryList = new ArrayList(Arrays.asList(
-            new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-            new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER)),
-            new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
-            new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
-    ));
-
-    private String[] address;
     private SEARCH_TYPE currentType;
     private FilterChangeListener listener;
     private ChargeSearchFilterAdapter adapter;
@@ -65,7 +73,11 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         return fragment;
     }
 
-    private InputChargePlaceFragment() {
+    public SEARCH_TYPE getCurrentType(){
+        return currentType;
+    }
+
+    public InputChargePlaceFragment() {
     }
 
     /****************************************************************************************************
@@ -106,23 +118,37 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         switch (v.getId()) {
             case R.id.rb_btn_my_location: {
                 // 내 위치 기준 버튼
-                updateSearchType(SEARCH_TYPE.MY_LOCATION);
-                if (this.listener != null) {
-                    this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                if(currentType!=SEARCH_TYPE.MY_LOCATION) {
+                    updateSearchType(SEARCH_TYPE.MY_LOCATION);
+                    if (this.listener != null) {
+                        this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                    }
                 }
                 break;
             }
             case R.id.rb_btn_my_car: {
                 // 내 차 위치 기준 버튼.
-                updateSearchType(SEARCH_TYPE.MY_CAR);
-                if (this.listener != null) {
-                    this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                if(currentType!=SEARCH_TYPE.MY_CAR) {
+                    updateSearchType(SEARCH_TYPE.MY_CAR);
+                    if (this.listener != null) {
+                        this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                    }
                 }
                 break;
             }
             case R.id.rb_btn_search: {
                 // 주소 검색 기준 버튼.
-                updateSearchType(SEARCH_TYPE.ADDRESS);
+                if(currentType!=SEARCH_TYPE.ADDRESS) {
+                    SEARCH_TYPE.ADDRESS.setAddressVO(null);
+                    updateSearchType(SEARCH_TYPE.ADDRESS);
+                    //주소 검색 탭 클릭 시 onFilterChanged 를 호출해도
+                    //currentType의 address가 null 이기 때문에 (내위치 혹은 내차위치 선택 시 address 초기화 됨)
+                    //서버에 요청은 하지 않으나
+                    //검색 리스트를 초기화 하는데에 목적이 있음
+                    if (this.listener != null) {
+                        this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                    }
+                }
                 break;
             }
             case R.id.tv_search_addr: {
@@ -196,13 +222,15 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     private void initView() {
         me.rbBtnMyLocation.setChecked(true);
         updateSearchType(SEARCH_TYPE.MY_LOCATION);
-
         adapter = new ChargeSearchFilterAdapter(InputChargePlaceFragment.this);
-        adapter.setRows(searchCategoryList);
-
+        adapter.setRows(new ArrayList(Arrays.asList(
+                new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER)),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
+        )));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         me.rvFilter.setLayoutManager(layoutManager);
         me.rvFilter.setAdapter(adapter);
     }
@@ -216,7 +244,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvSearchAddr.setVisibility(View.GONE);
                 me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
-                me.ivBtnMap.setVisibility(View.VISIBLE);
+                me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
                 me.line0.setVisibility(View.VISIBLE);
                 break;
@@ -227,7 +255,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvSearchAddr.setVisibility(View.GONE);
                 me.tvGuideLocationError.setVisibility(View.GONE);
                 me.tvFilter.setVisibility(View.VISIBLE);
-                me.ivBtnMap.setVisibility(View.VISIBLE);
+                me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                 me.rvFilter.setVisibility(View.VISIBLE);
                 me.line0.setVisibility(View.VISIBLE);
                 break;
@@ -237,28 +265,20 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_09), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.VISIBLE);
                 me.tvGuideLocationError.setVisibility(View.GONE);
-                if (this.address == null || this.address.length == 0) {
+                if (currentType.getAddressVO()==null) {
                     me.tvFilter.setVisibility(View.GONE);
-                    me.ivBtnMap.setVisibility(View.GONE);
+                    me.ivBtnMap.lWhole.setVisibility(View.GONE);
                     me.rvFilter.setVisibility(View.GONE);
                     me.line0.setVisibility(View.GONE);
                     me.tvSearchAddr.setText(R.string.sm_evss01_14);
                     me.tvSearchAddr.setSelected(false);
                 } else {
                     me.tvFilter.setVisibility(View.VISIBLE);
-                    me.ivBtnMap.setVisibility(View.VISIBLE);
+                    me.ivBtnMap.lWhole.setVisibility(View.VISIBLE);
                     me.rvFilter.setVisibility(View.VISIBLE);
                     me.line0.setVisibility(View.VISIBLE);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    int i = 0;
-                    while (i < this.address.length) {
-                        if (i > 0) {
-                            stringBuilder.append("\n");
-                        }
-                        stringBuilder.append(this.address[i]);
-                        i++;
-                    }
-                    me.tvSearchAddr.setText(stringBuilder.toString());
+                    String[] address = SubActivity.getAddress(currentType.getAddressVO());
+                    me.tvSearchAddr.setText(address[0]+(TextUtils.isEmpty(address[1]) ? "" : " "+address[1]));
                     me.tvSearchAddr.setSelected(true);
                 }
                 break;
@@ -326,8 +346,8 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     /****************************************************************************************************
      * Method - Public
      ****************************************************************************************************/
-    public void setAddress(String[] address) {
-        this.address = address;
+    public void setAddress(AddressVO addressVO) {
+        currentType.setAddressVO(addressVO);
         updateSearchType(currentType);
     }
 
@@ -336,6 +356,13 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     }
 
     public ArrayList<ChargeSearchCategoryVO> getSearchCategoryList() {
-        return searchCategoryList;
+        ArrayList<ChargeSearchCategoryVO> list = new ArrayList<>();
+        list.addAll(adapter.getItems());
+        return list;
+    }
+
+    public void updateFilter(ArrayList<ChargeSearchCategoryVO> list){
+        adapter.setRows(list);
+        adapter.notifyDataSetChanged();
     }
 } // end of class InputChargePlaceFragment

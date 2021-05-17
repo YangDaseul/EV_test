@@ -201,7 +201,7 @@ public class VariableType {
     public static final String COUPON_CODE_WIPER = "33";//와이퍼블레이드
     public static final String COUPON_CODE_BREAK_OIL = "34";//브레이크오일
     public static final String COUPON_CODE_PICKUP_DELIVERY = "61";//픽업앤딜리버리
-    public static final String COUPON_CODE_ICE = "66";//냉각수 //TODO 냉각수 코드 변경 필요
+    public static final String COUPON_CODE_ICE = "21";//냉각수
     public static final String COUPON_CODE_SONAKS = "99";//프리미엄 소낙스 세차 이용권
 
     //버틀러 상담유형 코드
@@ -468,4 +468,7 @@ public class VariableType {
 
     public static final String EASY_PAY_WEBVIEW_TYPE_MEMBER_REG = "REG_MEMBER";
     public static final String EASY_PAY_WEBVIEW_TYPE_CARD_REG = "REG_CARD";
+
+    public static final int CHARGE_STATION_TYPE_EPT = 0;
+    public static final int CHARGE_STATION_TYPE_STC = 1;
 }

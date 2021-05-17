@@ -114,13 +114,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/ripple_bg_ffffff"
             android:contentDescription="@null"
             android:scaleType="center"
             android:src="@drawable/btn_filter"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/rg_location"
+            app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
             tools:visibility="visible" />
 
 
@@ -150,7 +151,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

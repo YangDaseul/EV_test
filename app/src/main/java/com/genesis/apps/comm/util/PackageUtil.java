@@ -39,6 +39,23 @@ public class PackageUtil {
         }
     }
 
+    public static void runAppWithScheme(Context context, String pakageName, String scheme) {
+        if(isInstallApp(context, pakageName)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(scheme));
+            if(intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        }
+        else {
+            try {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pakageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + pakageName)));
+            }
+        }
+    }
+
 
     /**
      * app 버전 코드 조회
