@@ -225,8 +225,17 @@
     <string name="digital_wallet01_2">간편결제카드 관리</string>
     <string name="digital_wallet01_3">제네시스 멤버십 카드</string>
 
-    <string name="digital_wallet02_1">에스트래픽 충전 카드</string>
+    <string name="digital_wallet02_1">EV 충전 카드</string>
     <string name="digital_wallet02_2">비밀번호 변경</string>
     <string name="digital_wallet02_3">NFC로 태그하기</string>
     <string name="digital_wallet02_4">NFC 결제 종료</string>
+    <string name="digital_wallet02_5">휴대폰의 뒷면을\n카드 리더기에 대주세요.</string>
+
+    <string name="pay04_pay01_1">최근 충전에서 결제 안된 금액이 있습니다.\n결제를 완료해 주세요.</string>
+    <string name="pay04_pay01_2">사용 일시</string>
+    <string name="pay04_pay01_3">충전소</string>
+    <string name="pay04_pay01_4">충전금액</string>
+    <string name="pay04_pay01_5">충전 크레딧</string>
+    <string name="pay04_pay01_6">결제 금액</string>
+    <string name="pay04_pay01_7">결제하기</string>
 </resources>
