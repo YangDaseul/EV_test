@@ -1,7 +1,10 @@
 package com.genesis.apps.ui.main;
 
 import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
@@ -17,6 +20,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DTWViewModel;
@@ -42,7 +46,6 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         getDataFromIntent();
         setViewModel();
         setObserver();
-        initView();
         initData();
     }
 
@@ -60,13 +63,18 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         CardService.setPaymentScreenChecker(disablePaymentScreenChecker);
     }
 
-    private void initView() {
+    private void initViewpagerAdapter(int pgIndex) {
         viewpagerAdapter = new DigitalWalletViewpagerAdapter(this, PAGE_NUM);
         ui.vpContents.setAdapter(viewpagerAdapter);
         ui.vpContents.setUserInputEnabled(false);
         ui.vpContents.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        ui.vpContents.setCurrentItem(0);
+        ui.vpContents.setCurrentItem(pgIndex);
         ui.vpContents.setOffscreenPageLimit(PAGE_NUM);
+    }
+
+    public void moveViewpager(int pgIndex) {
+        if(ui.vpContents != null && viewpagerAdapter != null)
+            ui.vpContents.setCurrentItem(pgIndex, true);
     }
 
     private void initData() {
@@ -86,7 +94,14 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
 
     @Override
     public void onClickCommon(View v) {
-
+        switch (v.getId()){
+            case R.id.btn_nfc:
+                moveViewpager(1);
+                break;
+            case R.id.btn_finish_nfc:
+                moveViewpager(0);
+                break;
+        }
     }
 
     @Override
@@ -115,6 +130,8 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                 MiddleDialog.dialogServiceRemoteOneButton(this, R.string.pay01_p02_1, R.string.pay01_p02_2, () -> {
                                     // 비밀번호 설정 화면으로 이동
                                 });
+
+                                initViewpagerAdapter(0);
                                 return;
                             }
                             // 보유 크레딧 부족한 경우
@@ -132,6 +149,8 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                                 // 간편결제카드 관리 페이지로 이동
                                                 startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                                             }, () -> exitPage("", 0));
+
+                                    initViewpagerAdapter(0);
                                     return;
                                 }
                             }
@@ -144,9 +163,20 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                 // 미수금 결제 화면으로 이동
                                 startActivitySingleTop(new Intent(this, UnpaidPayRequestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                             });
+
+                            initViewpagerAdapter(0);
                             return;
                         }
 
+                        if(result.data.getStcMbrInfo() != null &&
+                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
+                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                            //  EV 충전 카드 정보가 있는 경우
+                            initViewpagerAdapter(1);
+                        } else {
+                            //  EV 충전 카드 정보가 없는 경우
+                            initViewpagerAdapter(0);
+                        }
                         break;
                     }
                 default:
@@ -158,6 +188,8 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                         e.printStackTrace();
                     } finally {
                         SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        if(viewpagerAdapter == null)
+                            initViewpagerAdapter(0);
                     }
                     break;
             }

@@ -100,13 +100,17 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                             me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
                             String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
                             me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
+
+                            //  NFC 태그 버튼 표시
+                            me.btnNfc.setVisibility(View.VISIBLE);
                         } else {
                             // EV 충전 카드 미노출 처리
                             me.lStcCard.setVisibility(View.GONE);
+                            //  NFC 태그 버튼 표시
+                            me.btnNfc.setVisibility(View.GONE);
                         }
 
-                        //  NFC 태그 버튼 표시
-                        me.btnNfc.setVisibility(View.VISIBLE);
+
                         break;
                     }
                 default:
