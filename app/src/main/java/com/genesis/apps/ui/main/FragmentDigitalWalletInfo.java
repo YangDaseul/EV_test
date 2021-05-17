@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,8 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getBlueCardInfo() != null) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") &&
+                            result.data.getBlueCardInfo() != null && !TextUtils.isEmpty(result.data.getBlueCardInfo().getBlueCardNo())) {
 
                         me.tvCardBg.setVisibility(View.GONE);
                         // 제네시스 멤버십 카드 정보 표시
