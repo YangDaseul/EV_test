@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
@@ -20,6 +21,7 @@ import com.genesis.apps.comm.model.api.gra.EPT_1002;
 import com.genesis.apps.comm.model.api.gra.EPT_1003;
 import com.genesis.apps.comm.model.api.gra.STC_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSttInfoVO;
 import com.genesis.apps.comm.model.vo.ReviewVO;
@@ -35,6 +37,7 @@ import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeStationDetailBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,7 +208,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 case SUCCESS: {
                     showProgressDialog(false);
                     EPT_1002.Response data = result.data;
-                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())) {
+                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())&&data.getChgInfo()!=null) {
                         updateStation(data);
                         break;
                     }
@@ -259,7 +262,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 case SUCCESS: {
                     showProgressDialog(false);
                     STC_1002.Response data = result.data;
-                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())) {
+                    if (data != null && "0000".equalsIgnoreCase(data.getRtCd())&&data.getChgSttnInfo()!=null) {
                         updateStation(data);
                         break;
                     }
@@ -398,7 +401,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, chargeStcInfoVO.getDaddr() + "\n" + chargeStcInfoVO.getDaddrDtl()));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), "")));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
@@ -417,47 +420,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ChargeStationDetailListAdapter adapter = new ChargeStationDetailListAdapter(onSingleClickListener);
         adapter.setRows(list);
         ui.rvStationDetail.setAdapter(adapter);
-
-        // 충전기 사용가능 총 가능 대수 표시
-        int superSpeedCnt = 0;
-        int highSpeedCnt = 0;
-        int slowSpeedCnt = 0;
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            superSpeedCnt = Integer.parseInt(chargeStcInfoVO.getUsablSuperSpeedCnt());
-        } catch (Exception ignored) {
-        }
-        try {
-            highSpeedCnt = Integer.parseInt(chargeStcInfoVO.getUsablHighSpeedCnt());
-        } catch (Exception ignored) {
-        }
-        try {
-            slowSpeedCnt = Integer.parseInt(chargeStcInfoVO.getUsablSlowSpeedCnt());
-        } catch (Exception ignored) {
-        }
-
-        if (superSpeedCnt > 0) {
-            stringBuilder.append(String.format(getString(R.string.sm_evss04_11), superSpeedCnt));
-        }
-        if (highSpeedCnt > 0) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(String.format(getString(R.string.sm_evss04_12), highSpeedCnt));
-        }
-        if (slowSpeedCnt > 0) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(String.format(getString(R.string.sm_evss04_13), slowSpeedCnt));
-        }
-        if (stringBuilder.length() > 0) {
-            stringBuilder.append(" ").append(getString(R.string.sm_evss04_15));
-            ui.tvChargerCount.setText(DeviceUtil.fromHtml(stringBuilder.toString()));
-            ui.tvChargerCount.setVisibility(View.VISIBLE);
-        } else {
-            ui.tvChargerCount.setVisibility(View.GONE);
-        }
+        ui.tvChargerCount.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(chargeStcInfoVO)), Html.FROM_HTML_MODE_COMPACT));
 
         ChargerSTCListAdapter chargerListAdapter = new ChargerSTCListAdapter(onSingleClickListener);
         chargerListAdapter.setChgPrice(chargeStcInfoVO.getChgPrice());
@@ -478,17 +441,9 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         }
     }
 
-//    private String getAddr(String addr, String addrDtl, String distance){
-//
-//        String totalAddr = StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? add );
-//        if(!TextUtils.isEmpty(addrDtl)){
-//            totalAddr += (" "+addrDtl);
-//        }
-//
-//
-//
-//
-//    }
+    private String getAddr(String addr, String addrDtl, String distance){
+        return StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "")+"\n"+(TextUtils.isEmpty(distance) ? "- KM" : distance+" KM");
+    }
 
     /**
      * 충전소 정보 업데이트 함수(E-PIT)
@@ -499,7 +454,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         chargeEptInfoVO = data.getChgInfo();
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, chargeEptInfoVO.getDaddr() + "\n" + chargeEptInfoVO.getAddrDtl()));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl(), chargeEptInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeEptInfoVO.getUseTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeEptInfoVO.getSpnm()));
 
@@ -519,43 +474,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         adapter.setRows(list);
         ui.rvStationDetail.setAdapter(adapter);
 
-        // 충전기 사용가능 총 가능 대수 표시
-        int superSpeedCnt = 0;
-        int highSpeedCnt = 0;
-        int slowSpeedCnt = 0;
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            superSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablSuperSpeedCnt());
-        } catch (Exception ignored) {
-        }
-        try {
-            highSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablHighSpeedCnt());
-        } catch (Exception ignored) {
-        }
-        try {
-            slowSpeedCnt = Integer.parseInt(chargeEptInfoVO.getUsablSlowSpeedCnt());
-        } catch (Exception ignored) {
-        }
-
-        if (superSpeedCnt > 0) {
-            stringBuilder.append(String.format(getString(R.string.sm_evss04_11), superSpeedCnt));
-        }
-        if (highSpeedCnt > 0) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(String.format(getString(R.string.sm_evss04_12), highSpeedCnt));
-        }
-        if (slowSpeedCnt > 0) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(String.format(getString(R.string.sm_evss04_13), slowSpeedCnt));
-        }
-        if (stringBuilder.length() > 0) {
-            stringBuilder.append(" ").append(getString(R.string.sm_evss04_15));
-            ui.tvChargerCount.setText(DeviceUtil.fromHtml(stringBuilder.toString()));
-        }
+        ui.tvChargerCount.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(chargeEptInfoVO)), Html.FROM_HTML_MODE_COMPACT));
 
         ui.tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(chargeEptInfoVO.getChgrUpdDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
 
