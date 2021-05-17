@@ -158,7 +158,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 //                                }
 //                            }
                             try {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + chargeStcInfoVO != null ? chargeStcInfoVO.getBcall() : chargeEptInfoVO.getSpcall())));
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + (chargeStcInfoVO != null ? chargeStcInfoVO.getBcall() : chargeEptInfoVO.getSpcall()))));
                             }catch (Exception e){
 
                             }
