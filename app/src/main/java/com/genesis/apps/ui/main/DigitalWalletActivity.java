@@ -129,6 +129,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                             if (!dtwViewModel.isStcPwdYn()) {
                                 MiddleDialog.dialogServiceRemoteOneButton(this, R.string.pay01_p02_1, R.string.pay01_p02_2, () -> {
                                     // 비밀번호 설정 화면으로 이동
+                                    startActivitySingleTop(new Intent(this, EvChargeCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                                 });
 
                                 initViewpagerAdapter(0);

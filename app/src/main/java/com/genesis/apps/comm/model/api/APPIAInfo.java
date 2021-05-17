@@ -135,6 +135,7 @@ public enum APPIAInfo {
     PAY02("PAY02", null, VariableType.QUICK_MENU_CODE_NONE, "맴버십 바코드", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY03("PAY03", null, VariableType.QUICK_MENU_CODE_NONE, "결제 수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY04_PAY01("PAY04_PAY01", null, VariableType.QUICK_MENU_CODE_NONE, "미수금 결제", VariableType.QUICK_MENU_CATEGORY_NONE, ""),
+    PAY05_PSW01("PAY05_PSW01", null, VariableType.QUICK_MENU_CODE_NONE, "선불 교통카드 비밀번호 등록", VariableType.QUICK_MENU_CATEGORY_NONE, ""),
 
     GM_BT01_P01("GM_BT01_P01", BtrServiceInfoActivity.class, VariableType.QUICK_MENU_CODE_NONE, "버틀러 서비스 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     GM_BT01_P02("GM_BT01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 신청 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
