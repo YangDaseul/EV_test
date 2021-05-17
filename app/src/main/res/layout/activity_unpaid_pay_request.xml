@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/service_charge_btr_05}" />
+            app:value="@{@string/pay04_pay01_0}" />
 
 
         <ScrollView
