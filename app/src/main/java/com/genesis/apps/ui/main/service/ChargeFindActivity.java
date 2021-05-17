@@ -26,6 +26,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeFindBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
@@ -441,6 +442,16 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             }
         } catch (Exception e) {
 
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        List<SubFragment> fragments = getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            hideFragment(fragments.get(0));
+        } else {
+            super.onBackPressed();
         }
     }
 

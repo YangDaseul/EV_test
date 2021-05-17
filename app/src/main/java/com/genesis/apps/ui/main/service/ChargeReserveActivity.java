@@ -237,7 +237,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
      ****************************************************************************************************/
     @Override
     public void onAddressSelected(AddressVO selectedAddr) {
-        inputChargePlaceFragment.setAddress(getAddress(selectedAddr));
+        inputChargePlaceFragment.setAddress(selectedAddr);
         searchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
     }
 
@@ -248,13 +248,13 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeReserveActivity.this);
-        inputChargePlaceFragment.setSearchCategoryList(new ArrayList(Arrays.asList(
-                inputChargePlaceFragment.getDefaultCategoryReserveYN(),
-                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true)
-        )));
-        selectedFilterList.add(inputChargePlaceFragment.getDefaultCategoryReserveYN());
+//        inputChargePlaceFragment.setSearchCategoryList(new ArrayList(Arrays.asList(
+//                inputChargePlaceFragment.getDefaultCategoryReserveYN(),
+//                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+//                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+//                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true)
+//        )));
+//        selectedFilterList.add(inputChargePlaceFragment.getDefaultCategoryReserveYN());
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
