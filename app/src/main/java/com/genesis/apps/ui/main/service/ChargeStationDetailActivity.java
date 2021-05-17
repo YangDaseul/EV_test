@@ -398,7 +398,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         adapter.setRows(list);
         ui.rvStationDetail.setAdapter(adapter);
         ui.tvChargerCount.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(chargeStcInfoVO)), Html.FROM_HTML_MODE_COMPACT));
-        if(!TextUtils.isEmpty(chargeStcInfoVO.getChgrUpdDtm())) {
+        if(!TextUtils.isEmpty(chargeStcInfoVO.getChgrUpdDtm())&&!chargeStcInfoVO.getChgrUpdDtm().equalsIgnoreCase("null")) {
             ui.tvDate.setVisibility(View.VISIBLE);
             ui.tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(chargeStcInfoVO.getChgrUpdDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
         }else{
@@ -457,7 +457,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ui.rvStationDetail.setAdapter(adapter);
 
         ui.tvChargerCount.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(chargeEptInfoVO)), Html.FROM_HTML_MODE_COMPACT));
-        if(!TextUtils.isEmpty(chargeEptInfoVO.getChgrUpdDtm())) {
+        if(!TextUtils.isEmpty(chargeEptInfoVO.getChgrUpdDtm())&&!chargeEptInfoVO.getChgrUpdDtm().equalsIgnoreCase("null")) {
             ui.tvDate.setVisibility(View.VISIBLE);
             ui.tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(chargeEptInfoVO.getChgrUpdDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
         }else{
