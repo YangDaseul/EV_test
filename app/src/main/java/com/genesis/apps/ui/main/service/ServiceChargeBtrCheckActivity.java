@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1010;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
+import com.genesis.apps.comm.model.api.gra.CHB_1027;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -25,7 +26,6 @@ import com.genesis.apps.comm.model.vo.carlife.CarVO;
 import com.genesis.apps.comm.model.vo.carlife.LotVO;
 import com.genesis.apps.comm.model.vo.carlife.MembershipVO;
 import com.genesis.apps.comm.model.vo.carlife.OptionVO;
-import com.genesis.apps.comm.model.vo.carlife.OrderVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqInfoVO;
 import com.genesis.apps.comm.model.vo.carlife.ReqOrderVO;
@@ -35,12 +35,10 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrCheckBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarChargeBtr;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,21 +116,15 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList());
         if(carwashVO != null) {
             ui.lCarwashPaymtInfo.setVisibility(View.VISIBLE);
-            ui.lCarwashPrice.lWhole.setVisibility(View.VISIBLE);
             int carwashPrice = carwashVO.getOptionPrice();
             ui.tvCarwashPaymt.setText(StringUtil.getPriceString(carwashPrice));
             ui.tvCarwashPaymt.setTag(carwashPrice);
             ui.tvCarwashPrice.setText(StringUtil.getPriceString(carwashPrice));
         } else {
             ui.lCarwashPaymtInfo.setVisibility(View.GONE);
-            ui.lCarwashPrice.lWhole.setVisibility(View.GONE);
         }
 
         updateSvcPaymt();
-
-        // 하단 결제 상세 내역 정보 표시
-        ui.lChargePrice.setContent(StringUtil.getPriceString(contentsVO.getProductPrice()));
-        ui.lDeliveryPrice.setContent(StringUtil.getPriceString(deliverPrice));
     }
 
     /**
@@ -148,8 +140,6 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         int totalPaymt = chargePrice - discountPoint + opt1Price + opt2Price;
         ui.tvSvcPaymt.setText(StringUtil.getPriceString(totalPaymt));
         ui.tvSvcPaymt.setTag(totalPaymt);
-
-        ui.tvPaymtAmt.setText(StringUtil.getPriceString(totalPaymt));
     }
 
     /**
@@ -158,7 +148,6 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     private void setLayoutCreditPoint() {
         if(contentsVO.getStrafficInfo() == null) {
             ui.lCreditPointInfo.setVisibility(View.GONE);
-            ui.lCreditPoint.lWhole.setVisibility(View.GONE);
             return;
         }
 
@@ -174,11 +163,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         ui.tvCreditPointBalance.setText(String.format(Locale.getDefault(), getString(R.string.service_charge_btr_word_41), StringUtil.getPriceString(creditBalance)));
         ui.tvCreditPointInfo.setText(String.format(getString(R.string.service_charge_btr_msg_04), StringUtil.getPriceString(contentsVO.getProductPrice())));
 
-        // 하단 결제 상세 내역 정보 표시
-        ui.lCreditPoint.setContent(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_42));
-
         ui.lCreditPointInfo.setVisibility(View.VISIBLE);
-        ui.lCreditPoint.lWhole.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -221,32 +206,13 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     ui.ivSvcPaymtPadding.setVisibility(View.GONE);
                 }
                 break;
-            case R.id.l_paymt_amt:
-                if (ui.lPaymtAmtDetail.getVisibility() == View.VISIBLE) {
-                    ui.ivPaymtAmtArrow.setImageResource(R.drawable.btn_arrow_open);
-                    ui.lPaymtAmtDetail.setVisibility(View.GONE);
-                    ui.ivPaymtAmtPadding.setVisibility(View.VISIBLE);
-                } else {
-                    ui.ivPaymtAmtArrow.setImageResource(R.drawable.btn_arrow_close);
-                    ui.lPaymtAmtDetail.setVisibility(View.VISIBLE);
-                    ui.ivPaymtAmtPadding.setVisibility(View.GONE);
-                }
-                break;
             case R.id.cb_carwash_option:
                 ui.tvCarwashPaymt.setVisibility(ui.cbCarwashOption.isChecked() ? View.VISIBLE : View.GONE);
-                if (ui.cbCarwashOption.isChecked())
-                    ui.lCarwashPrice.setContent(ui.tvCarwashPrice.getText().toString());
-                else
-                    ui.lCarwashPrice.setContent(getString(R.string.service_charge_btr_word_42));
-
                 updateSvcPaymt();
                 break;
             case R.id.btn_card_reg:
-                // 결제수단관리 페이지로 연결(간편결제 가입/카드등록 분기 처리)
-                startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
-                break;
             case R.id.btn_card_mgmt:
-                //CardManageActivity
+                // 결제수단관리 페이지로 연결(간편결제 가입/카드등록 분기 처리)
                 startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
             case R.id.l_selected_paymt_card:
@@ -272,9 +238,9 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList()).getOptionCode(), 1));
 
         int membershipUsePoint = 0;
-        List<MembershipVO> membershipVO = null;
+        List<MembershipVO> membershipVO = new ArrayList<>();
         if(contentsVO.getStrafficInfo() != null) {
-            membershipVO = new ArrayList<>();
+//            membershipVO = new ArrayList<>();
             membershipVO.add(new MembershipVO(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF, contentsVO.getStrafficInfo().getCardNo(), membershipUsePoint));
         }
 
@@ -423,6 +389,24 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     break;
                 default:
                         showProgressDialog(false);
+                    break;
+            }
+        });
+
+        chbViewModel.getRES_CHB_1027().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                        startActivitySingleTop(new Intent(this, ServiceChargeBtrResultActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    startActivitySingleTop(new Intent(this, ServiceChargeBtrFailActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                     break;
             }
         });
@@ -577,11 +561,18 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
-            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
-        } else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+
+        if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+            // 간편결제카드 관리 변동 사항 있음.
             chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
+            // 픽업앤충전 서비스 예약 완료!
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode()) {
+            // 픽업앤충전 서비스 예약 실패
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode());
         } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode()) {
+            // 블루월넛 결제 요청 성공!
             Intent intent = new Intent(this, ServiceChargeBtrResultActivity.class);
             intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, carNo);
             intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
@@ -591,6 +582,9 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_CD_2);
 
             startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+        } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
+            // 블루월넛 결제 화면 종료
+            chbViewModel.reqCHB1027(new CHB_1027.Request(APPIAInfo.SM_CGRV02.getId(), contentsVO.getTxid()));
         }
     }
 

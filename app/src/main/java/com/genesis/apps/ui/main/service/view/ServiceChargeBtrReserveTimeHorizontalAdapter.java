@@ -41,12 +41,10 @@ public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerVi
 
     }
 
-    public void setSelectItem(int pos){
+    public void setSelectItem(int pos) {
 
-        for (int i = 0; i < selectedItems.size(); i++) {
-            if (selectedItems.get(i))
-                selectedItems.delete(i);
-        }
+        if (selectedItems.size() > 0)
+            selectedItems.clear();
 
         selectedItems.put(pos, true);
 
@@ -54,10 +52,9 @@ public class ServiceChargeBtrReserveTimeHorizontalAdapter extends BaseRecyclerVi
     }
 
     public void initSelectItem() {
-        for (int i = 0; i < selectedItems.size(); i++) {
-            if (selectedItems.get(i))
-                selectedItems.delete(i);
-        }
+
+        if (selectedItems.size() > 0)
+            selectedItems.clear();
 
         notifyDataSetChanged();
     }

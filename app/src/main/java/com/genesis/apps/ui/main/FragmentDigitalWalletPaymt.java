@@ -9,19 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.FragmentCardBackBinding;
+import com.genesis.apps.databinding.FragmentDigitalWalletPaymtBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
-public class FragmentCardBack extends SubFragment<FragmentCardBackBinding> {
+public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalletPaymtBinding> {
 
-    public static FragmentCardBack newInstance() {
-        return new FragmentCardBack();
+    public static FragmentDigitalWalletPaymt newInstance() {
+        return new FragmentDigitalWalletPaymt();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.fragment_card_back);
+        return super.setContentView(inflater, R.layout.fragment_digital_wallet_paymt);
     }
 
     @Override
@@ -34,6 +34,8 @@ public class FragmentCardBack extends SubFragment<FragmentCardBackBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        // NFC로 충전기에 카드 번호 전송 TODO 실제 조회된 카드 번호로 변경 필요
+        //                sendCardInfo("0000000000000000");
     }
 
     @Override
