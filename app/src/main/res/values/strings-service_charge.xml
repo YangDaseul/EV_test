@@ -50,7 +50,7 @@
     <string name="sm_evsb02_p01_2">신청하신 충전소 예약을\n취소하시겠습니까?</string>
     <string name="sm_evsb02_p01_3">취소가 완료되었습니다.</string>
 
-
+    <string name="sm_evss04_00">충전소 상세정보</string>
     <string name="sm_evss04_01">운영시간 :</string>
     <string name="sm_evss04_02">운영업체 :</string>
     <string name="sm_evss04_03">결제 방식 :</string>

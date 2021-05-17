@@ -14,7 +14,8 @@
 
         <include
             android:id="@+id/l_title"
-            layout="@layout/layout_titlebar" />
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm_evss04_00}"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/vg_nsv"

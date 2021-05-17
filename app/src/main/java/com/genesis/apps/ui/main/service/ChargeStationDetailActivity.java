@@ -28,6 +28,7 @@ import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
@@ -395,9 +396,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     private void updateStation(STC_1002.Response data) {
         chargeStcInfoVO = data.getChgSttnInfo();
 
-        // 상단 타이틀 - 충전소 이름, 거리 표시. TODO STC-1002 전문이 수정되면 반영 필요
-        ui.lTitle.setValue(chargeStcInfoVO.getChgName());
-
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, chargeStcInfoVO.getDaddr() + "\n" + chargeStcInfoVO.getDaddrDtl()));
@@ -480,6 +478,18 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         }
     }
 
+//    private String getAddr(String addr, String addrDtl, String distance){
+//
+//        String totalAddr = StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? add );
+//        if(!TextUtils.isEmpty(addrDtl)){
+//            totalAddr += (" "+addrDtl);
+//        }
+//
+//
+//
+//
+//    }
+
     /**
      * 충전소 정보 업데이트 함수(E-PIT)
      *
@@ -487,10 +497,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      */
     private void updateStation(EPT_1002.Response data) {
         chargeEptInfoVO = data.getChgInfo();
-
-        // 상단 타이틀 - 충전소 이름, 거리 표시.
-        ui.lTitle.setValue(chargeEptInfoVO.getCsnm() + " " + chargeEptInfoVO.getDist() + "km");
-
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, chargeEptInfoVO.getDaddr() + "\n" + chargeEptInfoVO.getAddrDtl()));
