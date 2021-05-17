@@ -365,4 +365,8 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         adapter.setRows(list);
         adapter.notifyDataSetChanged();
     }
+
+    public void setSearchCategoryList(ArrayList<ChargeSearchCategoryVO> searchCategoryList) {
+        this.searchCategoryList = searchCategoryList;
+    }
 } // end of class InputChargePlaceFragment

@@ -103,6 +103,7 @@ public interface KeyNames {
     String KEY_NAME_CHARGE_STATION_CSID = "chargeStationCSID";
     String KEY_NAME_LAT = "lat";
     String KEY_NAME_LOT = "lot";
+    String KEY_STATION_TYPE = "stationType";
 
     String KEY_NAME_CHARGE_TYPE = "chargeType";
 

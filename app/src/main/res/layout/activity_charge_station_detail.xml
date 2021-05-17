@@ -78,8 +78,9 @@
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:includeFontPadding="false"
                     android:textColor="@color/x_262626"
+                    android:layout_marginStart="20dp"
                     android:textSize="14dp"
-                    app:layout_constraintStart_toStartOf="@id/tv_charger_count"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_charger_count"
                     tools:text="2021.03.25 12:35" />
 

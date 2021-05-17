@@ -34,19 +34,23 @@ public enum ChargerStatus {
     /**
      * 통신미연결
      */
-    DISCONNECTION(R.string.sm_evss04_17),
+//    DISCONNECTION(R.string.sm_evss04_17),
     /**
      * 충전종료
      */
-    CHARGED(R.string.sm_evss04_15),
+//    CHARGED(R.string.sm_evss04_15),
     /**
      * 계획 정지
      */
-    PLANNED(R.string.sm_evss04_17),
+//    PLANNED(R.string.sm_evss04_17),
     /**
      * 예약
      */
-    RESERVED(R.string.sm_evss04_15);
+//    RESERVED(R.string.sm_evss04_15);
+    /**
+     * 통신장애
+     */
+    SHUTDOWNED(R.string.sm_evss04_17);
 
     @StringRes
     int titleResId;

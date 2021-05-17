@@ -45,6 +45,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
@@ -60,10 +61,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     @Inject
     public LoginInfoDTO loginInfoDTO;
 
-//    private BottomTwoButtonTerm bottomTwoButtonTerm;
-    private final int EVENT_TYPE_BTR=1;
-    private final int EVENT_TYPE_SOS=2;
-    private int eventType=0;
+    //    private BottomTwoButtonTerm bottomTwoButtonTerm;
+    private final int EVENT_TYPE_BTR = 1;
+    private final int EVENT_TYPE_SOS = 2;
+    private int eventType = 0;
 
     public static FragmentCharge newInstance(int position) {
         FragmentCharge fragmentCharge = new FragmentCharge();
@@ -213,14 +214,14 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     break;
                 case SUCCESS:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         try {
                             //정보제공동의 완료 처리 후 찾아가는 출동 서비스 버튼 클릭 처리
                             sosViewModel.getRES_SOS_3001().getValue().data.getEvSvcTerm().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
-                            if(eventType==EVENT_TYPE_SOS) startServiceChargeActivity();
+                            if (eventType == EVENT_TYPE_SOS) startServiceChargeActivity();
                             else startChargeBtrReqActivity();
 
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                         break;
@@ -287,15 +288,42 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 break;
             //충전소 예약/내역
             case R.id.l_service_charge_reservation_list:
-                //TODO 2021-04-23 PARK 예약 내역만 추가하였으며 충전소 예약 분기 처리 필요 > 분기 처리 후 해당 페이지를 호출을 다시 정의해 주세요. (김기만 C)
-//                ((BaseActivity) getActivity()).startActivitySingleTop(
-//                        new Intent(getActivity(), ChargeReserveHistoryActivity.class),
-//                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-//                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-//                );
+                if(sosViewModel.getRES_SOS_3001().getValue() != null) {
+                    SOS_3001.Response data = sosViewModel.getRES_SOS_3001().getValue().data;
+                    if (data.getChbStus() != null) {
+
+                        // TODO 테스트용 임시 설정 값
+//                        data.getChbStus().setStMbrYn("Y");
+//                        data.setReservYn("N");
+
+                        if ("Y".equalsIgnoreCase(data.getChbStus().getStMbrYn())) {
+                            // 에스트레픽 회원인 경우 - 예약 항목 체크 및 화면 분기 호출
+                            if ("Y".equalsIgnoreCase(data.getReservYn())) {
+                                // 예약 항목이 있는 경우 - 예약 내역 화면으로 이동
+                                ((BaseActivity) getActivity()).startActivitySingleTop(
+                                        new Intent(getActivity(), ChargeReserveHistoryActivity.class),
+                                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                                );
+                            } else {
+                                // 예약 항목이 없는 경우 - 충전소 예약 화면으로 이동
+                                ((BaseActivity) getActivity()).startActivitySingleTop(
+                                        new Intent(getActivity(), ChargeReserveActivity.class),
+                                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                                );
+                            }
+                        } else {
+                            // 에스트래픽 회원이 아닌 경우 - 서비스 가입 안내 팝업 출력
+                            // TODO 에스트레픽 회원 안내 팝업의 형태는 추가 확인후 변경이 될 가능성이 있어 우선 대기.
+                        }
+                    }
+                }
+                /* 서비스 준비중 팝업
                 MiddleDialog.dialogEVServiceInfo(getActivity(), (Runnable) () -> {
 
                 });
+                 */
                 break;
             //여행 경로 추천
             case R.id.l_service_charge_recommend_trip:
@@ -424,7 +452,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 if (sosViewModel.isCnt()) {
                     //잔여횟수가 남은경우
                     ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeApplyActivity.class)
-                            .putExtra(KeyNames.KEY_NAME_SOS_STATUS_VO, sosViewModel.getRES_SOS_3001().getValue().data.getSosStus())
+                                    .putExtra(KeyNames.KEY_NAME_SOS_STATUS_VO, sosViewModel.getRES_SOS_3001().getValue().data.getSosStus())
                             , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                             , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 } else {
@@ -457,9 +485,10 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 
         }
     }
+
     //약관 동의 대화상자 호출
     private void showTermsDialog(List<TermVO> termList, int type) {
-        if(termList!=null&&termList.size()>0) {
+        if (termList != null && termList.size() > 0) {
             BottomDialogAskAgreeTermCharge termsDialog = new BottomDialogAskAgreeTermCharge(
                     getActivity(),
                     R.style.BottomSheetDialogTheme,
@@ -482,8 +511,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             termsDialog.init(termList);
             termsDialog.setTermEsnAgmtYn(false);
             termsDialog.show();
-        }else{
-            SnackBarUtil.show(getActivity(),"서비스 이용 약관 정보가 존재하지 않습니다.\n네트워크 상태를 확인 후 다시 시도해 주십시오.");
+        } else {
+            SnackBarUtil.show(getActivity(), "서비스 이용 약관 정보가 존재하지 않습니다.\n네트워크 상태를 확인 후 다시 시도해 주십시오.");
         }
     }
 
@@ -492,7 +521,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         TermVO termVO = (TermVO) v.getTag(R.id.tag_term_vo);
         if (termVO != null) {
             ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
-                    .putExtra(VariableType.KEY_NAME_TERM_VO, termVO)
+                            .putExtra(VariableType.KEY_NAME_TERM_VO, termVO)
 //                    .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, termVO.getTermNm()) //2021-04-27 자세히보기로 노출 결정
                     , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                     , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
