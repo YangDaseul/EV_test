@@ -25,6 +25,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.PostDataString;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -301,10 +302,13 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
     public boolean parseURL(String url) {
         Uri uri = Uri.parse(url);
         Log.d(TAG, "parseURL : " + url);
-        if (url.equalsIgnoreCase(closeUrl)) {
+        if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
+            exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
+            return true;
+        } else if (url.equalsIgnoreCase(closeUrl)) {
             exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FAIL.getCode());
             return true;
-        } else if (url.equalsIgnoreCase(redirectUrl)) {
+        } else if (url.equalsIgnoreCase(redirectUrl) || url.contains("/api/v1/dkc/carlife/c/payment/redirect/")) {
             exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode());
             return true;
         } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
@@ -400,4 +404,24 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         return false;
     }
 
+    public boolean clearWindowOpens3() {
+
+        if(!fragment.openWindows.isEmpty()) {
+            try {
+                for (WebView webView : fragment.openWindows) {
+                    if(webView.canGoBack()){
+                        webView.goBack();
+                    }else {
+                        webView.clearHistory();
+                        fragment.getWebViewContainer().removeView(webView);
+                        fragment.onCloseWindow(webView);
+                        fragment.openWindows.clear();
+                    }
+                }
+                return true;
+            } catch (Exception ignore) {
+            }
+        }
+        return false;
+    }
 }

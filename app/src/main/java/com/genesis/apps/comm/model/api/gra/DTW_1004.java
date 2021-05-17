@@ -4,13 +4,9 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.model.vo.carlife.PymtFormVO;
-import com.genesis.apps.comm.model.vo.carlife.UnpayInfoVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +21,8 @@ public class DTW_1004 extends BaseData {
      * @see #cardCoCode  원천사코드
      * @see #cardNo     카드번호
      * @see #userAgent  사용자 정보(userAgent)
+     * @see #closeUrl   닫기 URL
+     * @see #redirectUrl    화면 이동 URL
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -48,14 +46,22 @@ public class DTW_1004 extends BaseData {
         @Expose
         @SerializedName("userAgent")
         private String userAgent;
+        @Expose
+        @SerializedName("closeUrl")
+        private String closeUrl;
+        @Expose
+        @SerializedName("redirectUrl")
+        private String redirectUrl;
 
-        public Request(String menuId, String payTrxId,String cardType, String cardId, String cardCoCode, String cardNo, String userAgent) {
+        public Request(String menuId, String payTrxId,String cardType, String cardId, String cardCoCode, String cardNo, String userAgent, String closeUrl, String redirectUrl) {
             this.payTrxId = payTrxId;
             this.cardType = cardType;
             this.cardId = cardId;
             this.cardCoCode = cardCoCode;
             this.cardNo = cardNo;
             this.userAgent = userAgent;
+            this.closeUrl = closeUrl;
+            this.redirectUrl = redirectUrl;
 
             setData(APIInfo.GRA_DTW_1004.getIfCd(), menuId);
         }
