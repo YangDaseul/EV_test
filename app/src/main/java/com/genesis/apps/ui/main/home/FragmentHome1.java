@@ -421,6 +421,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         int batteryRes = WeatherCodes.getEvBatteryResource(batteryCharge ? 1 : 0, dayCd, soc);
         me.ivEvBattery.setImageResource(batteryRes);
         me.tvEvBattery.setText(soc < 0 ? "- %" : (int)soc + "%");
+        me.tvEvBattery.setTextColor(getContext().getColor((!batteryCharge&&soc>-1&&soc<=30 ? R.color.x_ce2d2d :  WeatherCodes.getTextColorResource(dayCd))));
         me.tvEvBatteryTime.setText((batteryCharge&&!TextUtils.isEmpty(time)) ? (String.format(Locale.getDefault(), getString(R.string.gm01_ev_1), time)) : "");
         setProgressBattery(false);
     }
