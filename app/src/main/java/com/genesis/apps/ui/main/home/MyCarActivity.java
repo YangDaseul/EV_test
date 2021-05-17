@@ -427,7 +427,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                         ui.tvPartHomeCnt.setText(cnt);
                         ui.tvTitlePartHome.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_15) : couponVO.getItemNm()));
                         break;
-                    case VariableType.COUPON_CODE_ICE://TODO 2021-04-27 PARK 냉각수 코드 확인 후 변경 필요. 임의로 지정한 상태
+                    case VariableType.COUPON_CODE_ICE:
                         ui.tvPartIceCnt.setText(cnt);
                         ui.tvTitlePartIce.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_14_2) : couponVO.getItemNm()));
                         break;

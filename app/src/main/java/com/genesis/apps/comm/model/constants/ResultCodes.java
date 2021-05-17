@@ -33,7 +33,9 @@ public enum ResultCodes {
     REQ_CODE_SERVICE_WASH_RESERVATION_FINISH(31,"소낙스 예약 완료"),
 
     REQ_CODE_CHARGE_RESERVATION_FINISH(32,"충전소 예약 완료"),
-    
+
+    REQ_CODE_CHARGE_FILTER_APPLY(33,"충전소 필터 적용"),
+
     REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH(50,"픽업앤충전 예약 완료"),
 
     REQ_CODE_PAYMENT_CARD_CHANGE(60,"결제 카드 목록 변경"),

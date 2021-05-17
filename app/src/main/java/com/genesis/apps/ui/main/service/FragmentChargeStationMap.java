@@ -36,7 +36,7 @@ public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
         return fragment;
     }
 
-    private FragmentChargeStationMap() {
+    public FragmentChargeStationMap() {
     }
 
 
