@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
@@ -70,12 +71,9 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getBlueCardInfo() != null) {
 
                         me.tvCardBg.setVisibility(View.GONE);
-                        me.lStcCard.setVisibility(View.VISIBLE);
-                        me.btnNfc.setVisibility(View.VISIBLE);
-
                         // 제네시스 멤버십 카드 정보 표시
                         String cardNo = result.data.getBlueCardInfo().getBlueCardNo();
-                        Log.d("LJEUN", "cardNo : " + StringRe2j.replaceAll(StringUtil.isValidString(cardNo), getString(R.string.card_original), getString(R.string.card_mask)));
+                        me.tvCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(cardNo), getString(R.string.card_original), getString(R.string.card_mask)));
                         Log.d("LJEUN", "cardIsncSubspDt : " + result.data.getBlueCardInfo().getCardIsncSubspDt());
 
                         // 바코드 표시
@@ -84,13 +82,29 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                             public void onGlobalLayout() {
                                 try {
                                     me.ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                    Bitmap bitmap = new BarcodeUtil().encodeAsBitmap("1111111111111111".replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) me.ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) me.ivBarcode.getHeight()));
+                                    Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(cardNo.replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) me.ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) me.ivBarcode.getHeight()));
                                     me.ivBarcode.setImageBitmap(bitmap);
                                 } catch (WriterException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
+
+                        // EV 충전 정보  표시
+                        if (result.data.getStcMbrInfo() != null &&
+                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
+                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                            me.lStcCard.setVisibility(View.VISIBLE);
+                            me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
+                            String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
+                            me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
+                        } else {
+                            // EV 충전 카드 미노출 처리
+                            me.lStcCard.setVisibility(View.GONE);
+                        }
+
+                        //  NFC 태그 버튼 표시
+                        me.btnNfc.setVisibility(View.VISIBLE);
                         break;
                     }
                 default:
