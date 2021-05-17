@@ -29,6 +29,9 @@ import lombok.EqualsAndHashCode;
  * @see #carPayUseYn 카페이사용가능여부
  * Y:가능 N:불가
  * @see #chgPrice 충전소가격
+ * @see #chgrUpdDtm 충전기상태갱신시간
+ * YYYYMMDDHH24MISS
+ * 충전기리스트 중에서 가장 최근값으로 지정(수정시간)
  * @see #useSuperSpeedCnt 사용중 초고속충전기수
  * @see #useHighSpeedCnt 사용중 급속충전기수
  * @see #useSlowSpeedCnt 사용중 완속충전기수
@@ -79,6 +82,9 @@ class ChargeSttInfoVO extends BaseData {
     @Expose
     @SerializedName("chgPrice")
     private String chgPrice;
+    @Expose
+    @SerializedName("chgrUpdDtm")
+    private String chgrUpdDtm;
     @Expose
     @SerializedName("useSuperSpeedCnt")
     private String useSuperSpeedCnt;
