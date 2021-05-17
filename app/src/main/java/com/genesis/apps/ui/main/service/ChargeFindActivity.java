@@ -265,7 +265,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      ****************************************************************************************************/
     private void initialize() {
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
-        inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
+        inputChargePlaceFragment = InputChargePlaceFragment.newInstance(null);
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)

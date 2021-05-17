@@ -12,6 +12,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.STC_1001;
+import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -228,7 +229,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         // 충전소 찾기 지도 표시.
         Intent intent = new Intent(this, ServiceNetworkActivity.class)
                 .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE);
-        intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, inputChargePlaceFragment.getSearchCategoryList());
+        intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, getFilterListBySetting());
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
@@ -246,15 +247,13 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
      ****************************************************************************************************/
     private void initialize() {
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
-        inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
+        inputChargePlaceFragment = InputChargePlaceFragment.newInstance(new ArrayList(Arrays.asList(
+                new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected("Y".equalsIgnoreCase(reservYn)),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true)
+        )));
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeReserveActivity.this);
-//        inputChargePlaceFragment.setSearchCategoryList(new ArrayList(Arrays.asList(
-//                inputChargePlaceFragment.getDefaultCategoryReserveYN(),
-//                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-//                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-//                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true)
-//        )));
-//        selectedFilterList.add(inputChargePlaceFragment.getDefaultCategoryReserveYN());
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
@@ -347,6 +346,29 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 slowSpeedYn = item.isSelected() ? "Y" : "N";
             }
         }
+    }
+
+    private ArrayList<ChargeSearchCategoryVO> getFilterListBySetting() {
+        ArrayList<ChargeSearchCategoryVO> result = new ArrayList<>();
+        result.add(new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null)
+                .setSelected("Y".equalsIgnoreCase(reservYn)));
+        ChargeSearchCategoryVO speedFilter = new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK,
+                Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED));
+        ArrayList<ChargeSearchCategorytype> selectedSpeedFilterList = new ArrayList<>();
+        if ("Y".equalsIgnoreCase(superSpeedYn)) {
+            selectedSpeedFilterList.add(ChargeSearchCategorytype.SUPER_SPEED);
+        }
+        if ("Y".equalsIgnoreCase(highSpeedYn)) {
+            selectedSpeedFilterList.add(ChargeSearchCategorytype.HIGH_SPEED);
+        }
+        if ("Y".equalsIgnoreCase(slowSpeedYn)) {
+            selectedSpeedFilterList.add(ChargeSearchCategorytype.SLOW_SPEED);
+        }
+        if (selectedSpeedFilterList.size() > 0) {
+            speedFilter.addSelectedItems(selectedSpeedFilterList);
+        }
+        result.add(speedFilter);
+        return result;
     }
 
     private void reqParkLocationToDevelopers() {
