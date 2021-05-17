@@ -448,11 +448,15 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     @Override
     public void onBackPressed() {
         List<SubFragment> fragments = getFragments();
-        if (fragments != null && fragments.size() > 0) {
-            hideFragment(fragments.get(0));
-        } else {
-            super.onBackPressed();
+        if (fragments != null) {
+            for (SubFragment fragment : fragments) {
+                if (fragment instanceof SearchAddressHMNFragment) {
+                    hideFragment(fragment);
+                    return;
+                }
+            }
         }
+        super.onBackPressed();
     }
 
 } // end of class ChargeSearchActivity
