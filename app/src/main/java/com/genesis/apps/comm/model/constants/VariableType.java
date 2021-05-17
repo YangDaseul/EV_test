@@ -1,5 +1,12 @@
 package com.genesis.apps.comm.model.constants;
 
+import android.content.Context;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.util.StringUtil;
+import com.google.gson.Gson;
+
 public class VariableType {
     public static final boolean isHardCoding = true;
     public static final Double[] DEFAULT_POSITION={37.463936, 127.042953};
@@ -471,4 +478,62 @@ public class VariableType {
 
     public static final int CHARGE_STATION_TYPE_EPT = 0;
     public static final int CHARGE_STATION_TYPE_STC = 1;
+
+    public static String getChargeStatus(Context context, String json){
+
+        ChargeEptInfoVO data = new Gson().fromJson(json, ChargeEptInfoVO.class);
+
+        StringBuilder strBuilder = new StringBuilder();
+        if(data!=null) {
+            //사용가능
+            int usablSuperSpeedCnt;
+            int usablHighSpeedCnt;
+            int usablSlowSpeedCnt;
+            int totalUseAbleCnt;
+            //사용중
+            int useSuperSpeedCnt;
+            int useHighSpeedCnt;
+            int useSlowSpeedCnt;
+            int totalUseCnt;
+
+            usablSuperSpeedCnt = StringUtil.isValidInteger(data.getUsablSuperSpeedCnt());
+            usablHighSpeedCnt = StringUtil.isValidInteger(data.getUsablHighSpeedCnt());
+            usablSlowSpeedCnt = StringUtil.isValidInteger(data.getUsablSlowSpeedCnt());
+            totalUseAbleCnt = usablSuperSpeedCnt + usablHighSpeedCnt + usablSlowSpeedCnt;
+
+            useSuperSpeedCnt = StringUtil.isValidInteger(data.getUseSuperSpeedCnt());
+            useHighSpeedCnt = StringUtil.isValidInteger(data.getUseHighSpeedCnt());
+            useSlowSpeedCnt = StringUtil.isValidInteger(data.getUseSlowSpeedCnt());
+            totalUseCnt = useSuperSpeedCnt + useHighSpeedCnt + useSlowSpeedCnt;
+
+
+            if (totalUseAbleCnt > 0) {
+                //1대의 충전기라도 사용 가능 할 경우
+                if (usablSuperSpeedCnt > 0) {
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_01), usablSuperSpeedCnt));
+                }
+                if (usablHighSpeedCnt > 0) {
+                    if (strBuilder.length() > 0) {
+                        strBuilder.append(", ");
+                    }
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_02), usablHighSpeedCnt));
+                }
+                if (usablSlowSpeedCnt > 0) {
+                    if (strBuilder.length() > 0) {
+                        strBuilder.append(", ");
+                    }
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_03), usablSlowSpeedCnt));
+                }
+
+                strBuilder.append(" " + context.getString(R.string.sm_evss03_04));
+            } else if (totalUseAbleCnt == 0 && totalUseCnt > 0) {
+                //사용가능한 충전기는 없고 사용중인게 0대 이상인 경우 사용중
+                strBuilder.append(context.getString(R.string.sm_evss01_33));
+            } else {
+                //사용가능한 충전기도 없고 사용중인 충전기도 없으면 점검중
+                strBuilder.append(context.getString(R.string.sm_evss01_32));
+            }
+        }
+        return strBuilder.toString();
+    }
 }

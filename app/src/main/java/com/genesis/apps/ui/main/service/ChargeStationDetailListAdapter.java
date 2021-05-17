@@ -14,6 +14,7 @@ import androidx.annotation.StringRes;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.databinding.ItemChargeStationDetailBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
@@ -24,6 +25,13 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
  * @since 2021-04-27
  */
 public class ChargeStationDetailListAdapter extends BaseRecyclerViewAdapter2<ChargeStationDetailListAdapter.ItemVO> {
+
+    private static OnSingleClickListener onSingleClickListener;
+
+    public ChargeStationDetailListAdapter(OnSingleClickListener onSingleClickListener){
+        this.onSingleClickListener = onSingleClickListener;
+    }
+
     public enum DetailType {
         ADDRESS(R.drawable.ic_site, 0, R.string.sm_evss04_04),
         TIME(R.drawable.ic_time, R.string.sm_evss04_01, 0),
@@ -86,8 +94,8 @@ public class ChargeStationDetailListAdapter extends BaseRecyclerViewAdapter2<Cha
             } else {
                 binding.tvBtnBottom.setVisibility(View.VISIBLE);
                 binding.tvBtnBottom.setText(type.bottomBtnTitleRes);
-                binding.tvBtnBottom.setTag(item);
-//                binding.tvBtnBottom.setOnClickListener();
+                binding.tvBtnBottom.setTag(R.id.item, type);
+                binding.tvBtnBottom.setOnClickListener(onSingleClickListener);
             }
 
             binding.line.setVisibility(pos == 0 ? View.INVISIBLE : View.VISIBLE);

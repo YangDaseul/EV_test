@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.vo;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.QueryString;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -96,4 +97,15 @@ class ChargeSttInfoVO extends BaseData {
     @Expose
     @SerializedName("usablSlowSpeedCnt")
     private String usablSlowSpeedCnt;
+
+    public String getGCSScheme(){
+        QueryString q = new QueryString();
+        q.add("lat", getLat());
+        q.add("lon", getLot());
+        q.add("address", "");
+        q.add("title", "");
+        q.add("phone", "");
+        return "mgenesis://sendtocar"+q.getQuery();
+    }
+
 } // end of class ChargeSttInfoVO
