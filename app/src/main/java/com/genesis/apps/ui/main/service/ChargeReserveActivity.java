@@ -28,6 +28,7 @@ import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeReserveBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.service.view.ChargeSTCPlaceListAdapter;
 
@@ -52,9 +53,9 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     private ChargeSTCPlaceListAdapter adapter;
 
     private String reservYn = "Y";
-    private String superSpeedYn;
-    private String highSpeedYn;
-    private String slowSpeedYn;
+    private String superSpeedYn = "Y";
+    private String highSpeedYn = "Y";
+    private String slowSpeedYn = "Y";
 
     private int pageNo = 1;
     private final String MAX_PAGE_CNT = "10";
@@ -115,6 +116,20 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     /****************************************************************************************************
      * Override Method
      ****************************************************************************************************/
+    @Override
+    public void onBackPressed() {
+        List<SubFragment> fragments = getFragments();
+        if (fragments != null) {
+            for (SubFragment fragment : fragments) {
+                if (fragment instanceof SearchAddressHMNFragment) {
+                    hideFragment(fragment);
+                    return;
+                }
+            }
+        }
+        super.onBackPressed();
+    }
+
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(ChargeReserveActivity.this);
@@ -228,7 +243,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     public void onSearchMap() {
         // 충전소 찾기 지도 표시.
         Intent intent = new Intent(this, ServiceNetworkActivity.class)
-                .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE);
+                .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE_STC);
         intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, getFilterListBySetting());
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -249,9 +264,9 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance(new ArrayList(Arrays.asList(
                 new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected("Y".equalsIgnoreCase(reservYn)),
-                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true),
-                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected(true)
+                new ChargeSearchCategoryVO(R.string.sm_evss01_22, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected("Y".equalsIgnoreCase(superSpeedYn)),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_23, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected("Y".equalsIgnoreCase(highSpeedYn)),
+                new ChargeSearchCategoryVO(R.string.sm_evss01_24, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null).setSelected("Y".equalsIgnoreCase(slowSpeedYn))
         )));
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeReserveActivity.this);
         getSupportFragmentManager().beginTransaction()
