@@ -116,9 +116,7 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                             selectedCardVo.getCardId(),
                             selectedCardVo.getCardCoCode(),
                             selectedCardVo.getCardNo(),
-                            userAgentString,
-                            closeUrl,
-                            closeUrl
+                            userAgentString
                     ));
                 }
 

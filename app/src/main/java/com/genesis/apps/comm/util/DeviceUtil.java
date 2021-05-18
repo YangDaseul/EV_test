@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -209,4 +211,27 @@ public class DeviceUtil {
         return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
     }
 
+
+    public static boolean checkNfcEnabled(Context context) throws Exception {
+        if (context == null) return false;
+
+        NfcManager manager = (NfcManager) context.getSystemService(Context.NFC_SERVICE);
+        if (manager == null) {
+            // NFC 미지원 단말
+            throw new IllegalAccessException("this device is has not nfc feature");
+        }
+        NfcAdapter adapter = manager.getDefaultAdapter();
+        if (adapter == null) {
+            // NFC 미지원 단말
+            throw new IllegalAccessException("this device is has not nfc feature");
+        }
+
+        if (adapter.isEnabled()) {
+            // 활성화 됨.
+            return true;
+        } else {
+            // 비 활성화 또는 카드모드
+            return false;
+        }
+    }
 }
