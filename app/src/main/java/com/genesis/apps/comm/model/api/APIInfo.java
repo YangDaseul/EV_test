@@ -331,7 +331,7 @@ public enum APIInfo {
 //    }
 
     private static String getEvUri(){
-        return "/graapi/nl/ev/";
-//        return "/graapi/";
+//        return "/graapi/nl/ev/";
+        return "/graapi/";
     }
 }

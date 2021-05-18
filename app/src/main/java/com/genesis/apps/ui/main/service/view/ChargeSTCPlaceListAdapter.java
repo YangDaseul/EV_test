@@ -49,7 +49,7 @@ public class ChargeSTCPlaceListAdapter extends BaseRecyclerViewAdapter2<ReserveV
             binding.setActivity(this.activity);
             binding.tvChargeName.setText(item.getChgName());
             binding.tvDist.setText(item.getDist() + "km");
-            binding.vgChargePlaceContainer.setTag(item);
+            binding.lWhole.setTag(item);
 
 
             // 운영중인 경우 - 예약 상태 표시

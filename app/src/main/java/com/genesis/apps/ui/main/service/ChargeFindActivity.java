@@ -89,17 +89,19 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
-        Object tag = v.getTag();
+        Object tag = v.getTag(R.id.item);
         switch (v.getId()) {
             case R.id.tv_btn_route_detail: {
                 // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
-                ChargeEptInfoVO item = (ChargeEptInfoVO)v.getTag(R.id.item);
-                if(item!=null&&!TextUtils.isEmpty(item.getLat())&&!TextUtils.isEmpty(item.getLot())){
-                    PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                if (tag instanceof ChargeEptInfoVO) {
+                    ChargeEptInfoVO item = (ChargeEptInfoVO) tag;
+                    if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
+                        PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                    }
                 }
                 break;
             }
-            case R.id.iv_arrow: {
+            case R.id.l_whole: {
                 // 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
                 if (tag instanceof ChargeEptInfoVO) {
                     ChargeEptInfoVO chargeEptInfoVO = (ChargeEptInfoVO) tag;

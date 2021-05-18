@@ -170,5 +170,7 @@
     <string name="pay01_p03_2">죄송합니다.\n\n보유하신 크레딧이 부족하여\n서비스 이용이 불가능합니다.\n\n(최소 필요 포인트 : 20,000원)\n\n\n신용카드를 등록하신 후 결제가 가능합니다.\n신용카드를 등록하시겠습니까?</string>
     <string name="pay01_p04_1">충전 금액 결제 안내</string>
     <string name="pay01_p04_2">결제 되지 않은 충전 금액이 있습니다.\n결제 후 서비스 이용이 가능합니다.</string>
+    <string name="pay01_p05_1">NFC로 태그 안내</string>
+    <string name="pay01_p05_2">NFC 결제를 위해 NFC를\n켜 주시기 바랍니다.\n\nNFC가 꺼진 경우 NFC 결제가\n불가능합니다.</string>
 
 </resources>

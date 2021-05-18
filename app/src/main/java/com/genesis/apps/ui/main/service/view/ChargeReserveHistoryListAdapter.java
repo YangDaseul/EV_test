@@ -49,7 +49,7 @@ public class ChargeReserveHistoryListAdapter extends BaseRecyclerViewAdapter2<Re
             binding.setActivity(this.activity);
             binding.tvChargeName.setText(item.getChgName());
             binding.tvDist.setText(item.getDist() + "km");
-            binding.vgChargeReserveHistoryContainer.setTag(item);
+            binding.lWhole.setTag(item);
 
 
             // 운영중인 경우 - 예약 상태 표시

@@ -106,8 +106,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 PackageUtil.runApp(ChargeReserveActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR);
                 break;
             }
-            case R.id.vg_charge_reserve_history_container:
-            case R.id.vg_charge_place_container: {
+            case R.id.l_whole: {
                 // 최근 예약 충전소 목록 아이템 - 충전소 상세 화면 이동.
                 // 충전소 목록 아이템 - 충전소 상세 화면 이동.
                 if (tag instanceof ReserveVo) {

@@ -44,6 +44,9 @@ import lombok.EqualsAndHashCode;
  * Y: 카페이지원 N:카페이미지원
  * @see #genYn 제네시스전용충전소여부
  * Y: 제네시스전용충전소 N:제네시스전용충전소아님
+ * @see #chgrUpdDtm 충전기상태갱신시간
+ * YYYYMMDDHH24MISS
+ * 충전기리스트 중에서 가장 최근값으로 지정
  * @see #useSuperSpeedCnt 사용중 초고속충전기수
  * @see #useHighSpeedCnt 사용중 급속충전기수
  * @see #useSlowSpeedCnt 사용중 완속충전기수
@@ -106,6 +109,9 @@ class ChargeEptInfoVO extends BaseData {
     @Expose
     @SerializedName("genYn")
     private String genYn;
+    @Expose
+    @SerializedName("chgrUpdDtm")
+    private String chgrUpdDtm;
     @Expose
     @SerializedName("useSuperSpeedCnt")
     private String useSuperSpeedCnt;
