@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
  * @brief service + S-트래픽 충전소 상세조회
  * @see #sid 충전소ID
  * @see #chgName 충전소명
+ * @see #dist 거리
  * @see #daddr 도로명주소
  * @see #daddrDtl 도로명주소상세
  * @see #lat 충전소위치-위도
@@ -49,6 +50,9 @@ class ChargeSttInfoVO extends BaseData {
     @Expose
     @SerializedName("chgName")
     private String chgName;
+    @Expose
+    @SerializedName("dist")
+    private String dist;
     @Expose
     @SerializedName("daddr")
     private String daddr;

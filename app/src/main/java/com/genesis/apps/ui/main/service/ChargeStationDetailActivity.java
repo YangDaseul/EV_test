@@ -378,7 +378,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), "")));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), chargeStcInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
@@ -405,8 +405,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             ui.tvDate.setVisibility(View.GONE);
         }
         ChargerSTCListAdapter chargerListAdapter = new ChargerSTCListAdapter(onSingleClickListener);
-        chargerListAdapter.setChgPrice(chargeStcInfoVO.getChgPrice());
-        chargerListAdapter.setReservYn(chargeStcInfoVO.getReservYn());
         chargerListAdapter.setRows(data.getChgrList());
         ui.rvChargerList.setAdapter(chargerListAdapter);
 

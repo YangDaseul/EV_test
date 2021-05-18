@@ -28,9 +28,6 @@ import androidx.annotation.NonNull;
  */
 public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO> {
 
-    private String reservYn;
-    private String chgPrice;
-
     private OnSingleClickListener onSingleClickListener;
 
     public ChargerSTCListAdapter(OnSingleClickListener onSingleClickListener) {
@@ -40,9 +37,7 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(getView(parent, R.layout.item_charger), onSingleClickListener)
-                .setReservYn(reservYn)
-                .setChgPrice(chgPrice);
+        return new ItemViewHolder(getView(parent, R.layout.item_charger), onSingleClickListener);
     }
 
     @Override
@@ -50,18 +45,7 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
         holder.onBindView(getItem(position), position);
     }
 
-    public void setReservYn(String reservYn) {
-        this.reservYn = reservYn;
-    }
-
-    public void setChgPrice(String chgPrice) {
-        this.chgPrice = chgPrice;
-    }
-
     private static class ItemViewHolder extends BaseViewHolder<ChargerSttVO, ItemChargerBinding> {
-        private String reservYn;
-        private String chgPrice;
-
         public ItemViewHolder(View itemView, OnSingleClickListener onSingleClickListener) {
             super(itemView);
             getBinding().tvBtnReserve.setOnClickListener(onSingleClickListener);
@@ -102,7 +86,7 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
             }
 
             // 충전 가격
-            String pay = chgPrice;
+            String pay = item.getChgPrice();
             if (TextUtils.isEmpty(pay)) {
                 pay = "- ";
             }
@@ -111,7 +95,7 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
             if (statusTitleId == R.string.sm_evss04_15) {
                 // 해당 충전기가 사용가능한 상태 - 상태, 가격 문구 색상 변경
                 binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_996449));
-                if ("Y".equalsIgnoreCase(reservYn)) {
+                if ("Y".equalsIgnoreCase(item.getReservYn())) {
                     // 예약 가능한 상태라면 예약 버튼 노출
                     binding.tvBtnReserve.setTag(item);
                     binding.tvBtnReserve.setVisibility(View.VISIBLE);
@@ -128,16 +112,6 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
         @Override
         public void onBindView(ChargerSttVO item, int pos, SparseBooleanArray selectedItems) {
 
-        }
-
-        public ItemViewHolder setReservYn(String reservYn) {
-            this.reservYn = reservYn;
-            return this;
-        }
-
-        public ItemViewHolder setChgPrice(String chgPrice) {
-            this.chgPrice = chgPrice;
-            return this;
         }
     } // end of class ViewHolder
 } // end of class ChargerListAdapter
