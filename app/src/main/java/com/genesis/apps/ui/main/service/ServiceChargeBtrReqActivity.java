@@ -340,14 +340,14 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             }
 
             if (pos == 1) {
-                startMapView();
+//                startMapView();
             } else if (pos == 2) {
                 ui.etAddrDtl.requestFocus();
             } else if(pos == 3){
                 selectInOutCd();
             } else if (pos == views.length - 1) {
                 requestPossibleTime();
-                ui.btnNext.setText(R.string.sm_emgc01_25);
+//                ui.btnNext.setText(R.string.sm_emgc01_25);
             }
         }
     }
