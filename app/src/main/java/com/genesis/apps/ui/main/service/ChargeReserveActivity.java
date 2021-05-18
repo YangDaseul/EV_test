@@ -20,6 +20,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -103,7 +104,12 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
             }
             case R.id.tv_btn_route_detail: {
                 // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
-                PackageUtil.runApp(ChargeReserveActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR);
+                if (tag instanceof ReserveVo) {
+                    ReserveVo item = (ReserveVo) tag;
+                    if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
+                        PackageUtil.runAppWithScheme(ChargeReserveActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                    }
+                }
                 break;
             }
             case R.id.l_whole: {
