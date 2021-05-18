@@ -62,6 +62,8 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
             Context context = getContext();
             ItemChargerBinding binding = getBinding();
 
+            binding.line0.setVisibility(pos==0 ? View.VISIBLE : View.INVISIBLE);
+
             // 충전기 ID
             binding.tvChargerId.setText(item.getCpid());
 
@@ -111,7 +113,7 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
                 }
             } else {
                 // 사용가능 상태가 아닌 경우
-                binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_262626));
+                binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_000000));
                 binding.tvBtnReserve.setVisibility(View.GONE);
             }
         }

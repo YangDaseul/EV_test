@@ -432,8 +432,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 TextUtils.isEmpty(chgName) ? "" : chgName,
                 TextUtils.isEmpty(dist) ? "" : BR+dist,
                 TextUtils.isEmpty(totalAddress) ? "" : BR+totalAddress);
-
-//        return StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "")+"\n"+(TextUtils.isEmpty(distance) ? "- KM" : distance+" KM");
     }
 
     /**

@@ -87,7 +87,7 @@ public class ChargeStationDetailListAdapter extends BaseRecyclerViewAdapter2<Cha
             binding.tvContent.setText(type == DetailType.ADDRESS ? (Html.fromHtml(item.content, Html.FROM_HTML_MODE_COMPACT)) : item.content);
             DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
             binding.tvContent.setLineSpacing(
-                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, type == DetailType.PAY_TYPE ? 20.0f : 4f, displayMetrics),
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, type == DetailType.PAY_TYPE ? 10.0f : 4f, displayMetrics),
                     1.0f);
 
             if (type.bottomBtnTitleRes == 0) {

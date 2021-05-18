@@ -144,7 +144,7 @@
                     android:id="@+id/tv_review_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_00000000_underline_262626"
+                    android:background="@drawable/bg_00000000_underline_a2a2a2"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:includeFontPadding="false"
                     android:paddingStart="20dp"
@@ -158,21 +158,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vg_map"
-                    tools:text="리뷰(2)" />
+                    tools:text="리뷰(2)"
+                    tools:visibility="visible"/>
 
                 <!--리뷰 목록-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_review_list"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
+                    android:paddingBottom="40dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_review_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_review_title"
+                    tools:visibility="visible"
+                    tools:listitem="@layout/item_review"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
