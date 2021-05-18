@@ -1094,9 +1094,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     lat,
                     lot,
                     reservYn,
-                    chgSpeed.contains("SUPER") ? "Y" : null,
-                    chgSpeed.contains("HIGH") ? "Y" : null,
-                    chgSpeed.contains("SLOW") ? "Y" : null,
+                    chgSpeed.contains(ChargeSearchCategorytype.SUPER_SPEED.getCode()) ? "Y" : null,
+                    chgSpeed.contains(ChargeSearchCategorytype.HIGH_SPEED.getCode()) ? "Y" : null,
+                    chgSpeed.contains(ChargeSearchCategorytype.SLOW_SPEED.getCode()) ? "Y" : null,
                     "1",
                     "10"
             ));
@@ -1423,7 +1423,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getChgName());
 //            evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.get()); // TODO STC-1001의 검색 목록에 주소 정보 필요.
             evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
-//            evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());        // TODO STC-1001의 검색 목록에 사용가능 시간 정보 필요.
+            evBottomSelectBinding.tvTime.setText(selectItemVo.getUseStartTime() + "-" + selectItemVo.getUseEndTime());
             evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
             if (selectItemVo.isReserve()) {
                 // 예약 가능한 상태.
