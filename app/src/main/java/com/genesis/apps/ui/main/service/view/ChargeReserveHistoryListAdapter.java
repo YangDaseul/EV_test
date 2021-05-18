@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ReserveVo;
-import com.genesis.apps.databinding.ItemChargePlaceBinding;
+import com.genesis.apps.databinding.ItemChargeReserveHistoryPlaceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -21,10 +21,10 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargeSTCPlaceListAdapter extends BaseRecyclerViewAdapter2<ReserveVo> {
+public class ChargeReserveHistoryListAdapter extends BaseRecyclerViewAdapter2<ReserveVo> {
     private SubActivity activity;
 
-    public ChargeSTCPlaceListAdapter(SubActivity activity) {
+    public ChargeReserveHistoryListAdapter(SubActivity activity) {
         this.activity = activity;
     }
 
@@ -32,10 +32,10 @@ public class ChargeSTCPlaceListAdapter extends BaseRecyclerViewAdapter2<ReserveV
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new ChargePlaceViewHolder(this.activity, layoutInflater.inflate(R.layout.item_charge_place, parent, false));
+        return new ChargePlaceViewHolder(this.activity, layoutInflater.inflate(R.layout.item_charge_reserve_history_place, parent, false));
     }
 
-    private static class ChargePlaceViewHolder extends BaseViewHolder<ReserveVo, ItemChargePlaceBinding> {
+    private static class ChargePlaceViewHolder extends BaseViewHolder<ReserveVo, ItemChargeReserveHistoryPlaceBinding> {
         private SubActivity activity;
 
         public ChargePlaceViewHolder(SubActivity activity, View itemView) {
@@ -45,7 +45,7 @@ public class ChargeSTCPlaceListAdapter extends BaseRecyclerViewAdapter2<ReserveV
 
         @Override
         public void onBindView(ReserveVo item) {
-            ItemChargePlaceBinding binding = getBinding();
+            ItemChargeReserveHistoryPlaceBinding binding = getBinding();
             binding.setActivity(this.activity);
             binding.tvChargeName.setText(item.getChgName());
             binding.tvDist.setText(item.getDist() + "km");

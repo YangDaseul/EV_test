@@ -11,14 +11,12 @@ import com.genesis.apps.R;
  * @since 2021-04-29
  */
 public enum ChargerStatus {
-    UNKNOWN("0", "알수 없음", R.string.sm_evss04_17),
-    COM_ERROR("1", "통신이상",R.string.sm_evss04_17),
-    AVAILABLE("2","충전대기", R.string.sm_evss04_15),
-    CHARGING("3", "충전중", R.string.sm_evss04_18),
-    OUTOFORDER("4", "운영중지", R.string.sm_evss04_17),
-    SHUTDOWNED("5", "점검중", R.string.sm_evss04_17),
-    RESERVED("6", "예약중", R.string.sm_evss04_15),
-    UNCHECK("9", "상태 미확인", R.string.sm_evss04_17);
+    UNKNOWN("UNKNOWN", "알수 없음", R.string.sm_evss04_17),
+    AVAILABLE("AVAILABLE","충전가능", R.string.sm_evss04_15),
+    CHARGING("CHARGING", "충전중", R.string.sm_evss04_18),
+    OUTOFORDER("OUTOFORDER", "고장/점검", R.string.sm_evss04_17),
+    COM_ERROR("COM_ERROR", "통신장애",R.string.sm_evss04_17),
+    SHUTDOWNED("SHUTDOWNED", "사용불가", R.string.sm_evss04_17);
 
     private String statusCd;
     private String description;

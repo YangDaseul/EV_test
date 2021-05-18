@@ -315,7 +315,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                             }
                         } else {
                             // 에스트래픽 회원이 아닌 경우 - 서비스 가입 안내 팝업 출력
-                            // TODO 에스트레픽 회원 안내 팝업의 형태는 추가 확인후 변경이 될 가능성이 있어 우선 대기.
+                            MiddleDialog.dialogAbnormal(getActivity(), getString(R.string.sm_evsb01_p03_1), getString(R.string.sm_evsb01_p03_2), () -> {});
                         }
                     }
                 }

@@ -25,6 +25,7 @@
 
 
     <string name="sm_evsb01_1">충전소 예약</string>
+    <string name="sm_evsb01_2">최근 예약 충전소</string>
     <string name="sm_evsb01_p02_1">충전소 예약이\n완료되었습니다.</string>
     <string name="sm_evsb01_p02_2">예약 정보</string>
     <string name="sm_evsb01_p02_3">예약일시</string>
@@ -69,6 +70,7 @@
     <string name="sm_evss04_17">점검중</string>
     <string name="sm_evss04_18">사용중</string>
     <string name="sm_evss04_19">리뷰</string>
+    <string name="sm_evss04_20"><![CDATA[%s%s<font color="#666666">%s</font>]]></string>
 
 
 </resources>

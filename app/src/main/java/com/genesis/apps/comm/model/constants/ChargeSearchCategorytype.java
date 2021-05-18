@@ -9,9 +9,9 @@ import com.genesis.apps.R;
  */
 public enum ChargeSearchCategorytype {
     ALL(R.string.sm_evss01_17, null),
-    GENESIS(R.string.sm_evss01_18, "GN"),
-    E_PIT(R.string.sm_evss01_19, "EP"),
-    HI_CHARGER(R.string.sm_evss01_20, null),
+    GENESIS(R.string.sm_evss01_18, "GEN"),
+    E_PIT(R.string.sm_evss01_19, "EPT"),
+    HI_CHARGER(R.string.sm_evss01_20, "HCR"),
 
     SUPER_SPEED(R.string.sm_evss01_22, "SUPER"),
     HIGH_SPEED(R.string.sm_evss01_23, "HIGH"),

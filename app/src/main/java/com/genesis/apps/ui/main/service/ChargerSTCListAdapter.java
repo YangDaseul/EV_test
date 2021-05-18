@@ -68,7 +68,7 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
             // 충전기 속도 타입 표시
             try {
                 int titleId = Arrays.stream(ChargerTypeSTT.values()).filter(it -> it.getCode().equalsIgnoreCase(item.getCsupport())).findFirst().get().getTitleResId();
-                binding.tvChargerType.setText(context.getString(titleId) + " |");
+                binding.tvChargerType.setText(context.getString(titleId));
             } catch (Exception e) {
 
             }
@@ -104,7 +104,7 @@ public class ChargerSTCListAdapter extends BaseRecyclerViewAdapter2<ChargerSttVO
                 }
             } else {
                 // 사용가능 상태가 아닌 경우
-                binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_262626));
+                binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_000000));
                 binding.tvBtnReserve.setVisibility(View.GONE);
             }
         }
