@@ -95,22 +95,34 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                         });
 
                         // EV 충전 정보  표시
-                        if (result.data.getStcMbrInfo() != null &&
-                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
-                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                        if (result.data.getStcMbrInfo() != null && StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+
                             me.lStcCard.setVisibility(View.VISIBLE);
                             me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
                             String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
                             me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
 
-                            //  NFC 태그 버튼 표시
-                            me.btnNfc.setVisibility(View.VISIBLE);
                         } else {
+
                             // EV 충전 카드 미노출 처리
                             me.lStcCard.setVisibility(View.GONE);
                             //  NFC 태그 버튼 표시
-                            // TODO : 결제 화면은 EV 충전 카드 정보가 있을 경우에만 접근 가능?
                             me.btnNfc.setVisibility(View.GONE);
+                        }
+
+                        // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
+                        // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
+                        if (!StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
+                                (result.data.getPayInfo() != null && (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
+
+                                // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
+                                me.lEasypayInfo.setVisibility(View.VISIBLE);
+                                me.btnNfc.setVisibility(View.GONE);
+
+                        } else {
+                            // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
+                            me.lEasypayInfo.setVisibility(View.VISIBLE);
+                            me.btnNfc.setVisibility(View.VISIBLE);
                         }
 
                         break;

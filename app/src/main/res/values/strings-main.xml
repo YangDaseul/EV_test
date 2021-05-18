@@ -231,6 +231,8 @@
     <string name="digital_wallet02_4">NFC 결제 종료</string>
     <string name="digital_wallet02_5">휴대폰의 뒷면을\n카드 리더기에 대주세요.</string>
 
+    <string name="pay01_1">간편결제 가입</string>
+    <string name="pay01_2">보유하신 크레딧이 부족하여\nEV 충전 카드 이용이 불가능합니다.\n\nEV 충전 카드 이용을 위해 간편결제\n가입 및 카드 등록이 필요합니다.</string>
     <string name="pay04_pay01_0">충전 금액 결제</string>
     <string name="pay04_pay01_1">최근 충전에서 결제 안된 금액이 있습니다.\n결제를 완료해 주세요.</string>
     <string name="pay04_pay01_2">사용 일시</string>
