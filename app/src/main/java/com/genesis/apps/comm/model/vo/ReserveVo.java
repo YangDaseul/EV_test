@@ -155,14 +155,4 @@ class ReserveVo extends BaseData {
 
         return "Y".equalsIgnoreCase(getReservYn())&& (totalUseAbleCnt>0||totalUseAbleCnt==0&&totalUseCnt>0);
     }
-
-    public String getGCSScheme(){
-        QueryString q = new QueryString();
-        q.add("lat", getLat());
-        q.add("lon", getLot());
-        q.add("address", "");
-        q.add("title", "");
-        q.add("phone", "");
-        return "mgenesis://sendtocar"+q.getQuery();
-    }
 } // end of class ReservVo

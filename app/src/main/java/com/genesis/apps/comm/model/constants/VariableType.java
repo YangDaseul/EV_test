@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.Gson;
 
@@ -535,5 +536,15 @@ public class VariableType {
             }
         }
         return strBuilder.toString();
+    }
+
+    public static String getGCSScheme(String lat, String lon){
+        QueryString q = new QueryString();
+        q.add("lat", lat);
+        q.add("lon", lon);
+        q.add("address", "");
+        q.add("title", "");
+        q.add("phone", "");
+        return "mgenesis://sendtocar"+q.getQuery();
     }
 }

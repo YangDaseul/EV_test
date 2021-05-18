@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
  * @brief service + S-트래픽 충전소 상세조회
  * @see #sid 충전소ID
  * @see #chgName 충전소명
+ * @see #dist 거리
  * @see #daddr 도로명주소
  * @see #daddrDtl 도로명주소상세
  * @see #lat 충전소위치-위도
@@ -29,6 +30,9 @@ import lombok.EqualsAndHashCode;
  * @see #carPayUseYn 카페이사용가능여부
  * Y:가능 N:불가
  * @see #chgPrice 충전소가격
+ * @see #chgrUpdDtm 충전기상태갱신시간
+ * YYYYMMDDHH24MISS
+ * 충전기리스트 중에서 가장 최근값으로 지정(수정시간)
  * @see #useSuperSpeedCnt 사용중 초고속충전기수
  * @see #useHighSpeedCnt 사용중 급속충전기수
  * @see #useSlowSpeedCnt 사용중 완속충전기수
@@ -46,6 +50,9 @@ class ChargeSttInfoVO extends BaseData {
     @Expose
     @SerializedName("chgName")
     private String chgName;
+    @Expose
+    @SerializedName("dist")
+    private String dist;
     @Expose
     @SerializedName("daddr")
     private String daddr;
@@ -80,6 +87,9 @@ class ChargeSttInfoVO extends BaseData {
     @SerializedName("chgPrice")
     private String chgPrice;
     @Expose
+    @SerializedName("chgrUpdDtm")
+    private String chgrUpdDtm;
+    @Expose
     @SerializedName("useSuperSpeedCnt")
     private String useSuperSpeedCnt;
     @Expose
@@ -97,15 +107,4 @@ class ChargeSttInfoVO extends BaseData {
     @Expose
     @SerializedName("usablSlowSpeedCnt")
     private String usablSlowSpeedCnt;
-
-    public String getGCSScheme(){
-        QueryString q = new QueryString();
-        q.add("lat", getLat());
-        q.add("lon", getLot());
-        q.add("address", "");
-        q.add("title", "");
-        q.add("phone", "");
-        return "mgenesis://sendtocar"+q.getQuery();
-    }
-
 } // end of class ChargeSttInfoVO

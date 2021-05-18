@@ -20,7 +20,6 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -107,7 +106,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 if (tag instanceof ReserveVo) {
                     ReserveVo item = (ReserveVo) tag;
                     if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
-                        PackageUtil.runAppWithScheme(ChargeReserveActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                        PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, VariableType.getGCSScheme(item.getLat(), item.getLot()));
                     }
                 }
                 break;

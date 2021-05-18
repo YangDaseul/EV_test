@@ -325,23 +325,25 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         bottomDialog.setBottomBtnTitle(getString(R.string.sm_evss01_29));
         bottomDialog.setOnDismissListener(
                 dialog -> {
-                    data.clearSelectedItems();
-                    if (bottomDialog.getSelectItems() != null) {
-                        ArrayList<ChargeSearchCategorytype> selectedList = new ArrayList<>();
-                        for (String item : bottomDialog.getSelectItems()) {
-                            try {
-                                selectedList.add(data.getTypeList().stream().filter(it -> getString(it.getTitleResId()).equals(item)).findFirst().get());
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                    if(bottomDialog.isClickNetBtn()) {
+                        data.clearSelectedItems();
+                        if (bottomDialog.getSelectItems() != null) {
+                            ArrayList<ChargeSearchCategorytype> selectedList = new ArrayList<>();
+                            for (String item : bottomDialog.getSelectItems()) {
+                                try {
+                                    selectedList.add(data.getTypeList().stream().filter(it -> getString(it.getTitleResId()).equals(item)).findFirst().get());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            if (selectedList.size() > 0) {
+                                data.addSelectedItems(selectedList);
                             }
                         }
-                        if (selectedList.size() > 0) {
-                            data.addSelectedItems(selectedList);
+                        adapter.notifyDataSetChanged();
+                        if (this.listener != null) {
+                            this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
                         }
-                    }
-                    adapter.notifyDataSetChanged();
-                    if (this.listener != null) {
-                        this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
                     }
                 }
         );

@@ -839,13 +839,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
                 if(pageType == PAGE_TYPE_EVCHARGE) {
                     ChargeEptInfoVO item = (ChargeEptInfoVO) v.getTag(R.id.item);
-                    if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
-                        PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                    if(item!=null&&!TextUtils.isEmpty(item.getLat())&&!TextUtils.isEmpty(item.getLot())){
+                        PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, VariableType.getGCSScheme(item.getLat(), item.getLot()));
                     }
                 } else if(pageType == PAGE_TYPE_EVCHARGE_STC) {
                     ReserveVo item = (ReserveVo) v.getTag(R.id.item);
-                    if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
-                        PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                    if(item!=null&&!TextUtils.isEmpty(item.getLat())&&!TextUtils.isEmpty(item.getLot())){
+                        PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, VariableType.getGCSScheme(item.getLat(), item.getLot()));
                     }
                 }
 
@@ -1404,7 +1404,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
             evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
             evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
-            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
+            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(selectItemVo)), Html.FROM_HTML_MODE_COMPACT));
             if (selectItemVo.isReserve()) {
                 // 예약 가능한 상태.
                 evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);

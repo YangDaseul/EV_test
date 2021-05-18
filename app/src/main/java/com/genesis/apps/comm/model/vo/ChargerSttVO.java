@@ -25,6 +25,9 @@ import lombok.EqualsAndHashCode;
  * 5: 점검중
  * 6: 예약중
  * 9: 상태 미확인
+ *
+ * @see #chgPrice 충전가격
+ * @see #reservYn 예약가능여부
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -37,6 +40,12 @@ class ChargerSttVO extends BaseData {
     @SerializedName("csupport")
     private String csupport;
     @Expose
+    @SerializedName("chgPrice")
+    private String chgPrice;
+    @Expose
     @SerializedName("stusCd")
     private String stusCd;
+    @Expose
+    @SerializedName("reservYn")
+    private String reservYn;
 } // end of class ChargerSttVO

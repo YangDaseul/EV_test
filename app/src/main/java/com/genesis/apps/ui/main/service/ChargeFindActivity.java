@@ -96,7 +96,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 if (tag instanceof ChargeEptInfoVO) {
                     ChargeEptInfoVO item = (ChargeEptInfoVO) tag;
                     if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
-                        PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                        PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, VariableType.getGCSScheme(item.getLat(), item.getLot()));
                     }
                 }
                 break;

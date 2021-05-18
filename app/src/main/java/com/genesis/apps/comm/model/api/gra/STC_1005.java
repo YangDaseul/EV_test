@@ -24,6 +24,8 @@ public class STC_1005 extends BaseData {
      * @see #vin 차대번호
      * @see #startDt 조회시작일자
      * @see #endDt 조회종료일자
+     * @see #pgNo 페이지번호
+     * @see #pgCnt 페이지출력수
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -38,11 +40,19 @@ public class STC_1005 extends BaseData {
         @Expose
         @SerializedName("endDt")
         private String endDt;
+        @Expose
+        @SerializedName("pgNo")
+        private String pgNo;
+        @Expose
+        @SerializedName("pgCnt")
+        private String pgCnt;
 
-        public Request(String menuId, String vin, String startDt, String endDt) {
+        public Request(String menuId, String vin, String startDt, String endDt, String pgNo, String pgCnt) {
             this.vin = vin;
             this.startDt = startDt;
             this.endDt = endDt;
+            this.pgNo = pgNo;
+            this.pgCnt = pgCnt;
             setData(APIInfo.GRA_STC_1005.getIfCd(), menuId);
         }
     }
