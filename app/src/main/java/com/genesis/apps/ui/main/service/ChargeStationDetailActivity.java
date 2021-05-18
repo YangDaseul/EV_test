@@ -9,12 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.EPT_1002;
@@ -27,7 +21,6 @@ import com.genesis.apps.comm.model.vo.ChargeSttInfoVO;
 import com.genesis.apps.comm.model.vo.ReviewVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -41,6 +34,12 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.genesis.apps.comm.model.constants.VariableType.CHARGE_STATION_TYPE_EPT;
 import static com.genesis.apps.comm.model.constants.VariableType.CHARGE_STATION_TYPE_STC;
@@ -127,36 +126,14 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 if(type!=null){
                     switch (type){
                         case ADDRESS:
-//                            if(stationType == CHARGE_STATION_TYPE_EPT){
-//                                //epit
-//                                if (chargeEptInfoVO != null && !TextUtils.isEmpty(chargeEptInfoVO.getLat()) && !TextUtils.isEmpty(chargeEptInfoVO.getLot())) {
-//                                    PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, chargeEptInfoVO.getGCSScheme());
-//                                }
-//                            }else{
-//                                //에스트래픽
-//                                if (chargeStcInfoVO != null && !TextUtils.isEmpty(chargeStcInfoVO.getLat()) && !TextUtils.isEmpty(chargeStcInfoVO.getLot())) {
-//                                    PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, chargeStcInfoVO.getGCSScheme());
-//                                }
-//                            }
                             try {
-                                PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, chargeStcInfoVO != null ? chargeStcInfoVO.getGCSScheme() : chargeEptInfoVO.getGCSScheme());
+                                PackageUtil.runAppWithScheme(this, PackageUtil.PACKAGE_CONNECTED_CAR, chargeStcInfoVO != null ? VariableType.getGCSScheme(chargeStcInfoVO.getLat(), chargeStcInfoVO.getLot()) : VariableType.getGCSScheme(chargeEptInfoVO.getLat(), chargeEptInfoVO.getLot()));
                             }catch (Exception e){
 
                             }
 
                             break;
                         case SPNM:
-//                            if(stationType == CHARGE_STATION_TYPE_EPT){
-//                                //epit
-//                                if (chargeEptInfoVO != null && !TextUtils.isEmpty(chargeEptInfoVO.getSpcall())) {
-//                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + chargeEptInfoVO.getSpcall())));
-//                                }
-//                            }else{
-//                                //에스트래픽
-//                                if (chargeStcInfoVO != null && !TextUtils.isEmpty(chargeStcInfoVO.getBcall())) {
-//                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + chargeStcInfoVO.getBcall())));
-//                                }
-//                            }
                             try {
                                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + (chargeStcInfoVO != null ? chargeStcInfoVO.getBcall() : chargeEptInfoVO.getSpcall()))));
                             }catch (Exception e){
@@ -401,7 +378,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), "")));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), chargeStcInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
@@ -421,10 +398,13 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         adapter.setRows(list);
         ui.rvStationDetail.setAdapter(adapter);
         ui.tvChargerCount.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(chargeStcInfoVO)), Html.FROM_HTML_MODE_COMPACT));
-
+        if(!TextUtils.isEmpty(chargeStcInfoVO.getChgrUpdDtm())&&!chargeStcInfoVO.getChgrUpdDtm().equalsIgnoreCase("null")) {
+            ui.tvDate.setVisibility(View.VISIBLE);
+            ui.tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(chargeStcInfoVO.getChgrUpdDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
+        }else{
+            ui.tvDate.setVisibility(View.GONE);
+        }
         ChargerSTCListAdapter chargerListAdapter = new ChargerSTCListAdapter(onSingleClickListener);
-        chargerListAdapter.setChgPrice(chargeStcInfoVO.getChgPrice());
-        chargerListAdapter.setReservYn(chargeStcInfoVO.getReservYn());
         chargerListAdapter.setRows(data.getChgrList());
         ui.rvChargerList.setAdapter(chargerListAdapter);
 
@@ -475,9 +455,12 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ui.rvStationDetail.setAdapter(adapter);
 
         ui.tvChargerCount.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(chargeEptInfoVO)), Html.FROM_HTML_MODE_COMPACT));
-
-        ui.tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(chargeEptInfoVO.getChgrUpdDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
-
+        if(!TextUtils.isEmpty(chargeEptInfoVO.getChgrUpdDtm())&&!chargeEptInfoVO.getChgrUpdDtm().equalsIgnoreCase("null")) {
+            ui.tvDate.setVisibility(View.VISIBLE);
+            ui.tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(chargeEptInfoVO.getChgrUpdDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
+        }else{
+            ui.tvDate.setVisibility(View.GONE);
+        }
         ChargerListAdapter chargerListAdapter = new ChargerListAdapter(onSingleClickListener);
         chargerListAdapter.setRows(data.getChgrList());
         ui.rvChargerList.setAdapter(chargerListAdapter);
