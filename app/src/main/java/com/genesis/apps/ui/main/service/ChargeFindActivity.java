@@ -364,13 +364,13 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
                     switch (chargeStation) {
                         case GENESIS: // 제네시스 충전소
-                        case E_PIT: {
+                        case E_PIT:
+                        case HI_CHARGER: {
                             // 관련 충전소 종류 코드 설정.
                             chgCd = chargeStation.getCode();
                             break;
                         }
                         case ALL:
-                        case HI_CHARGER:
                         default: {
                             // 관련 코드가 없어 전체 조회하는 것으로 처리.
                             chgCd = null;
