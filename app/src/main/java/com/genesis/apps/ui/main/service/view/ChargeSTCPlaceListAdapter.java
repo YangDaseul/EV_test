@@ -1,6 +1,6 @@
 package com.genesis.apps.ui.main.service.view;
 
-import android.content.Context;
+import android.text.Html;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,63 +50,15 @@ public class ChargeSTCPlaceListAdapter extends BaseRecyclerViewAdapter2<ReserveV
             binding.tvChargeName.setText(item.getChgName());
             binding.tvDist.setText(item.getDist() + "km");
             binding.lWhole.setTag(item);
-
-
-            // 운영중인 경우 - 예약 상태 표시
-            Context context = getContext();
-            StringBuilder strBuilder = new StringBuilder();
-            int superSpeedCnt = 0;
-            int highSpeedCnt = 0;
-            int slowSpeedCnt = 0;
-
-            int useSuperSpeedCnt = 0;
-            int useHighSpeedCnt = 0;
-            int useSlowSpeedCnt = 0;
-
-
-            try {
-                // 사용 가능 충전기 수
-                superSpeedCnt = Integer.parseInt(item.getUsablSuperSpeedCnt());
-                highSpeedCnt = Integer.parseInt(item.getUsablHighSpeedCnt());
-                slowSpeedCnt = Integer.parseInt(item.getUsablSlowSpeedCnt());
-                // 사용중 충전기 수
-                useSuperSpeedCnt = Integer.parseInt(item.getUseSuperSpeedCnt());
-                useHighSpeedCnt = Integer.parseInt(item.getUseHighSpeedCnt());
-                useSlowSpeedCnt = Integer.parseInt(item.getUseSlowSpeedCnt());
-            } catch (Exception ignore) {
-
-            }
-            if (superSpeedCnt > 0) {
-                strBuilder.append(String.format(context.getString(R.string.sm_evss02_01), superSpeedCnt));
-            }
-            if (highSpeedCnt > 0) {
-                if (strBuilder.length() > 0) {
-                    strBuilder.append(", ");
-                }
-                strBuilder.append(String.format(context.getString(R.string.sm_evss02_02), highSpeedCnt));
-            }
-            if (slowSpeedCnt > 0) {
-                if (strBuilder.length() > 0) {
-                    strBuilder.append(", ");
-                }
-                strBuilder.append(String.format(context.getString(R.string.sm_evss02_03), slowSpeedCnt));
-            }
-            if (superSpeedCnt + highSpeedCnt + slowSpeedCnt + useSuperSpeedCnt + useHighSpeedCnt + useSlowSpeedCnt > 0) {
-                if ("Y".equalsIgnoreCase(item.getReservYn())) {
-                    // 예약 가능한 상태.
-                    binding.tvBookStatus.setVisibility(View.VISIBLE);
-                    binding.tvBookStatus.setText(R.string.sm_evss01_30);
-                    binding.tvChargeStatus.setText(strBuilder.toString() + " " + context.getString(R.string.sm_evss03_04));
-                } else {
-                    // 예약 불가능한 상태.
-                    binding.tvBookStatus.setVisibility(View.GONE);
-                    binding.tvChargeStatus.setText(R.string.sm_evss01_33);
-                }
-
+            binding.tvBtnRouteDetail.setTag(R.id.item, item);
+            binding.tvChargeStatus.setText(Html.fromHtml(item.getChargeStatus(getContext()), Html.FROM_HTML_MODE_COMPACT));
+            if (item.isReserve()) {
+                // 예약 가능한 상태.
+                binding.tvBookStatus.setVisibility(View.VISIBLE);
+                binding.tvBookStatus.setText(R.string.sm_evss01_30);
             } else {
-                // 기타 상태 - 점검중으로 표시.
+                // 예약 불가능한 상태.
                 binding.tvBookStatus.setVisibility(View.GONE);
-                binding.tvChargeStatus.setText(R.string.sm_evss01_32);
             }
         }
 
