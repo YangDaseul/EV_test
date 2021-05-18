@@ -69,6 +69,7 @@
     <string name="sm_evss04_17">점검중</string>
     <string name="sm_evss04_18">사용중</string>
     <string name="sm_evss04_19">리뷰</string>
+    <string name="sm_evss04_20"><![CDATA[%s%s<font color="#666666">%s</font>]]></string>
 
 
 </resources>

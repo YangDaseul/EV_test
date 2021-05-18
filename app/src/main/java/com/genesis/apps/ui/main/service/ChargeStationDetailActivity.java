@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
@@ -378,7 +379,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), chargeStcInfoVO.getDist())));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getChgName(), chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), chargeStcInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
@@ -421,8 +422,18 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         }
     }
 
-    private String getAddr(String addr, String addrDtl, String distance){
-        return StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "")+"\n"+(TextUtils.isEmpty(distance) ? "- KM" : distance+" KM");
+    private final String BR = "<br/>";
+    private String getAddr(String chgName, String addr, String addrDtl, String distance){
+
+        String totalAddress = StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "");
+        String dist = TextUtils.isEmpty(distance) ? "- km" : distance+" km";
+
+        return String.format(Locale.getDefault(), getString(R.string.sm_evss04_20),
+                TextUtils.isEmpty(chgName) ? "" : chgName,
+                TextUtils.isEmpty(dist) ? "" : BR+dist,
+                TextUtils.isEmpty(totalAddress) ? "" : BR+totalAddress);
+
+//        return StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "")+"\n"+(TextUtils.isEmpty(distance) ? "- KM" : distance+" KM");
     }
 
     /**
@@ -434,7 +445,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         chargeEptInfoVO = data.getChgInfo();
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl(), chargeEptInfoVO.getDist())));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeEptInfoVO.getCsnm(), chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl(), chargeEptInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeEptInfoVO.getUseTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeEptInfoVO.getSpnm()));
 
