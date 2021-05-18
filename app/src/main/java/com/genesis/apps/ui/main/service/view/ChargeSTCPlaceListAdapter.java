@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.databinding.ItemChargePlaceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -50,7 +49,7 @@ public class ChargeSTCPlaceListAdapter extends BaseRecyclerViewAdapter2<ReserveV
             binding.setActivity(this.activity);
             binding.tvChargeName.setText(item.getChgName());
             binding.tvDist.setText(item.getDist() + "km");
-            binding.ivArrow.setTag(item);
+            binding.vgChargePlaceContainer.setTag(item);
 
 
             // 운영중인 경우 - 예약 상태 표시

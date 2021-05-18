@@ -11,10 +11,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vg_charge_place_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
+        android:onClick="@{(view) -> activity.onSingleClickListener.onSingleClick(view)}"
         android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
         android:paddingStart="20dp">
         <!--충전소 이름, 거리, 예약 상태-->
@@ -115,10 +117,8 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
-            android:background="@drawable/ripple_bg_ffffff"
             android:clickable="true"
             android:contentDescription="@null"
-            android:onClick="@{(view) -> activity.onSingleClickListener.onSingleClick(view)}"
             android:paddingEnd="19dp"
             android:src="@drawable/btn_arrow_open_r"
             app:layout_constraintBottom_toBottomOf="parent"
