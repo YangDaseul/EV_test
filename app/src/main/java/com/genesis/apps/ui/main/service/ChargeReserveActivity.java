@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.genesis.apps.comm.model.api.gra.STC_1001;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
@@ -133,6 +135,54 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
      * Override Method
      ****************************************************************************************************/
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodes.REQ_CODE_GPS.getCode()) {
+            if (resultCode == RESULT_OK)
+                reqMyLocation();
+            else {
+                //현대양재사옥위치
+                searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+            }
+        } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode()) {
+            if (data != null) {
+                try {
+                    ArrayList<ChargeSearchCategoryVO> receiveFilterList = data.getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO);
+                    ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
+                    for (ChargeSearchCategoryVO filterItem : receiveFilterList) {
+                        if (filterItem.getComponentType() == ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE) {
+                            filterList.add(filterItem);
+                        } else if (filterItem.getComponentType() == ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK) {
+                            for (ChargeSearchCategorytype type : filterItem.getTypeList()) {
+                                int titleResId = 0;
+                                if (type == ChargeSearchCategorytype.SUPER_SPEED) {
+                                    titleResId = R.string.sm_evss01_22;
+                                } else if (type == ChargeSearchCategorytype.HIGH_SPEED) {
+                                    titleResId = R.string.sm_evss01_23;
+                                } else if (type == ChargeSearchCategorytype.SLOW_SPEED) {
+                                    titleResId = R.string.sm_evss01_24;
+                                }
+
+                                if (titleResId != 0) {
+                                    ChargeSearchCategoryVO categoryVO = new ChargeSearchCategoryVO(titleResId, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null);
+                                    categoryVO.setSelected(filterItem.getSelectedItem().contains(type));
+                                    filterList.add(categoryVO);
+                                }
+                            }
+                        }
+                    }
+                    if (filterList != null && filterList.size() > 0) {
+                        inputChargePlaceFragment.updateFilter(filterList);
+                        onFilterChanged(inputChargePlaceFragment.getCurrentType(), filterList);
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         List<SubFragment> fragments = getFragments();
         if (fragments != null) {
@@ -219,30 +269,18 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
      ****************************************************************************************************/
     @Override
     public void onFilterChanged(InputChargePlaceFragment.SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList) {
-        if (type == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
-            // 주소 검색은 별도 처리 없음.
-        } else {
-            // 나머지 내 위치, 내 차량 위치 기준 검색.
-            selectedFilterList.clear();
-            selectedFilterList.addAll(filterList);
-            // 예약가능여부 값 초기화.
-            reservYn = null;
-            // 충전 속도 값 초기화
-            superSpeedYn = null;
-            highSpeedYn = null;
-            slowSpeedYn = null;
-
-            // 페이지 번호 초기화
-            pageNo = 1;
-
-            updateFilterValue(selectedFilterList);
-
-            if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_LOCATION) {
-                // 내 위치 기준 충전소 검색.
-                reqMyLocation();
-            } else if (type == InputChargePlaceFragment.SEARCH_TYPE.MY_CAR) {
+        updateFilterValue(filterList);
+        switch (type) {
+            case ADDRESS:
+                reqAddress(type.getAddressVO());
+                break;
+            case MY_CAR:
                 reqParkLocationToDevelopers();
-            }
+                break;
+            case MY_LOCATION:
+            default:
+                reqMyLocation();
+                break;
         }
     }
 
@@ -400,6 +438,18 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     }
 
     private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
+        // 나머지 내 위치, 내 차량 위치 기준 검색.
+        selectedFilterList.clear();
+        selectedFilterList.addAll(filterList);
+        // 예약가능여부 값 초기화.
+        reservYn = null;
+        // 충전 속도 값 초기화
+        superSpeedYn = null;
+        highSpeedYn = null;
+        slowSpeedYn = null;
+
+        // 페이지 번호 초기화
+        pageNo = 1;
         // 설정된 필터값 적용.
         for (ChargeSearchCategoryVO item : filterList) {
             if (item.getTitleResId() == R.string.sm_evss01_15) {
@@ -446,6 +496,15 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
             developersViewModel.reqParkLocation(new ParkLocation.Request(developersViewModel.getCarId(mainVehicleVO.getVin())));
         } else {
             searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+        }
+    }
+
+    private void reqAddress(AddressVO addressVO) {
+        if (addressVO != null) {
+            searchChargeStation(addressVO.getCenterLat(), addressVO.getCenterLon());
+        } else {
+            updateChargeList(new ArrayList<>());
+            setEmptyView();
         }
     }
 } // end of class ChargeReserveActivity
