@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "615398513375",
+    "project_id": "genesis-app-stage-d7146",
+    "storage_bucket": "genesis-app-stage-d7146.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615398513375:android:8e2d081c3e87ed2545a76a",
+        "android_client_info": {
+          "package_name": "com.genesis.apps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615398513375-dlmosrevjeko12smv885v7hdpissk541.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9kSkOtAF6dDahw16dqmEBeQYEulok6HI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615398513375-dlmosrevjeko12smv885v7hdpissk541.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
