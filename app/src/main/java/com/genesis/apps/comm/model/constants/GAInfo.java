@@ -1,7 +1,10 @@
 package com.genesis.apps.comm.model.constants;
 
+
+import com.genesis.apps.BuildConfig;
+
 public interface GAInfo {
-    int SERVER_TYPE = 1;
+    int SERVER_TYPE = BuildConfig.SERVER_TYPE;
     String HTTP_HEADER_NAME = "Authorization";
     String HTTP_HEADER_VALUE = "Bearer ";
     String TAG_MSG_BODY = "recv body [%s]";
