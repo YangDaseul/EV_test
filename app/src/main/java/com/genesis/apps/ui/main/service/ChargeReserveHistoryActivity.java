@@ -1,16 +1,17 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STC_1005;
 import com.genesis.apps.comm.model.api.gra.STC_1006;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ReserveHisVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -21,6 +22,11 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.service.view.ChargeReserveHistoryAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
@@ -28,7 +34,7 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
  * @brief 충전소 예약 내역
  */
 public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeReserveHistoryBinding> {
-
+    private static final int PAGE_SIZE = 20;
     private ChargeReserveHistoryAdapter adapter;
     private STCViewModel stcViewModel;
     private VehicleVO mainVehicle;
@@ -48,15 +54,24 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
         adapter = new ChargeReserveHistoryAdapter(onSingleClickListener);
         ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
+        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!ui.rv.canScrollVertically(1)&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
+                    if (adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+                        requestSTC1005((adapter.getPageNo() + 1) + "");
+                }
+            }
+        });
     }
 
     @Override
     public void onClickCommon(View v) {
+        ReserveHisVO reserveHisVO = (ReserveHisVO) v.getTag();
         switch (v.getId()) {
             case R.id.btn_cancel:
-                ReserveHisVO reserveHisVO;
                 try{
-                    reserveHisVO = (ReserveHisVO) v.getTag();
                     if(reserveHisVO!=null){
                         MiddleDialog.dialogChargeReserveCancel(this, () -> {
                             stcViewModel.reqSTC1006(new STC_1006.Request(APPIAInfo.SM_EVSB02.getId(), reserveHisVO.getReservNo()));
@@ -69,8 +84,14 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                 }
                 break;
             case R.id.tv_chg_name://충전소 클릭
-                //TODO 충전소 상세 정보 이동 처리 필요
-
+                if(reserveHisVO!=null){
+                    startActivitySingleTop(new Intent(this, ChargeStationDetailActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveHisVO.getSid()),
+//                                    .putExtra(KeyNames.KEY_NAME_LAT, "lat")
+//                                    .putExtra(KeyNames.KEY_NAME_LOT, "lot"),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
                 break;
         }
     }
@@ -91,8 +112,16 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                     break;
                 case SUCCESS:
                     if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
-                        adapter.setRows(result.data.getReservList());
-                        adapter.notifyDataSetChanged();
+
+                        if(result.data.getReservList()!=null&&result.data.getReservList().size()>0){
+                            if (adapter.getPageNo() == 0) {
+                                adapter.setRows(result.data.getReservList());
+                            } else {
+                                adapter.addRows(result.data.getReservList());
+                            }
+                            adapter.setPageNo(adapter.getPageNo() + 1);
+                            adapter.notifyDataSetChanged();
+                        }
                         setViewEmpty();
                         showProgressDialog(false);
                         break;
@@ -159,8 +188,17 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
     @Override
     protected void onResume() {
         super.onResume();
-        if(mainVehicle!=null) stcViewModel.reqSTC1005(new STC_1005.Request(APPIAInfo.SM_EVSB02.getId(), mainVehicle.getVin(), "", "","",""));
+        requestSTC1005("1");
     }
+
+    private void requestSTC1005(String pageNo) {
+        if(adapter!=null&&pageNo.equalsIgnoreCase("1"))
+            adapter.setPageNo(0);
+
+        if(mainVehicle!=null)
+            stcViewModel.reqSTC1005(new STC_1005.Request(APPIAInfo.SM_EVSB02.getId(), mainVehicle.getVin(), "", "",pageNo,PAGE_SIZE+""));
+    }
+
 
     private void setViewEmpty() {
         if (adapter == null || adapter.getItemCount() < 1) {

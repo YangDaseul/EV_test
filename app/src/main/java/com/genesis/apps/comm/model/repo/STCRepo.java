@@ -136,96 +136,195 @@ public class STCRepo {
         return RES_STC_1004;
     }
 
+//    private final String dummyData = "{\n" +
+//            "  \"rtCd\": \"0000\",\n" +
+//            "  \"rtMsg\": \"Success\",\n" +
+//            "  \"reservList\": [\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명1\",\n" +
+//            "      \"cid\": \"01\",\n" +
+//            "      \"csupport\": \"001\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명2\",\n" +
+//            "      \"cid\": \"02\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104142300\",\n" +
+//            "      \"reservStusCd\": \"2000\",\n" +
+//            "      \"chgAmt\": \"1500000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명3\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"cid\": \"03\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"3000\",\n" +
+//            "      \"chgAmt\": \"150000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명4\",\n" +
+//            "      \"cid\": \"04\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명5\",\n" +
+//            "      \"cid\": \"05\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"2000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명6\",\n" +
+//            "      \"cid\": \"06\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"3000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명7\",\n" +
+//            "      \"cid\": \"07\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명8\",\n" +
+//            "      \"cid\": \"08\",\n" +
+//            "      \"csupport\": \"010\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명9\",\n" +
+//            "      \"cid\": \"09\",\n" +
+//            "      \"csupport\": \"001\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명10\",\n" +
+//            "      \"cid\": \"02\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104142300\",\n" +
+//            "      \"reservStusCd\": \"2000\",\n" +
+//            "      \"chgAmt\": \"1500000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명3\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"cid\": \"03\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"3000\",\n" +
+//            "      \"chgAmt\": \"150000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명12\",\n" +
+//            "      \"cid\": \"04\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명13\",\n" +
+//            "      \"cid\": \"05\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"2000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명14\",\n" +
+//            "      \"cid\": \"06\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"3000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명15\",\n" +
+//            "      \"cid\": \"07\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명16\",\n" +
+//            "      \"cid\": \"08\",\n" +
+//            "      \"csupport\": \"010\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명17\",\n" +
+//            "      \"cid\": \"09\",\n" +
+//            "      \"csupport\": \"001\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명18\",\n" +
+//            "      \"cid\": \"08\",\n" +
+//            "      \"csupport\": \"010\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명19\",\n" +
+//            "      \"cid\": \"09\",\n" +
+//            "      \"csupport\": \"001\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202104151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"chgName\": \"충전소명20\",\n" +
+//            "      \"cid\": \"10\",\n" +
+//            "      \"csupport\": \"100\",\n" +
+//            "      \"reservNo\": \"SAMPLE\",\n" +
+//            "      \"reservDtm\": \"202103151300\",\n" +
+//            "      \"reservStusCd\": \"1000\",\n" +
+//            "      \"chgAmt\": \"50050\"\n" +
+//            "    }\n" +
+//            "  ]\n" +
+//            "}";
+
     public MutableLiveData<NetUIResponse<STC_1005.Response>> REQ_STC_1005(final STC_1005.Request reqData) {
         RES_STC_1005.setValue(NetUIResponse.loading(null));
-
-//        String dummyData = "{\n" +
-//                "  \"rtCd\": \"0000\",\n" +
-//                "  \"rtMsg\": \"Success\",\n" +
-//                "  \"reservList\": [\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명1\",\n" +
-//                "      \"csupport\": \"001\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"1000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명2\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104142300\",\n" +
-//                "      \"reservStusCd\": \"2000\",\n" +
-//                "      \"chgAmt\": \"1500000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명충전소명3\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"3000\",\n" +
-//                "      \"chgAmt\": \"150000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명4\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"1000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명5\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"2000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명6\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"3000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명7\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"1000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명8\",\n" +
-//                "      \"csupport\": \"010\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"1000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명9\",\n" +
-//                "      \"csupport\": \"001\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202104151300\",\n" +
-//                "      \"reservStusCd\": \"1000\",\n" +
-//                "      \"chgAmt\": \"50000\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"chgName\": \"충전소명10\",\n" +
-//                "      \"csupport\": \"100\",\n" +
-//                "      \"reservNo\": \"SAMPLE\",\n" +
-//                "      \"reservDtm\": \"202103151300\",\n" +
-//                "      \"reservStusCd\": \"1000\",\n" +
-//                "      \"chgAmt\": \"50050\"\n" +
-//                "    }\n" +
-//                "  ]\n" +
-//                "}";
-//        RES_STC_1005.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, STC_1005.Response.class)));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
