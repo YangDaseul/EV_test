@@ -699,22 +699,22 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         exitPage(new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO), ResultCodes.REQ_CODE_BTR.getCode());
                         break;
                     case PAGE_TYPE_EVCHARGE_STC:
-                        if(selectChargeStcInfo != null) {
+                        if(selectChargeStcInfo != null && initAddressVO != null) {
                             startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectChargeStcInfo.getSid())
-                                            .putExtra(KeyNames.KEY_NAME_LAT, selectChargeStcInfo.getLat())
-                                            .putExtra(KeyNames.KEY_NAME_LOT, selectChargeStcInfo.getLot()),
+                                            .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat())
+                                            .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()),
                                     RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                                     VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         }
                     case PAGE_TYPE_EVCHARGE: {
                         // 충전소 찾기
-                        if(selectedChargeEptInfo != null) {
+                        if(selectedChargeEptInfo != null && initAddressVO != null) {
                             startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, selectedChargeEptInfo.getSpid())
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectedChargeEptInfo.getCsid())
-                                            .putExtra(KeyNames.KEY_NAME_LAT, selectedChargeEptInfo.getLat())
-                                            .putExtra(KeyNames.KEY_NAME_LOT, selectedChargeEptInfo.getLot()),
+                                            .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat())
+                                            .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()),
                                     RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                                     VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         }

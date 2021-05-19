@@ -108,8 +108,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     startActivitySingleTop(new Intent(ChargeFindActivity.this, ChargeStationDetailActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, chargeEptInfoVO.getSpid())
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, chargeEptInfoVO.getCsid())
-                                    .putExtra(KeyNames.KEY_NAME_LAT, chargeEptInfoVO.getLat())
-                                    .putExtra(KeyNames.KEY_NAME_LOT, chargeEptInfoVO.getLot()),
+                                    .putExtra(KeyNames.KEY_NAME_LAT, lgnViewModel.getMyPosition().get(0)+"")
+                                    .putExtra(KeyNames.KEY_NAME_LOT, lgnViewModel.getMyPosition().get(1)+""),
                             RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                             VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }

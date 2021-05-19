@@ -197,7 +197,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_addr"
                         app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{VariableType.getCsupport(data.csupport ?? ``)}"
+                        app:msg="@{VariableType.getCid(data.cid ?? ``) + activity.getString(VariableType.getCsupport(data.csupport ?? ``))}"
                         app:title="@{@string/sm_evsb01_p02_6}" />
 
 
