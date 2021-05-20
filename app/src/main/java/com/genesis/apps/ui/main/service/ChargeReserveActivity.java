@@ -252,8 +252,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                                 pageNo++;
                             }
                             searchList.addAll(result.data.getSearchList());
-                            updateChargeList(searchList);
                         }
+                        updateChargeList(searchList);
                         updateReserveHistoryList(result.data.getReservList());
                         isMoreSearchListReq = false;
                         break;
