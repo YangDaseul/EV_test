@@ -10,6 +10,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.ChargerStatus;
 import com.genesis.apps.comm.model.vo.ChargerEptVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemChargerBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -18,6 +19,8 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
+
+import static com.genesis.apps.comm.model.constants.ChargerStatus.UNKNOWN;
 
 /**
  * Class Name : ChargerListAdapter
@@ -59,6 +62,8 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
             Context context = getContext();
             ItemChargerBinding binding = getBinding();
 
+            binding.line0.setVisibility(pos==0 ? View.VISIBLE : View.INVISIBLE);
+
             // 충전기 ID
             binding.tvChargerId.setText(item.getCpid());
 
@@ -80,13 +85,13 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
             // 충전기 상태
             int statusTitleId = 0;
             try {
-                statusTitleId = Arrays.stream(ChargerStatus.values()).filter(it -> it.name().equalsIgnoreCase(item.getStatusCd())).findFirst().get().getTitleResId();
+                statusTitleId = Arrays.stream(ChargerStatus.values()).filter(it -> it.getStatusCd().equalsIgnoreCase(StringUtil.isValidString(item.getStatusCd()))).findFirst().orElse(UNKNOWN).getTitleResId();
             } catch (Exception ignored) {
 
             }
 
             if (statusTitleId != 0) {
-                binding.tvChargerStatus.setText(context.getString(statusTitleId));
+                binding.tvChargerStatus.setText(" |  " +context.getString(statusTitleId));
             }
 
             // 충전 가격
@@ -94,7 +99,7 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
             if (TextUtils.isEmpty(pay)) {
                 pay = "- ";
             }
-            binding.tvChargerPay.setText("| " +pay + context.getString(R.string.sm_evss04_16));
+            binding.tvChargerPay.setText(" |  " +pay + context.getString(R.string.sm_evss04_16));
 
             if (statusTitleId == R.string.sm_evss04_15) {
                 // 해당 충전기가 사용가능한 상태 - 상태, 가격 문구 색상 변경
@@ -108,7 +113,7 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
                 }
             } else {
                 // 사용가능 상태가 아닌 경우
-                binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_262626));
+                binding.tvChargerStatus.setTextColor(context.getColor(R.color.x_000000));
                 binding.tvBtnReserve.setVisibility(View.GONE);
             }
         }

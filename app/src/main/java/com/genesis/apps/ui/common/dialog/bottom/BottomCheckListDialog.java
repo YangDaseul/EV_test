@@ -22,6 +22,7 @@ public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckLis
     private ArrayList<String> selectItems;
     private String title;
     private String bottomBtnTitle;
+    private boolean isClickNetBtn=false;
     public BottomCheckListDialog(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -38,28 +39,22 @@ public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckLis
         if(datas!=null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             ui.rv.setLayoutManager(layoutManager);
-            adapter = new BottomCheckListAdapter(getContext(), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = (int) view.getTag();
-                    CheckBox checkBox = (CheckBox) view;
-                    datas.get(position).setCheck(checkBox.isChecked());
-                }
+            adapter = new BottomCheckListAdapter(getContext(), view -> {
+                int position = (int) view.getTag();
+                CheckBox checkBox = (CheckBox) view;
+                datas.get(position).setCheck(checkBox.isChecked());
             });
             adapter.setData(datas);
             ui.rv.setAdapter(adapter);
-            ui.tvNextBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    selectItems = new ArrayList<>();
-                    for(int i=0; i<datas.size(); i++) {
-                        if(datas.get(i).isCheck()) {
-                            selectItems.add(datas.get(i).getName());
-                        }
+            ui.tvNextBtn.setOnClickListener(view -> {
+                selectItems = new ArrayList<>();
+                for(int i=0; i<datas.size(); i++) {
+                    if(datas.get(i).isCheck()) {
+                        selectItems.add(datas.get(i).getName());
                     }
-
-                    dismiss();
                 }
+                isClickNetBtn = true;
+                dismiss();
             });
         }
     }
@@ -95,6 +90,10 @@ public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckLis
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isClickNetBtn() {
+        return isClickNetBtn;
     }
 
     public class CheckInfo {

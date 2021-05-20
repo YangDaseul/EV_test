@@ -25,21 +25,26 @@
         <variable
             name="pos"
             type="int" />
+
+        <variable
+            name="context"
+            type="android.content.Context" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp">
 
 
         <ImageView
             android:id="@+id/iv_line_1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="30dp"
             android:background="@color/x_e5e5e5"
-            android:visibility="@{(pos!=0) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(pos>0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -53,29 +58,30 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
-            android:textColor="@color/x_996449"
+            android:textColor="@{VariableType.SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL.equalsIgnoreCase(data.reservStusCd) ? @color/x_ce2d2d : @color/x_996449}"
             android:textSize="12dp"
-            android:text="@{VariableType.getReservStusCd(data.reservStusCd ?? ``)}"
+            android:text="@{context.getString(VariableType.getReservStusCd(data.reservStusCd ?? ``))}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_reserv_dtm"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_reserv_no"
             tools:text="이용 완료" />
 
 
         <TextView
-            android:id="@+id/tv_reserv_dtm"
+            android:id="@+id/tv_reserv_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
-            android:textColor="@color/x_262626"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_996449"
             android:textSize="14dp"
-            android:text="@{(DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm))}"
+            android:text="@{@string/sm_evsb02_15(data.reservNo ?? ``)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_line_1"
-            tools:text="2020.07.25 11:11" />
+            tools:text="예약번호 : AAAAAAAAAAAAA" />
 
 <!--        android:text="@{data.isFirst ? (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)) : ``}"-->
 <!--        android:visibility="@{data.isFirst ? View.VISIBLE : View.GONE}"-->
@@ -92,7 +98,7 @@
             android:paddingBottom="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_reserv_dtm">
+            app:layout_constraintTop_toBottomOf="@+id/tv_reserv_no">
 
             <include
                 android:id="@+id/l_reserv_dtm"
@@ -126,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:onClick="@{(view)->listener.onSingleClick(view)}"
+                android:tag="@{data}"
                 app:btnNm="@{data.chgName ?? ``}"
                 android:layout_marginStart="115dp"
                 app:layout_constraintHorizontal_bias="0"
@@ -142,8 +149,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 app:title="@{@string/sm_evsb02_4}"
-                app:msg="@{VariableType.getCsupport(data.csupport)}"
+                app:msg="@{VariableType.getCid(data.cid ?? ``) + context.getString(VariableType.getCsupport(data.csupport??``))}"
                 app:isLeft="@{true}"
+                app:maxLine="@{Integer.MAX_VALUE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_chg_name"/>

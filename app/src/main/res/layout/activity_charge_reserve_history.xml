@@ -21,10 +21,13 @@
             android:id="@+id/rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toTopOf="@+id/l_bottom_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_title" />
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            tools:listitem="@layout/item_charge_reserve_history"/>
 
         <include
             android:id="@+id/l_empty"
@@ -35,7 +38,8 @@
             app:layout_constraintBottom_toTopOf="@+id/l_bottom_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_title" />
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            tools:visibility="gone"/>
 
 
 

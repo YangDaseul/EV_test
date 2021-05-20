@@ -11,55 +11,41 @@ import com.genesis.apps.R;
  * @since 2021-04-29
  */
 public enum ChargerStatus {
-    /**
-     * 상태 불분명
-     */
-    UNKNOWN(R.string.sm_evss04_17),
-    /**
-     * 충전가능
-     */
-    AVAILABLE(R.string.sm_evss04_15),
-    /**
-     * 충전중
-     */
-    CHARGING(R.string.sm_evss04_18),
-    /**
-     * 고장/점검
-     */
-    OUTOFORDER(R.string.sm_evss04_17),
-    /**
-     * 통신장애
-     */
-    COM_ERROR(R.string.sm_evss04_17),
-    /**
-     * 통신미연결
-     */
-//    DISCONNECTION(R.string.sm_evss04_17),
-    /**
-     * 충전종료
-     */
-//    CHARGED(R.string.sm_evss04_15),
-    /**
-     * 계획 정지
-     */
-//    PLANNED(R.string.sm_evss04_17),
-    /**
-     * 예약
-     */
-//    RESERVED(R.string.sm_evss04_15);
-    /**
-     * 통신장애
-     */
-    SHUTDOWNED(R.string.sm_evss04_17);
+    UNKNOWN("UNKNOWN", "알수 없음", R.string.sm_evss04_17),
+    AVAILABLE("AVAILABLE","충전가능", R.string.sm_evss04_15),
+    CHARGING("CHARGING", "충전중", R.string.sm_evss04_18),
+    OUTOFORDER("OUTOFORDER", "고장/점검", R.string.sm_evss04_17),
+    COM_ERROR("COM_ERROR", "통신장애",R.string.sm_evss04_17),
+    SHUTDOWNED("SHUTDOWNED", "사용불가", R.string.sm_evss04_17);
 
+    private String statusCd;
+    private String description;
     @StringRes
     int titleResId;
 
-    ChargerStatus(int titleResId) {
+    ChargerStatus(String statusCd, String description, int titleResId) {
+        this.statusCd = statusCd;
+        this.description = description;
         this.titleResId = titleResId;
     }
 
     public int getTitleResId() {
         return titleResId;
+    }
+
+    public String getStatusCd() {
+        return statusCd;
+    }
+
+    public void setStatusCd(String statusCd) {
+        this.statusCd = statusCd;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 } // end of enum ChargerStatus

@@ -41,8 +41,34 @@
                 <FrameLayout
                     android:id="@+id/vg_ev_status_constainer"
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content" />
+
+                <!--최근 예약 충전소 타이틀-->
+                <TextView
+                    android:id="@+id/tv_btn_reserve_history_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="82dp"
+                    android:background="@color/x_ffffff"
+                    android:drawableEnd="@drawable/selector_service_remote_detail_arrow"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center_vertical"
+                    android:onClick="@{view -> activity.onSingleClickListener.onSingleClick(view)}"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/sm_evsb01_2"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    android:visibility="gone" />
+
+                <!--최근 예약 충전소 목록-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_reserve_history"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:background="@drawable/bg_f8f8f8_topline_underline_e5e5e5"
+                    android:clipToPadding="false"
+                    android:visibility="gone" />
 
                 <!--충전소 검색 입력 영역-->
                 <FrameLayout
@@ -73,7 +99,7 @@
                     android:lineSpacingExtra="10dp"
                     android:text="@string/snackbar_etc_3"
                     android:textColor="@color/x_262626"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

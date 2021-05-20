@@ -25,6 +25,7 @@
 
 
     <string name="sm_evsb01_1">충전소 예약</string>
+    <string name="sm_evsb01_2">최근 예약 충전소</string>
     <string name="sm_evsb01_p02_1">충전소 예약이\n완료되었습니다.</string>
     <string name="sm_evsb01_p02_2">예약 정보</string>
     <string name="sm_evsb01_p02_3">예약일시</string>
@@ -42,15 +43,17 @@
     <string name="sm_evsb02_9">예약 완료</string>
     <string name="sm_evsb02_10">이용 완료</string>
     <string name="sm_evsb02_11">예약 취소</string>
+    <string name="sm_evsb02_11_2"></string>
     <string name="sm_evsb02_12">충전금액은 MY GENESIS 간편결제를 통해 결제된 내역만 표시됩니다.</string>
     <string name="sm_evsb02_13">예약내역은 최근 90일까지 확인할 수 있습니다.</string>
     <string name="sm_evsb02_14">충전 이력이 없습니다.</string>
+    <string name="sm_evsb02_15">예약번호 : %s</string>
 
     <string name="sm_evsb02_p01_1">예약 취소 안내</string>
     <string name="sm_evsb02_p01_2">신청하신 충전소 예약을\n취소하시겠습니까?</string>
     <string name="sm_evsb02_p01_3">취소가 완료되었습니다.</string>
 
-
+    <string name="sm_evss04_00">충전소 상세정보</string>
     <string name="sm_evss04_01">운영시간 :</string>
     <string name="sm_evss04_02">운영업체 :</string>
     <string name="sm_evss04_03">결제 방식 :</string>
@@ -69,6 +72,7 @@
     <string name="sm_evss04_17">점검중</string>
     <string name="sm_evss04_18">사용중</string>
     <string name="sm_evss04_19">리뷰</string>
+    <string name="sm_evss04_20"><![CDATA[%s%s<font color="#666666">%s</font>]]></string>
 
 
 </resources>

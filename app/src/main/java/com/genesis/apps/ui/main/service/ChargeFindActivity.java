@@ -89,25 +89,27 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
-        Object tag = v.getTag();
+        Object tag = v.getTag(R.id.item);
         switch (v.getId()) {
             case R.id.tv_btn_route_detail: {
                 // 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
-                ChargeEptInfoVO item = (ChargeEptInfoVO)v.getTag(R.id.item);
-                if(item!=null&&!TextUtils.isEmpty(item.getLat())&&!TextUtils.isEmpty(item.getLot())){
-                    PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, item.getGCSScheme());
+                if (tag instanceof ChargeEptInfoVO) {
+                    ChargeEptInfoVO item = (ChargeEptInfoVO) tag;
+                    if (item != null && !TextUtils.isEmpty(item.getLat()) && !TextUtils.isEmpty(item.getLot())) {
+                        PackageUtil.runAppWithScheme(ChargeFindActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR, VariableType.getGCSScheme(item.getLat(), item.getLot()));
+                    }
                 }
                 break;
             }
-            case R.id.iv_arrow: {
+            case R.id.l_whole: {
                 // 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
                 if (tag instanceof ChargeEptInfoVO) {
                     ChargeEptInfoVO chargeEptInfoVO = (ChargeEptInfoVO) tag;
                     startActivitySingleTop(new Intent(ChargeFindActivity.this, ChargeStationDetailActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, chargeEptInfoVO.getSpid())
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, chargeEptInfoVO.getCsid())
-                                    .putExtra(KeyNames.KEY_NAME_LAT, chargeEptInfoVO.getLat())
-                                    .putExtra(KeyNames.KEY_NAME_LOT, chargeEptInfoVO.getLot()),
+                                    .putExtra(KeyNames.KEY_NAME_LAT, lgnViewModel.getMyPosition().get(0)+"")
+                                    .putExtra(KeyNames.KEY_NAME_LOT, lgnViewModel.getMyPosition().get(1)+""),
                             RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                             VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
@@ -265,7 +267,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      ****************************************************************************************************/
     private void initialize() {
         EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
-        inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
+        inputChargePlaceFragment = InputChargePlaceFragment.newInstance(null);
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
@@ -362,13 +364,13 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     ChargeSearchCategorytype chargeStation = item.getSelectedItem().get(0);
                     switch (chargeStation) {
                         case GENESIS: // 제네시스 충전소
-                        case E_PIT: {
+                        case E_PIT:
+                        case HI_CHARGER: {
                             // 관련 충전소 종류 코드 설정.
                             chgCd = chargeStation.getCode();
                             break;
                         }
                         case ALL:
-                        case HI_CHARGER:
                         default: {
                             // 관련 코드가 없어 전체 조회하는 것으로 처리.
                             chgCd = null;

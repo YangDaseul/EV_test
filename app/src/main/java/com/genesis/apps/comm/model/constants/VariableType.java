@@ -1,5 +1,20 @@
 package com.genesis.apps.comm.model.constants;
 
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.util.QueryString;
+import com.genesis.apps.comm.util.StringUtil;
+import com.google.gson.Gson;
+
+import java.util.Arrays;
+
+import androidx.core.content.ContextCompat;
+
+import static com.genesis.apps.comm.model.constants.ChargerTypeSTT.SLOW_SPEED;
+
 public class VariableType {
     public static final boolean isHardCoding = true;
     public static final Double[] DEFAULT_POSITION={37.463936, 127.042953};
@@ -402,20 +417,14 @@ public class VariableType {
     public static final String SERVICE_REMOTE_CHECK_ITEM_NM_MISSION="04";
     public static final String SERVICE_REMOTE_CHECK_ITEM_NM_TPMS="05";
 
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL="100";
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_FAST="010";
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST="001";
+    public static int getCsupport(String csupport){
+        //완속,급속,초고속에 해당되지 않을 경우 완속으로 예외처리
+        return Arrays.stream(ChargerTypeSTT.values()).filter(it -> it.getCode().equalsIgnoreCase(csupport)).findFirst().orElse(SLOW_SPEED).getTitleResId();
+    }
 
-    public static String getCsupport(String csupport){
-        switch (csupport){
-            case SERVICE_CHARGE_RESERVE_CSUPPORT_FAST:
-                return "급속";
-            case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST:
-                return "초급속";
-            case SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL:
-            default:
-                return "완속";
-        }
+    public static String getCid(String cid){
+        //완속,급속,초고속에 해당되지 않을 경우 완속으로 예외처리
+        return TextUtils.isEmpty(cid) ? "" : (cid+"\n");
     }
 
 
@@ -424,17 +433,16 @@ public class VariableType {
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE="2000";
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL="3000";
 
-    public static String getReservStusCd(String reservStusCd){
+    public static int getReservStusCd(String reservStusCd){
         switch (reservStusCd){
             case SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE:
-                return "이용 완료";
+                return R.string.sm_evsb02_10;
             case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL:
-                return "예약 취소";
+                return R.string.sm_evsb02_11;
             case SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE:
                 //예약 완료인경우 뱃지 표기 안함
             default:
-                return "";
-
+                return R.string.sm_evsb02_11_2;
         }
     }
 
@@ -471,4 +479,72 @@ public class VariableType {
 
     public static final int CHARGE_STATION_TYPE_EPT = 0;
     public static final int CHARGE_STATION_TYPE_STC = 1;
+
+    public static String getChargeStatus(Context context, String json){
+
+        ChargeEptInfoVO data = new Gson().fromJson(json, ChargeEptInfoVO.class);
+
+        StringBuilder strBuilder = new StringBuilder();
+        if(data!=null) {
+            //사용가능
+            int usablSuperSpeedCnt;
+            int usablHighSpeedCnt;
+            int usablSlowSpeedCnt;
+            int totalUseAbleCnt;
+            //사용중
+            int useSuperSpeedCnt;
+            int useHighSpeedCnt;
+            int useSlowSpeedCnt;
+            int totalUseCnt;
+
+            usablSuperSpeedCnt = StringUtil.isValidInteger(data.getUsablSuperSpeedCnt());
+            usablHighSpeedCnt = StringUtil.isValidInteger(data.getUsablHighSpeedCnt());
+            usablSlowSpeedCnt = StringUtil.isValidInteger(data.getUsablSlowSpeedCnt());
+            totalUseAbleCnt = usablSuperSpeedCnt + usablHighSpeedCnt + usablSlowSpeedCnt;
+
+            useSuperSpeedCnt = StringUtil.isValidInteger(data.getUseSuperSpeedCnt());
+            useHighSpeedCnt = StringUtil.isValidInteger(data.getUseHighSpeedCnt());
+            useSlowSpeedCnt = StringUtil.isValidInteger(data.getUseSlowSpeedCnt());
+            totalUseCnt = useSuperSpeedCnt + useHighSpeedCnt + useSlowSpeedCnt;
+
+
+            if (totalUseAbleCnt > 0) {
+                //1대의 충전기라도 사용 가능 할 경우
+                if (usablSuperSpeedCnt > 0) {
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_01), usablSuperSpeedCnt));
+                }
+                if (usablHighSpeedCnt > 0) {
+                    if (strBuilder.length() > 0) {
+                        strBuilder.append(", ");
+                    }
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_02), usablHighSpeedCnt));
+                }
+                if (usablSlowSpeedCnt > 0) {
+                    if (strBuilder.length() > 0) {
+                        strBuilder.append(", ");
+                    }
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_03), usablSlowSpeedCnt));
+                }
+
+                strBuilder.append(" " + context.getString(R.string.sm_evss03_04));
+            } else if (totalUseAbleCnt == 0 && totalUseCnt > 0) {
+                //사용가능한 충전기는 없고 사용중인게 0대 이상인 경우 사용중
+                strBuilder.append(context.getString(R.string.sm_evss01_33));
+            } else {
+                //사용가능한 충전기도 없고 사용중인 충전기도 없으면 점검중
+                strBuilder.append(context.getString(R.string.sm_evss01_32));
+            }
+        }
+        return strBuilder.toString();
+    }
+
+    public static String getGCSScheme(String lat, String lon){
+        QueryString q = new QueryString();
+        q.add("lat", lat);
+        q.add("lon", lon);
+        q.add("address", "");
+        q.add("title", "");
+        q.add("phone", "");
+        return "mgenesis://sendtocar"+q.getQuery();
+    }
 }
