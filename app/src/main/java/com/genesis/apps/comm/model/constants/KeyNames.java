@@ -117,4 +117,6 @@ public interface KeyNames {
     String KEY_NAME_CHB_CAR_NO = "CHBCarNo";
     String KEY_NAME_CHB_ADDRESS = "CHBAddress";
     String KEY_NAME_CHB_OPTION_TY = "CHBOptionTy";
+
+    String KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP = "noMoreCheckPayDialog";
 }

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="10dp"
+            android:textColor="@color/x_000000"
+            android:textSize="20dp"
+            android:text="@string/sm_evss01_p05_1"/>
+
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="40dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    style="@style/ViewMsgInputSub"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/sm_evss01_p05_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:text="@string/dialog_common_1"
+                android:textColor="@color/x_000000"
+                android:visibility="visible"
+                android:textSize="16dp"/>
+
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_bg_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:text="@string/dialog_common_2"
+                android:textColor="@color/x_ffffff"
+                android:textSize="16dp"/>
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_line_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/x_e5e5e5"/>
+
+
+        <CheckBox
+            android:id="@+id/cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:bufferType="spannable"
+            android:button="@null"
+            android:text="@string/sm_evss01_p05_3"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/x_000000"
+            android:textSize="15dp"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+</layout>

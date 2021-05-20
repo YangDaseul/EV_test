@@ -28,6 +28,7 @@ import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.SOSRepo;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.PayInfoVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -217,6 +218,22 @@ class SOSViewModel extends ViewModel {
 
         return cnt>0;
     }
+
+    //간편결제 가입 및 카드 등록 여부 확인
+    public boolean isPayInfo() {
+        boolean isJoin=false;
+        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getPayInfo() != null){
+            try{
+                PayInfoVO payInfoVO = RES_SOS_3001.getValue().data.getPayInfo();
+                //회원가입상태가 y고 연동된 카드수가 1개 이상이면 Y
+                isJoin = VariableType.COMMON_MEANS_YES.equalsIgnoreCase(StringUtil.isValidString(payInfoVO.getSignInYn()))&&StringUtil.isValidInteger(payInfoVO.getCardCount())>0;
+            }catch (Exception e){
+                isJoin = false;
+            }
+        }
+        return isJoin;
+    }
+
 
     public String getPgrsStusCd(){
         String pgrsStusCd = "";

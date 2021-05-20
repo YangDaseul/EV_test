@@ -25,11 +25,15 @@ import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTargetBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
+import com.genesis.apps.databinding.DialogServiceSimplePayInfoBinding;
 import com.genesis.apps.databinding.DialogSimilarInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 import java.util.Locale;
+import java.util.concurrent.Callable;
+import java.util.concurrent.RunnableFuture;
 
 public class MiddleDialog {
 
@@ -296,6 +300,40 @@ public class MiddleDialog {
                     binding.btnOk.setOnClickListener(v -> {
                         dialog.dismiss();
                         if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 간편결제 서비스 이용 안내 팝업
+     */
+    public static void dialogServiceSimplePayInfo(@NonNull Activity activity, final OnSingleClickListener ok, final OnSingleClickListener cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogServiceSimplePayInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_simple_pay_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) {
+                            v.setTag(R.id.item, binding.cb.isChecked());
+                            cancel.onSingleClick(v);
+                        }
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) {
+                            v.setTag(R.id.item, binding.cb.isChecked());
+                            ok.onSingleClick(v);
+                        }
                     });
                 }).show()
         );

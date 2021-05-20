@@ -35,11 +35,13 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTermCharge;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
@@ -49,6 +51,7 @@ import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import static com.genesis.apps.comm.model.constants.VariableType.COMMON_MEANS_YES;
 
 @AndroidEntryPoint
 public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
@@ -217,7 +220,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         try {
                             //정보제공동의 완료 처리 후 찾아가는 출동 서비스 버튼 클릭 처리
-                            sosViewModel.getRES_SOS_3001().getValue().data.getEvSvcTerm().setTrmsAgmtYn(VariableType.COMMON_MEANS_YES);
+                            sosViewModel.getRES_SOS_3001().getValue().data.getEvSvcTerm().setTrmsAgmtYn(COMMON_MEANS_YES);
                             if (eventType == EVENT_TYPE_SOS) startServiceChargeActivity();
                             else startChargeBtrReqActivity();
 
@@ -262,8 +265,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     }
 
     @Override
-    public void onClickCommon(View v) {
-        String title = "";
+    public void onClickCommon(final View v) {
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
         try {
@@ -273,6 +275,31 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 
         }
 
+        //충전소 검색 버튼이 아니고 간편결제 가입 대상인 경우
+        if(id!=R.id.btn_service_charge_search&&checkSimplePayInfo()){
+            MiddleDialog.dialogServiceSimplePayInfo(getActivity(), new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    setSimplePayInfo((Boolean)v.getTag(R.id.item));
+                    // 결제수단관리 페이지로 연결
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                }
+            }, new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    setSimplePayInfo((Boolean)v.getTag(R.id.item));
+                    onEvent(id,v);
+                }
+            });
+            return;
+        }
+
+
+        onEvent(id,v);
+    }
+
+    private void onEvent(int id, View v) {
+        String title = "";
         switch (id) {
             //약관 내용 보기 버튼
             case R.id.iv_arrow:
@@ -291,11 +318,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 if(sosViewModel.getRES_SOS_3001().getValue() != null) {
                     SOS_3001.Response data = sosViewModel.getRES_SOS_3001().getValue().data;
                     if (data.getChbStus() != null) {
-
-                        // TODO 테스트용 임시 설정 값
-//                        data.getChbStus().setStMbrYn("Y");
-//                        data.setReservYn("N");
-
                         if ("Y".equalsIgnoreCase(data.getChbStus().getStMbrYn())) {
                             // 에스트레픽 회원인 경우 - 예약 항목 체크 및 화면 분기 호출
                             if ("Y".equalsIgnoreCase(data.getReservYn())) {
@@ -363,34 +385,22 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         }
     }
 
+    private void setSimplePayInfo(Boolean isCheck){
+        if(isCheck){
+            lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP, COMMON_MEANS_YES);
+        }
+    }
+
+    private boolean checkSimplePayInfo() {
+        return !VariableType.COMMON_MEANS_YES.equalsIgnoreCase(lgnViewModel.getDbGlobalDataRepository().select(KeyNames.KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP))&&!sosViewModel.isPayInfo();
+    }
+
     private void startChargeBtrReqActivity() {
-
-        if (!sosViewModel.isTrmsAgmtYn()) {
-            //정보제공동의가 안되어 있는 경우
-            showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_BTR);
-
+//        if (!sosViewModel.isTrmsAgmtYn()) {
 //            //정보제공동의가 안되어 있는 경우
-//            if (bottomTwoButtonTerm == null)
-//                bottomTwoButtonTerm = new BottomTwoButtonTerm(getActivity(), R.style.BottomSheetDialogTheme);
-//
-//            bottomTwoButtonTerm.setTitle(getString(R.string.service_charge_btr_10));
-//            bottomTwoButtonTerm.setContent(getString(R.string.service_charge_btr_popup_msg_04));
-//            bottomTwoButtonTerm.setButtonAction(() -> {
-//                // 픽업앤충전 정보제공동의 설정 요청
-//                chbViewModel.reqCHB1003(new CHB_1003.Request(APPIAInfo.SM01.getId(), VariableType.SERVICE_CHARGE_BTR_SVC_CD, "Y"));
-//            }, () -> {
-//                // 팝업 종료
-//            });
-//
-//            bottomTwoButtonTerm.setEventTerm(() -> {
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class)
-//                                .putExtra(VariableType.KEY_NAME_TERM_VO, new TermVO("01.03", "2000", "", sosViewModel.getChbTermCont(), ""))
-//                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-//                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//            });
-//            bottomTwoButtonTerm.show();
-
-        } else if (sosViewModel.isChbApplyYn()) {
+//            showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_BTR);
+//        } else
+        if (sosViewModel.isChbApplyYn()) {
             //서비스 신청 중인경우
             startChargeBtrHistoryActivity(sosViewModel.getChbStusCd());
         } else {
@@ -425,10 +435,11 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 //현대양재사옥위치
             });
         } else {
-            if (!sosViewModel.isTrmsAgmtYn()) {
-                //정보제공동의가 안되어 있는 경우
-                showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_SOS);
-            } else if (!sosViewModel.isUseYn()) {
+//            if (!sosViewModel.isTrmsAgmtYn()) {
+//                //정보제공동의가 안되어 있는 경우
+//                showTermsDialog(sosViewModel.getChargeTermVO(), EVENT_TYPE_SOS);
+//            } else
+            if (!sosViewModel.isUseYn()) {
                 //서비스 사용 불가상태인 경우
                 SnackBarUtil.show(getActivity(), getString(R.string.sm_cggo_01_14));
             } else if (sosViewModel.isSubspYn()) {
@@ -500,7 +511,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     List<TermVO> termVOList = new ArrayList<>();
                     termVOList.addAll(sosViewModel.getChargeTermVO());
                     for (TermVO termVO : termVOList) {
-                        agreeTerm2List.add(new AgreeTerm2VO(termVO.getTermCd(), VariableType.COMMON_MEANS_YES));
+                        agreeTerm2List.add(new AgreeTerm2VO(termVO.getTermCd(), COMMON_MEANS_YES));
                     }
                     if (agreeTerm2List != null && agreeTerm2List.size() > 0) {
                         eventType = type;
