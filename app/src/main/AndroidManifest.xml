@@ -731,6 +731,11 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /><!-- 미수금 결제 완료 -->
+        <activity
+            android:name=".ui.main.EvChargeCardPasswordActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- EV 충전 카드 비밀번호 설정 -->
 
         <meta-data
             android:name="android.allow_multiple_resumed_activities"

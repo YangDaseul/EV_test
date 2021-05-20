@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -153,6 +155,9 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                     animSlideUp(me.lStcCard);
                 else
                     animSlideDown(me.lStcCard);
+                break;
+            case R.id.btn_modify_pw:
+                ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), EvChargeCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
         }
     }
