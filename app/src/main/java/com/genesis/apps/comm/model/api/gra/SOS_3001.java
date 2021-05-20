@@ -7,6 +7,7 @@ import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.vo.ChbStatusVO;
 import com.genesis.apps.comm.model.vo.EvTermVO;
 import com.genesis.apps.comm.model.vo.SosStatusVO;
+import com.genesis.apps.comm.model.vo.carlife.PayInfoVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -59,5 +60,8 @@ public class SOS_3001 extends BaseData {
         @Expose
         @SerializedName("reservYn")
         private String reservYn;
+        @Expose
+        @SerializedName("payInfo")
+        private PayInfoVO payInfo;
     }
 }
