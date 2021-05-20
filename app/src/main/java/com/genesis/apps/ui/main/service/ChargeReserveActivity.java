@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,7 +54,7 @@ import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_A
  * @author Ki-man Kim
  * @since 2021-05-14
  */
-public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserveBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
+public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserveBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener, NestedScrollView.OnScrollChangeListener {
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
@@ -67,6 +68,12 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
 
     private int pageNo = 1;
     private final String MAX_PAGE_CNT = "10";
+    /**
+     * 충전소 목록 추가 검색 요청 플래그 변수.
+     */
+    private boolean isMoreSearchListReq = false;
+
+    private ArrayList<ReserveVo> searchList = new ArrayList<>();
 
     private VehicleVO mainVehicleVO;
 
@@ -118,13 +125,16 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 // 충전소 목록 아이템 - 충전소 상세 화면 이동.
                 if (tag instanceof ReserveVo) {
                     ReserveVo reserveVo = (ReserveVo) tag;
-                    startActivitySingleTop(new Intent(ChargeReserveActivity.this, ChargeStationDetailActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveVo.getSid())
-                                    .putExtra(KeyNames.KEY_NAME_LAT, reserveVo.getLat())
-                                    .putExtra(KeyNames.KEY_NAME_LOT, reserveVo.getLot())
-                                    .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
-                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    List<Double> position = lgnViewModel.getMyPosition();
+                    if(position != null && position.size() > 1) {
+                        startActivitySingleTop(new Intent(ChargeReserveActivity.this, ChargeStationDetailActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveVo.getSid())
+                                        .putExtra(KeyNames.KEY_NAME_LAT, String.valueOf(position.get(0)))
+                                        .putExtra(KeyNames.KEY_NAME_LOT, String.valueOf(position.get(1)))
+                                        .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
+                                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
                 }
                 break;
             }
@@ -236,8 +246,16 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 case SUCCESS: {
                     showProgressDialog(false);
                     if (result.data != null && (RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd()) || RETURN_CODE_EMPTY.equalsIgnoreCase(result.data.getRtCd()))) {
+                        if (result.data.getSearchList() != null && result.data.getSearchList().size() > 0) {
+                            if (isMoreSearchListReq) {
+                                // 충전소 목록을 추가로 요청한 경우.
+                                pageNo++;
+                            }
+                            searchList.addAll(result.data.getSearchList());
+                        }
+                        updateChargeList(searchList);
                         updateReserveHistoryList(result.data.getReservList());
-                        updateChargeList(result.data.getSearchList());
+                        isMoreSearchListReq = false;
                         break;
                     }
                 }
@@ -249,6 +267,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        isMoreSearchListReq = false;
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                         updateReserveHistoryList(null);
@@ -262,6 +281,25 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     @Override
     public void getDataFromIntent() {
 
+    }
+
+    /****************************************************************************************************
+     * Override Method - {@link NestedScrollView.OnScrollChangeListener}
+     ****************************************************************************************************/
+    @Override
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        // 리뷰 목록이 표시중이지 않거나 이미 데이테를 요청 중일 때는 넘어감
+        if (isMoreSearchListReq) {
+            return;
+        }
+
+        if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+            List<Double> position = lgnViewModel.getMyPosition();
+            if (position != null && position.size() > 1) {
+                isMoreSearchListReq = true;
+                getChargeStation(position.get(0), position.get(1), pageNo + 1);
+            }
+        }
     }
 
     /****************************************************************************************************
@@ -299,6 +337,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     public void onSearchMap() {
         // 충전소 찾기 지도 표시.
         Intent intent = new Intent(this, ServiceNetworkActivity.class)
+                .putExtra(KeyNames.KEY_NAME_ADDR, new AddressVO(0,0,"","","","","", lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)))
                 .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE_STC);
         intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, getFilterListBySetting());
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -329,6 +368,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
                 .commitAllowingStateLoss();
+
+        ui.vgNsv.setOnScrollChangeListener(ChargeReserveActivity.this);
 
         LinearLayoutManager reserveHistoryListLayoutManager = new LinearLayoutManager(ChargeReserveActivity.this);
         reserveHistoryListLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -395,6 +436,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
             });
 
         }, 5000, GpsRetType.GPS_RETURN_FIRST, false);
+
     }
 
     private void searchChargeStation(double lat, double lot) {
@@ -403,6 +445,10 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         if (lat == VariableType.DEFAULT_POSITION[0] && lot == VariableType.DEFAULT_POSITION[1]) {
             inputChargePlaceFragment.setGuideErrorMsg();
         }
+        getChargeStation(lat, lot, pageNo);
+    }
+
+    private void getChargeStation(double lat, double lot, int pageNo) {
         stcViewModel.reqSTC1001(new STC_1001.Request(
                 APPIAInfo.SM_EVSB01.getId(),
                 mainVehicleVO.getVin(),
@@ -439,6 +485,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     }
 
     private void updateFilterValue(List<ChargeSearchCategoryVO> filterList) {
+        // 충전소 검색 목록 초기화
+        searchList.clear();
         // 나머지 내 위치, 내 차량 위치 기준 검색.
         selectedFilterList.clear();
         selectedFilterList.addAll(filterList);

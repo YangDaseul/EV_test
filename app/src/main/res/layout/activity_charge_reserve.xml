@@ -24,8 +24,10 @@
             app:value="@{@string/sm_evsb01_1}" />
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/vg_nsv"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +43,8 @@
                 <FrameLayout
                     android:id="@+id/vg_ev_status_constainer"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
 
                 <!--최근 예약 충전소 타이틀-->
                 <TextView
@@ -68,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_f8f8f8_topline_underline_e5e5e5"
                     android:clipToPadding="false"
+                    android:overScrollMode="never"
                     android:visibility="gone" />
 
                 <!--충전소 검색 입력 영역-->
@@ -83,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
+                    android:overScrollMode="never"
                     android:paddingStart="20dp"
                     android:paddingTop="28dp"
                     android:paddingEnd="20dp"
