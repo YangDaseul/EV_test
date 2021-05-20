@@ -631,16 +631,17 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             // 픽업앤충전 서비스 예약 실패
             exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode());
         } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode()) {
-            // 블루월넛 결제 요청 성공!
-            Intent intent = new Intent(this, ServiceChargeBtrResultActivity.class);
-            intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, carNo);
-            intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
-            intent.putExtra(KeyNames.KEY_NAME_CHB_ADDRESS, lotVO.getAddress());
-
-            if (selectedOption)
-                intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_CD_2);
-
-            startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+            // TODO : 삭제된 로직
+//            // 블루월넛 결제 요청 성공!
+//            Intent intent = new Intent(this, ServiceChargeBtrResultActivity.class);
+//            intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, carNo);
+//            intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
+//            intent.putExtra(KeyNames.KEY_NAME_CHB_ADDRESS, lotVO.getAddress());
+//
+//            if (selectedOption)
+//                intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_CD_2);
+//
+//            startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
         } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
             // 블루월넛 결제 화면 종료
             chbViewModel.reqCHB1027(new CHB_1027.Request(APPIAInfo.SM_CGRV02.getId(), contentsVO.getTxid()));
