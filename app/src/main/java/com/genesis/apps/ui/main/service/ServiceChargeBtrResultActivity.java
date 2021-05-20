@@ -8,12 +8,14 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.CHB_1027;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrResultBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
@@ -24,10 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceChargeBtrResultBinding> {
 
-    private String carNo;
-    private String rsvtDate;
-    private String address;
-    private boolean isCarwash;
+    private CHB_1027.Response data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +40,10 @@ public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceC
     }
 
     private void initView() {
-        ui.lCarRegNo.setMsg(carNo);
-        ui.lReserveDtm.setMsg(DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtDate, DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
-        ui.lPickupAddr.setMsg(address);
-
-        String options = getString(R.string.service_charge_btr_word_05);
-        if(isCarwash)
-            options += ", " + getString(R.string.service_charge_btr_word_06);
-
-        ui.lReserveInfo.setMsg(options);
+        ui.lCarRegNo.setMsg(StringUtil.isValidString(data.getCarNo()));
+        ui.lReserveDtm.setMsg(DateUtil.getDate(DateUtil.getDefaultDateFormat(StringUtil.isValidString(data.getBookingDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
+        ui.lPickupAddr.setMsg(StringUtil.isValidString(data.getAddress()) + StringUtil.isValidString(data.getAddressDetail()));
+        ui.lReserveInfo.setMsg(StringUtil.isValidString(data.getSvcNm()));
     }
 
     @Override
@@ -76,10 +70,7 @@ public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceC
     @Override
     public void getDataFromIntent() {
         try {
-            carNo = getIntent().getStringExtra(KeyNames.KEY_NAME_CHB_CAR_NO);
-            rsvtDate = getIntent().getStringExtra(KeyNames.KEY_NAME_CHB_RSVT_DT);
-            address = getIntent().getStringExtra(KeyNames.KEY_NAME_CHB_ADDRESS);
-            isCarwash = !TextUtils.isEmpty(getIntent().getStringExtra(KeyNames.KEY_NAME_CHB_OPTION_TY)) ? true : false;
+            data = (CHB_1027.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_CONTENTS_VO);
         } catch (Exception e) {
 
         }
