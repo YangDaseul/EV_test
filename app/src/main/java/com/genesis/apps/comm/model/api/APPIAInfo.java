@@ -152,7 +152,7 @@ public enum APPIAInfo {
     GM_CARLST_01_P05("GM_CARLST_01_P05", null, VariableType.QUICK_MENU_CODE_NONE, "신청 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     GM_CARLST_02("GM_CARLST_02", LeasingCarHistActivity.class, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실운행자 등록 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, VariableType.QUICK_MENU_CODE_NV, "중고차 등록",VariableType.QUICK_MENU_CATEGORY_HOME),
+    GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, VariableType.QUICK_MENU_CODE_NV, "내 차 등록",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_CARLST_03_P01("GM_CARLST_03_P01", null, VariableType.QUICK_MENU_CODE_NONE, "중고차 안내사항",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_04("GM_CARLST_04", null, VariableType.QUICK_MENU_CODE_NONE, "차량 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
 

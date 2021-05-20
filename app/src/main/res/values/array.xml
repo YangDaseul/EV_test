@@ -9,12 +9,12 @@
 
     <string-array name="vehicle_reg">
         <item>렌트/리스 실운행자 등록</item>
-        <item>중고차 등록</item>
+        <item>내 차 등록</item>
     </string-array>
 
     <string-array name="vehicle_list">
         <item>렌트/리스 실운행자 내역</item>
-        <item>중고차 등록</item>
+        <item>내 차 등록</item>
     </string-array>
 
 

@@ -475,7 +475,7 @@
                 android:lineSpacingExtra="4dp"
                 android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
-                tools:text="중고차 등록" />
+                tools:text="내 차 등록" />
 
 
             <ImageView

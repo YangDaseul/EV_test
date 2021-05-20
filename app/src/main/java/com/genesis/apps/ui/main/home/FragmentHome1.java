@@ -964,7 +964,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case GM_CARLST_01://렌트/리스 실운행자 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-            case GM_CARLST_03://중고차 등록
+            case GM_CARLST_03://내 차 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_03.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST01://MY 차고
