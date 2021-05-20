@@ -13,8 +13,10 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.DTW_1003;
 import com.genesis.apps.comm.model.api.gra.DTW_1004;
+import com.genesis.apps.comm.model.api.gra.DTW_1007;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -29,8 +31,6 @@ import com.genesis.apps.ui.main.service.CardManageActivity;
 import java.util.List;
 
 public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayRequestBinding> {
-
-    private final String closeUrl = "genesisapps://close";
 
     private DTWViewModel dtwViewModel;
     private PaymtCardVO selectedCardVo;
@@ -102,16 +102,17 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                 break;
             case R.id.btn_paymt:
 
-                if (dtwViewModel.isValidDTW1003() && dtwViewModel.getRES_DTW_1003().getValue().data.getUnpayInfo() != null) {
-                    if (selectedCardVo == null) {
-                        SnackBarUtil.show(this, getString(R.string.service_charge_btr_err_15));
-                        return;
-                    }
+                if (selectedCardVo == null) {
+                    SnackBarUtil.show(this, getString(R.string.service_charge_btr_err_15));
+                    return;
+                }
+
+                if (ui.getData() != null) {
 
                     String userAgentString = new WebView(this).getSettings().getUserAgentString();
 
                     dtwViewModel.reqDTW1004(new DTW_1004.Request(APPIAInfo.PAY04_PAY01.getId(),
-                            dtwViewModel.getRES_DTW_1003().getValue().data.getUnpayInfo().getPayTrxId(),
+                            ui.getData().getPayTrxId(),
                             selectedCardVo.getCardType(),
                             selectedCardVo.getCardId(),
                             selectedCardVo.getCardCoCode(),
@@ -167,7 +168,9 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
 
                         // 미수금 정보 표시
-                        if(result.data.getUnpayInfo() != null) ui.setData(result.data.getUnpayInfo());
+                        if (result.data.getUnpayInfo() != null)
+                            ui.setData(result.data.getUnpayInfo());
+
 
                         // 결제 수단 정보 표시
                         initLayoutCardItem(result.data.getCardInfo());
@@ -218,6 +221,37 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                     break;
             }
         });
+
+        dtwViewModel.getRES_DTW_1007().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                        showProgressDialog(false);
+                        if (result.data != null) {
+                            startActivitySingleTop(new Intent(this, UnpaidPayResultActivity.class)
+                                            .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data)
+                                    , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                    , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            break;
+                        }
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
+                    break;
+            }
+        });
     }
 
     @Override
@@ -227,5 +261,11 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
+            // 블루월넛 결제 화면 종료
+            dtwViewModel.reqDTW1007(new DTW_1007.Request(APPIAInfo.PAY04_PAY01.getId(), ui.getData().getPayTrxId()));
+        } else if(resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_FINISH.getCode()) {
+            exitPage(new Intent(), ResultCodes.REQ_CODE_UNPAID_PAYMT_FINISH.getCode());
+        }
     }
 }

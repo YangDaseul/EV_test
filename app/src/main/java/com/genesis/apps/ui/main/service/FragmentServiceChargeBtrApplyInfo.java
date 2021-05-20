@@ -128,9 +128,13 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
             me.lCreditPoint.setMsg(useCreditPoint);
         }
 
-        // 탁송금액 표시
-        int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, resData.getOrderInfo().getOptionList()).getOptionPrice();
-        me.lDeliveryPaymt.setMsg(StringUtil.getPriceString(deliverPrice));
+        OptionVO deliveryVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, resData.getOrderInfo().getOptionList());
+        if(deliveryVO != null) {
+            // 탁송금액 표시
+            int deliveryPrice = deliveryVO.getOptionPrice();
+            me.lDeliveryPaymt.setMsg(StringUtil.getPriceString(deliveryPrice));
+        }
+
         // 세차금액 표시
         if (carwashVO != null) {
             me.lCarWashPaymt.lWhole.setVisibility(View.VISIBLE);

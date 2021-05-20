@@ -4,7 +4,7 @@
     <string name="service_charge_btr_00">픽업앤충전 신청하기</string>
     <string name="service_charge_btr_01">픽업앤충전 픽업 주소 검색</string>
     <string name="service_charge_btr_02">종료 안내</string>
-    <string name="service_charge_btr_03">예약 희망일 선택</string>
+    <string name="service_charge_btr_03">예약 희망일/옵션 선택</string>
     <string name="service_charge_btr_04">픽업앤충전 현황/내역/이력</string>
     <string name="service_charge_btr_05">결제 정보 확인</string>
     <string name="service_charge_btr_06">취소 안내</string>
@@ -19,8 +19,8 @@
     <string name="service_charge_btr_txt_02">픽업 주소</string>
     <string name="service_charge_btr_txt_03">픽업 받으실 상세 주소를\n입력해 주세요.</string>
     <string name="service_charge_btr_txt_04">픽업 상세 주소</string>
-    <string name="service_charge_btr_txt_05">예약 희망일을\n선택해 주세요.</string>
-    <string name="service_charge_btr_txt_06">예약 희망일</string>
+    <string name="service_charge_btr_txt_05">예약 희망일과 옵션을\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_06">에약 희망일/옵션</string>
     <string name="service_charge_btr_txt_07">차량 키 전달 방식을\n선택해 주세요.</string>
     <string name="service_charge_btr_txt_08">차량 키 전달</string>
     <string name="service_charge_btr_txt_09">픽업 받으실 주소를\n검색해 주세요.</string>
@@ -37,12 +37,13 @@
     <string name="service_charge_btr_txt_19">(잔여 예약 수 : %s)</string>
     <string name="service_charge_btr_txt_20">주차 장소를\n선택해 주세요.</string>
     <string name="service_charge_btr_txt_21">주차 장소</string>
+    <string name="service_charge_btr_txt_22">옵션 상품</string>
 
 
     <!-- 에러 메시지 -->
     <string name="service_charge_btr_err_01">픽업 주소를 입력해 주세요.</string>
     <string name="service_charge_btr_err_02">픽업 상세 주소를 입력해 주세요.</string>
-    <string name="service_charge_btr_err_03">예약 희망일을 선택해 주세요.</string>
+    <string name="service_charge_btr_err_03">예약 희망일과 옵션을 선택해 주세요.</string>
     <string name="service_charge_btr_err_04">차량 키 전달 방식을 선택해 주세요.</string>
     <string name="service_charge_btr_err_05">차량번호를 입력해 주세요.</string>
     <string name="service_charge_btr_err_06">휴대폰 번호를 입력해 주세요.</string>
@@ -120,8 +121,8 @@
     <string name="service_charge_btr_word_30">사용불가</string>
     <string name="service_charge_btr_word_31">담당</string>
     <string name="service_charge_btr_word_32">예약번호&#160;:&#160;</string>
-    <string name="service_charge_btr_word_33"></string>
-    <string name="service_charge_btr_word_34">세차서비스</string>
+    <string name="service_charge_btr_word_33">충전 크레딧 차감</string>
+    <string name="service_charge_btr_word_34">세차 서비스</string>
     <string name="service_charge_btr_word_35">결제 수단</string>
     <string name="service_charge_btr_word_36">등록</string>
     <string name="service_charge_btr_word_37">관리</string>
@@ -130,6 +131,8 @@
     <string name="service_charge_btr_word_40">└&#160;</string>
     <string name="service_charge_btr_word_41">%s 보유</string>
     <string name="service_charge_btr_word_42">0원</string>
+    <string name="service_charge_btr_word_43">보유 충전 크레딧</string>
+    <string name="service_charge_btr_word_44">예약 가능일</string>
 
 
     <string name="service_charge_btr_msg_01">서비스 이용 완료 시, 선결제 금액과 실제 충전금액이 다른 경우 크레딧 포인트가 우선 차감되며, 차액만큼 결제 취소 처리 됩니다. (포인트와 신용카드를 복합 결제한 경우, 신용카드 우선 취소)</string>
