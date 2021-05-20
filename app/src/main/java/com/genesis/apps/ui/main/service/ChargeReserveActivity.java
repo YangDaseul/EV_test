@@ -125,13 +125,16 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 // 충전소 목록 아이템 - 충전소 상세 화면 이동.
                 if (tag instanceof ReserveVo) {
                     ReserveVo reserveVo = (ReserveVo) tag;
-                    startActivitySingleTop(new Intent(ChargeReserveActivity.this, ChargeStationDetailActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveVo.getSid())
-                                    .putExtra(KeyNames.KEY_NAME_LAT, reserveVo.getLat())
-                                    .putExtra(KeyNames.KEY_NAME_LOT, reserveVo.getLot())
-                                    .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
-                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    List<Double> position = lgnViewModel.getMyPosition();
+                    if(position != null && position.size() > 1) {
+                        startActivitySingleTop(new Intent(ChargeReserveActivity.this, ChargeStationDetailActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveVo.getSid())
+                                        .putExtra(KeyNames.KEY_NAME_LAT, String.valueOf(position.get(0)))
+                                        .putExtra(KeyNames.KEY_NAME_LOT, String.valueOf(position.get(1)))
+                                        .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
+                                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
                 }
                 break;
             }
@@ -334,6 +337,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     public void onSearchMap() {
         // 충전소 찾기 지도 표시.
         Intent intent = new Intent(this, ServiceNetworkActivity.class)
+                .putExtra(KeyNames.KEY_NAME_ADDR, new AddressVO(0,0,"","","","","", lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)))
                 .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE_STC);
         intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, getFilterListBySetting());
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
