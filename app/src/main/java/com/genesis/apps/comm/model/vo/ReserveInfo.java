@@ -52,4 +52,7 @@ class ReserveInfo extends BaseData {
     @Expose
     @SerializedName("reservDtm")
     private String reservDtm;
+    @Expose
+    @SerializedName("cid")
+    private String cid;
 } // end of class ReserveInfo

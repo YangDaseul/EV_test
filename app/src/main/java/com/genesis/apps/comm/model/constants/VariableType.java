@@ -1,12 +1,19 @@
 package com.genesis.apps.comm.model.constants;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.Gson;
+
+import java.util.Arrays;
+
+import androidx.core.content.ContextCompat;
+
+import static com.genesis.apps.comm.model.constants.ChargerTypeSTT.SLOW_SPEED;
 
 public class VariableType {
     public static final boolean isHardCoding = true;
@@ -410,20 +417,14 @@ public class VariableType {
     public static final String SERVICE_REMOTE_CHECK_ITEM_NM_MISSION="04";
     public static final String SERVICE_REMOTE_CHECK_ITEM_NM_TPMS="05";
 
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL="100";
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_FAST="010";
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST="001";
+    public static int getCsupport(String csupport){
+        //완속,급속,초고속에 해당되지 않을 경우 완속으로 예외처리
+        return Arrays.stream(ChargerTypeSTT.values()).filter(it -> it.getCode().equalsIgnoreCase(csupport)).findFirst().orElse(SLOW_SPEED).getTitleResId();
+    }
 
-    public static String getCsupport(String csupport){
-        switch (csupport){
-            case SERVICE_CHARGE_RESERVE_CSUPPORT_FAST:
-                return "급속";
-            case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST:
-                return "초급속";
-            case SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL:
-            default:
-                return "완속";
-        }
+    public static String getCid(String cid){
+        //완속,급속,초고속에 해당되지 않을 경우 완속으로 예외처리
+        return TextUtils.isEmpty(cid) ? "" : (cid+"\n");
     }
 
 
@@ -432,17 +433,16 @@ public class VariableType {
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE="2000";
     public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL="3000";
 
-    public static String getReservStusCd(String reservStusCd){
+    public static int getReservStusCd(String reservStusCd){
         switch (reservStusCd){
             case SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE:
-                return "이용 완료";
+                return R.string.sm_evsb02_10;
             case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL:
-                return "예약 취소";
+                return R.string.sm_evsb02_11;
             case SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE:
                 //예약 완료인경우 뱃지 표기 안함
             default:
-                return "";
-
+                return R.string.sm_evsb02_11_2;
         }
     }
 

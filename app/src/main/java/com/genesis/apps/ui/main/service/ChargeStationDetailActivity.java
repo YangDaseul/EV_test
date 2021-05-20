@@ -15,6 +15,8 @@ import com.genesis.apps.comm.model.api.gra.EPT_1002;
 import com.genesis.apps.comm.model.api.gra.EPT_1003;
 import com.genesis.apps.comm.model.api.gra.STC_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSttInfoVO;
@@ -22,7 +24,6 @@ import com.genesis.apps.comm.model.vo.ReviewVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PackageUtil;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
@@ -34,6 +35,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
@@ -197,11 +199,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(this, serverMsg);
                         showProgressDialog(false);
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
                     }
                     break;
                 }
@@ -251,11 +250,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(this, serverMsg);
                         showProgressDialog(false);
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
                     }
                     break;
                 }
@@ -271,12 +267,24 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         lat = getIntent.getStringExtra(KeyNames.KEY_NAME_LAT);
         lot = getIntent.getStringExtra(KeyNames.KEY_NAME_LOT);
         stationType = getIntent.getIntExtra(KeyNames.KEY_STATION_TYPE, CHARGE_STATION_TYPE_EPT);
+    }
 
-        if (TextUtils.isEmpty(spid) || TextUtils.isEmpty(csid) || TextUtils.isEmpty(lat) || TextUtils.isEmpty(lot)) {
-            // 데이터가 전달되지 않아 조회 할수 없음. - TODO 안내 처리 필요.
-            return;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //고객 위치 정보가 없을 경우 os로부터 좌표 관련 코드를 전달받은 경우
+        if (!hasAddress() && requestCode == RequestCodes.REQ_CODE_GPS.getCode()) {
+            if (resultCode == RESULT_OK)
+                //GPS OS 팝업에서 GPS ON을 승인한 경우
+                reqMyLocation();
+            else {
+                //GPS OFF 된 경우
+                //현대양재사옥위치
+                setAddress(VariableType.DEFAULT_POSITION[0] + "", VariableType.DEFAULT_POSITION[1] + "");
+            }
         }
     }
+
 
     /****************************************************************************************************
      * Method - Private
@@ -318,8 +326,44 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             e.printStackTrace();
         }
 
+        //intent로 확인된 고객 위치 정보가 있을 경우
+        if(hasAddress()){
+            getChargeStationInfo();
+        }else{
+            //고객 위치 정보가 없을 경우 (충전소 예약 내역 등에서 이동 시)
+            checkEnableGPS(() -> { //GPS ON/OFF 유무 확인
+                //GPS 팝업에서 GPS를 OFF 할 경우
+                //현대양재사옥위치
+                setAddress(VariableType.DEFAULT_POSITION[0]+"", VariableType.DEFAULT_POSITION[1]+"");
+            }, this::reqMyLocation);//GPS가 켜져 있는 경우
+        }
+    }
+
+    private void setAddress(String lat, String lot){
+        this.lat = lat;
+        this.lot = lot;
         getChargeStationInfo();
     }
+
+    private boolean hasAddress(){
+        return !TextUtils.isEmpty(lat)&&!TextUtils.isEmpty(lot);
+    }
+
+    private void reqMyLocation() {
+        showProgressDialog(true);
+        findMyLocation(location -> {
+            showProgressDialog(false);
+            if (location == null) {
+                //GPS에서 주소정보를 가져오지 못한 경우
+                setAddress(VariableType.DEFAULT_POSITION[0]+"", VariableType.DEFAULT_POSITION[1]+"");
+                return;
+            }
+            //GPS에서 주소정보를 정상적으로 가져온 경우
+            runOnUiThread(() -> setAddress(location.getLatitude()+"", location.getLongitude()+""));
+
+        }, 5000, GpsRetType.GPS_RETURN_FIRST, false);
+    }
+
 
     private void getChargeStationInfo() {
         switch (stationType) {
@@ -374,11 +418,12 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      * @param data
      */
     private void updateStation(STC_1002.Response data) {
+        ui.tvGuide.setVisibility(View.VISIBLE);
         chargeStcInfoVO = data.getChgSttnInfo();
 
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), chargeStcInfoVO.getDist())));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeStcInfoVO.getChgName(), chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl(), chargeStcInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
@@ -421,8 +466,16 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         }
     }
 
-    private String getAddr(String addr, String addrDtl, String distance){
-        return StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "")+"\n"+(TextUtils.isEmpty(distance) ? "- KM" : distance+" KM");
+    private final String BR = "<br/>";
+    private String getAddr(String chgName, String addr, String addrDtl, String distance){
+
+        String totalAddress = StringUtil.isValidString(addr)+(!TextUtils.isEmpty(addrDtl) ? (" "+addrDtl) : "");
+        String dist = TextUtils.isEmpty(distance) ? "- km" : distance+" km";
+
+        return String.format(Locale.getDefault(), getString(R.string.sm_evss04_20),
+                TextUtils.isEmpty(chgName) ? "" : chgName,
+                TextUtils.isEmpty(dist) ? "" : BR+dist,
+                TextUtils.isEmpty(totalAddress) ? "" : BR+totalAddress);
     }
 
     /**
@@ -431,10 +484,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      * @param data
      */
     private void updateStation(EPT_1002.Response data) {
+        ui.tvGuide.setVisibility(View.VISIBLE);
         chargeEptInfoVO = data.getChgInfo();
         // 충전소 정보 목록 셋팅
         ArrayList<ChargeStationDetailListAdapter.ItemVO> list = new ArrayList<>();
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl(), chargeEptInfoVO.getDist())));
+        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.ADDRESS, getAddr(chargeEptInfoVO.getCsnm(), chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl(), chargeEptInfoVO.getDist())));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeEptInfoVO.getUseTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeEptInfoVO.getSpnm()));
 
