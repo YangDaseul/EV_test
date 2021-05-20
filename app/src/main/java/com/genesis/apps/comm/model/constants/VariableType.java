@@ -428,10 +428,9 @@ public class VariableType {
     }
 
 
-    //TODO 2021-04-22 PARK STC-1005 코드 정의가 나오지 않아서 임의로 정의 진행
-    public static final String SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE="1000";
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE="2000";
-    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL="3000";
+    public static final String SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE="5000";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE="1000";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL="9000";
 
     public static int getReservStusCd(String reservStusCd){
         switch (reservStusCd){
