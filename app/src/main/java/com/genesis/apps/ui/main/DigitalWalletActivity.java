@@ -97,6 +97,10 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
             case R.id.btn_finish_nfc:
                 moveViewpager(0);
                 break;
+            case R.id.btn_easypay:
+                // 간편결제카드 관리 페이지로 이동
+                startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
         }
     }
 
@@ -145,7 +149,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                             () -> {
                                                 // 간편결제카드 관리 페이지로 이동
                                                 startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
-                                            }, () -> exitPage("", 0));
+                                            }, () -> {});
 
                                     initViewpagerAdapter(0);
                                     return;
