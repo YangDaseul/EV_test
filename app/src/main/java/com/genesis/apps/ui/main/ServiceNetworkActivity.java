@@ -701,6 +701,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     case PAGE_TYPE_EVCHARGE_STC:
                         if(selectChargeStcInfo != null && initAddressVO != null) {
                             startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
+                                            .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC)
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectChargeStcInfo.getSid())
                                             .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat())
                                             .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()),
