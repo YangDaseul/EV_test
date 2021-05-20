@@ -7,11 +7,17 @@
 
     <data>
 
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+        <import type="com.genesis.apps.comm.util.StringUtil" />
         <import type="android.view.View" />
 
         <variable
             name="activity"
-            type="com.genesis.apps.ui.main.service.ServiceChargeBtrResultActivity" />
+            type="com.genesis.apps.ui.main.UnpaidPayResultActivity" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.api.gra.DTW_1007.Response" />
 
     </data>
 
@@ -118,6 +124,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getChgEndDtm() ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)}"
                         app:title="@{@string/PAY04_PAY02_3}" />
 
                     <!-- "충전소" -->
@@ -131,6 +138,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_use_dtm"
+                        app:msg="@{data.getChgNm() ?? ``}"
                         app:title="@{@string/PAY04_PAY02_4}" />
 
                     <!-- "금액" -->
@@ -144,6 +152,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_charge_nm"
+                        app:msg="@{StringUtil.getPriceString(data.getPayAmt() ?? ``)}"
                         app:title="@{@string/PAY04_PAY02_5}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

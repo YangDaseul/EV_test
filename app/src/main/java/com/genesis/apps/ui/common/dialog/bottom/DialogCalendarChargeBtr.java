@@ -13,13 +13,16 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
 import com.genesis.apps.comm.model.vo.carlife.BookingTimeVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewHorizontalDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.databinding.DialogBottomCalendarBinding;
+import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.databinding.DialogBottomChargeCalendarBinding;
 import com.genesis.apps.ui.common.dialog.bottom.view.HighlightWeekendsDecorator;
 import com.genesis.apps.ui.common.dialog.bottom.view.MinMaxDecorator;
 import com.genesis.apps.ui.common.dialog.bottom.view.Reject2Decorator;
@@ -36,7 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalendarBinding> {
+public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomChargeCalendarBinding> {
 
     private ServiceChargeBtrReserveTimeHorizontalAdapter serviceChargeBtrReserveTimeHorizontalAdapter;
 
@@ -51,8 +54,11 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
     private Calendar calendarMaximum;
     private Calendar calendarMinimum;
     private String title;
-    private List<BookingDateVO> bookingDateVOList;
     private boolean isRemoveWeekends = false;
+
+    private List<BookingDateVO> bookingDateVOList;
+    private OptionVO optionVO;
+    private boolean isCheckedOption;
 
     private String selectBookingDay = null;
     private String selectBookingTime = null;
@@ -67,7 +73,7 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_bottom_calendar);
+        setContentView(R.layout.dialog_bottom_charge_calendar);
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
         ui.calendarView.setDynamicHeightEnabled(false); //달력 높이를 wrap로 설정
@@ -115,9 +121,14 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
         });
         ui.calendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DateUtil.DATE_FORMAT_yyyy_MM_KOREA, Locale.getDefault())));
 
-        ui.lRepairGroup.setVisibility(View.VISIBLE);
-        ui.tvTitleRepairGroup.setVisibility(View.GONE);
-        ui.tvRepairGroup.setVisibility(View.GONE);
+        // TODO 세차 옵션 추가 필요
+        if (optionVO != null && StringUtil.isValidString(optionVO.getOptionCode()).equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2)) {
+            ui.lOptionGroup.setVisibility(View.VISIBLE);
+            ui.tvCarwashPrice.setText("+" + StringUtil.getPriceString(optionVO.getOptionPrice()));
+            ui.cbCarwashOption.setChecked(isCheckedOption);
+        } else {
+            ui.lOptionGroup.setVisibility(View.GONE);
+        }
 
         initTimeAdapter();
     }
@@ -250,6 +261,14 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
         this.bookingDateVOList = bookingDateVOList;
     }
 
+    public OptionVO getOptionVO() {
+        return optionVO;
+    }
+
+    public void setOptionVO(OptionVO optionVO) {
+        this.optionVO = optionVO;
+    }
+
     public String getSelectBookingDay() {
         return selectBookingDay;
     }
@@ -264,6 +283,14 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCalend
 
     public void setSelectBookingTime(String selectBookingTime) {
         this.selectBookingTime = selectBookingTime;
+    }
+
+    public boolean getOptionChecked(){
+        return ui.cbCarwashOption.isChecked();
+    }
+
+    public void setOptionChecked(boolean isChecked) {
+        this.isCheckedOption = isChecked;
     }
 
     public final void showProgressDialog(final boolean show) {

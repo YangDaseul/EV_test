@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -85,10 +86,17 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         switch (v.getId()) {
             // 카드 추가 버튼
             case R.id.tv_add_card: {
-                if(chbViewModel.isSignInYN())
-                    addCard();
-                else
-                    reqMemberReg();
+                addCard();
+                break;
+            }
+            case R.id.btn_bluewalnut_link: {
+                if (v instanceof TextView) {
+                    String text = ((TextView) v).getText().toString();
+                    if (StringUtil.isValidString(text).equalsIgnoreCase(getString(R.string.pay03_5)))
+                        addCard();
+                    else
+                        reqMemberReg();
+                }
                 break;
             }
             // 카드 목록 이벤트 - 카드 삭제 버튼
@@ -151,7 +159,11 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                     showProgressDialog(false);
                     Log.d("FID", "test :: RES_CHB_1015 :: data=" + result.data);
                     if (result.data != null) {
-                        updateCardList(result.data.getCardList());
+                        if(StringUtil.isValidString(result.data.getSignInYN()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                            updateCardList(result.data.getCardList());
+                        } else {
+                            setMemeberRegUI(true);
+                        }
                         break;
                     }
                 }
@@ -302,12 +314,12 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
         if (list.size() > 0) {
             ui.rvCardList.setVisibility(View.VISIBLE);
-            ui.tvEmptyList.setVisibility(View.GONE);
+            setEmptyCardUI(false);
             adapter.setRows(list);
             adapter.notifyDataSetChanged();
         } else {
             ui.rvCardList.setVisibility(View.GONE);
-            ui.tvEmptyList.setVisibility(View.VISIBLE);
+            setEmptyCardUI(true);
 
             // 기존에 있던 목록 삭제
             if (adapter.getItemCount() > 0)
@@ -328,17 +340,41 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         ui.tvCardTotalCount.setText(String.format("총 %,3d개", count));
     }
 
+    /**
+     * 간편결제 가입 필요 레이아웃 표시
+     *
+     * @param visibility
+     */
+    private void setMemeberRegUI(boolean visibility) {
+        ui.tvAddCard.setVisibility(visibility ? View.GONE : View.VISIBLE);
+        ui.lEmpty.setVisibility(visibility ? View.VISIBLE : View.GONE);
+        ui.tvInfo1.setText(R.string.pay03_6);
+        ui.tvInfo2.setText(R.string.pay03_7);
+        ui.tvInfo3.setVisibility(View.VISIBLE);
+        ui.tvInfo3.setText(R.string.pay03_8);
+        ui.btnBluewalnutLink.setText(R.string.pay03_9);
+    }
+
+    /**
+     * 등록된 결제카드 없음 레이아웃 표시
+     *
+     * @param visibility
+     */
+    private void setEmptyCardUI(boolean visibility) {
+        ui.tvAddCard.setVisibility(visibility ? View.GONE : View.VISIBLE);
+        ui.lEmpty.setVisibility(visibility ? View.VISIBLE : View.GONE);
+        ui.tvInfo1.setText(R.string.pay03_3);
+        ui.tvInfo2.setText(R.string.pay03_4);
+        ui.tvInfo3.setVisibility(View.GONE);
+        ui.btnBluewalnutLink.setText(R.string.pay03_5);
+    }
 
     /**
      * 회원 가입 요청 함수
      */
     private void reqMemberReg() {
         // 회원 가입 처리
-        MiddleDialog.dialogBlueWalnutSingIn(this, () -> {
-            startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
-        }, () -> {
-
-        });
+        startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, VariableType.EASY_PAY_WEBVIEW_TYPE_MEMBER_REG), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
     }
 
     /**

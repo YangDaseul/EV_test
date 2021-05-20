@@ -1,10 +1,7 @@
 package com.genesis.apps.ui.main;
 
 import android.content.Intent;
-import android.nfc.NfcAdapter;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
@@ -20,7 +17,6 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DTWViewModel;
@@ -135,9 +131,9 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                 initViewpagerAdapter(0);
                                 return;
                             }
-                            // 보유 크레딧 부족한 경우
+                            // 보유 크레딧 부족한 경우(선불교통카드 사용 불가 인 경우)
                             if (!dtwViewModel.isStcCardUseYn()) {
-                                // 결제 카드 등록 여부 확인
+                                // 간편 결제 가입 및 결제 카드 등록 여부 확인
                                 if (result.data.getPayInfo() != null &&
                                         (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
 

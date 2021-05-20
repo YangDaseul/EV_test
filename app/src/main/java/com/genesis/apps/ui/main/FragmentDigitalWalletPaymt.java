@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -19,6 +20,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.DTWViewModel;
 import com.genesis.apps.databinding.FragmentDigitalWalletPaymtBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -137,14 +139,37 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         if(isShow)
             return;
 
+
         int targetY = (int) DeviceUtil.dip2Pixel(getContext(), 100);
 
         ValueAnimator downAni = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, targetY);
-        ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 1.0f);
+        ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 0.5f, 1.0f);
+
+        downAni.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                me.tvInfoTxt.setVisibility(View.GONE);
+                VibratorUtil.doVibratorLong(((SubActivity)getActivity()).getApplication());
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                me.tvInfoTxt.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
 
         slideDownAniSet.playTogether(downAni, alphaAni);
-        slideDownAniSet.setDuration(400);
-
+        slideDownAniSet.setDuration(500);
         slideDownAniSet.start();
 
         isShow = true;

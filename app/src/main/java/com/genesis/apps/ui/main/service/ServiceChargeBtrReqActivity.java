@@ -29,11 +29,13 @@ import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
 import com.genesis.apps.comm.model.vo.carlife.LotVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -75,6 +77,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private AddressVO addressVO;
     private String inOutCd;     // 주차장소 실내/실외 타입
     private LotVO locationVo;
+    private boolean selectedOption = false;   //  세차 서비스 옵션 정보
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +228,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         intent.putExtra(KeyNames.KEY_NAME_CHB_KEY_TRANS_TY, keyTransferType);
         intent.putExtra(KeyNames.KEY_NAME_CHB_LOT_VO, locationVo);
         intent.putExtra(KeyNames.KEY_NAME_CHB_CONTENTS_VO, resVO);
+        intent.putExtra(KeyNames.KEY_NAME_CHB_SELECTED_OPTION, selectedOption);
 
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -248,7 +252,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && result.data.getDailyBookingSlotList() != null && result.data.getDailyBookingSlotList().size() > 0) {
-                        selectCalendar(result.data.getDailyBookingSlotList());
+                        selectCalendar(result.data);
                         break;
                     }
                 default:
@@ -421,18 +425,24 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     }
 
     /**
-     * 예약 희망일 선택 달력
+     * 예약 희망일/옵션 선택 달력
      *
-     * @param list
+     * @param data
      */
-    private void selectCalendar(List<BookingDateVO> list) {
+    private void selectCalendar(CHB_1008.Response data) {
+
+        List<BookingDateVO> list = data.getDailyBookingSlotList();
+
         clearKeypad();
         DialogCalendarChargeBtr dialogCalendar = new DialogCalendarChargeBtr(this, R.style.BottomSheetDialogTheme, onSingleClickListener);
         dialogCalendar.setOnDismissListener(dialogInterface -> {
             Calendar calendar = dialogCalendar.calendar;
-            if(calendar!=null){
-                rsvtDate = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
-                rsvtDate += dialogCalendar.getSelectBookingTime();
+            if (calendar != null) {
+                this.rsvtDate = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+                this.rsvtDate += dialogCalendar.getSelectBookingTime();
+
+                this.selectedOption = dialogCalendar.getOptionChecked();
+
                 checkValidRsvtHopeDt();
             }
         });
@@ -447,8 +457,20 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         dialogCalendar.setCalendarMinimum(minCalendar);
         dialogCalendar.setCalendarMaximum(maxCalendar);
         dialogCalendar.setBookingDateVOList(list);
+
+        // 옵션 정보
+        if (data.getOptionList() != null && data.getOptionList().size() > 0) {
+            for (OptionVO vo : data.getOptionList()) {
+                if (StringUtil.isValidString(vo.getOptionCode()).equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2)) {
+                    dialogCalendar.setOptionVO(vo);
+                    break;
+                }
+            }
+        }
+
         if(!TextUtils.isEmpty(rsvtDate) && rsvtDate.length() > 8)
             dialogCalendar.setSelectBookingDay(rsvtDate.substring(0, 8));
+        dialogCalendar.setOptionChecked(this.selectedOption);
         dialogCalendar.setRemoveWeekends(true);
         dialogCalendar.show();
 
@@ -584,7 +606,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
      */
     private boolean checkValidRsvtHopeDt() {
         if(TextUtils.isEmpty(rsvtDate)){
-            ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_01_16);
+            ui.tvRsvtHopeDt.setText(R.string.service_charge_btr_txt_06);
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
             ui.tvTitleRsvtHopeDt.setVisibility(View.GONE);
@@ -593,13 +615,30 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             ui.tvErrorRsvtHopeDt.setText(R.string.service_charge_btr_err_03);
             return false;
         }else{
-            ui.tvRsvtHopeDt.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtDate, DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
+            ui.tvRsvtHopeDt.setText(getDateOptionFormat(rsvtDate, selectedOption));
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
             ui.tvTitleRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setVisibility(View.INVISIBLE);
             return true;
         }
+    }
+
+    /**
+     * 예약 희망일/옵션 정보 표시
+     *
+     * @param date            일시
+     * @param isCheckedOption 옵션 선택 여부
+     * @return
+     */
+    private String getDateOptionFormat(String date, boolean isCheckedOption) {
+        String resultDtm = DateUtil.getDate(DateUtil.getDefaultDateFormat(date, DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm);
+        String targetTxt = " / " + getString(R.string.service_charge_btr_word_34);
+
+        if (isCheckedOption)
+            resultDtm += targetTxt;
+
+        return resultDtm;
     }
 
     private boolean isValid(){

@@ -24,9 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceChargeBtrResultBinding> {
 
-    @Inject
-    public LoginInfoDTO loginInfoDTO;
-
     private String carNo;
     private String rsvtDate;
     private String address;

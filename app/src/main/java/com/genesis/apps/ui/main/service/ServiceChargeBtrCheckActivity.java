@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -65,6 +66,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     private String keyTransferType;    // 차량 키 전달 방식
     private LotVO lotVO;        // 위치 정보
     private PaymtCardVO selectedCardVo; // 결제 카드 정보
+    private boolean selectedOption; // 세차 서비스 옵션 선택 여부
+    private OptionVO carwashVO; //  세차 서비스 옵션 정보
 
     private String userAgentString = null;
 
@@ -89,7 +92,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         }
 
         ui.setData(contentsVO);
-        ui.setRsvtDt(rsvtDate);
+        setRsvtDateOptionInfo(rsvtDate, selectedOption);
 
         setLayoutPriceItem();
         setLayoutCardItem();
@@ -99,43 +102,56 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
      * 가격 정보들 표시
      */
     private void setLayoutPriceItem() {
+
         if(contentsVO == null)
             return;
 
-
         // 충전 금액 표시
-        ui.tvChargePaymt.setText(StringUtil.getPriceString(contentsVO.getProductPrice()));
-        ui.tvChargePaymt.setTag(contentsVO.getProductPrice());
+        ui.tvChargePrice.setContent(StringUtil.getPriceString(contentsVO.getProductPrice()));
+        ui.tvChargePrice.lWhole.setTag(contentsVO.getProductPrice());
         // 충전 크레딧 포인트 정보 표시
         setLayoutCreditPoint();
         // 탁송금액 표시
         int deliverPrice = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, contentsVO.getOptionList()).getOptionPrice();
-        ui.tvDeliveryPaymt.setText(StringUtil.getPriceString(deliverPrice));
-        ui.tvDeliveryPaymt.setTag(deliverPrice);
+        ui.tvDeliveryPrice.setContent(StringUtil.getPriceString(deliverPrice));
+        ui.tvDeliveryPrice.lWhole.setTag(deliverPrice);
+
         // 세차금액 표시
-        OptionVO carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList());
-        if(carwashVO != null) {
-            ui.lCarwashPaymtInfo.setVisibility(View.VISIBLE);
-            int carwashPrice = carwashVO.getOptionPrice();
-            ui.tvCarwashPaymt.setText(StringUtil.getPriceString(carwashPrice));
-            ui.tvCarwashPaymt.setTag(carwashPrice);
-            ui.tvCarwashPrice.setText(StringUtil.getPriceString(carwashPrice));
-        } else {
-            ui.lCarwashPaymtInfo.setVisibility(View.GONE);
-        }
+        this.carwashVO = chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList());
 
         updateSvcPaymt();
+    }
+
+    /**
+     * 세차 서비스 옵션 표시
+     */
+    private void updateOptionInfo() {
+        if (carwashVO != null && selectedOption) {
+            ui.tvCarwashPrice.lWhole.setVisibility(View.VISIBLE);
+            ui.tvCarwashPrice.setContent(StringUtil.getPriceString(carwashVO.getOptionPrice()));
+        } else {
+            ui.tvCarwashPrice.lWhole.setVisibility(View.GONE);
+        }
+
+        if (ui.lCreditPointInfo.getVisibility() != View.VISIBLE) {
+            if (ui.tvCarwashPrice.lWhole.getVisibility() == View.VISIBLE) {
+                ui.tvDeliveryPrice.setHideLine(false);
+                ui.tvCarwashPrice.setHideLine(true);
+            } else ui.tvDeliveryPrice.setHideLine(true);
+        }
     }
 
     /**
      *  총 결재 금액 업데이트
      */
     private void updateSvcPaymt() {
+        updateOptionInfo();
+
         // 서비스 금액 표시(충전 금액 - 충전 크레딧 포인트 + 탁송 금액 + 세차 금액)
-        int chargePrice = (int) ui.tvChargePaymt.getTag();
-        int discountPoint = ui.lCreditPointInfo.getVisibility() == View.VISIBLE ? (int) ui.tvCreditPoint.getTag() : 0;
-        int opt1Price = (int) ui.tvDeliveryPaymt.getTag();
-        int opt2Price = ui.tvCarwashPaymt.getVisibility() == View.VISIBLE ? (int) ui.tvCarwashPaymt.getTag() : 0;
+        int chargePrice = (int) ui.tvChargePrice.lWhole.getTag();
+        int discountPoint = ui.lCreditPointInfo.getVisibility() == View.VISIBLE ? (int) ui.tvCreditPoint.lWhole.getTag() : 0;
+        int opt1Price = (int) ui.tvDeliveryPrice.lWhole.getTag();
+        int opt2Price = (carwashVO != null && selectedOption) ? carwashVO.getOptionPrice() : 0;
 
         int totalPaymt = chargePrice - discountPoint + opt1Price + opt2Price;
         ui.tvSvcPaymt.setText(StringUtil.getPriceString(totalPaymt));
@@ -146,7 +162,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
      * 충전 크레딧 정보 표시
      */
     private void setLayoutCreditPoint() {
-        if(contentsVO.getStrafficInfo() == null) {
+        if (contentsVO.getStrafficInfo() == null) {
             ui.lCreditPointInfo.setVisibility(View.GONE);
             return;
         }
@@ -158,8 +174,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         }
 
         int discountPoint = creditBalance > contentsVO.getProductPrice() ? contentsVO.getProductPrice() : 0;
-        ui.tvCreditPoint.setText(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_30));
-        ui.tvCreditPoint.setTag(discountPoint);
+        ui.tvCreditPoint.setContent(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_30));
+        ui.tvCreditPoint.lWhole.setTag(discountPoint);
         ui.tvCreditPointBalance.setText(String.format(Locale.getDefault(), getString(R.string.service_charge_btr_word_41), StringUtil.getPriceString(creditBalance)));
         ui.tvCreditPointInfo.setText(String.format(getString(R.string.service_charge_btr_msg_04), StringUtil.getPriceString(contentsVO.getProductPrice())));
 
@@ -206,10 +222,10 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     ui.ivSvcPaymtPadding.setVisibility(View.GONE);
                 }
                 break;
-            case R.id.cb_carwash_option:
-                ui.tvCarwashPaymt.setVisibility(ui.cbCarwashOption.isChecked() ? View.VISIBLE : View.GONE);
-                updateSvcPaymt();
-                break;
+//            case R.id.cb_carwash_option:
+//                ui.tvCarwashPrice.lWhole.setVisibility(selectedOption ? View.VISIBLE : View.GONE);
+//                updateSvcPaymt();
+//                break;
             case R.id.btn_card_reg:
             case R.id.btn_card_mgmt:
                 // 결제수단관리 페이지로 연결(간편결제 가입/카드등록 분기 처리)
@@ -234,7 +250,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         List<OptionVO> optList = new ArrayList<>();
         optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_1, contentsVO.getOptionList()).getOptionCode(), 1));
 
-        if(ui.cbCarwashOption.isChecked())
+        if(selectedOption)
             optList.add(new OptionVO(chbViewModel.getOptionVO(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2, contentsVO.getOptionList()).getOptionCode(), 1));
 
         int membershipUsePoint = 0;
@@ -285,7 +301,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && result.data.getDailyBookingSlotList() != null && result.data.getDailyBookingSlotList().size() > 0) {
-                        selectCalendar(result.data.getDailyBookingSlotList());
+                        selectCalendar(result.data);
                         break;
                     }
                 default:
@@ -421,6 +437,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             keyTransferType = getIntent().getStringExtra(KeyNames.KEY_NAME_CHB_KEY_TRANS_TY);
             lotVO = (LotVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_CHB_LOT_VO);
             contentsVO = (CHB_1009.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_CHB_CONTENTS_VO);
+            selectedOption = getIntent().getBooleanExtra(KeyNames.KEY_NAME_CHB_SELECTED_OPTION,  false);
         } catch (Exception e) {
 
         }
@@ -511,27 +528,38 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
     }
 
     /**
-     * 예약 희망일 선택 팝업 호출
+     * 예약 희망일/옵션 선택 팝업 호출
      *
-     * @param list
+     * @param data
      */
-    private void selectCalendar(List<BookingDateVO> list) {
+    private void selectCalendar(CHB_1008.Response data) {
+
+        List<BookingDateVO> list = data.getDailyBookingSlotList();
+
         DialogCalendarChargeBtr dialogCalendar = new DialogCalendarChargeBtr(this, R.style.BottomSheetDialogTheme, onSingleClickListener);
         dialogCalendar.setOnDismissListener(dialogInterface -> {
             Calendar calendar = dialogCalendar.calendar;
             if (calendar != null) {
-                rsvtDate = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
-                rsvtDate += dialogCalendar.getSelectBookingTime();
+                Log.d("LJEUN", "rsvtDate : " + StringUtil.isValidString(rsvtDate));
+                String tempDate = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+                tempDate += dialogCalendar.getSelectBookingTime();
+                Log.d("LJEUN", "tempDate : " + StringUtil.isValidString(tempDate));
+                Log.d("LJEUN", "isEquals date : " + StringUtil.isValidString(rsvtDate).equalsIgnoreCase(tempDate));
 
-                ui.setRsvtDt(rsvtDate);
+                if(!StringUtil.isValidString(rsvtDate).equalsIgnoreCase(tempDate)) {
+                    // 픽업앤충전 신청 전문 요청
+                    chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
+                            mainVehicle.getVin(),
+                            mainVehicle.getMdlCd(),
+                            tempDate,
+                            lotVO
+                    ));
+                }
 
-                // 픽업앤충전 신청 전문 요청
-                chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
-                        mainVehicle.getVin(),
-                        mainVehicle.getMdlCd(),
-                        rsvtDate,
-                        lotVO
-                ));
+                // 예약 희망일/옵션 선택 정보 표시
+                setRsvtDateOptionInfo(tempDate, dialogCalendar.getOptionChecked());
+
+                updateSvcPaymt();
             }
         });
 
@@ -545,12 +573,43 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         dialogCalendar.setCalendarMinimum(minCalendar);
         dialogCalendar.setCalendarMaximum(maxCalendar);
         dialogCalendar.setBookingDateVOList(list);
+
+        // 옵션 정보
+        if (data.getOptionList() != null && data.getOptionList().size() > 0) {
+            for (OptionVO vo : data.getOptionList()) {
+                if (StringUtil.isValidString(vo.getOptionCode()).equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2)) {
+                    dialogCalendar.setOptionVO(vo);
+                    break;
+                }
+            }
+        }
+
         dialogCalendar.setSelectBookingDay(rsvtDate.substring(0, 8));
+        dialogCalendar.setOptionChecked(selectedOption);
         dialogCalendar.setRemoveWeekends(true);
         dialogCalendar.show();
 
     }
 
+    /**
+     * 예약 희망일/옵션 정보 표시
+     *
+     * @param date            일시
+     * @param isCheckedOption 옵션 선택 여부
+     */
+    private void setRsvtDateOptionInfo(String date, boolean isCheckedOption) {
+
+        String resultDtm = DateUtil.getDate(DateUtil.getDefaultDateFormat(StringUtil.isValidString(date), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm);
+
+        String targetTxt = " / " + getString(R.string.service_charge_btr_word_34);
+        if (isCheckedOption) resultDtm += targetTxt;
+
+        ui.tvRsvtHopeDt.setText(resultDtm);
+
+
+        this.rsvtDate = date;
+        this.selectedOption = isCheckedOption;
+    }
 
     @Override
     public void onBackButton() {
@@ -578,7 +637,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
             intent.putExtra(KeyNames.KEY_NAME_CHB_ADDRESS, lotVO.getAddress());
 
-            if (ui.cbCarwashOption.isChecked())
+            if (selectedOption)
                 intent.putExtra(KeyNames.KEY_NAME_CHB_OPTION_TY, VariableType.SERVICE_CHARGE_BTR_OPT_CD_2);
 
             startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
