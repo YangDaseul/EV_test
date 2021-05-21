@@ -26,6 +26,7 @@ import com.genesis.apps.databinding.FragmentDigitalWalletPaymtBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.straffic.cardemullib.CardService;
 
 public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalletPaymtBinding> {
 
@@ -52,8 +53,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // NFC로 충전기에 카드 번호 전송 TODO 실제 조회된 카드 번호로 변경 필요
-        //                sendCardInfo("0000000000000000");
+
         initViewModel();
     }
 
@@ -71,8 +71,13 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
                         // EV 충전 정보  표시
                         me.tvCreditPoint.setVisibility(StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) > 0 ? View.VISIBLE : View.GONE);
                         me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
-                        String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
-                        me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
+                        String creditCardNo = StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardNo());
+                        me.tvCreditCardNo.setText(StringRe2j.replaceAll(creditCardNo, getString(R.string.card_original), getString(R.string.card_mask)));
+
+                        // NFC로 충전기에 카드 번호 전송
+//                        if(!TextUtils.isEmpty(creditCardNo))
+//                            ((DigitalWalletActivity)getActivity()).sendCardInfo(creditCardNo);
+
                         break;
                     }
                 default:
@@ -92,6 +97,13 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        // 디지털 월렛에서 벗어날 경우 PaymentScreenChecker가 화면 밖으로 나간 것을 알게 하기 위한 인터페이스 등록
+//        CardService.setPaymentScreenChecker(disablePaymentScreenChecker);
+    }
+
+    @Override
     public void onRefresh() {
         checkNfcEnabled();
     }
@@ -101,6 +113,8 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
             boolean isNfcEnabled = DeviceUtil.checkNfcEnabled(getContext());
             if (isNfcEnabled) {
                 animSlideDown(me.lStcCard);
+                // 디지털 월렛 진입시 PaymentScreenChecker가 화면에 진입한 것을 알게 하기 위한 인터페이스 등록
+//                CardService.setPaymentScreenChecker(enablePaymentScreenChecker);
             } else {
                 // NFC OFF
                 MiddleDialog.dialogServiceRemoteTwoButton(
@@ -174,4 +188,18 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
 
         isShow = true;
     }
+
+
+
+    /**
+     * NFC구동 화면 진입 시 NFC구동 화면에서만 true를 반환하는 인터페이스.
+     */
+    private CardService.PaymentScreenChecker enablePaymentScreenChecker = () -> true;
+    /**
+     * NFC구동 화면 밖일 경우 {@link com.straffic.cardemullib.CardService.PaymentScreenChecker}가
+     * 화면을 벗어난 것을 체크할 수 있게 false를 반환하는 인터페이스
+     */
+    private CardService.PaymentScreenChecker disablePaymentScreenChecker = () -> false;
+
+
 }
