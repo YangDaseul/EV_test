@@ -59,6 +59,7 @@ class DTWViewModel extends ViewModel {
         RES_DTW_1002 = repository.RES_DTW_1002;
         RES_DTW_1003 = repository.RES_DTW_1003;
         RES_DTW_1004 = repository.RES_DTW_1004;
+        RES_DTW_1007 = repository.RES_DTW_1007;
 
         vehicleList = new MutableLiveData<>();
     }
