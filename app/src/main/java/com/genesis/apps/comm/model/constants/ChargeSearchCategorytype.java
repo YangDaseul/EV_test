@@ -17,8 +17,9 @@ public enum ChargeSearchCategorytype {
     HIGH_SPEED(R.string.sm_evss01_23, "HIGH"),
     SLOW_SPEED(R.string.sm_evss01_24, "SLOW"),
 
-    S_TRAFFIC_CRADIT_PAY(R.string.sm_evss01_26, "GCP"),
-    CAR_PAY(R.string.sm_evss01_27, "STP");
+    CREDIT_CARD(R.string.sm_evss04_06, "CRT"),
+    S_TRAFFIC_CRADIT_PAY(R.string.sm_evss01_26, "STP"),
+    CAR_PAY(R.string.sm_evss01_27, "GCP");
 
     @StringRes
     private int titleResId;

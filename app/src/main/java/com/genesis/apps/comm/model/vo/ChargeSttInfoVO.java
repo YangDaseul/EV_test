@@ -5,6 +5,8 @@ import com.genesis.apps.comm.util.QueryString;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,9 +29,13 @@ import lombok.EqualsAndHashCode;
  * @see #bcall 운영기관연락처
  * @see #reservYn 예약가능여부
  * Y:가능 N:불가
- * @see #carPayUseYn 카페이사용가능여부
- * Y:가능 N:불가
- * @see #chgPrice 충전소가격
+ * @see #payType 결제 방식
+ * GCP : 제네시스카페이
+ * STP : S-트래픽 포인트 ==> 디폴트
+ * CRT : 신용카드  ==> 디폴트
+ * ex) ["GCP", "STP", "CRT" ]
+ * 결제방식 : 에스트래픽은  신용카드와 충전크레딧은 기본적 가능
+ * 카페이는 가능여부 확인 필요
  * @see #chgrUpdDtm 충전기상태갱신시간
  * YYYYMMDDHH24MISS
  * 충전기리스트 중에서 가장 최근값으로 지정(수정시간)
@@ -81,11 +87,8 @@ class ChargeSttInfoVO extends BaseData {
     @SerializedName("reservYn")
     private String reservYn;
     @Expose
-    @SerializedName("carPayUseYn")
-    private String carPayUseYn;
-    @Expose
-    @SerializedName("chgPrice")
-    private String chgPrice;
+    @SerializedName("payType")
+    private List<String> payType;
     @Expose
     @SerializedName("chgrUpdDtm")
     private String chgrUpdDtm;
