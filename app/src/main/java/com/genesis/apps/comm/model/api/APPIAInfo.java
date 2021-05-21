@@ -315,7 +315,7 @@ public enum APPIAInfo {
     SM_EVSS03("SM_EVSS03", null, VariableType.QUICK_MENU_CODE_NONE, "주소 검색", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSS04("SM_EVSS04", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 상세정보(공통)", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    SM_EVSB01("SM_EVSB01", null, VariableType.QUICK_MENU_CODE_OV, "충전소 예약", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
+    SM_EVSB01("SM_EVSB01", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSB01_P01("SM_EVSB01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약희망일 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSB01_P02("SM_EVSB01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약완료 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
