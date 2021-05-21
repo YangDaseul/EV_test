@@ -20,6 +20,7 @@ import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.DTWViewModel;
 import com.genesis.apps.databinding.ActivityEvChargeCardPasswordBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
@@ -246,9 +247,34 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
         }
     };
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton(){
+        dialogExit();
+    }
+
+    private void dialogExit(){
+        MiddleDialog.dialogServiceRemoteTwoButton(this, R.string.pay05_psw01_p01_1, R.string.pay05_psw01_p01_2,() -> {
+            finish();
+            closeTransition();
+        }, () -> {
+
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        clearKeypad();
+    }
+
+    private void clearKeypad() {
+        ui.etHidden.clearFocus();
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 }
