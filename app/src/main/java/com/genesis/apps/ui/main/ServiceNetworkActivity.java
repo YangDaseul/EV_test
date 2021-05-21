@@ -1422,10 +1422,10 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             evBottomSelectBinding.lWhole.setVisibility(View.VISIBLE);
             evBottomSelectBinding.tvBtnRouteDetail.setTag(R.id.item, selectItemVo);
             evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getChgName());
-//            evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.get()); // TODO STC-1001의 검색 목록에 주소 정보 필요.
+            evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
             evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
             evBottomSelectBinding.tvTime.setText(selectItemVo.getUseStartTime() + "-" + selectItemVo.getUseEndTime());
-            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(selectItemVo.getChargeStatus(this), Html.FROM_HTML_MODE_COMPACT));
+            evBottomSelectBinding.tvChargeUnit.setText(Html.fromHtml(VariableType.getChargeStatus(this, new Gson().toJson(selectItemVo)), Html.FROM_HTML_MODE_COMPACT));
             if (selectItemVo.isReserve()) {
                 // 예약 가능한 상태.
                 evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
