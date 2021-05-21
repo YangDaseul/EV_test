@@ -45,20 +45,6 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         initData();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // 디지털 월렛 진입시 PaymentScreenChecker가 화면에 진입한 것을 알게 하기 위한 인터페이스 등록
-        CardService.setPaymentScreenChecker(enablePaymentScreenChecker);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // 디지털 월렛에서 벗어날 경우 PaymentScreenChecker가 화면 밖으로 나간 것을 알게 하기 위한 인터페이스 등록
-        CardService.setPaymentScreenChecker(disablePaymentScreenChecker);
-    }
-
     private void initViewpagerAdapter(int pgIndex) {
         viewpagerAdapter = new DigitalWalletViewpagerAdapter(this, PAGE_NUM);
         ui.vpContents.setAdapter(viewpagerAdapter);
@@ -206,15 +192,6 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    /**
-     * NFC구동 화면 진입 시 NFC구동 화면에서만 true를 반환하는 인터페이스.
-     */
-    private CardService.PaymentScreenChecker enablePaymentScreenChecker = () -> true;
-    /**
-     * NFC구동 화면 밖일 경우 {@link com.straffic.cardemullib.CardService.PaymentScreenChecker}가
-     * 화면을 벗어난 것을 체크할 수 있게 false를 반환하는 인터페이스
-     */
-    private CardService.PaymentScreenChecker disablePaymentScreenChecker = () -> false;
 
     /**
      * 카드 번호를 NFC로 전송하는 함수.
