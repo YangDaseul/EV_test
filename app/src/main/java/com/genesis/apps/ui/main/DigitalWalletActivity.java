@@ -190,6 +190,9 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode()) {
+            exitPage(new Intent(), ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode());
+        }
     }
 
 

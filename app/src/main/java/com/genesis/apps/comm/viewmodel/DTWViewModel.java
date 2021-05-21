@@ -175,7 +175,7 @@ class DTWViewModel extends ViewModel {
 
         if(isValidDTW1003()){
             try{
-                list.addAll(RES_DTW_1003.getValue().data.getCardInfo());
+                list.addAll(RES_DTW_1003.getValue().data.getCardList());
             }catch (Exception e){
                 list = new ArrayList<>();
             }
@@ -212,8 +212,8 @@ class DTWViewModel extends ViewModel {
 
     public PaymtCardVO getPaymtCardVO(String cardNm) {
 
-        if (isValidDTW1003() && RES_DTW_1003.getValue().data.getCardInfo() != null) {
-            for (PaymtCardVO vo : RES_DTW_1003.getValue().data.getCardInfo()) {
+        if (isValidDTW1003() && RES_DTW_1003.getValue().data.getCardList() != null) {
+            for (PaymtCardVO vo : RES_DTW_1003.getValue().data.getCardList()) {
                 if (vo.getCardName().equalsIgnoreCase(cardNm)) {
                     return vo;
                 }

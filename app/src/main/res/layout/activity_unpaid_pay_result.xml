@@ -74,7 +74,7 @@
                     android:gravity="center"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="7dp"
-                    android:text="@string/PAY04_PAY02_1"
+                    android:text="@string/pay04_pay02_1"
                     android:textColor="@color/x_000000"
                     android:textSize="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="12dp"
-                    android:text="@string/PAY04_PAY02_2"
+                    android:text="@string/pay04_pay02_2"
                     android:textColor="@color/x_000000"
                     android:textSize="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +125,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getChgEndDtm() ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)}"
-                        app:title="@{@string/PAY04_PAY02_3}" />
+                        app:title="@{@string/pay04_pay02_3}" />
 
                     <!-- "충전소" -->
                     <include
@@ -139,7 +139,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_use_dtm"
                         app:msg="@{data.getChgNm() ?? ``}"
-                        app:title="@{@string/PAY04_PAY02_4}" />
+                        app:title="@{@string/pay04_pay02_4}" />
 
                     <!-- "금액" -->
                     <include
@@ -153,7 +153,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_charge_nm"
                         app:msg="@{StringUtil.getPriceString(data.getPayAmt() ?? ``)}"
-                        app:title="@{@string/PAY04_PAY02_5}" />
+                        app:title="@{@string/pay04_pay02_5}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
