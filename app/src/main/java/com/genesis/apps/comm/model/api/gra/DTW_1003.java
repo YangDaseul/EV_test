@@ -30,7 +30,7 @@ public class DTW_1003 extends BaseData {
     /**
      * @brief DTW_1003 응답 항목
      * @see #unpayInfo  미수금 정보
-     * @see #cardInfo   결제 수단 리스트
+     * @see #cardList   결제 수단 리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -39,7 +39,7 @@ public class DTW_1003 extends BaseData {
         @SerializedName("unpayInfo")
         private UnpayInfoVO unpayInfo;
         @Expose
-        @SerializedName("cardInfo")
-        private List<PaymtCardVO> cardInfo;
+        @SerializedName("cardList")
+        private List<PaymtCardVO> cardList;
     }
 }
