@@ -108,8 +108,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     startActivitySingleTop(new Intent(ChargeFindActivity.this, ChargeStationDetailActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, chargeEptInfoVO.getSpid())
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, chargeEptInfoVO.getCsid())
-                                    .putExtra(KeyNames.KEY_NAME_LAT, lgnViewModel.getMyPosition().get(0)+"")
-                                    .putExtra(KeyNames.KEY_NAME_LOT, lgnViewModel.getMyPosition().get(1)+""),
+                                    .putExtra(KeyNames.KEY_NAME_LAT, lgnViewModel.getPositionValue().get(0)+"")
+                                    .putExtra(KeyNames.KEY_NAME_LOT, lgnViewModel.getPositionValue().get(1)+""),
                             RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                             VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
@@ -142,7 +142,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
                         showProgressDialog(false);
                         searchChargeStation(result.data.getLat(), result.data.getLon());
-                        reqMyLocation();
                         break;
                     }
                 default:
@@ -221,7 +220,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     public void onSearchMap() {
         // 충전소 찾기 지도 표시.
         Intent intent = new Intent(this, ServiceNetworkActivity.class)
-                .putExtra(KeyNames.KEY_NAME_ADDR, new AddressVO(0,0,"","","","","", lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)))
+                .putExtra(KeyNames.KEY_NAME_ADDR, new AddressVO(0,0,"","","","","", lgnViewModel.getPositionValue().get(0), lgnViewModel.getPositionValue().get(1)))
                 .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE);
         intent.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, inputChargePlaceFragment.getSearchCategoryList());
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -235,6 +234,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 reqMyLocation();
             else {
                 //현대양재사옥위치
+                lgnViewModel.setMyPosition(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                 searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
             }
         }else if(resultCode== ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode()){
@@ -295,10 +295,12 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         findMyLocation(location -> {
             showProgressDialog(false);
             if (location == null) {
+                lgnViewModel.setMyPosition(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                 searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                 return;
             }
             runOnUiThread(() -> {
+                lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
                 searchChargeStation(location.getLatitude(), location.getLongitude());
             });
 
@@ -306,7 +308,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     }
 
     private void searchChargeStation(double lat, double lot) {
-        lgnViewModel.setMyPosition(lat, lot);
+        lgnViewModel.setPosition(lat, lot);
         if(lat==VariableType.DEFAULT_POSITION[0]&&lot==VariableType.DEFAULT_POSITION[1]){
             inputChargePlaceFragment.setGuideErrorMsg();
         }

@@ -99,8 +99,11 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                         me.lEmpty.lWhole.setVisibility(View.VISIBLE);
                     }
 
-                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005")){
+                        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(false);
+                        //조회된 정보가 없을 경우 에러메시지 출력하지 않음
                         return;
+                    }
 
                     if (TextUtils.isEmpty(serverMsg)) {
                         serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);

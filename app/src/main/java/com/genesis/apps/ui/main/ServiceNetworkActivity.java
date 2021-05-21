@@ -883,7 +883,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     @Override
     public void onAddressSelected(AddressVO selectedAddr) {
-        lgnViewModel.setMyPosition(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
+        lgnViewModel.setPosition(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
         reqSearchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon(), searchCategoryList);
     }
 
