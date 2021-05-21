@@ -452,6 +452,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     }
 
     private void searchChargeStation(double lat, double lot) {
+        lgnViewModel.setPosition(lat, lot);
         if (lat == VariableType.DEFAULT_POSITION[0] && lot == VariableType.DEFAULT_POSITION[1]) {
             inputChargePlaceFragment.setGuideErrorMsg();
         }
