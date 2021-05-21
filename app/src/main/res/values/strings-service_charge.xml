@@ -26,6 +26,7 @@
 
     <string name="sm_evsb01_1">충전소 예약</string>
     <string name="sm_evsb01_2">최근 예약 충전소</string>
+    <string name="sm_evsb01_3">예약내역</string>
     <string name="sm_evsb01_p02_1">충전소 예약이\n완료되었습니다.</string>
     <string name="sm_evsb01_p02_2">예약 정보</string>
     <string name="sm_evsb01_p02_3">예약일시</string>

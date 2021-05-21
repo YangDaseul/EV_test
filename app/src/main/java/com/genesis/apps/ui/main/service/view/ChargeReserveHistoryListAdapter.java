@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.databinding.ItemChargeReserveHistoryPlaceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
+import com.google.gson.Gson;
 
 /**
  * Class Name : ChargePlaceListAdapter
@@ -51,7 +53,8 @@ public class ChargeReserveHistoryListAdapter extends BaseRecyclerViewAdapter2<Re
             binding.tvDist.setText(item.getDist() + "km");
             binding.lWhole.setTag(item);
             binding.tvBtnRouteDetail.setTag(R.id.item, item);
-            binding.tvChargeStatus.setText(Html.fromHtml(item.getChargeStatus(getContext()), Html.FROM_HTML_MODE_COMPACT));
+            binding.tvChargeStatus.setText(Html.fromHtml(VariableType.getChargeStatus(getContext(), new Gson().toJson(item)), Html.FROM_HTML_MODE_COMPACT));
+
             if (item.isReserve()) {
                 // 예약 가능한 상태.
                 binding.tvBookStatus.setVisibility(View.VISIBLE);

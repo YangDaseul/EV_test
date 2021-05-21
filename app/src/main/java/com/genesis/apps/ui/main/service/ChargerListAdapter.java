@@ -80,7 +80,7 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
                 type = context.getString(ChargeSearchCategorytype.SLOW_SPEED.getTitleResId());
             }
 
-            binding.tvChargerType.setText(type);
+            binding.tvChargerType.setText(type + "  | ");
 
             // 충전기 상태
             int statusTitleId = 0;
@@ -91,7 +91,7 @@ public class ChargerListAdapter extends BaseRecyclerViewAdapter2<ChargerEptVO> {
             }
 
             if (statusTitleId != 0) {
-                binding.tvChargerStatus.setText(" |  " +context.getString(statusTitleId));
+                binding.tvChargerStatus.setText(context.getString(statusTitleId));
             }
 
             // 충전 가격

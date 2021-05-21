@@ -319,22 +319,12 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     SOS_3001.Response data = sosViewModel.getRES_SOS_3001().getValue().data;
                     if (data.getChbStus() != null) {
                         if ("Y".equalsIgnoreCase(data.getChbStus().getStMbrYn())) {
-                            // 에스트레픽 회원인 경우 - 예약 항목 체크 및 화면 분기 호출
-                            if ("Y".equalsIgnoreCase(data.getReservYn())) {
-                                // 예약 항목이 있는 경우 - 예약 내역 화면으로 이동
-                                ((BaseActivity) getActivity()).startActivitySingleTop(
-                                        new Intent(getActivity(), ChargeReserveHistoryActivity.class),
-                                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-                                );
-                            } else {
-                                // 예약 항목이 없는 경우 - 충전소 예약 화면으로 이동
-                                ((BaseActivity) getActivity()).startActivitySingleTop(
-                                        new Intent(getActivity(), ChargeReserveActivity.class),
-                                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-                                );
-                            }
+                            // 에스트레픽 회원인 경우 - 충전소 예약 목록 화면으로 이동.
+                            ((BaseActivity) getActivity()).startActivitySingleTop(
+                                    new Intent(getActivity(), ChargeReserveActivity.class),
+                                    RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                    VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                            );
                         } else {
                             // 에스트래픽 회원이 아닌 경우 - 서비스 가입 안내 팝업 출력
                             MiddleDialog.dialogAbnormal(getActivity(), getString(R.string.sm_evsb01_p03_1), getString(R.string.sm_evsb01_p03_2), () -> {});

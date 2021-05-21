@@ -23,6 +23,25 @@
             app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/sm_evsb01_1}" />
 
+        <!--예약 내역 버튼-->
+        <TextView
+            android:id="@+id/tv_btn_reserve_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ripple_bg_trans_underline_000000"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="bottom"
+            android:includeFontPadding="false"
+            android:onClick="@{view -> activity.onSingleClickListener.onSingleClick(view)}"
+            android:paddingBottom="2dp"
+            android:text="@string/sm_evsb01_3"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/l_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/l_title" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/vg_nsv"
             android:layout_width="0dp"
