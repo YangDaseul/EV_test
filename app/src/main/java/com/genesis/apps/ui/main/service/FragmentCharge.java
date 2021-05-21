@@ -265,8 +265,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     }
 
     @Override
-    public void onClickCommon(final View v) {
-        int id = v.getId();
+    public void onClickCommon(final View view) {
+        int id = view.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
         try {
             if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
@@ -288,17 +288,17 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 @Override
                 public void onSingleClick(View v) {
                     setSimplePayInfo((Boolean)v.getTag(R.id.item));
-                    onEvent(id,v);
+                    onEvent(id,view);
                 }
             });
             return;
         }
 
 
-        onEvent(id,v);
+        onEvent(id,view);
     }
 
-    private void onEvent(int id, View v) {
+    private void onEvent(final int id, final View v) {
         String title = "";
         switch (id) {
             //약관 내용 보기 버튼
