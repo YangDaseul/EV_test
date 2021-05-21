@@ -503,7 +503,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeEptInfoVO.getUseTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeEptInfoVO.getSpnm()));
 
-        List<String> payTypes = chargeStcInfoVO.getPayType();
+        List<String> payTypes = chargeEptInfoVO.getPayType();
         StringBuilder payStringBuilder = new StringBuilder();
         if(payTypes != null && payTypes.size() > 0) {
             if(payTypes.contains(ChargeSearchCategorytype.CREDIT_CARD.getCode())) {
