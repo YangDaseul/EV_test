@@ -98,9 +98,10 @@
         
         <ImageView
             android:id="@+id/iv_location"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
+            android:src="@drawable/img_charging"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_guide_location"
             app:layout_constraintBottom_toBottomOf="@+id/tv_guide_location"/>
