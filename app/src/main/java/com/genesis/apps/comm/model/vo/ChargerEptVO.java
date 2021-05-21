@@ -35,11 +35,6 @@ import lombok.EqualsAndHashCode;
  * 환경부-기관ID = 'ST' (s-트래픽) 인경우에 'Y'
  * 그 외는 'N'
  * - S트래픽인 아닌경우는 화면에 표시하지 않음
- * @see #payType 결제방식
- * GCP : 제네시스카페이
- * STP : S-트래픽 포인트
- * CRT : 신용카드  ==> 디폴트
- * ex) ["GCP", "STP", "CRT" ]
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -66,7 +61,4 @@ class ChargerEptVO extends BaseData {
     @Expose
     @SerializedName("reservYn")
     private String reservYn;
-    @Expose
-    @SerializedName("payType")
-    private String[] payType;
 } // end of class ChargerEptVO

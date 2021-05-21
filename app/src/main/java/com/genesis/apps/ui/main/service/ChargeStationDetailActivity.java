@@ -14,6 +14,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.EPT_1002;
 import com.genesis.apps.comm.model.api.gra.EPT_1003;
 import com.genesis.apps.comm.model.api.gra.STC_1002;
+import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -427,14 +428,24 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeStcInfoVO.getUseStartTime() + "-" + chargeStcInfoVO.getUseEndTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
+        List<String> payTypes = chargeStcInfoVO.getPayType();
         StringBuilder payStringBuilder = new StringBuilder();
-        // 신용카드 고정 노출
-        payStringBuilder.append(getString(R.string.sm_evss04_06));
-        // TODO 충전크래딧 지원 여부 데이터가 필요.
-        if ("Y".equalsIgnoreCase(chargeStcInfoVO.getCarPayUseYn())) {
-            // 카페이 지원할 경우 항목 추가.
-            payStringBuilder.append("\n")
-                    .append(getString(R.string.sm_evss04_08));
+        if(payTypes != null && payTypes.size() > 0) {
+            if(payTypes.contains(ChargeSearchCategorytype.CREDIT_CARD.getCode())) {
+                payStringBuilder.append(getString(R.string.sm_evss04_06));
+            }
+            if(payTypes.contains(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY.getCode())) {
+                if(payStringBuilder.length() > 0) {
+                    payStringBuilder.append("\n");
+                }
+                payStringBuilder.append(getString(R.string.sm_evss04_07));
+            }
+            if(payTypes.contains(ChargeSearchCategorytype.CAR_PAY.getCode())) {
+                if(payStringBuilder.length() > 0) {
+                    payStringBuilder.append("\n");
+                }
+                payStringBuilder.append(getString(R.string.sm_evss04_08));
+            }
         }
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
 
@@ -492,14 +503,24 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.TIME, chargeEptInfoVO.getUseTime()));
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeEptInfoVO.getSpnm()));
 
+        List<String> payTypes = chargeStcInfoVO.getPayType();
         StringBuilder payStringBuilder = new StringBuilder();
-        // 신용카드 고정 노출
-        payStringBuilder.append(getString(R.string.sm_evss04_06));
-        // TODO 충전크래딧 지원 여부 데이터가 필요.
-        if ("Y".equalsIgnoreCase(chargeEptInfoVO.getGcpYn())) {
-            // 카페이 지원할 경우 항목 추가.
-            payStringBuilder.append("\n")
-                    .append(getString(R.string.sm_evss04_08));
+        if(payTypes != null && payTypes.size() > 0) {
+            if(payTypes.contains(ChargeSearchCategorytype.CREDIT_CARD.getCode())) {
+                payStringBuilder.append(getString(R.string.sm_evss04_06));
+            }
+            if(payTypes.contains(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY.getCode())) {
+                if(payStringBuilder.length() > 0) {
+                    payStringBuilder.append("\n");
+                }
+                payStringBuilder.append(getString(R.string.sm_evss04_07));
+            }
+            if(payTypes.contains(ChargeSearchCategorytype.CAR_PAY.getCode())) {
+                if(payStringBuilder.length() > 0) {
+                    payStringBuilder.append("\n");
+                }
+                payStringBuilder.append(getString(R.string.sm_evss04_08));
+            }
         }
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
 

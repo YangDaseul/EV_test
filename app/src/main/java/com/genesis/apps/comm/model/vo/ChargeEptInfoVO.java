@@ -9,6 +9,8 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,10 +42,16 @@ import lombok.EqualsAndHashCode;
  * @see #reservYn 예약가능여부
  * 환경부-기관ID = 'ST' (s-트래픽) 인경우에 'Y'
  * 그 외는 'N'
- * @see #gcpYn 카페이지원여부
- * Y: 카페이지원 N:카페이미지원
  * @see #genYn 제네시스전용충전소여부
  * Y: 제네시스전용충전소 N:제네시스전용충전소아님
+ * @see #payType 결제방식
+ * GCP : 제네시스카페이
+ * STP : S-트래픽 포인트
+ * CRT : 신용카드  ==> 디폴트
+ * ex) ["GCP", "STP", "CRT" ]
+ * 에스트래픽 :  신용카드, 충전크레딧은 디폴드
+ * 에스트래픽 외 : 신용카드 디폴트
+ * 제네시스카페이는 옵션
  * @see #chgrUpdDtm 충전기상태갱신시간
  * YYYYMMDDHH24MISS
  * 충전기리스트 중에서 가장 최근값으로 지정
@@ -104,11 +112,11 @@ class ChargeEptInfoVO extends BaseData {
     @SerializedName("reservYn")
     private String reservYn;
     @Expose
-    @SerializedName("gcpYn")
-    private String gcpYn;
-    @Expose
     @SerializedName("genYn")
     private String genYn;
+    @Expose
+    @SerializedName("payType")
+    private List<String> payType;
     @Expose
     @SerializedName("chgrUpdDtm")
     private String chgrUpdDtm;
