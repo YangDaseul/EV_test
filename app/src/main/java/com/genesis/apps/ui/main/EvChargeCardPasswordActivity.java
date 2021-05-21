@@ -52,6 +52,8 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
         ivList = new ImageView[]{ui.ivInput1, ui.ivInput2, ui.ivInput3, ui.ivInput4};
         ui.etHidden.addTextChangedListener(textWatcher);
         setView(STEP_2_1);
+
+        SoftKeyboardUtil.showKeyboard(this);
     }
 
     private void initData() {
@@ -141,7 +143,8 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
             case STEP_2_1:
                 ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
-                ui.tvMsg1.setText(R.string.mg_member03_4);
+                ui.lTitle.setValue(getString(R.string.pay05_psw01_1));
+                ui.tvMsg1.setText(R.string.pay05_psw01_2);
                 ui.ivInput1.setImageResource(R.drawable.ic_password);
                 ui.ivInput2.setImageResource(R.drawable.ic_password);
                 ui.ivInput3.setImageResource(R.drawable.ic_password);
@@ -151,7 +154,8 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
             case STEP_2_2:
                 ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
-                ui.tvMsg1.setText(R.string.mg_member03_5);
+                ui.lTitle.setValue(getString(R.string.pay05_psw02_1));
+                ui.tvMsg1.setText(R.string.pay05_psw02_2);
                 ui.ivInput1.setImageResource(R.drawable.ic_password);
                 ui.ivInput2.setImageResource(R.drawable.ic_password);
                 ui.ivInput3.setImageResource(R.drawable.ic_password);
@@ -161,12 +165,13 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
             case STEP_2_3:
                 ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
-                ui.tvMsg1.setText(R.string.mg_member03_4);
+                ui.lTitle.setValue(getString(R.string.pay05_psw01_1));
+                ui.tvMsg1.setText(R.string.pay05_psw01_2);
                 ui.ivInput1.setImageResource(R.drawable.ic_password_error);
                 ui.ivInput2.setImageResource(R.drawable.ic_password_error);
                 ui.ivInput3.setImageResource(R.drawable.ic_password_error);
                 ui.ivInput4.setImageResource(R.drawable.ic_password_error);
-                ui.tvMsgError.setText(R.string.mg_member03_6);
+                ui.tvMsgError.setText(R.string.pay05_psw02_p01_3);
                 VibratorUtil.makeMeShake(ui.tvMsgError, 20, 5);
                 break;
             default:
@@ -204,6 +209,7 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
                     case STEP_2_2:
                         if (newPwd.equalsIgnoreCase(charSequence.toString())) {
                             //신규비밀번호가 일치하는 경우
+                            SoftKeyboardUtil.hideKeyboard(EvChargeCardPasswordActivity.this, getWindow().getDecorView().getWindowToken());
                             dtwViewModel.reqDTW1002(new DTW_1002.Request(APPIAInfo.PAY05_PSW01.getId(), mainVehicle.getVin(), newPwd));
                             break;
                         } else {
@@ -239,4 +245,10 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
 
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+    }
 }
