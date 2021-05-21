@@ -142,7 +142,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
                         showProgressDialog(false);
                         searchChargeStation(result.data.getLat(), result.data.getLon());
-                        reqMyLocation();
                         break;
                     }
                 default:
