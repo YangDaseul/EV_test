@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--날짜-->
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/x_f8f8f8"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:textColor="@color/x_000000"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_title"
+            tools:text="2021.03.25(목)" />
+
+        <!--안내 문구-->
+        <TextView
+            android:id="@+id/tv_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/mark_666666"
+            android:drawablePadding="6dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:text="@string/sm_evsb01_p01_2"
+            android:textColor="@color/x_666666"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="@id/tv_date"
+            app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+        <!--예약 시간 타이틀-->
+        <TextView
+            android:id="@+id/tv_reserve_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:text="@string/sm_evsb01_p01_3"
+            android:textColor="@color/x_262626"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@id/tv_guide"
+            app:layout_constraintTop_toBottomOf="@id/tv_guide" />
+
+        <!--오전 오후-->
+        <RadioGroup
+            android:id="@+id/rg_am_pm"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reserve_time_title">
+
+            <RadioButton
+                android:id="@+id/rb_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_bg_00000000_757575_996449"
+                android:button="@null"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:text="@string/sm_evsb01_p01_4"
+                android:textColor="@drawable/selector_txt_757575_ffffff"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/rb_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_bg_00000000_757575_996449"
+                android:button="@null"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:text="@string/sm_evsb01_p01_5"
+                android:textColor="@drawable/selector_txt_757575_ffffff"
+                android:textSize="14dp" />
+        </RadioGroup>
+
+        <View
+            android:id="@+id/line0"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_am_pm" />
+
+        <!--시간 목록-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line0" />
+
+        <!--예약하기 버튼-->
+        <TextView
+            android:id="@+id/tv_btn_reserve"
+            style="@style/BigBtn.Black"
+            android:layout_marginTop="30dp"
+            android:text="@string/sm_evsb01_p01_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_time" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

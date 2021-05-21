@@ -27,6 +27,13 @@
     <string name="sm_evsb01_1">충전소 예약</string>
     <string name="sm_evsb01_2">최근 예약 충전소</string>
     <string name="sm_evsb01_3">예약내역</string>
+    <string name="sm_evsb01_p01_1">예약 희망일 선택</string>
+    <string name="sm_evsb01_p01_2">충전소 예약은 당일만 가능합니다.</string>
+    <string name="sm_evsb01_p01_3">예약 시간</string>
+    <string name="sm_evsb01_p01_4">오전</string>
+    <string name="sm_evsb01_p01_5">오후</string>
+    <string name="sm_evsb01_p01_6">예약하기</string>
+    <string name="sm_evsb01_p01_7">예약 가능한 날짜가 없습니다.</string>
     <string name="sm_evsb01_p02_1">충전소 예약이\n완료되었습니다.</string>
     <string name="sm_evsb01_p02_2">예약 정보</string>
     <string name="sm_evsb01_p02_3">예약일시</string>
@@ -74,6 +81,8 @@
     <string name="sm_evss04_18">사용중</string>
     <string name="sm_evss04_19">리뷰</string>
     <string name="sm_evss04_20"><![CDATA[%s%s<font color="#666666">%s</font>]]></string>
-
+    <string name="sm_evss04_21">취소가 완료되었습니다.</string>
+    <string name="sm_evss04_p01_1">안내</string>
+    <string name="sm_evss04_p01_2">선택하신 날짜에 예약된 정보가 있습니다.\n예약 시간 변경은 취소 후 가능합니다.\n\n이전 예약을 취소하시겠습니까?</string>
 
 </resources>

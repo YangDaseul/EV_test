@@ -57,11 +57,15 @@ public class STC_1003 extends BaseData {
 
     /**
      * @brief STC_1003 응답 항목
+     * @see #reservNo 예약번호(예약되어 있는 경우 데이터가 존재.)
      * @see #reservDtList 예약시간목록
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        @Expose
+        @SerializedName("reservNo")
+        private String reservNo;
         @Expose
         @SerializedName("reservDtList")
         private List<ReserveDtVO> reservDtList;

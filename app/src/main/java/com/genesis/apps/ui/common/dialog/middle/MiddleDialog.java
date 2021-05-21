@@ -109,6 +109,27 @@ public class MiddleDialog {
         );
     }
 
+    /**
+     *
+     * @param activity
+     * @param ok
+     * @brief 에스트레픽 서비스 가입 안내 팝업
+     */
+    public static void dialogNeedRegistSTC(@NonNull Activity activity, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        R.string.sm_evsb01_p03_1,
+                        R.string.sm_evsb01_p03_2,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
     public static void dialogEVServiceInfo(@NonNull Activity activity, Runnable ok) {
         if (activity.isFinishing()) {
             return;
@@ -443,6 +464,28 @@ public class MiddleDialog {
                         cancel,
                         R.string.sm_evsb02_p01_1,
                         R.string.sm_evsb02_p01_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    /**
+     * @biref 충전소 예약 취소 팝업(충전소 상세 화면)
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogChargeReserveCancelFromDetail(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_evss04_p01_1,
+                        R.string.sm_evss04_p01_2,
                         R.string.dialog_common_1,
                         R.string.dialog_common_2
                 ).show()
