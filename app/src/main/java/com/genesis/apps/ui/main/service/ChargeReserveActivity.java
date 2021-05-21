@@ -106,6 +106,15 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     public void onClickCommon(View v) {
         Object tag = v.getTag();
         switch (v.getId()) {
+            case R.id.tv_btn_reserve_history: {
+                // 예약 내역 버튼 - 예약 내역 화면으로 이동.
+                startActivitySingleTop(
+                        new Intent(ChargeReserveActivity.this, ChargeReserveHistoryActivity.class),
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                );
+                break;
+            }
             case R.id.tv_btn_reserve_history_title: {
                 openReserveHistoryList(!v.isSelected());
                 break;
