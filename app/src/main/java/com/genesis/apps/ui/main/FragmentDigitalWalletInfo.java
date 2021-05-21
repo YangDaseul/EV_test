@@ -179,7 +179,7 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
         ValueAnimator downAni = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, targetHeight);
         ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 1.0f);
 
-        slideDownAniSet.playTogether(downAni, alphaAni);
+        slideDownAniSet.play(downAni);
         slideDownAniSet.setDuration(400);
 
         slideDownAniSet.start();
@@ -191,7 +191,7 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
         ValueAnimator upAni = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0);
         ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 0.7f);
 
-        slideUpAniSet.playTogether(upAni, alphaAni);
+        slideUpAniSet.play(upAni);
         slideUpAniSet.setDuration(400);
 
         slideUpAniSet.start();
