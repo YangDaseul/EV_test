@@ -266,6 +266,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         public void onPageFinished(String url) {
             Log.d(TAG, "onPageFinished:" + url);
             if (url.startsWith("about:blank")) exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
+            if (url.contains("/api/v1/dkc/carlife/c/payment/redirect/")) finish();
             if (isClearHistory) {
                 clearHistory();
                 setClearHistory(false);
@@ -286,8 +287,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         @Override
         public void onCloseWindow(WebView window) {
             Log.d(TAG, "onCloseWindow:" + url);
-            setResult(Activity.RESULT_OK);
-            finish();
+            exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
         }
     };
 
