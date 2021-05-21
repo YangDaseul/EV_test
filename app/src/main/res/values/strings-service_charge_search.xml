@@ -16,7 +16,7 @@
     <string name="sm_evss01_08_1"><![CDATA[<font color="#996449">현대자동차 본사</font> 기준<br/>제네시스 커넥티드 서비스 가입 후<br/>내 차 위치 기준 검색 가능]]></string>
     <string name="sm_evss01_09"><![CDATA[<font color="#996449">원하시는 위치</font>로<br/>]]>충전소를 검색하세요.</string>
     <string name="sm_evss01_10">충전소 목록</string>
-    <string name="sm_evss01_12">상세 경로보기</string>
+    <string name="sm_evss01_12">내 차로 경로 전송</string>
     <string name="sm_evss01_13">자세히 보기</string>
     <string name="sm_evss01_14">건물명, 주소를 검색해 보세요.</string>
     <string name="sm_evss01_15">예약가능 충전소</string>
