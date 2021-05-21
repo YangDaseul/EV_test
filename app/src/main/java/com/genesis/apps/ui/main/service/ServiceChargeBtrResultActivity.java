@@ -42,7 +42,7 @@ public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceC
     private void initView() {
         ui.lCarRegNo.setMsg(StringUtil.isValidString(data.getCarNo()));
         ui.lReserveDtm.setMsg(DateUtil.getDate(DateUtil.getDefaultDateFormat(StringUtil.isValidString(data.getBookingDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
-        ui.lPickupAddr.setMsg(StringUtil.isValidString(data.getAddress()) + StringUtil.isValidString(data.getAddressDetail()));
+        ui.lPickupAddr.setMsg(StringUtil.isValidString(data.getAddress()) + " " + StringUtil.isValidString(data.getAddressDetail()));
         ui.lReserveInfo.setMsg(StringUtil.isValidString(data.getSvcNm()));
     }
 

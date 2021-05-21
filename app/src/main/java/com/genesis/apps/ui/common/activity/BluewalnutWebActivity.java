@@ -191,7 +191,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         try {
             if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
                 super.onBackPressed();
-                exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode());
+                exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
             }
         } catch (Exception e) {
             super.onBackPressed();
@@ -265,7 +265,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         @Override
         public void onPageFinished(String url) {
             Log.d(TAG, "onPageFinished:" + url);
-            if (url.startsWith("about:blank")) finish();
+            if (url.startsWith("about:blank")) exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
             if (isClearHistory) {
                 clearHistory();
                 setClearHistory(false);
@@ -302,16 +302,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
     public boolean parseURL(String url) {
         Uri uri = Uri.parse(url);
         Log.d(TAG, "parseURL : " + url);
-        if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
-            exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
-            return true;
-        } else if (url.equalsIgnoreCase(closeUrl)) {
-            exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FAIL.getCode());
-            return true;
-        } else if (url.equalsIgnoreCase(redirectUrl) || url.contains("/api/v1/dkc/carlife/c/payment/redirect/")) {
-            exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_SUCC.getCode());
-            return true;
-        } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
+        if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
             Intent intent;
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
