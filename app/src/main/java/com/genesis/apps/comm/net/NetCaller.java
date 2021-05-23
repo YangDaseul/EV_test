@@ -123,8 +123,6 @@ public class NetCaller {
                     default:
                         break;
                 }
-                Log.d("FID", "test :: 11 :: serverUrl=" + serverUrl);
-                Log.d("FID", "test :: 11 :: token=" + ga.getAccessToken());
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
                     setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());

@@ -149,7 +149,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
     public void setObserver() {
         // 결제 수단 조회 Observe 등록.
         chbViewModel.getRES_CHB_1015().observe(this, (result) -> {
-            Log.d("FID", "test :: RES_CHB_1015 :: status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -157,7 +156,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                 }
                 case SUCCESS: {
                     showProgressDialog(false);
-                    Log.d("FID", "test :: RES_CHB_1015 :: data=" + result.data);
                     if (result.data != null) {
                         if(StringUtil.isValidString(result.data.getSignInYN()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
                             updateCardList(result.data.getCardList());
@@ -188,7 +186,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
         // 주카드 등록 Observe 등록.
         chbViewModel.getRES_CHB_1016().observe(this, (result) -> {
-            Log.d("FID", "test :: RES_CHB_1016 :: status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -225,7 +222,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
         // 결제수단 삭제 Observe 등록.
         chbViewModel.getRES_CHB_1017().observe(this, (result) -> {
-            Log.d("FID", "test :: RES_CHB_1017 :: status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -390,7 +386,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
      * @param vo 삭제할 카드 정보 데이터.
      */
     private void deleteCard(PaymtCardVO vo) {
-        Log.d("FID", "test :: deleteCard :: vo=" + vo);
 
         targetDelCardId = vo.getCardId();
 
@@ -433,7 +428,6 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
      * @param vo 주사용 설정할 카드 정보 데이터.
      */
     private void setFavoritCard(PaymtCardVO vo) {
-        Log.d("FID", "test :: favoritCard :: vo=" + vo);
         chbViewModel.reqCHB1016(new CHB_1016.Request(APPIAInfo.SM_CGRV02_P01.getId(), vo.getCardId()));
     }
 } // end of class CardManageActivity

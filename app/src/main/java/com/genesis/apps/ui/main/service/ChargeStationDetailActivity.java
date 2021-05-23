@@ -143,7 +143,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         switch (v.getId()) {
             case R.id.tv_btn_reserve:
                 Object tag = v.getTag();
-                Log.d("FID", "test :: 11 :: tag=" + tag);
                 selectedSid = null;
                 selectedCid = null;
                 if (tag instanceof ChargerEptVO) {
@@ -363,7 +362,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                     showProgressDialog(false);
                     STC_1004.Response data = result.data;
                     if (data != null && "0000".equalsIgnoreCase(data.getRtCd()) && data.getReservInfo() != null) {
-                        // TODO 충전소 예약 완료 코드 추가 예정.
+                        // 충전소 예약 완료 - 충전오 예약 내역으로 이동.
+                        startActivitySingleTop(new Intent(ChargeStationDetailActivity.this, ChargeResultActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, data.getReservInfo()),
+                                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                         break;
                     }
                 }
@@ -759,6 +762,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         ));
     }
 
+    /**
+     * 해당 시간 정보로 충전기 예약 요청하는 함수.
+     *
+     * @param reserveDtVO 예약 시간
+     */
     private void reqReserveCharger(ReserveDtVO reserveDtVO) {
         stcViewModel.reqSTC1004(new STC_1004.Request(
                 APPIAInfo.SM_EVSS04.getId(),
