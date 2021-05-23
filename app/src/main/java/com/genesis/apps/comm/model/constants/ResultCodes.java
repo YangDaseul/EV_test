@@ -40,10 +40,11 @@ public enum ResultCodes {
     REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL(51,"픽업앤충전 예약 실패"),
 
     REQ_CODE_PAYMENT_CARD_CHANGE(60,"결제 카드 목록 변경"),
-    REQ_CODE_BLUEWALNUT_PAYMENT_SUCC(61,"블루월넛 결제 요청 성공"),
-    REQ_CODE_BLUEWALNUT_PAYMENT_FAIL(62,"블루월넛 결제 요청 실패"),
-    REQ_CODE_BLUEWALNUT_PAYMENT_FINISH(63,"블루월넛 결제 요청 종료"),
+//    REQ_CODE_BLUEWALNUT_PAYMENT_SUCC(61,"블루월넛 결제 요청 성공"),
+//    REQ_CODE_BLUEWALNUT_PAYMENT_FAIL(62,"블루월넛 결제 요청 실패"),
+    REQ_CODE_BLUEWALNUT_PAYMENT_FINISH(63,"블루월넛 결제 완료"),
     REQ_CODE_UNPAID_PAYMT_FINISH(64,"미수금 결제 완료"),
+    REQ_CODE_UNPAID_PAYMT_CANCEL(65,"미수금 결제 취소"),
 
     REQ_CODE_PAYMENT_SUCC(1001,"결제 성공"),
     REQ_CODE_PAYMENT_FAIL(1002,"결제 실패"),

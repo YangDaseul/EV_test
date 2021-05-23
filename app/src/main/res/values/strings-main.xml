@@ -253,11 +253,15 @@
     <string name="pay04_pay01_6">결제 금액</string>
     <string name="pay04_pay01_7">결제하기</string>
 
-    <string name="PAY04_PAY02_1">충전 금액이\n결제되었습니다.</string>
-    <string name="PAY04_PAY02_2">결제 정보</string>
-    <string name="PAY04_PAY02_3">사용 일시</string>
-    <string name="PAY04_PAY02_4">충전소</string>
-    <string name="PAY04_PAY02_5">금액</string>
+    <string name="pay04_pay02_1">충전 금액이\n결제되었습니다.</string>
+    <string name="pay04_pay02_2">결제 정보</string>
+    <string name="pay04_pay02_3">사용 일시</string>
+    <string name="pay04_pay02_4">충전소</string>
+    <string name="pay04_pay02_5">금액</string>
+
+
+    <string name="pay04_pay01_p01_1">종료 안내</string>
+    <string name="pay04_pay01_p01_2">아직 충전 금액 결제 신청이\n완료되지 않았습니다.\n\n신청을 종료하시겠습니까?</string>
 
     <!-- 선불 교통카드 비밀번호 등록 -->
     <string name="pay05_psw01_1">비밀번호 설정</string>

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.DTW_1003;
 import com.genesis.apps.comm.model.api.gra.DTW_1004;
 import com.genesis.apps.comm.model.api.gra.DTW_1007;
@@ -21,11 +22,13 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.comm.viewmodel.DTWViewModel;
 import com.genesis.apps.databinding.ActivityUnpaidPayRequestBinding;
 import com.genesis.apps.ui.common.activity.BluewalnutWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.service.CardManageActivity;
 
 import java.util.List;
@@ -33,6 +36,7 @@ import java.util.List;
 public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayRequestBinding> {
 
     private DTWViewModel dtwViewModel;
+    private CHBViewModel chbViewModel;
     private PaymtCardVO selectedCardVo;
 
     @Override
@@ -154,6 +158,7 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
         ui.setActivity(this);
 
         dtwViewModel = new ViewModelProvider(this).get(DTWViewModel.class);
+        chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
     }
 
     @Override
@@ -173,7 +178,7 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
 
 
                         // 결제 수단 정보 표시
-                        initLayoutCardItem(result.data.getCardInfo());
+                        initLayoutCardItem(result.data.getCardList());
                         break;
                     }
                 default:
@@ -197,15 +202,12 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getPaymentFormData() != null) {
                         showProgressDialog(false);
-                        if (result.data != null && result.data.getPaymentFormData() != null) {
-                            startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class)
-                                            .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data.getPaymentFormData())
-                                    , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                                    , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                        }
+                        startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data.getPaymentFormData())
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:
@@ -231,13 +233,11 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                     showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         showProgressDialog(false);
-                        if (result.data != null) {
-                            startActivitySingleTop(new Intent(this, UnpaidPayResultActivity.class)
-                                            .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data)
-                                    , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                                    , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                        }
+                        startActivitySingleTop(new Intent(this, UnpaidPayResultActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data)
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
                     }
                 default:
                     showProgressDialog(false);
@@ -252,6 +252,23 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                     break;
             }
         });
+
+        chbViewModel.getRES_CHB_1015().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null) {
+                        initLayoutCardItem(result.data.getCardList());
+                    }
+                    break;
+                default:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
     }
 
     @Override
@@ -261,11 +278,33 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
-            // 블루월넛 결제 화면 종료
+        if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+            // 간편결제카드 관리 변동 사항 있을 때
+            chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
+        } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
+            // 블루월넛 결제 완료 시
             dtwViewModel.reqDTW1007(new DTW_1007.Request(APPIAInfo.PAY04_PAY01.getId(), ui.getData().getPayTrxId()));
         } else if(resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_FINISH.getCode()) {
+            // 미수금 결제 완료되어 화면 종료 시
             exitPage(new Intent(), ResultCodes.REQ_CODE_UNPAID_PAYMT_FINISH.getCode());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton(){
+        dialogExit();
+    }
+
+    private void dialogExit(){
+        MiddleDialog.dialogServiceRemoteTwoButton(this, R.string.pay04_pay01_p01_1, R.string.pay04_pay01_p01_2,() -> {
+            exitPage("", ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode());
+        }, () -> {
+
+        });
     }
 }

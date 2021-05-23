@@ -133,7 +133,7 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
         for (WarrantyVO warrantyVO : warrantyVOList) {
             if (id == R.string.gm01_02_3 && warrantyVO.getType().equalsIgnoreCase("1010")) {
                 return warrantyVO.getContents();
-            } else if (id == R.string.gm01_02_4 && warrantyVO.getType().equalsIgnoreCase("1011")) {
+            } else if ((id == R.string.gm01_02_4||id == R.string.gm01_02_5) && warrantyVO.getType().equalsIgnoreCase("1011")) {
                 return warrantyVO.getContents();
             }
         }
