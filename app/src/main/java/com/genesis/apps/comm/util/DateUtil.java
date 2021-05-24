@@ -52,6 +52,7 @@ public class DateUtil {
 
     // date
     public static final String DATE_FORMAT_yyyy_mm_dd_dot = "yyyy.MM.dd"; // 1989, 3 jun
+    public static final String DATE_FORMAT_yyyy_mm_dd_dot_E = "yyyy.MM.dd(E)"; // 1989, 3 jun
     public static final String DATE_FORMAT_yyyy_MM_dd = "yyyy-MM-dd"; // 19891231
     public static final String DATE_FORMAT_yyyyMMdd = "yyyyMMdd"; // 19891231
     public static final String DATE_FORMAT_ddMMyyyy = "ddMMyyyy"; // 31121989

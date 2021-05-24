@@ -327,7 +327,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                             );
                         } else {
                             // 에스트래픽 회원이 아닌 경우 - 서비스 가입 안내 팝업 출력
-                            MiddleDialog.dialogAbnormal(getActivity(), getString(R.string.sm_evsb01_p03_1), getString(R.string.sm_evsb01_p03_2), () -> {});
+                            MiddleDialog.dialogNeedRegistSTC(getActivity(), () -> {});
                         }
                     }
                 }
