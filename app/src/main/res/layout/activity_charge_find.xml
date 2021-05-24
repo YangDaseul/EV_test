@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/x_f8f8f8">
 
         <include
             android:id="@+id/l_title"
@@ -34,7 +35,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/x_f8f8f8"
                 android:orientation="vertical">
 
                 <!--충전 잔량 및 주행가능 거리-->

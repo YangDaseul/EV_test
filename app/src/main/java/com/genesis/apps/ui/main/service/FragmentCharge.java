@@ -329,6 +329,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                             // 에스트래픽 회원이 아닌 경우 - 서비스 가입 안내 팝업 출력
                             MiddleDialog.dialogNeedRegistSTC(getActivity(), () -> {});
                         }
+                    }else{
+                        SnackBarUtil.show(getActivity(), "회원정보 조회에 오류가 발생했습니다. 고객센터로 연락 부탁 드립니다.");
                     }
                 }
                 /* 서비스 준비중 팝업

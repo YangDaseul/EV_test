@@ -176,5 +176,6 @@
     <string name="sm_evss01_p05_1">간편결제 가입 안내</string>
     <string name="sm_evss01_p05_2">보다 편리한 충전 서비스를\n이용하기 위해 간편결제\n가입 및 카드 등록을 진행하세요.\n\n등록된 카드를 통해 충전 서비스\n이용 시 빠른 결제가 가능합니다.\n\n간편결제 가입 및 카드 등록을\n진행하시겠습니까?</string>
     <string name="sm_evss01_p05_3">다시 보지 않음</string>
+    <string name="sm_evss01_p05_4">나중에 등록</string>
 
 </resources>

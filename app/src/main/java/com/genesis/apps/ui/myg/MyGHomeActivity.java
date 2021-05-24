@@ -39,6 +39,7 @@ import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
+import com.genesis.apps.ui.main.service.CardManageActivity;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
@@ -336,6 +337,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         setCallCenter();
         initFamilyApp();
         ui.tvVersion.setText("V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName())));
+        ui.lDigitalWallet.setVisibility((mainVehicle!=null&&mainVehicle.isEV()) ? View.VISIBLE : View.GONE);
     }
 
     private void initFamilyApp(){
@@ -449,6 +451,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case R.id.l_mobility_care: //혜택 쿠폰
                     startActivitySingleTop(new Intent(this, MyGCouponActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+                case R.id.l_digital_wallet: //간편결제 관리
+                    startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                     break;
                 case R.id.btn_status:
                     PrivilegeVO data = (PrivilegeVO) v.getTag(R.id.item);
