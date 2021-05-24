@@ -71,7 +71,7 @@
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
-                android:text="@string/dialog_common_1"
+                android:text="@string/sm_evss01_p05_4"
                 android:textColor="@color/x_000000"
                 android:visibility="visible"
                 android:textSize="16dp"/>
