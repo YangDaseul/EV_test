@@ -22,6 +22,7 @@ import lombok.EqualsAndHashCode;
  * @see #stcCardUseYn   선불교통카드 사용가능 여부
  * Y: 사용가능 N:사용불가
  * @see #cretPnt    잔여 크레딧 포인트
+ * @see #minCretPnt 최소 사용가능 크레딧 포인트(정책적으로 사용 가능한 크레딧 포인트 정보)
  * @see #unpayYn    미수금 여부
  * Y:미수금발생 N:미수금없음
  */
@@ -44,6 +45,9 @@ class StcMbrInfoVO extends BaseData {
     @Expose
     @SerializedName("cretPnt")
     private String cretPnt;
+    @Expose
+    @SerializedName("minCretPnt")
+    private String minCretPnt;
     @Expose
     @SerializedName("unpayYn")
     private String unpayYn;

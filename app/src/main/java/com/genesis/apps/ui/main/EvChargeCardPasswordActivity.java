@@ -210,7 +210,7 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
                     case STEP_2_2:
                         if (newPwd.equalsIgnoreCase(charSequence.toString())) {
                             //신규비밀번호가 일치하는 경우
-                            SoftKeyboardUtil.hideKeyboard(EvChargeCardPasswordActivity.this, getWindow().getDecorView().getWindowToken());
+                            clearKeypad();
                             dtwViewModel.reqDTW1002(new DTW_1002.Request(APPIAInfo.PAY05_PSW01.getId(), mainVehicle.getVin(), newPwd));
                             break;
                         } else {
@@ -260,7 +260,7 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
 
     private void dialogExit(){
         MiddleDialog.dialogServiceRemoteTwoButton(this, R.string.pay05_psw01_p01_1, R.string.pay05_psw01_p01_2,() -> {
-            SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+            clearKeypad();
             finish();
             closeTransition();
         }, () -> {
