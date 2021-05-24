@@ -295,6 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
+                    android:visibility="gone"
                     app:btnNm="@{@string/service_charge_btr_word_37}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_card_list_tit"
                     app:layout_constraintEnd_toEndOf="parent"
