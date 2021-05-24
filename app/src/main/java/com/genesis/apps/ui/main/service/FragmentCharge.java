@@ -267,6 +267,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     @Override
     public void onClickCommon(final View view) {
         int id = view.getId();
+        String title = "";
         Log.d(TAG, "onClickCommon: view id :" + id);
         try {
             if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
@@ -274,9 +275,15 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         } catch (Exception e) {
 
         }
+        try {
+            title = view.getTag().toString();
+        }catch (Exception e){
 
-        //충전소 검색 버튼이 아니고 간편결제 가입 대상인 경우
-        if(id!=R.id.btn_service_charge_search&&checkSimplePayInfo()){
+        }
+
+        if(!(id==R.id.tv_service_maintenance_btn_white&&StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11)))//찾아가기 충전 서비스 전화신청이 아니고
+                && id!=R.id.btn_service_charge_search //충전소 검색 버튼이 아니고
+                && checkSimplePayInfo()){ // 간편결제 가입 대상인 경우
             MiddleDialog.dialogServiceSimplePayInfo(getActivity(), new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
