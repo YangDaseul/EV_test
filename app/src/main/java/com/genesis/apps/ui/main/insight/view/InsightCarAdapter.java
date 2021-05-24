@@ -247,8 +247,16 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             } catch (Exception e) {
                 prvsMthAmt = "0";
             } finally {
-                if (TextUtils.isEmpty(prvsMthAmt)) prvsMthAmt = "0";
-                getBinding().tvPrvsMthAmt.setText(prvsMthAmt);
+                if (TextUtils.isEmpty(prvsMthAmt)||"0".equalsIgnoreCase(prvsMthAmt)){
+                    getBinding().tvPrvsMthAmt.setVisibility(View.GONE);
+                    getBinding().tvPrvsMthAmt1.setVisibility(View.GONE);
+                    getBinding().tvPrvsMthAmt2.setVisibility(View.GONE);
+                }else{
+                    getBinding().tvPrvsMthAmt.setText(prvsMthAmt);
+                    getBinding().tvPrvsMthAmt.setVisibility(View.VISIBLE);
+                    getBinding().tvPrvsMthAmt1.setVisibility(View.VISIBLE);
+                    getBinding().tvPrvsMthAmt2.setVisibility(View.VISIBLE);
+                }
             }
 
 //            Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal);
