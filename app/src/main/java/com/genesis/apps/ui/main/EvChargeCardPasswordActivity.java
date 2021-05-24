@@ -260,6 +260,7 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
 
     private void dialogExit(){
         MiddleDialog.dialogServiceRemoteTwoButton(this, R.string.pay05_psw01_p01_1, R.string.pay05_psw01_p01_2,() -> {
+            SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
             finish();
             closeTransition();
         }, () -> {
