@@ -85,7 +85,7 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         me.vpStatus.setAdapter(new ServiceChargeBtrStatusViewpagerAdapter(this, PAGE_NUM, result.data));
-                        setFragment(result.data.getStatus());
+                        setFragment(StringUtil.isValidString(result.data.getStatus()));
                         break;
                     }
                 default:
@@ -100,7 +100,7 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                     }
 
                     if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005")){
-                        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(false);
+                        setFragment(null);
                         //조회된 정보가 없을 경우 에러메시지 출력하지 않음
                         return;
                     }
@@ -116,24 +116,20 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
     }
 
     private void setFragment(String stusCd) {
-        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).setInit(false);
 
-        if(!TextUtils.isEmpty(stusCd)) {
-            ChargeBtrStatus status = ChargeBtrStatus.findCode(stusCd);
-            switch (status) {
-                case STATUS_1000:
-                    setStatusFragment(0);
-                    return;
-                case STATUS_2000:
-                case STATUS_3000:
-                case STATUS_4000:
-                    setStatusFragment(1);
-                    return;
-            }
+        if (ChargeBtrStatus.STATUS_1000.getStusCd().equalsIgnoreCase(stusCd) ||
+                ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(stusCd)) {
+            setStatusFragment(0);
+        } else if (ChargeBtrStatus.STATUS_2000.getStusCd().equalsIgnoreCase(stusCd) ||
+                ChargeBtrStatus.STATUS_3000.getStusCd().equalsIgnoreCase(stusCd) ||
+                ChargeBtrStatus.STATUS_4000.getStusCd().equalsIgnoreCase(stusCd)) {
+            setStatusFragment(1);
+        } else {
+            ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(false);
+            me.lEmpty.lWhole.setVisibility(View.VISIBLE);
         }
 
-        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(false);
-        me.lEmpty.lWhole.setVisibility(View.VISIBLE);
+        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).setInit(false);
     }
 
     private void setStatusFragment(int index) {
