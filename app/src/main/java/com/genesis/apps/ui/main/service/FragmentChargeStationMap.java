@@ -1,20 +1,31 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.databinding.FragmentMapBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.home.MyLocationActivity;
+import com.google.gson.Gson;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Class Name : FragmentChargeStationMap
@@ -78,18 +89,40 @@ public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
 
     @Override
     public void onClickCommon(View v) {
-
     }
 
     /****************************************************************************************************
      * Private Method
      ****************************************************************************************************/
     private void initialize() {
-        me.pmvMapView.initMap();
+        me.pmvMapView.initMap(lat, lot, DEFAULT_ZOOM);
         me.btnMyPosition.setVisibility(View.GONE);
         me.btnPosRefresh.setVisibility(View.GONE);
-        me.pmvMapView.initMap(lat, lot, DEFAULT_ZOOM);
         drawMarkerItem("station", lat, lot, R.drawable.ic_pin_carcenter);
+        new Handler().postDelayed(() -> {
+            me.pmvMapView.setClusterEnable(false);
+            me.pmvMapView.setPanEnabled(false);
+            me.pmvMapView.setNestedScrollingEnabled(false);
+            me.pmvMapView.setZoomEnabled(false);
+            me.pmvMapView.onMapTouchUpListener((motionEvent, arrayList) -> {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        try {
+                            List<Double> position = new ArrayList<>();
+                            position.add(lat);
+                            position.add(lot);
+                            ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)).putExtra(KeyNames.KEY_NAME_LOCATION_OTHERS, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        }catch (Exception ignore){
+
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            });
+        },1000);
     }
 
     /**

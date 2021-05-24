@@ -32,6 +32,7 @@ public interface KeyNames {
     String KEY_NAME_DATA_LEASINGCAR="rentStatusVO";
     String KEY_NAME_BTR_CNSL_LIST="selectCdValId";
     String KEY_NAME_VEHICLE_LOCATION="vehicleLocation";
+    String KEY_NAME_LOCATION_OTHERS="othersLocation";
     String KEY_NAME_SOS_TMP_NO="tmpAcptNo";
     String KEY_NAME_SNACKBAR="snackbar";
     String KEY_NAME_SOS_DRIVER_VO="sosdrivervo";
