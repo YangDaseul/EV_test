@@ -23,7 +23,7 @@ import com.hmns.playmap.shape.PlayMapMarker;
  * @since 2021-04-30
  */
 public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
-    private final int DEFAULT_ZOOM_WIDE = 12;
+    private final int DEFAULT_ZOOM = 17;
     private double lat;
     private double lot;
 
@@ -88,7 +88,7 @@ public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
         me.pmvMapView.initMap();
         me.btnMyPosition.setVisibility(View.GONE);
         me.btnPosRefresh.setVisibility(View.GONE);
-        me.pmvMapView.initMap(lat, lot, DEFAULT_ZOOM_WIDE);
+        me.pmvMapView.initMap(lat, lot, DEFAULT_ZOOM);
         drawMarkerItem("station", lat, lot, R.drawable.ic_pin_carcenter);
     }
 
