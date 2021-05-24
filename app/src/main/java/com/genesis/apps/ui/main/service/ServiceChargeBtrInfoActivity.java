@@ -60,7 +60,7 @@ public class ServiceChargeBtrInfoActivity extends HtmlActivity {
                             if (StringUtil.isValidString(result.data.getCont()).startsWith("http"))
                                 loadTermsUrl(result.data.getCont());
                             else
-                                loadTermsUrl(result.data.getCont());
+                                loadTerms(result.data.getCont());
                         }
 
                         showProgressDialog(false);
