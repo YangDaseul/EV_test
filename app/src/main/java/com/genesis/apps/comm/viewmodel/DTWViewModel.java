@@ -134,7 +134,8 @@ class DTWViewModel extends ViewModel {
     public boolean isStcCardUseYn() {
         return isValidDTW1001() &&
                 RES_DTW_1001.getValue().data.getStcMbrInfo() != null &&
-                StringUtil.isValidString(RES_DTW_1001.getValue().data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+                StringUtil.isValidString(RES_DTW_1001.getValue().data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
+                StringUtil.isValidInteger(RES_DTW_1001.getValue().data.getStcMbrInfo().getCretPnt()) >= StringUtil.isValidInteger(RES_DTW_1001.getValue().data.getStcMbrInfo().getMinCretPnt());
     }
 
     /**

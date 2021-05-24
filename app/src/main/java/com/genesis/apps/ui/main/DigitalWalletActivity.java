@@ -121,21 +121,27 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                 initViewpagerAdapter(0);
                                 return;
                             }
-                            // 보유 크레딧 부족한 경우(선불교통카드 사용 불가 인 경우)
-                            if (!dtwViewModel.isStcCardUseYn()) {
+                            // 보유 크레딧 부족한 경우,
+                            // EV충전카드 사용 가능 여부 체크 || 잔여 크레딧 포인트 정보 체크
+                            // cretPnt(잔여크레딧포인트) < minCretPnt(최소사용가능 크레딧포인트)
+                            // ex) 20000원(minCretPnt) 이상인 경우 크레딧 포인트 사용가능
+                            //     20000원(minCretPnt) 미만은 크레딧 사용 불가
+                            if (result.data.getStcMbrInfo() != null && !dtwViewModel.isStcCardUseYn()) {
+//                                    (!StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) < StringUtil.isValidInteger(result.data.getStcMbrInfo().getMinCretPnt()))) {
                                 // 간편 결제 가입 및 결제 카드 등록 여부 확인
                                 if (result.data.getPayInfo() != null &&
                                         (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
 
                                     // 신용카드 등록 후 서비스 이용 가능 안내 팝업 표시
-                                    MiddleDialog.dialogServiceRemoteTwoButton(
+                                    MiddleDialog.dialogCommonTwoButton(
                                             this,
                                             R.string.pay01_p03_1,
-                                            R.string.pay01_p03_2,
+                                            String.format(getString(R.string.pay01_p03_2), StringUtil.getPriceString(result.data.getStcMbrInfo().getMinCretPnt())),
                                             () -> {
                                                 // 간편결제카드 관리 페이지로 이동
                                                 startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
-                                            }, () -> {});
+                                            }, () -> {
+                                            });
 
                                     initViewpagerAdapter(0);
                                     return;
