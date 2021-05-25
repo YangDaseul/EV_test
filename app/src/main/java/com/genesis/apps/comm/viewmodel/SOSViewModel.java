@@ -297,16 +297,17 @@ class SOSViewModel extends ViewModel {
     public boolean isChbApplyYn() {
 
         if (isValidSOS3001() && RES_SOS_3001.getValue().data.getChbStus() != null) {
-            ChargeBtrStatus status = ChargeBtrStatus.findCode(StringUtil.isValidString(RES_SOS_3001.getValue().data.getChbStus().getStatus()));
-            switch (status) {
-                case STATUS_0000:
-                case STATUS_5000:
-                case STATUS_6000:
-                    return false;
+            switch (ChargeBtrStatus.findCode(StringUtil.isValidString(RES_SOS_3001.getValue().data.getChbStus().getStatus()))) {
+                case STATUS_1000:
+                case STATUS_1500:
+                case STATUS_2000:
+                case STATUS_3000:
+                case STATUS_4000:
+                    return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     // 픽업앤충전 신청 상태 정보
