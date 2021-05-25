@@ -88,10 +88,9 @@ public class STCRepo {
 
     public MutableLiveData<NetUIResponse<STC_1003.Response>> REQ_STC_1003(final STC_1003.Request reqData) {
         RES_STC_1003.setValue(NetUIResponse.loading(null));
-        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"Success\",\"reservNo\":\"\",\"reservDtList\":[{\"reservDt\":\"07:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"07:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"08:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"08:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"09:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"09:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"10:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"10:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"11:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"11:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"12:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"12:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"13:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"13:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"14:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"14:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"15:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"15:30\",\"reservYn\":\"Y\"}]}";
-        RES_STC_1003.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, STC_1003.Response.class)));
+//        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"Success\",\"reservNo\":\"\",\"reservDtList\":[{\"reservDt\":\"07:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"07:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"08:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"08:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"09:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"09:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"10:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"10:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"11:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"11:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"12:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"12:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"13:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"13:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"14:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"14:30\",\"reservYn\":\"Y\"},{\"reservDt\":\"15:00\",\"reservYn\":\"Y\"},{\"reservDt\":\"15:30\",\"reservYn\":\"Y\"}]}";
+//        RES_STC_1003.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, STC_1003.Response.class)));
 
-        /*
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -108,7 +107,6 @@ public class STCRepo {
                 RES_STC_1003.setValue(NetUIResponse.error(R.string.error_msg_4, null));
             }
         }, APIInfo.GRA_STC_1003, reqData);
-         */
 
         return RES_STC_1003;
     }
