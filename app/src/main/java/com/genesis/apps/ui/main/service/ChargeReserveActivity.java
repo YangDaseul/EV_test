@@ -324,10 +324,12 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 break;
             case MY_CAR:
                 reqParkLocationToDevelopers();
+                openReserveHistoryList(true);
                 break;
             case MY_LOCATION:
             default:
                 reqMyLocation();
+                openReserveHistoryList(true);
                 break;
         }
     }
@@ -418,7 +420,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     }
 
     private void updateReserveHistoryList(List<ReserveVo> list) {
-        if (list == null || list.size() == 0) {
+        // 최근 예약소가 없거나 검색 타입이 주소 검색인 경우는 최근 예약 충전소 UI 비표시.
+        if (list == null || list.size() == 0 || inputChargePlaceFragment.getCurrentType() == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
             ui.tvBtnReserveHistoryTitle.setVisibility(View.GONE);
             ui.rvReserveHistory.setVisibility(View.GONE);
             return;
