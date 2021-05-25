@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -285,10 +286,20 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
 
 
     private void searchAddress(){
+
+        List<Double> myPosition = new ArrayList<>();
+        try{
+            myPosition.add(lgnViewModel.getMyPosition().get(0));
+            myPosition.add(lgnViewModel.getMyPosition().get(1));
+        }catch (Exception e){
+            myPosition = new ArrayList<>();
+            myPosition.add(VariableType.DEFAULT_POSITION[0]);
+            myPosition.add(VariableType.DEFAULT_POSITION[1]);
+        }
         //end
         String keyword = me.lSearchParent.etSearch.getText().toString().trim();
         if(!TextUtils.isEmpty(keyword)) {
-            mapViewModel.reqFindAllPOI(keyword, lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1), 3, "", 0, 20, 3);
+            mapViewModel.reqFindAllPOI(keyword, myPosition.get(0), myPosition.get(1), 3, "", 0, 20, 3);
         }else{
             me.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         }
