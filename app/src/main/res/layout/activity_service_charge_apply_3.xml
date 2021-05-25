@@ -8,20 +8,22 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="20dp"
         android:paddingTop="30dp"
-        android:paddingEnd="20dp"
         android:paddingBottom="30dp">
 
         <TextView
             android:id="@+id/tv_msg"
             style="@style/CommonTextMsg"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/sm_emgc01_16" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_car_reg_no"
             style="@style/CommonTextInputLayout"
             android:visibility="gone"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -33,6 +35,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_addr_dtl"
             style="@style/CommonTextInputLayout"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -45,6 +49,8 @@
             android:id="@+id/l_addr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_addr_dtl">
@@ -147,6 +153,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_area_cls_cd"
             style="@style/CommonSpinnerLayout"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="0dp"
             app:layout_constraintTop_toBottomOf="@+id/l_addr">
 
@@ -176,6 +184,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_cel_ph_no"
             style="@style/CommonTextInputLayout"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/l_area_cls_cd"
             tools:visibility="visible">
 
@@ -187,24 +197,31 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <ImageView
+            android:id="@+id/iv_line_1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:background="@color/x_f8f8f8"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_cel_ph_no" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_charge_cnt"
             style="@style/CommonSpinnerLayout"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="40dp"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@+id/l_cel_ph_no">
-
-            <TextView
-                android:id="@+id/tv_title_charge_cnt"
-                style="@style/CommonSpinnerTitle"
-                android:text="@string/sm_cggo_01_1"
-                android:visibility="visible" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_line_1">
 
             <TextView
                 android:id="@+id/tv_charge_cnt_info"
                 style="@style/CommonTextViewFix"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_charge_cnt"
-                tools:text="년 10회 무상 제공" />
+                android:text="@string/sm_cggo_01_3"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
@@ -226,6 +243,7 @@
         <TextView
             android:id="@+id/tv_mark_1"
             style="@style/TextViewMart1"
+            android:layout_marginStart="20dp"
             app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
 
         <TextView
@@ -241,6 +259,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_question"
+            android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_info_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_info_1" />

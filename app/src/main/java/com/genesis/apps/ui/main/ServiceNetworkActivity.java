@@ -357,6 +357,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        setPosition(null, null, false);
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
@@ -463,6 +464,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        setPosition(null, null, false);
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
@@ -1173,8 +1175,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             }
         }
 
-        if (list == null || btrVO == null)
+        if (list == null || btrVO == null) {
+            if(bottomSelectBinding!=null){
+                bottomSelectBinding.lWhole.setVisibility(View.GONE);
+            }
             return;
+        }
         String btlrNm = "";
         String celphNo = "";
         String cnsltBdgYn = "";
@@ -1244,6 +1250,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
             });
         } else {
+            bottomSelectBinding.lWhole.setVisibility(View.VISIBLE);
             switch (pageType) {
                 case PAGE_TYPE_REPAIR:
                 case PAGE_TYPE_SERVICE:

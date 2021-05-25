@@ -53,7 +53,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
 
         switch (v.getId()){
             case R.id.btn_cancel:
-                MiddleDialog.dialogServiceSOSApplyCancel(this, () -> sosViewModel.reqSOS3004(new SOS_3004.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo)),
+                MiddleDialog.dialogServiceChargeSOSApplyCancel(this, () -> sosViewModel.reqSOS3004(new SOS_3004.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo)),
                         () -> {
 
                         });
