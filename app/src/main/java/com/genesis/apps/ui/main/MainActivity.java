@@ -419,10 +419,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     return;
                 }
             }
-        } else if(resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode()) {
-            //service
-            ui.viewpager.setCurrentItem(MainPageDiv.SERVICE.ordinal(), true);
-            return;
         }
 
     }
