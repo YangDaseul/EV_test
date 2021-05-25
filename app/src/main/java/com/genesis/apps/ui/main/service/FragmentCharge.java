@@ -166,8 +166,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_FINISH:
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_CANCEL:
                                 default:
-                                    me.lServiceChargeService.tvMovingNow.setVisibility(View.GONE);
-                                    me.lServiceChargeService.tvMovingNow.setText("");
+                                    me.lServiceChargeBtrService.tvMovingNow.setVisibility(View.GONE);
+                                    me.lServiceChargeBtrService.tvMovingNow.setText("");
                                     break;
                             }
                         }
