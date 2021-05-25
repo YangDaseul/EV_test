@@ -104,27 +104,29 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                             String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
                             me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
 
-                        } else {
-
-                            // EV 충전 카드 미노출 처리
-                            me.lStcCard.setVisibility(View.GONE);
-                            //  NFC 태그 버튼 표시
-                            me.btnNfc.setVisibility(View.GONE);
-                        }
-
-                        // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
-                        // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
-                        if (!dtwViewModel.isStcCardUseYn() &&
-                                (result.data.getPayInfo() != null && (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
+                            // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
+                            // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
+                            if (!dtwViewModel.isStcCardUseYn() &&
+                                    (result.data.getPayInfo() != null && (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
 
                                 // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
                                 me.lEasypayInfo.setVisibility(View.VISIBLE);
                                 me.btnNfc.setVisibility(View.GONE);
 
+                            } else {
+                                // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
+                                me.lEasypayInfo.setVisibility(View.GONE);
+                                me.btnNfc.setVisibility(View.VISIBLE);
+                            }
+
                         } else {
+
+                            // EV 충전 카드 미노출 처리
+                            me.lStcCard.setVisibility(View.GONE);
                             // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
                             me.lEasypayInfo.setVisibility(View.GONE);
-                            me.btnNfc.setVisibility(View.VISIBLE);
+                            //  NFC 태그 버튼 표시
+                            me.btnNfc.setVisibility(View.GONE);
                         }
 
                         break;
@@ -133,6 +135,7 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                     // 사용 가능한 제네시스 카드 없는 경우
                     me.tvCardBg.setVisibility(View.VISIBLE);
                     me.lStcCard.setVisibility(View.GONE);
+                    me.lEasypayInfo.setVisibility(View.GONE);
                     me.btnNfc.setVisibility(View.GONE);
                     break;
             }
