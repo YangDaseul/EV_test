@@ -75,7 +75,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mainVehicle!=null&&mainVehicle.isEVonlyOV()){
+        if(mainVehicle!=null&&mainVehicle.isEV()){
             ui.lOil.lParent.setVisibility(View.GONE);
             ui.vLine02.setVisibility(View.GONE);
         }else {

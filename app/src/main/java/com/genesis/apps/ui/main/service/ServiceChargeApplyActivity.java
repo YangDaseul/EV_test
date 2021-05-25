@@ -155,8 +155,10 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     }
 
     private void clearKeypad(){
-        for(View view : edits){
-            view.clearFocus();
+        if(edits!=null&&edits.length>0) {
+            for (View view : edits) {
+                view.clearFocus();
+            }
         }
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
@@ -285,6 +287,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
      * @brief 도로 구분 코드 선택
      */
     private void selectAreaClsCd(){
+        clearKeypad();
         final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.service_sos_area_cls));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {

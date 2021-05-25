@@ -290,14 +290,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         lgnViewModel.getPosition().observe(this, doubles -> {
             ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM_WIDE);
 
-
-            //기본 버틀러 정보가 없고 렌트리스 인 경우에는 제네시스 전담으로 기본 필터 전달
-            if (btrVO == null && pageType == PAGE_TYPE_RENT) {
-                fillerCd = VariableType.BTR_FILTER_CODE_A;
-            } else {
-                fillerCd = "";
-            }
-
             switch (pageType) {
                 case PAGE_TYPE_BTR:
                 case PAGE_TYPE_RENT:
@@ -365,6 +357,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        setPosition(null, null, false);
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
@@ -471,6 +464,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        setPosition(null, null, false);
                         showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
@@ -1181,8 +1175,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             }
         }
 
-        if (list == null || btrVO == null)
+        if (list == null || btrVO == null) {
+            if(bottomSelectBinding!=null){
+                bottomSelectBinding.lWhole.setVisibility(View.GONE);
+            }
             return;
+        }
         String btlrNm = "";
         String celphNo = "";
         String cnsltBdgYn = "";
@@ -1252,6 +1250,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
             });
         } else {
+            bottomSelectBinding.lWhole.setVisibility(View.VISIBLE);
             switch (pageType) {
                 case PAGE_TYPE_REPAIR:
                 case PAGE_TYPE_SERVICE:

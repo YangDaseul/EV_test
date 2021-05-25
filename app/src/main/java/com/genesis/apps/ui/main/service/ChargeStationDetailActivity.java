@@ -583,8 +583,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeStcInfoVO.getBname()));
 
         List<String> payTypes = chargeStcInfoVO.getPayType();
-        StringBuilder payStringBuilder = new StringBuilder();
         if (payTypes != null && payTypes.size() > 0) {
+            StringBuilder payStringBuilder = new StringBuilder();
             if (payTypes.contains(ChargeSearchCategorytype.CREDIT_CARD.getCode())) {
                 payStringBuilder.append(getString(R.string.sm_evss04_06));
             }
@@ -600,8 +600,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 }
                 payStringBuilder.append(getString(R.string.sm_evss04_08));
             }
+            list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
         }
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
 
         // 충전소 상세 표시
         ChargeStationDetailListAdapter adapter = new ChargeStationDetailListAdapter(onSingleClickListener);
@@ -659,8 +659,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.SPNM, chargeEptInfoVO.getSpnm()));
 
         List<String> payTypes = chargeEptInfoVO.getPayType();
-        StringBuilder payStringBuilder = new StringBuilder();
         if (payTypes != null && payTypes.size() > 0) {
+            StringBuilder payStringBuilder = new StringBuilder();
             if (payTypes.contains(ChargeSearchCategorytype.CREDIT_CARD.getCode())) {
                 payStringBuilder.append(getString(R.string.sm_evss04_06));
             }
@@ -676,8 +676,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 }
                 payStringBuilder.append(getString(R.string.sm_evss04_08));
             }
+            list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
         }
-        list.add(new ChargeStationDetailListAdapter.ItemVO(ChargeStationDetailListAdapter.DetailType.PAY_TYPE, payStringBuilder.toString()));
 
         // 충전소 상세 표시
         ChargeStationDetailListAdapter adapter = new ChargeStationDetailListAdapter(onSingleClickListener);
