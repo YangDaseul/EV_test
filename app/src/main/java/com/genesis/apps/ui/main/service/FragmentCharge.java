@@ -256,7 +256,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     public void onRefresh() {
         getVehicleVO();
         setViewBatteryStatus();
-        sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
+        if(vehicleVO!=null&&!TextUtils.isEmpty(vehicleVO.getVin()))
+            sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
     }
 
     @Override
