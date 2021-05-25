@@ -324,12 +324,10 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 break;
             case MY_CAR:
                 reqParkLocationToDevelopers();
-                openReserveHistoryList(true);
                 break;
             case MY_LOCATION:
             default:
                 reqMyLocation();
-                openReserveHistoryList(true);
                 break;
         }
     }
