@@ -32,6 +32,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private MapViewModel mapViewModel;
     private List<String> vehiclePosition;
     private Double[] myPosition = new Double[2];
+    private boolean isNormal=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
     public void getDataFromIntent() {
         try {
             vehiclePosition = new Gson().fromJson(getIntent().getStringExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION), new TypeToken<List<String>>(){}.getType());
+            isNormal = getIntent().getBooleanExtra(KeyNames.KEY_NAME_LOCATION_OTHERS, false);
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
@@ -94,7 +96,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                     break;
                 case SUCCESS:
                     if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
-                        showProgressDialog(false, PROGRESS_TYPE_LOCATION);
+                        showProgressDialog(false,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
                         vehiclePosition = new ArrayList<>();
                         vehiclePosition.add(result.data.getLat()+"");
                         vehiclePosition.add(result.data.getLon()+"");
@@ -102,7 +104,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                         break;
                     }
                 default:
-                    showProgressDialog(false, PROGRESS_TYPE_LOCATION);
+                    showProgressDialog(false,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
                     exitPage("위치 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.RES_CODE_NETWORK.getCode());
                     break;
             }
@@ -112,12 +114,12 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
             switch (result.status){
                 case LOADING:
-                    showProgressDialog(true, PROGRESS_TYPE_LOCATION);
+                    showProgressDialog(true,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
 
 
                     break;
                 case SUCCESS:
-                    showProgressDialog(false, PROGRESS_TYPE_LOCATION);
+                    showProgressDialog(false,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
 
                     if(result.data!=null){
                         initView(result.data);
@@ -125,7 +127,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
                     break;
                 default:
-                    showProgressDialog(false, PROGRESS_TYPE_LOCATION);
+                    showProgressDialog(false,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
 
                     break;
             }
@@ -187,9 +189,9 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
 
     private void reqMyLocation() {
-        showProgressDialog(true, PROGRESS_TYPE_LOCATION);
+        showProgressDialog(true,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
         findMyLocation(location -> {
-            showProgressDialog(false, PROGRESS_TYPE_LOCATION);
+            showProgressDialog(false,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
             if (location == null) {
                 exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                 return;

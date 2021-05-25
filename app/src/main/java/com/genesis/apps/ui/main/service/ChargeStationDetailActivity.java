@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -454,7 +453,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         ui.rvStationDetail.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         ui.rvChargerList.setLayoutManager(new LinearLayoutManager(ChargeStationDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-
         switch (stationType) {
             // 에스트레픽 충전소
             case CHARGE_STATION_TYPE_STC: {
@@ -708,7 +706,6 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             // 좌표 파싱 에러로 지도를 표시할 수 없음.
             ui.vgMap.setVisibility(View.GONE);
         }
-
         // 리뷰 데이터 요청
         getReviewList(chargeEptInfoVO, 1);
     }
