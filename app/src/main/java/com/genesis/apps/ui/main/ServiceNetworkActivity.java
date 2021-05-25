@@ -290,14 +290,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         lgnViewModel.getPosition().observe(this, doubles -> {
             ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM_WIDE);
 
-
-            //기본 버틀러 정보가 없고 렌트리스 인 경우에는 제네시스 전담으로 기본 필터 전달
-            if (btrVO == null && pageType == PAGE_TYPE_RENT) {
-                fillerCd = VariableType.BTR_FILTER_CODE_A;
-            } else {
-                fillerCd = "";
-            }
-
             switch (pageType) {
                 case PAGE_TYPE_BTR:
                 case PAGE_TYPE_RENT:
