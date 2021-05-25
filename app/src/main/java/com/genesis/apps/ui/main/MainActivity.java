@@ -115,6 +115,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         } finally {
             if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
                 ui.lGnb.setIsEV(vehicleVO!=null&&vehicleVO.isEV());
+                ui.lGnb.setIsEvOnlyOV(vehicleVO!=null&&vehicleVO.isEVonlyOV());
                 ui.lGnb.setUseBarcode(true);
             }
         }
@@ -201,13 +202,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         switch (v.getId()) {
             case R.id.btn_barcode:
-                boolean isEv=false;
+                boolean isEvOnlyOV=false;
                 try{
-                    isEv = (Boolean)v.getTag();
+                    isEvOnlyOV = (Boolean)v.getTag();
                 }catch (Exception ignore){
 
                 }finally {
-                    if(isEv){
+                    if(isEvOnlyOV){
                         startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
                     }else{
                         //내연기관 차량인 경우 바코드로 이동
