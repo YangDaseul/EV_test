@@ -98,14 +98,15 @@
             android:id="@+id/tv_time"
             style="@style/MapOverlayWhite.RegularText"
             android:layout_width="0dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="8dp"
             android:includeFontPadding="false"
+            android:singleLine="true"
             android:textColor="@color/x_666666"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_map_select_address"
-            tools:text="00:00 - 24:00" />
+            tools:text="24시간 이용가능, 입주민만 사용가능 " />
 
         <!--상세 경로 보기-->
         <TextView
@@ -116,11 +117,12 @@
             android:background="@drawable/bg_trans_underline_000000_1dp"
             android:includeFontPadding="false"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:paddingTop="20dp"
             android:paddingBottom="4dp"
             android:text="@string/sm_evss01_12"
             android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_time" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time" />
 
         <!--라인-->
         <View
@@ -133,7 +135,7 @@
             app:layout_constraintBottom_toBottomOf="@id/barrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_time" />
+            app:layout_constraintTop_toBottomOf="@id/tv_btn_route_detail" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier"
