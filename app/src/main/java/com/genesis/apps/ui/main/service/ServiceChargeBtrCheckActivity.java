@@ -194,6 +194,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 ui.lNoregPaymtCard.setVisibility(View.GONE);
                 ui.lSelectedPaymtCard.setVisibility(View.VISIBLE);
                 ui.lSelectedPaymtCard.setText(selectedCardNm);
+                ui.lSelectedPaymtCard.setCompoundDrawablesWithIntrinsicBounds(null, null, contentsVO.getCardList().size() > 1 ? getDrawable(R.drawable.btn_dropdown) : null, null);
                 return;
             }
         }
@@ -230,7 +231,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
             case R.id.l_selected_paymt_card:
-                showDialogCardList(contentsVO.getCardList());
+                if(contentsVO.getCardList().size() > 1)
+                    showDialogCardList(contentsVO.getCardList());
                 break;
             case R.id.btn_confirm:
                 reqChargeBtrApply();
