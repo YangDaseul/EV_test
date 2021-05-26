@@ -99,6 +99,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     @Override
     public void onPause() {
         super.onPause();
+        isShow = false;
         // 디지털 월렛에서 벗어날 경우 PaymentScreenChecker가 화면 밖으로 나간 것을 알게 하기 위한 인터페이스 등록
 //        CardService.setPaymentScreenChecker(disablePaymentScreenChecker);
     }
