@@ -130,7 +130,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
 //                                    (!StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) < StringUtil.isValidInteger(result.data.getStcMbrInfo().getMinCretPnt()))) {
                                 // 간편 결제 가입 및 결제 카드 등록 여부 확인
                                 if (result.data.getPayInfo() != null &&
-                                        (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
+                                        (!result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
 
                                     // 신용카드 등록 후 서비스 이용 가능 안내 팝업 표시
                                     MiddleDialog.dialogCommonTwoButton(

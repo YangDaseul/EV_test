@@ -316,7 +316,7 @@
                 style="@style/ViewBottomOkBtn"
                 android:layout_width="253dp"
                 android:onClick="@{(view)->btnListener.onSingleClick(view)}"
-                android:text="@string/pay01_1"
+                android:text="@string/pay01_3"
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
