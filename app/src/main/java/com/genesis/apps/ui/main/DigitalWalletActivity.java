@@ -162,8 +162,8 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                         }
 
                         if(result.data.getStcMbrInfo() != null &&
-                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
-                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) /*&&
+                                StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)*/) {
                             //  EV 충전 카드 정보가 있는 경우
                             initViewpagerAdapter(1);
                         } else {
