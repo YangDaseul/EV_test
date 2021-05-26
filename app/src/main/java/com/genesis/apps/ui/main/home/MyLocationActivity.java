@@ -9,6 +9,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.MapViewModel;
@@ -33,6 +34,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private List<String> vehiclePosition;
     private Double[] myPosition = new Double[2];
     private boolean isNormal=false;
+    private AddressVO addressVO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +56,27 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
         try {
             vehiclePosition = new Gson().fromJson(getIntent().getStringExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION), new TypeToken<List<String>>(){}.getType());
             isNormal = getIntent().getBooleanExtra(KeyNames.KEY_NAME_LOCATION_OTHERS, false);
+            addressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
-            if(vehiclePosition==null||vehiclePosition.size()!=2){
-                reqCarInfoToDevelopers(getVin());
+            if(!isNormal) {
+                if (vehiclePosition == null || vehiclePosition.size() != 2) {
+                    reqCarInfoToDevelopers(getVin());
+                } else {
+                    reqMyLocation();
+                }
             }else{
-                reqMyLocation();
+                if(addressVO!=null) {
+                    PlayMapGeoItem item = new PlayMapGeoItem();
+                    item.addr = addressVO.getAddr();
+                    item.title = addressVO.getCname();
+                    myPosition[0] = addressVO.getCenterLat();
+                    myPosition[1] = addressVO.getCenterLon();
+                    initView(item, addressVO.getCenterLat()+"", addressVO.getCenterLon()+"");
+                }
             }
+
         }
     }
 
@@ -122,7 +137,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                     showProgressDialog(false,  !isNormal ? PROGRESS_TYPE_LOCATION : PROGRESS_TYPE_NORMAL);
 
                     if(result.data!=null){
-                        initView(result.data);
+                        initView(result.data,vehiclePosition.get(0),vehiclePosition.get(1));
                     }
 
                     break;
@@ -136,19 +151,20 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
         });
     }
 
-    private void initView(PlayMapGeoItem item) {
+    private void initView(PlayMapGeoItem item, String lat, String lon ) {
         setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_address, (viewStub, inflated) -> {
             LayoutMapOverlayUiBottomAddressBinding binding = DataBindingUtil.bind(inflated);
             binding.tvMapAddressBtn.setVisibility(View.GONE);
             if(TextUtils.isEmpty(item.title)){
                 binding.tvMapAddressTitle.setVisibility(View.GONE);
             }else {
+                binding.tvMapAddressTitle.setVisibility(View.VISIBLE);
                 binding.tvMapAddressTitle.setText(item.title);
             }
             binding.tvMapAddressAddress.setText(item.addr);
         });
-        ui.pmvMapView.initMap( Double.parseDouble(vehiclePosition.get(0)), Double.parseDouble(vehiclePosition.get(1)),DEFAULT_ZOOM);
-        drawMarkerItem(vehiclePosition.get(0),vehiclePosition.get(1));
+        ui.pmvMapView.initMap( Double.parseDouble(lat), Double.parseDouble(lon),DEFAULT_ZOOM);
+        drawMarkerItem(lat, lon);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
     }

@@ -13,6 +13,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.databinding.FragmentMapBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -37,11 +38,16 @@ public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
     private final int DEFAULT_ZOOM = 17;
     private double lat;
     private double lot;
+    private String addr;
+    private String chgName;
 
-    public static FragmentChargeStationMap newInstance(double lat, double lot) {
+    public static FragmentChargeStationMap newInstance(double lat, double lot, String chgName, String addr) {
         Bundle args = new Bundle();
         args.putDouble(KeyNames.KEY_NAME_LAT, lat);
         args.putDouble(KeyNames.KEY_NAME_LOT, lot);
+        args.putString(KeyNames.KEY_NAME_CHG_NAME, chgName);
+        args.putString(KeyNames.KEY_NAME_CHG_ADDR, addr);
+
         FragmentChargeStationMap fragment = new FragmentChargeStationMap();
         fragment.setArguments(args);
         return fragment;
@@ -61,6 +67,8 @@ public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
         if (args != null) {
             lat = args.getDouble(KeyNames.KEY_NAME_LAT);
             lot = args.getDouble(KeyNames.KEY_NAME_LOT);
+            chgName = args.getString(KeyNames.KEY_NAME_CHG_NAME);
+            addr = args.getString(KeyNames.KEY_NAME_CHG_ADDR);
         }
     }
 
@@ -110,10 +118,19 @@ public class FragmentChargeStationMap extends SubFragment<FragmentMapBinding> {
                         break;
                     case MotionEvent.ACTION_UP:
                         try {
-                            List<Double> position = new ArrayList<>();
-                            position.add(lat);
-                            position.add(lot);
-                            ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)).putExtra(KeyNames.KEY_NAME_LOCATION_OTHERS, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            AddressVO addressVO = new AddressVO();
+                            addressVO.setCenterLon(lot);
+                            addressVO.setCenterLat(lat);
+                            addressVO.setAddr(addr);
+                            addressVO.setCname(chgName);
+
+//                            List<Double> position = new ArrayList<>();
+//                            position.add(lat);
+//                            position.add(lot);
+                            ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
+                                    .putExtra(KeyNames.KEY_NAME_LOCATION_OTHERS, true)
+                                    , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         }catch (Exception ignore){
 
                         }

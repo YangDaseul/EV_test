@@ -84,6 +84,7 @@
                 <TextView
                     android:id="@+id/tv_rsvt_hope_dt"
                     style="@style/CommonSpinnerItemCalendar"
+                    android:drawableRight="@drawable/null_"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"

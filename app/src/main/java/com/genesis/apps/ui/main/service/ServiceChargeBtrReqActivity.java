@@ -180,6 +180,8 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     }
 
     private void clearKeypad(){
+        ui.etCelPhNo.clearFocus();
+        ui.etCarRegNo.clearFocus();
         for(View view : edits){
             view.clearFocus();
         }
@@ -369,6 +371,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 selectKeyDeliveryDialog.setSelectItem(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB);
         }
         selectKeyDeliveryDialog.setOnDismissListener(dialogInterface -> {
+            clearKeypad();
             String result = selectKeyDeliveryDialog.getSelectItem();
             if (!TextUtils.isEmpty(result)) {
                 keyTransferType = result;

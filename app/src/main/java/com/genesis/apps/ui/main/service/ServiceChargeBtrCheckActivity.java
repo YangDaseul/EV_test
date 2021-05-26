@@ -215,11 +215,9 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                 if (ui.lSvcPaymtDetail.getVisibility() == View.VISIBLE) {
                     ui.ivArrowImage.setImageResource(R.drawable.btn_arrow_open);
                     ui.lSvcPaymtDetail.setVisibility(View.GONE);
-                    ui.ivSvcPaymtPadding.setVisibility(View.VISIBLE);
                 } else {
                     ui.ivArrowImage.setImageResource(R.drawable.btn_arrow_close);
                     ui.lSvcPaymtDetail.setVisibility(View.VISIBLE);
-                    ui.ivSvcPaymtPadding.setVisibility(View.GONE);
                 }
                 break;
 //            case R.id.cb_carwash_option:

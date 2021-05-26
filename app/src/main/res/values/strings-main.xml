@@ -233,6 +233,8 @@
 
     <string name="pay01_1">간편결제 가입</string>
     <string name="pay01_2">보유하신 크레딧이 부족하여\nEV 충전 카드 이용이 불가능합니다.\n\nEV 충전 카드 이용을 위해 간편결제\n가입 및 카드 등록이 필요합니다.</string>
+    <string name="pay01_3">간편결제 서비스 가입</string>
+    <string name="pay01_4">간편결제 카드 등록</string>
 
     <string name="pay03_1">간편결제카드 관리</string>
     <string name="pay03_2">카드추가</string>
