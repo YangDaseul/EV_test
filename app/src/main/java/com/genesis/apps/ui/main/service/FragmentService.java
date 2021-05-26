@@ -150,6 +150,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_3), View.VISIBLE, false, true);
         refreshTab();
+        clearKeyPad();
     }
 
     @Override

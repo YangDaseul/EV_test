@@ -21,6 +21,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ActivityBaseBinding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -182,6 +183,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     }
 
     public void onBackButton() {
+        clearKeyPad();
         List<SubFragment> fragments = getFragments();
         if (fragments != null && fragments.size() > 0 && fragments.get(0) instanceof CarWashFindSonaxBranchFragment) {
             hideFragment(fragments.get(0));
@@ -388,6 +390,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
      */
     private boolean isTargetPermissionCheck() {
         return this.getClass() != IntroActivity.class && this.getClass() != PermissionsActivity.class;
+    }
+
+    public void clearKeyPad(){
+        try {
+            SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+        }catch (Exception e){
+
+        }
     }
 
 }

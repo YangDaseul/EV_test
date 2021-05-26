@@ -44,6 +44,7 @@ import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -728,6 +729,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
             goneQuickMenu();
             ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
+            clearKeyPad();
         } catch (Exception e) {
 
         }
