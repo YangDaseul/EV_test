@@ -130,7 +130,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     private void startMapView(){
         startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_cggo_01_5)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_emgc01_29)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_evss01_35)
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 

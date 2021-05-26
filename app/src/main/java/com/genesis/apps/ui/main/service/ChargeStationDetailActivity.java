@@ -34,6 +34,7 @@ import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeStationDetailBinding;
@@ -114,6 +115,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
     private VehicleVO mainVehicleVO;
 
+    private LGNViewModel lgnViewModel;
     private REQViewModel reqViewModel;
     private EPTViewModel eptViewModel;
     private STCViewModel stcViewModel;
@@ -141,31 +143,41 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         switch (v.getId()) {
             case R.id.tv_btn_reserve:
-                Object tag = v.getTag();
-                selectedSid = null;
-                selectedCid = null;
-                if (tag instanceof ChargerEptVO) {
-                    // 충전소 찾기에서 진입한 충전소 상세 화면인 경우.
-                    if (chargeEptInfoVO != null) {
-                        selectedSid = chargeEptInfoVO.getEcsid();
+                try {
+                    if (lgnViewModel.getUserInfoFromDB().getCustGbCd() == VariableType.MAIN_VEHICLE_TYPE_NV) {
+                        //미 보유 고객인 경우 스낵바 알림 메시지 노출
+                        SnackBarUtil.show(ChargeStationDetailActivity.this, getString(R.string.sm01_snack_bar));
+                        return;
                     }
-                    selectedCid = ((ChargerEptVO) tag).getCpid();
-                } else if (tag instanceof ChargerSttVO) {
-                    // 충전소 예약에서 진입한 충전소 상세 화면인 경우.
-                    if (chargeStcInfoVO != null) {
-                        selectedSid = chargeStcInfoVO.getSid();
-                    }
-                    selectedCid = ((ChargerSttVO) tag).getCid();
-                }
 
-                if (selectedSid != null && selectedCid != null) {
-                    getReserveDate(selectedSid, selectedCid, DateUtil.getCurrentDate(DateUtil.DATE_FORMAT_yyyyMMdd));
-                }
+                    Object tag = v.getTag();
+                    selectedSid = null;
+                    selectedCid = null;
+                    if (tag instanceof ChargerEptVO) {
+                        // 충전소 찾기에서 진입한 충전소 상세 화면인 경우.
+                        if (chargeEptInfoVO != null) {
+                            selectedSid = chargeEptInfoVO.getEcsid();
+                        }
+                        selectedCid = ((ChargerEptVO) tag).getCpid();
+                    } else if (tag instanceof ChargerSttVO) {
+                        // 충전소 예약에서 진입한 충전소 상세 화면인 경우.
+                        if (chargeStcInfoVO != null) {
+                            selectedSid = chargeStcInfoVO.getSid();
+                        }
+                        selectedCid = ((ChargerSttVO) tag).getCid();
+                    }
+
+                    if (selectedSid != null && selectedCid != null) {
+                        getReserveDate(selectedSid, selectedCid, DateUtil.getCurrentDate(DateUtil.DATE_FORMAT_yyyyMMdd));
+                    }
                 /*
                 MiddleDialog.dialogEVServiceInfo(this, (Runnable) () -> {
 
                 });
                  */
+                } catch (Exception ignore) {
+
+                }
                 break;
             case R.id.tv_btn_bottom:
                 ChargeStationDetailListAdapter.DetailType type = (ChargeStationDetailListAdapter.DetailType) v.getTag(R.id.item);
@@ -215,6 +227,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(ChargeStationDetailActivity.this);
+        lgnViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(LGNViewModel.class);
         reqViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(REQViewModel.class);
         eptViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(EPTViewModel.class);
         stcViewModel = new ViewModelProvider(ChargeStationDetailActivity.this).get(STCViewModel.class);
@@ -623,7 +636,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             double lat = Double.parseDouble(chargeStcInfoVO.getLat());
             double lot = Double.parseDouble(chargeStcInfoVO.getLot());
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot))
+                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot, chargeStcInfoVO.getChgName(), getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl())))
                     .commit();
         } catch (Exception e) {
             // 좌표 파싱 에러로 지도를 표시할 수 없음.
@@ -642,6 +655,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 TextUtils.isEmpty(chgName) ? "" : chgName,
                 TextUtils.isEmpty(dist) ? "" : BR + dist,
                 TextUtils.isEmpty(totalAddress) ? "" : BR + totalAddress);
+    }
+
+    private String getAddr(String addr, String addrDtl) {
+        String totalAddress = StringUtil.isValidString(addr) + (!TextUtils.isEmpty(addrDtl) ? (" " + addrDtl) : "");
+        return totalAddress;
     }
 
     /**
@@ -700,7 +718,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             double lat = Double.parseDouble(chargeEptInfoVO.getLat());
             double lot = Double.parseDouble(chargeEptInfoVO.getLot());
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot))
+                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot, chargeEptInfoVO.getCsnm(), getAddr(chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl())))
                     .commit();
         } catch (Exception e) {
             // 좌표 파싱 에러로 지도를 표시할 수 없음.

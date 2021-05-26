@@ -37,6 +37,9 @@
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.MainActivity" />
+        <variable
+            name="isEvOnlyOV"
+            type="Boolean"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -231,9 +234,9 @@
             android:layout_height="wrap_content"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="centerInside"
-            android:src="@{isEV ? (isBgWhite ? @drawable/ic_card_b : @drawable/ic_card_w) : (isBgWhite ? @drawable/ic_barcode_b : @drawable/ic_barcode_w)      }"
-            android:visibility="@{ (useBarcode&amp;&amp;TextUtils.isEmpty(menu)) ? View.VISIBLE : View.GONE}"
-            android:tag="@{isEV}"
+            android:src="@{isEvOnlyOV ? (isBgWhite ? @drawable/ic_card_b : @drawable/ic_card_w) : (isBgWhite ? @drawable/ic_barcode_b : @drawable/ic_barcode_w)      }"
+            android:visibility="@{(useBarcode&amp;&amp;TextUtils.isEmpty(menu)) ? (isEV ? (isEvOnlyOV ? View.VISIBLE : View.GONE) : View.VISIBLE) : View.GONE}"
+            android:tag="@{isEvOnlyOV}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

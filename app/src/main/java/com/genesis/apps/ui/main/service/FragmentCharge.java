@@ -166,8 +166,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_FINISH:
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_CANCEL:
                                 default:
-                                    me.lServiceChargeService.tvMovingNow.setVisibility(View.GONE);
-                                    me.lServiceChargeService.tvMovingNow.setText("");
+                                    me.lServiceChargeBtrService.tvMovingNow.setVisibility(View.GONE);
+                                    me.lServiceChargeBtrService.tvMovingNow.setText("");
                                     break;
                             }
                         }
@@ -256,7 +256,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     public void onRefresh() {
         getVehicleVO();
         setViewBatteryStatus();
-        sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
+        if(vehicleVO!=null&&!TextUtils.isEmpty(vehicleVO.getVin()))
+            sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
     }
 
     @Override
