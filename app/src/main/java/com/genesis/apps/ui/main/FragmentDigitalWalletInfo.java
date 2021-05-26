@@ -1,7 +1,5 @@
 package com.genesis.apps.ui.main;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +13,7 @@ import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
@@ -32,9 +31,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
 public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWalletInfoBinding> {
-
-    private final String TAG_DOWN = "down";
-    private final String TAG_UP = "up";
 
     private DTWViewModel dtwViewModel;
 
@@ -99,32 +95,40 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                         // EV 충전 정보  표시
                         if (result.data.getStcMbrInfo() != null && StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
 
-                            me.lStcCard.setVisibility(View.VISIBLE);
+                            me.lStcCardBottom.setVisibility(View.VISIBLE);
                             me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
                             String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
                             me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
 
-                        } else {
+                            // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
+                            // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
+                            if (!dtwViewModel.isStcCardUseYn() &&
+                                    (result.data.getPayInfo() != null && (!result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
 
-                            // EV 충전 카드 미노출 처리
-                            me.lStcCard.setVisibility(View.GONE);
-                            //  NFC 태그 버튼 표시
-                            me.btnNfc.setVisibility(View.GONE);
-                        }
-
-                        // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
-                        // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
-                        if (!dtwViewModel.isStcCardUseYn() &&
-                                (result.data.getPayInfo() != null && (result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
+                                // 버튼 분기 처리
+                                if(!result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                                    me.btnEasypay.setText(R.string.pay01_3);
+                                else
+                                    me.btnEasypay.setText(R.string.pay01_4);
 
                                 // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
                                 me.lEasypayInfo.setVisibility(View.VISIBLE);
                                 me.btnNfc.setVisibility(View.GONE);
 
+                            } else {
+                                // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
+                                me.lEasypayInfo.setVisibility(View.GONE);
+                                me.btnNfc.setVisibility(View.VISIBLE);
+                            }
+
                         } else {
+
+                            // EV 충전 카드 미노출 처리
+                            me.lStcCardBottom.setVisibility(View.GONE);
                             // 간편결제 가입 및 카드 등록 유도 레이아웃 표시
                             me.lEasypayInfo.setVisibility(View.GONE);
-                            me.btnNfc.setVisibility(View.VISIBLE);
+                            //  NFC 태그 버튼 표시
+                            me.btnNfc.setVisibility(View.GONE);
                         }
 
                         break;
@@ -132,7 +136,8 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                 default:
                     // 사용 가능한 제네시스 카드 없는 경우
                     me.tvCardBg.setVisibility(View.VISIBLE);
-                    me.lStcCard.setVisibility(View.GONE);
+                    me.lStcCardBottom.setVisibility(View.GONE);
+                    me.lEasypayInfo.setVisibility(View.GONE);
                     me.btnNfc.setVisibility(View.GONE);
                     break;
             }
@@ -150,11 +155,10 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
             case R.id.iv_ev_logo:
             case R.id.tv_card_nm:
             case R.id.btn_expand_card:
-                String stusTag = (String) me.lStcCard.getTag();
-                if(StringUtil.isValidString(stusTag).equalsIgnoreCase(TAG_DOWN))
-                    animSlideUp(me.lStcCard);
+                if(me.lStcCardBottom.getTag() != null && (boolean) me.lStcCardBottom.getTag())
+                    animSlidUpDown(false);
                 else
-                    animSlideDown(me.lStcCard);
+                    animSlidUpDown(true);
                 break;
             case R.id.btn_modify_pw:
                 ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), EvChargeCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
@@ -167,33 +171,24 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
     public void onRefresh() {
     }
 
+    private void animSlidUpDown(boolean down) {
 
-    AnimatorSet slideDownAniSet = new AnimatorSet();
-    AnimatorSet slideUpAniSet = new AnimatorSet();
+        me.lStcCardBottom.setTag(down);
 
-    private void animSlideDown(View view) {
-        view.setTag(TAG_DOWN);
+        int toMargin = ((ConstraintLayout.LayoutParams) me.lStcCardBottom.getLayoutParams()).topMargin;
+        int targetMargin = me.lStcCard.getMeasuredHeight();
+        ValueAnimator valAnim = ValueAnimator.ofInt(toMargin, (down ? toMargin + targetMargin : toMargin - targetMargin));
+        valAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int val = (int) animation.getAnimatedValue();
 
-        int targetHeight = me.lStcCardInfo.getMeasuredHeight() - (int) DeviceUtil.dip2Pixel(getContext(), 5);
-
-        ValueAnimator downAni = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, targetHeight);
-        ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 1.0f);
-
-        slideDownAniSet.play(downAni);
-        slideDownAniSet.setDuration(400);
-
-        slideDownAniSet.start();
-    }
-
-    private void animSlideUp(View view) {
-        view.setTag(TAG_UP);
-
-        ValueAnimator upAni = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0);
-        ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 0.7f);
-
-        slideUpAniSet.play(upAni);
-        slideUpAniSet.setDuration(400);
-
-        slideUpAniSet.start();
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) me.lStcCardBottom.getLayoutParams();
+                params.topMargin = val;
+                me.lStcCardBottom.setLayoutParams(params);
+            }
+        });
+        valAnim.setDuration(400);
+        valAnim.start();
     }
 }
