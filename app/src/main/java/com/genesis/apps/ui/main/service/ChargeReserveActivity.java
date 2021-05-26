@@ -320,6 +320,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         updateFilterValue(filterList);
         switch (type) {
             case ADDRESS:
+                // 주소 검색인 경우 최근 예약 충전소 목록은 비 노출 처리.
+                updateReserveHistoryList(null);
                 reqAddress(type.getAddressVO());
                 break;
             case MY_CAR:

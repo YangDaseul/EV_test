@@ -357,7 +357,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                         e.printStackTrace();
                     } finally {
                         showProgressDialog(false);
-                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
+                        SnackBarUtil.show(ChargeStationDetailActivity.this,
+                                TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
                 }
@@ -390,7 +391,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                         e.printStackTrace();
                     } finally {
                         showProgressDialog(false);
-                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
+                        SnackBarUtil.show(ChargeStationDetailActivity.this,
+                                TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
                 }
@@ -420,7 +422,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                         e.printStackTrace();
                     } finally {
                         showProgressDialog(false);
-                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
+                        SnackBarUtil.show(ChargeStationDetailActivity.this,
+                                TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
                 }
