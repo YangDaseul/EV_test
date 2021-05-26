@@ -167,6 +167,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/bg_ffffff_round_10"
             android:elevation="15dp"
+            android:clickable="true"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
