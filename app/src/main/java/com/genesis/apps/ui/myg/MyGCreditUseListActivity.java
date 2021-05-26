@@ -97,26 +97,26 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
         switch (v.getId()) {
             case R.id.l_vehicle:
 
-                List<VehicleVO> vehicleList=new ArrayList<>();
                 List<CreditVO> creditList = new ArrayList<>();
-                try{
-                    vehicleList.addAll(stcViewModel.getVehicleListEV());
+                try {
+                    creditList.addAll(stcViewModel.getRES_STC_2001().getValue().data.getCarCretList());
                 }catch (Exception e){
+                    creditList = new ArrayList<>();
+                }
 
-                }
-                for (VehicleVO vehicleVO : vehicleList) {
-                    String balance="0";
-                    try{
-                        balance = stcViewModel.getRES_STC_2001().getValue().data.getCarCretList().stream().filter(data->StringUtil.isValidString(data.getVin()).equalsIgnoreCase(vehicleVO.getVin())).map(CreditVO::getBalanceAmount).findFirst().orElse("0");
-                    }catch (Exception e){
-                        balance="0";
-                    }
-                    if(selectVehicleVO.getVin().equalsIgnoreCase(vehicleVO.getVin())){
-                        creditList.add(0, new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), balance, vehicleVO.getCarRgstNo()));
-                    }else{
-                        creditList.add(new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), balance, vehicleVO.getCarRgstNo()));
-                    }
-                }
+//                for (VehicleVO vehicleVO : vehicleList) {
+//                    String balance="0";
+//                    try{
+//                        balance = stcViewModel.getRES_STC_2001().getValue().data.getCarCretList().stream().filter(data->StringUtil.isValidString(data.getVin()).equalsIgnoreCase(vehicleVO.getVin())).map(CreditVO::getBalanceAmount).findFirst().orElse("0");
+//                    }catch (Exception e){
+//                        balance="0";
+//                    }
+//                    if(selectVehicleVO.getVin().equalsIgnoreCase(vehicleVO.getVin())){
+//                        creditList.add(0, new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), balance, vehicleVO.getCarRgstNo()));
+//                    }else{
+//                        creditList.add(new CreditVO(vehicleVO.getVin(), vehicleVO.getMdlCd(), vehicleVO.getMdlNm(), balance, vehicleVO.getCarRgstNo()));
+//                    }
+//                }
 
 
 
@@ -202,14 +202,8 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     }
 
     private void setViewVehicle(List<CreditVO> list) {
-        List<VehicleVO> vehicleList = new ArrayList<>();
         String balance = "0";
-        try {
-            vehicleList.addAll(stcViewModel.getVehicleListEV());
-        } catch (Exception e) {
-
-        }
-        if (vehicleList.size() > 1 && selectVehicleVO != null) {
+        if (list!=null && list.size() > 1 && selectVehicleVO != null) {
             ui.lVehicle.setVisibility(View.VISIBLE);
             ui.ivLine1.setVisibility(View.VISIBLE);
             ui.tvMdlNm.setText(selectVehicleVO.getCarNm());

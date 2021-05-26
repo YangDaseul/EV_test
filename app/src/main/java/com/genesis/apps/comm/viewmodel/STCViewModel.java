@@ -114,27 +114,27 @@ class STCViewModel extends ViewModel {
         }
     }
 
-    public List<VehicleVO> getVehicleListEV() throws ExecutionException, InterruptedException{
-        ExecutorService es = new ExecutorService("");
-        Future<List<VehicleVO>> future = es.getListeningExecutorService().submit(()->{
-            List<VehicleVO> list = new ArrayList<>();
-            try {
-                list = dbVehicleRepository.getVehicleListEV();
-            } catch (Exception ignore) {
-                ignore.printStackTrace();
-            }finally {
-                if(list==null)
-                    list = new ArrayList<>();
-            }
-
-            return list;
-        });
-
-        try {
-            return future.get();
-        }finally {
-            es.shutDownExcutor();
-        }
-    }
+//    public List<VehicleVO> getVehicleListEV() throws ExecutionException, InterruptedException{
+//        ExecutorService es = new ExecutorService("");
+//        Future<List<VehicleVO>> future = es.getListeningExecutorService().submit(()->{
+//            List<VehicleVO> list = new ArrayList<>();
+//            try {
+//                list = dbVehicleRepository.getVehicleListEV();
+//            } catch (Exception ignore) {
+//                ignore.printStackTrace();
+//            }finally {
+//                if(list==null)
+//                    list = new ArrayList<>();
+//            }
+//
+//            return list;
+//        });
+//
+//        try {
+//            return future.get();
+//        }finally {
+//            es.shutDownExcutor();
+//        }
+//    }
 
 } // end of class STCViewModel
