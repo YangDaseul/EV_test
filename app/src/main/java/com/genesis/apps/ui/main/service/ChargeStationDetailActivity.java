@@ -636,7 +636,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             double lat = Double.parseDouble(chargeStcInfoVO.getLat());
             double lot = Double.parseDouble(chargeStcInfoVO.getLot());
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot))
+                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot, chargeStcInfoVO.getChgName(), getAddr(chargeStcInfoVO.getDaddr(), chargeStcInfoVO.getDaddrDtl())))
                     .commit();
         } catch (Exception e) {
             // 좌표 파싱 에러로 지도를 표시할 수 없음.
@@ -655,6 +655,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                 TextUtils.isEmpty(chgName) ? "" : chgName,
                 TextUtils.isEmpty(dist) ? "" : BR + dist,
                 TextUtils.isEmpty(totalAddress) ? "" : BR + totalAddress);
+    }
+
+    private String getAddr(String addr, String addrDtl) {
+        String totalAddress = StringUtil.isValidString(addr) + (!TextUtils.isEmpty(addrDtl) ? (" " + addrDtl) : "");
+        return totalAddress;
     }
 
     /**
@@ -713,7 +718,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
             double lat = Double.parseDouble(chargeEptInfoVO.getLat());
             double lot = Double.parseDouble(chargeEptInfoVO.getLot());
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot))
+                    .add(R.id.vg_map, FragmentChargeStationMap.newInstance(lat, lot, chargeEptInfoVO.getCsnm(), getAddr(chargeEptInfoVO.getDaddr(), chargeEptInfoVO.getAddrDtl())))
                     .commit();
         } catch (Exception e) {
             // 좌표 파싱 에러로 지도를 표시할 수 없음.
