@@ -10,6 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -35,7 +44,6 @@ import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.home.FragmentHome2;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
-import com.genesis.apps.ui.main.service.FragmentCharge;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
@@ -43,15 +51,6 @@ import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.genesis.apps.ui.myg.MyGMenuActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.analytics.FirebaseAnalytics;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public boolean isMoveHomeBottom() {
@@ -78,6 +77,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     //ios와 동일한 구조를 맞추기 위한 변수
     //홈하단에 있는 상태에서 onResume 호출 시 홈 상단으로 이동시킴
     private boolean moveHomeBottom=false;
+    private VehicleVO vehicleVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
     private void setBarcode() {
         String custGbCd = "";
-        VehicleVO vehicleVO = null;
         try {
             custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
             vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
@@ -115,7 +114,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         } finally {
             if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
                 ui.lGnb.setIsEV(vehicleVO!=null&&vehicleVO.isEV());
-                ui.lGnb.setIsEvOnlyOV(vehicleVO!=null&&vehicleVO.isEVonlyOV());
                 ui.lGnb.setUseBarcode(true);
             }
         }
@@ -202,14 +200,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         switch (v.getId()) {
             case R.id.btn_barcode:
-                boolean isEvOnlyOV=false;
+                boolean isEv=false;
                 try{
-                    isEvOnlyOV = (Boolean)v.getTag();
+                    isEv = (Boolean)v.getTag();
                 }catch (Exception ignore){
 
                 }finally {
-                    if(isEvOnlyOV){
-                        startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                    if(vehicleVO!=null&&vehicleVO.isEV()){
+                        if(vehicleVO.isEVonlyOV()){
+                            startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                        }else{
+                            SnackBarUtil.show(this, "계약 차량 보유 시 디지털월렛 서비스를 이용할 수 없습니다.");
+                        }
                     }else{
                         //내연기관 차량인 경우 바코드로 이동
                         startActivitySingleTop(new Intent(this, BarcodeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
