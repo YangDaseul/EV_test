@@ -226,10 +226,10 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
 
 
     private void clearKeypad() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         for (View view : edits) {
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext() {
@@ -442,7 +442,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvErrorRsvtHopeDt.setText(R.string.sm_r_rsv02_01_14);
             return false;
         } else {
-            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
+            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E);
             ui.tvRsvtHopeDt.setText(date);
             Paris.style(ui.tvRsvtHopeDt).apply(R.style.CommonSpinnerItemCalendar);
             ui.tvTitleRsvtHopeDt.setVisibility(View.VISIBLE);

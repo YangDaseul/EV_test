@@ -408,11 +408,11 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
 
 
     private void clearKeypad() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         View[] edits = {ui.etAddrDetail, ui.etPrivilegeAddrDetail, ui.etPrivilegeTel};
         for (View view : edits) {
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void showMapDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {

@@ -578,9 +578,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     private void clearKeypad() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         fromDetail.clearFocus();
         toDetail.clearFocus();
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     /**

@@ -47,6 +47,7 @@
         <ScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
+            android:background="@drawable/bg_00000000_topline_e5e5e5"
             android:layout_height="0dp"
             android:layout_weight="1">
 
@@ -54,7 +55,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_00000000_topline_e5e5e5"
                 android:paddingTop="40dp">
 
 
@@ -103,7 +103,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:visibility="@{TextUtils.isEmpty(data.getSosDriverVO().getCarNo()) ? View.GONE : View.VISIBLE }"
+                        android:visibility="gone"
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +164,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:msg="@{(!TextUtils.isEmpty(data.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(data.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_HH_mm)) : `--`)}"
+                        app:msg="@{(!TextUtils.isEmpty(data.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(data.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)) : `--`)}"
                         app:title="@{@string/sm_emgc03_p01_6}" />
 
                     <!-- "위치유형" -->

@@ -737,7 +737,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:background="@drawable/bg_ffffff_underline_e4e4e4"
+                        android:background="@color/x_ffffff"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break">
@@ -833,24 +833,24 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/tv_empty_coupon"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="@color/x_f8f8f8"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="10dp"
-                        android:text="@string/gm_carlst_01_64"
-                        android:textColor="@color/x_262626"
-                        android:textSize="18dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/iv_bg"
-                        tools:visibility="gone" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_empty_coupon"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:background="@color/x_f8f8f8"-->
+<!--                        android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--                        android:gravity="center"-->
+<!--                        android:letterSpacing="-0.01"-->
+<!--                        android:lineSpacingExtra="10dp"-->
+<!--                        android:text="@string/gm_carlst_01_64"-->
+<!--                        android:textColor="@color/x_262626"-->
+<!--                        android:textSize="18dp"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/iv_bg"-->
+<!--                        tools:visibility="gone" />-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

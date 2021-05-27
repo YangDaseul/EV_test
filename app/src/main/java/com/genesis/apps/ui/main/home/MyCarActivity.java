@@ -490,9 +490,9 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         ui.tvEmpty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
-    private void setEmptyCoupon(int totalCnt) {
-        ui.tvEmptyCoupon.setVisibility(totalCnt == 0 ? View.VISIBLE : View.GONE);
-    }
+//    private void setEmptyCoupon(int totalCnt) {
+//        ui.tvEmptyCoupon.setVisibility(totalCnt == 0 ? View.VISIBLE : View.GONE);
+//    }
 
     private int beforePostion = -1;
 
@@ -613,7 +613,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 ui.btnSimilar.setVisibility(View.VISIBLE);
                 //계약서조회
                 ui.btnContract.setVisibility(View.VISIBLE);
-                setEmptyCoupon(0);
+//                setEmptyCoupon(0);
                 break;
             case VariableType.MAIN_VEHICLE_TYPE_NV:
             default:
