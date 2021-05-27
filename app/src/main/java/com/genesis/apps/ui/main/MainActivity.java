@@ -210,7 +210,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                         if(vehicleVO.isEVonlyOV()){
                             startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
                         }else{
-                            SnackBarUtil.show(this, "계약 차량 보유 시 디지털월렛 서비스를 이용할 수 없습니다.");
+                            SnackBarUtil.show(this, "차량 인도 후 사용 가능합니다.");
                         }
                     }else{
                         //내연기관 차량인 경우 바코드로 이동

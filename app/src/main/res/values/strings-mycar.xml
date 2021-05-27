@@ -157,12 +157,12 @@
     <string name="gm_carlst_04_8">엔진오일</string>
     <string name="gm_carlst_04_9">오일필터</string>
     <string name="gm_carlst_04_10">에어 크리너</string>
-    <string name="gm_carlst_04_11">에어컨 필터</string>
+    <string name="gm_carlst_04_11">에어컨필터</string>
     <string name="gm_carlst_04_12">브레이크 패드(앞)</string>
-    <string name="gm_carlst_04_13">와이퍼 블레이드</string>
-    <string name="gm_carlst_04_14">브레이크 오일</string>
+    <string name="gm_carlst_04_13">와이퍼블레이드</string>
+    <string name="gm_carlst_04_14">브레이크오일</string>
     <string name="gm_carlst_04_14_2">냉각수</string>
-    <string name="gm_carlst_04_15">홈투홈 서비스</string>
+    <string name="gm_carlst_04_15">홈투홈</string>
     <string name="gm_carlst_04_16"> 회</string>
     <string name="gm_carlst_04_17">프리빌리지</string>
     <string name="gm_carlst_04_18">혜택</string>

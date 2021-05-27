@@ -737,7 +737,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:background="@drawable/bg_ffffff_underline_e4e4e4"
+                        android:background="@color/x_ffffff"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break">
