@@ -164,7 +164,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:msg="@{(!TextUtils.isEmpty(data.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(data.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_HH_mm)) : `--`)}"
+                        app:msg="@{(!TextUtils.isEmpty(data.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(data.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)) : `--`)}"
                         app:title="@{@string/sm_emgc03_p01_6}" />
 
                     <!-- "위치유형" -->

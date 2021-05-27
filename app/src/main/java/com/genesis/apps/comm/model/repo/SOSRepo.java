@@ -367,7 +367,9 @@ public class SOSRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_SOS_3006.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3006.Response.class)));
+                SOS_3006.Response response = new Gson().fromJson(object, SOS_3006.Response.class);
+                response.setSosDriverVO(new Gson().fromJson(object, SOSDriverVO.class));
+                RES_SOS_3006.setValue(NetUIResponse.success(response));
             }
 
             @Override
