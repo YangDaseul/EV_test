@@ -201,13 +201,4 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         }
     }
 
-
-    /**
-     * 카드 번호를 NFC로 전송하는 함수.
-     *
-     * @param cardNo 숫자로만 구성된 카드 번호
-     */
-    private void sendCardInfo(String cardNo) {
-        CardService.preparePayment(cardNo, "GE");
-    }
 }

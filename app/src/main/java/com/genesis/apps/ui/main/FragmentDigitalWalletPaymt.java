@@ -4,10 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
@@ -27,12 +34,17 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.straffic.cardemullib.CardService;
+import com.straffic.ev.util.Constant;
+
+import org.json.JSONException;
 
 public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalletPaymtBinding> {
 
     private DTWViewModel dtwViewModel;
     private DigitalWalletActivity activity;
     private boolean isShow = false;
+
+    private String creditCardNo;
 
     public static FragmentDigitalWalletPaymt newInstance() {
         return new FragmentDigitalWalletPaymt();
@@ -71,12 +83,11 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
                         // EV 충전 정보  표시
                         me.tvCreditPoint.setVisibility(StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) > 0 ? View.VISIBLE : View.GONE);
                         me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
-                        String creditCardNo = StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardNo());
+                        this.creditCardNo = StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardNo());
                         me.tvCreditCardNo.setText(StringRe2j.replaceAll(creditCardNo, getString(R.string.card_original), getString(R.string.card_mask)));
 
                         // NFC로 충전기에 카드 번호 전송
-//                        if(!TextUtils.isEmpty(creditCardNo))
-//                            ((DigitalWalletActivity)getActivity()).sendCardInfo(creditCardNo);
+//                        sendCardInfo(creditCardNo);
 
                         break;
                     }
@@ -100,8 +111,6 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     public void onPause() {
         super.onPause();
         isShow = false;
-        // 디지털 월렛에서 벗어날 경우 PaymentScreenChecker가 화면 밖으로 나간 것을 알게 하기 위한 인터페이스 등록
-//        CardService.setPaymentScreenChecker(disablePaymentScreenChecker);
     }
 
     @Override
@@ -113,9 +122,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         try {
             boolean isNfcEnabled = DeviceUtil.checkNfcEnabled(getContext());
             if (isNfcEnabled) {
-                animSlideDown(me.lStcCard);
-                // 디지털 월렛 진입시 PaymentScreenChecker가 화면에 진입한 것을 알게 하기 위한 인터페이스 등록
-//                CardService.setPaymentScreenChecker(enablePaymentScreenChecker);
+                setNfcPayment(this.creditCardNo);
             } else {
                 // NFC OFF
                 MiddleDialog.dialogServiceRemoteTwoButton(
@@ -191,16 +198,117 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     }
 
 
+    private void setNfcPayment(String mbrspCardNo) {
+        //브로드캐스트 리시버 등록
+        registerBroadcastReceiver();
+
+        //static 메서드이므로 인스턴스 생성 없이 직접 호출
+        CardService.setPaymentScreenChecker(() -> {
+            //결제 화면에서만 true를 리턴하도록 구현
+            //현재 액티비티가 NFC 결제 화면인 경우 항상 true를 반환하면 됨.
+            return true;
+        });
+
+        if (!CardService.checkBasicPayApp(getActivity())) {
+            //모바일 결제 기본앱으로 설정이 되어있지 않고 현재 앱에서 결제하기 기능도 꺼져있는 경우
+            //현재 앱을 NFC 기본앱으로 설정하도록 확인하는 절차
+            CardService.setBasicPayApp(getActivity(), new CardService.OnPaymentCancelListener() {
+                @Override
+                public void onPaymentSetting() {
+                    //모바일 결제 설정 팝업에서 설정화면으로 이동한 경우.
+                    //여기에서 진동 및 애니메이션 일시정지 기능을 구현한다.
+                }
+
+                @Override
+                public void onPaymentCancel() {
+                    //모바일 결제 설정 팝업에서 결제 취소 버튼을 누른 경우.
+                    //여기에서 진동 및 애니메이션 중지, NFC화면 종료기능을 구현한다.
+                    finishNfcPaymt();
+                }
+            });
+
+        } else {
+            //모바일 결제 기본앱으로 설정이 되었거나 현재 앱에서 결제하기 기능이 켜져있으면 인증 실행
+            //인증 성공 여부에 따라 앱을 컨트롤
+            CardService.setOnPreparePaymentCompleteListener(new CardService.OnPreparePaymentCompleteListener() {
+                @Override
+                public void onPreparePaymentComplete() {
+                    // 인증 완료되어 결제를 진행할 수 있는 상태가 됨. 여기에서 진동 및 애니메이션 재시작
+                    SnackBarUtil.show(getActivity(), "인증 완료");
+                    animSlideDown(me.lStcCard);
+                }
+
+                @Override
+                public void onPreparePaymentFail() {
+                    // 인증이 정상적으로 완료되지 않음. 진동 및 애니메이션 종료, 안내 후 NFC 화면 종료 등의 처리 필요.
+                    SnackBarUtil.show(getActivity(), "인증 실패");
+                    finishNfcPaymt();
+                }
+            });
+
+            //카드번호 : 2055101200003878
+            //회원유형 : GE
+            sendCardInfo(mbrspCardNo);
+        }
+    }
 
     /**
-     * NFC구동 화면 진입 시 NFC구동 화면에서만 true를 반환하는 인터페이스.
+     * Receiver 등록
      */
-    private CardService.PaymentScreenChecker enablePaymentScreenChecker = () -> true;
+    private void registerBroadcastReceiver() {
+        try {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(Constant.ACTION_VIBRATOR_CANCEL);
+            getActivity().registerReceiver(this.mEventReceiver, intentFilter);
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
     /**
-     * NFC구동 화면 밖일 경우 {@link com.straffic.cardemullib.CardService.PaymentScreenChecker}가
-     * 화면을 벗어난 것을 체크할 수 있게 false를 반환하는 인터페이스
+     * Receiver 해제
      */
-    private CardService.PaymentScreenChecker disablePaymentScreenChecker = () -> false;
+    private void unRegisterBroadcastReceiver() {
+        try {
+            getActivity().unregisterReceiver(this.mEventReceiver);
+        } catch (IllegalArgumentException e) {
+        }
+    }
 
+    private BroadcastReceiver mEventReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constant.ACTION_VIBRATOR_CANCEL)) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //결제가 끝나면 기본서비스 해제
+                        CardService.unsetBasicPayApp(getActivity());
 
+                        // 브로드캐스트 리시버 해제
+                        unRegisterBroadcastReceiver();
+                        //결제 화면 종료
+                        finishNfcPaymt();
+                    }
+                }, 1500);
+            }
+        }
+    };
+
+    /**
+     * 카드 번호를 NFC로 전송하는 함수.
+     *
+     * @param cardNo 숫자로만 구성된 카드 번호
+     */
+    private void sendCardInfo(String cardNo) {
+        Log.d("LJEUN", "mbrspCardNo : " + cardNo);
+
+        try {
+            CardService.preparePayment(getActivity(), cardNo, "GE");
+        }  catch (Exception e) {
+            e.printStackTrace();
+            MiddleDialog.dialogCommonOneButton(getActivity(), R.string.pay01_p06_1, getString(R.string.pay01_p06_2), () -> {
+                finishNfcPaymt();
+            });
+        }
+    }
 }
