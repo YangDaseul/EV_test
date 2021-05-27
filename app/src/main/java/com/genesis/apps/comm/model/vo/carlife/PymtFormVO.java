@@ -44,22 +44,22 @@ class PymtFormVO extends BaseData {
     private String prdtNm;
     @Expose
     @SerializedName("stlmAmt")
-    private int stlmAmt;
+    private String stlmAmt;
     @Expose
     @SerializedName("vlsp")
-    private int vlsp;
+    private String vlsp;
     @Expose
     @SerializedName("srtx")
-    private int srtx;
+    private String srtx;
     @Expose
     @SerializedName("srfe")
-    private int srfe;
+    private String srfe;
     @Expose
     @SerializedName("nonMptx")
-    private int nonMptx;
+    private String nonMptx;
     @Expose
     @SerializedName("isMth")
-    private int isMth;
+    private String isMth;
     @Expose
     @SerializedName("closeUrl")
     private String closeUrl;
