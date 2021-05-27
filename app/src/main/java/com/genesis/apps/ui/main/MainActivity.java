@@ -108,7 +108,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         String custGbCd = "";
         try {
             custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

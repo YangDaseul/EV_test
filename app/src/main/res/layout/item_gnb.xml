@@ -231,7 +231,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="centerInside"
-            android:src="@{isEV ? (isBgWhite ? @drawable/ic_card_b : @drawable/ic_card_w) : (isBgWhite ? @drawable/ic_barcode_b : @drawable/ic_barcode_w)      }"
+            android:src="@{isEV ? (isBgWhite ? @drawable/ic_card_b : @drawable/ic_card_w) : (isBgWhite ? @drawable/ic_barcode_b : @drawable/ic_barcode_w)}"
             android:visibility="@{ (useBarcode&amp;&amp;TextUtils.isEmpty(menu)) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
