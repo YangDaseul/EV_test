@@ -250,6 +250,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_5), View.VISIBLE, true, true);
 
         initView1();
+        clearKeyPad();
     }
 
     @Override

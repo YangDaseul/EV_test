@@ -279,8 +279,8 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
     public void onRefresh() {
         Log.e("onResume","onReusme contents");
         SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
-
         ((MainActivity)getActivity()).setGNB(getString(R.string.main_word_4), View.VISIBLE, false, true);
+        clearKeyPad();
     }
 
     private void initContentsPageScrollPosition(int position){

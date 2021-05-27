@@ -282,8 +282,12 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
 
         }
 
-        if(!(id==R.id.tv_service_maintenance_btn_white&&StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11)))//찾아가기 충전 서비스 전화신청이 아니고
-                && id!=R.id.btn_service_charge_search //충전소 검색 버튼이 아니고
+//        if(!(id==R.id.tv_service_maintenance_btn_white&&StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11)))//찾아가기 충전 서비스 전화신청이 아니고
+//                && id!=R.id.btn_service_charge_search //충전소 검색 버튼이 아니고
+//                && checkSimplePayInfo()){ // 간편결제 가입 대상인 경우
+
+        if(((id==R.id.tv_service_maintenance_btn_black&&StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7)))//픽업앤충전
+                || id==R.id.l_service_charge_btr_service) //픽업앤충전
                 && checkSimplePayInfo()){ // 간편결제 가입 대상인 경우
             MiddleDialog.dialogServiceSimplePayInfo(getActivity(), new OnSingleClickListener() {
                 @Override

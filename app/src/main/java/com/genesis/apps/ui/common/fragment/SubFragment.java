@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 import androidx.annotation.Nullable;
@@ -45,6 +46,11 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
         super.onResume();
         // 갱신 처리
         onRefresh();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     /**
@@ -128,4 +134,12 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
 
 
     public abstract void onClickCommon(View v);
+
+    public void clearKeyPad(){
+        try {
+            SoftKeyboardUtil.hideKeyboard(getActivity(), getActivity().getWindow().getDecorView().getWindowToken());
+        }catch (Exception e){
+
+        }
+    }
 }

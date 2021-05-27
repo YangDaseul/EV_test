@@ -61,12 +61,14 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
             e.printStackTrace();
         }finally{
             if(!isNormal) {
+                ui.btnMyPosition.setVisibility(View.VISIBLE);
                 if (vehiclePosition == null || vehiclePosition.size() != 2) {
                     reqCarInfoToDevelopers(getVin());
                 } else {
                     reqMyLocation();
                 }
             }else{
+                ui.btnMyPosition.setVisibility(View.GONE);
                 if(addressVO!=null) {
                     PlayMapGeoItem item = new PlayMapGeoItem();
                     item.addr = addressVO.getAddr();

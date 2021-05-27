@@ -370,6 +370,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
             initView();
             ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_2), View.VISIBLE, false, true);
+            clearKeyPad();
         }
     }
 
