@@ -165,10 +165,10 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     }
 
     private void clearKeypad() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         for (View view : edits) {
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext() {

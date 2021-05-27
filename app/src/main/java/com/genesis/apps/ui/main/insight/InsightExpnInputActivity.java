@@ -206,10 +206,10 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private void clearKeypad() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         for (View view : edits) {
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext() {

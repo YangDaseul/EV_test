@@ -851,8 +851,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     }
 
     private void clearKeypad() {
-        ui.etServiceRemoteStep2.clearFocus();
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+        ui.etServiceRemoteStep2.clearFocus();
     }
 
     /**

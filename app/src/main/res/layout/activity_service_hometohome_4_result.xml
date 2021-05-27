@@ -162,7 +162,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_pckp_addr"
-                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E) + ` / ` + (data.autoAmpmCd.equalsIgnoreCase(`A`) ? @string/sm_r_rsv02_01_p02_2 : @string/sm_r_rsv02_01_p02_3)}"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)}"
                         app:title="@{@string/sm_r_rsv03_03_5}"
                         app:isLeft="@{true}"/>
 
@@ -172,7 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
+                        android:visibility="@{TextUtils.isEmpty(data.dlvryAddr)||data.pckpDivCd.equalsIgnoreCase(`1`) ? View.GONE : View.VISIBLE }"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt"
@@ -187,7 +187,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
+                        android:visibility="@{TextUtils.isEmpty(data.dlvryAddr)||data.pckpDivCd.equalsIgnoreCase(`1`) ? View.GONE : View.VISIBLE }"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_dlvry_addr"

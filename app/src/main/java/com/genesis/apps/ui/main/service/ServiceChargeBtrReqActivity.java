@@ -180,12 +180,12 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     }
 
     private void clearKeypad(){
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         ui.etCelPhNo.clearFocus();
         ui.etCarRegNo.clearFocus();
         for(View view : edits){
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext() {

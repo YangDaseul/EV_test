@@ -173,11 +173,11 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     }
 
     private void clearKeypad() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         View[] edits = {ui.etRentPeriodEtc, ui.etAddrDetail, ui.lPrivilege.etAddrDetail, ui.lPrivilege.etTel};
         for (View view : edits) {
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     @Override

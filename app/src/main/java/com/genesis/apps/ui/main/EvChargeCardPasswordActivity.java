@@ -275,7 +275,7 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
     }
 
     private void clearKeypad() {
-        ui.etHidden.clearFocus();
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+        ui.etHidden.clearFocus();
     }
 }

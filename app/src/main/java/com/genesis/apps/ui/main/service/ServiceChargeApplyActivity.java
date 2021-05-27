@@ -155,12 +155,12 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     }
 
     private void clearKeypad(){
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         if(edits!=null&&edits.length>0) {
             for (View view : edits) {
                 view.clearFocus();
             }
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext(){
@@ -464,6 +464,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     }
 
     private void dialogExit(){
+        clearKeypad();
         MiddleDialog.dialogServiceChargeApplyExit(this, () -> {
             finish();
             closeTransition();

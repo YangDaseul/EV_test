@@ -151,12 +151,12 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
     private void clearKeypad(){
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         if(edits!=null&&edits.length>0) {
             for (View view : edits) {
                 view.clearFocus();
             }
         }
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext(){
