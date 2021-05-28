@@ -259,8 +259,9 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
     }
 
     private void dialogExit(){
+        clearKeypad();
+
         MiddleDialog.dialogServiceRemoteTwoButton(this, R.string.pay05_psw01_p01_1, R.string.pay05_psw01_p01_2,() -> {
-            clearKeypad();
             finish();
             closeTransition();
         }, () -> {
@@ -271,7 +272,6 @@ public class EvChargeCardPasswordActivity extends SubActivity<ActivityEvChargeCa
     @Override
     protected void onPause() {
         super.onPause();
-        clearKeypad();
     }
 
     private void clearKeypad() {

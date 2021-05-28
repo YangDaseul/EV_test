@@ -1374,6 +1374,29 @@ public class MiddleDialog {
         );
     }
 
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 디지털월렛 EV 충전 크레딧 부족 안내 팝업
+     */
+    public static void dialogEvCretPntLackInfo(@NonNull Activity activity, @StringRes int titleResId, String message, Runnable ok, Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        activity.getString(titleResId),
+                        message,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
 
     //R.layout.dialog_middle_two_button 쓰는 거 상당수를 이걸로 통합 가능할 듯..
     private static CustomDialog getTwoButtonDialog(
