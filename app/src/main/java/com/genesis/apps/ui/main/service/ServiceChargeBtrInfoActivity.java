@@ -54,7 +54,7 @@ public class ServiceChargeBtrInfoActivity extends HtmlActivity {
                 case SUCCESS:
                     if (result.data != null) {
 
-                        ui.lTitle.setValue(!TextUtils.isEmpty(result.data.getTtl()) ? result.data.getTtl() : getString(R.string.service_charge_btr_09));
+//                        ui.lTitle.setValue(!TextUtils.isEmpty(result.data.getTtl()) ? result.data.getTtl() : getString(R.string.service_charge_btr_09));
 
                         if(!TextUtils.isEmpty(result.data.getCont())) {
                             if (StringUtil.isValidString(result.data.getCont()).startsWith("http"))
