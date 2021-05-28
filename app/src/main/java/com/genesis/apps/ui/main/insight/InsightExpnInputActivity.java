@@ -412,25 +412,20 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }
     }
 
-    private boolean checkVaildAmt() {
-        int amt;
-        try {
-            amt = Integer.parseInt(ui.etExpnAmt.getText().toString().trim());
-        } catch (Exception e) {
-            amt = 0;
-        }
+    private boolean checkVaildAmt(){
+        String amt = ui.etExpnAmt.getText().toString().trim();
 
-        if (amt < 1) {
+        if(TextUtils.isEmpty(amt)){
             ui.etExpnAmt.requestFocus();
             ui.lExpnAmt.setError(getString(R.string.tm_exps01_01_11));
             return false;
-        } else {
+        }else{
 //            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
-            ui.etExpnAmt.setText(amt + "");
             ui.lExpnAmt.setError(null);
-            if (cbkViewModel.isVisibleAccmMilg(expnDivCd)) {
+
+            if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
                 doTransition(2);
-            } else {
+            }else{
                 doTransition(3);
                 ui.lAccmMilg.setVisibility(View.GONE);
             }
