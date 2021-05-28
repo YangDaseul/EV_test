@@ -125,9 +125,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="15dp"
+                    android:lineSpacingExtra="16dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="우림 라이온스밸리 a동" />
@@ -139,9 +139,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="15dp"
+                    android:lineSpacingExtra="16dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_addr_info_1"
                     tools:text="서울특별시 금천구 가산동 440-4" />
