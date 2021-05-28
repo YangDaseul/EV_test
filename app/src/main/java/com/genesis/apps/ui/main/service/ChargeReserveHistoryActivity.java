@@ -156,7 +156,7 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                     if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         showProgressDialog(false);
                         SnackBarUtil.show(this, getString(R.string.sm_evsb02_p01_3));
-                        stcViewModel.reqSTC1005(new STC_1005.Request(APPIAInfo.SM_EVSB02.getId(), mainVehicle.getVin(), "", "","",""));
+                        requestSTC1005("1");
                         break;
                     }
                 default:
