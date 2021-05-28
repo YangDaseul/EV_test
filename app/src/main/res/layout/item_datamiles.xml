@@ -64,11 +64,9 @@
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/l_datamiles_expenables_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_datamiles_title"
-            app:layout_constraintVertical_chainStyle="packed"
             tools:visibility="visible">
 
             <!--타이틀 : 안전운전 점수-->
@@ -393,11 +391,10 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
-            app:layout_constraintBottom_toTopOf="@id/l_datamiles_diagnostic_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_datamiles_driving_score_container"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <!--타이틀 : 소모품 현황-->
             <TextView
@@ -515,11 +512,10 @@
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/l_datamiles_guide_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_datamiles_expenables_container"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <!--타이틀 : 차량 진단-->
             <TextView
@@ -586,6 +582,7 @@
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             android:visibility="gone"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
