@@ -401,7 +401,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_cs_txt"
-                    android:text="@{data.getVendorInfo() != null ? data.getVendorInfo().getVendorName() : ``}"
+                    android:text="@{data.getVendorInfo() != null ? ((data.getVendorInfo().getVendorName() ?? ``)+` `+(data.getVendorInfo().getVendorCSTelNo() ?? ``)) : ``}"
                     tools:text="로드윈 주식회사 0000-0000" />
 
                 <TextView

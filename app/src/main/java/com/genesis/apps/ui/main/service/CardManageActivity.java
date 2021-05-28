@@ -74,6 +74,13 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         setObserver();
         initialize();
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         getCardList();
     }
 
