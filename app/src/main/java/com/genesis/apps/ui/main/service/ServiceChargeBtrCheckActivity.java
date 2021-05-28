@@ -366,7 +366,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null && result.data.getPaymentFormData() != null) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getPaymentFormData() != null) {
                         startActivitySingleTop(new Intent(this, BluewalnutWebActivity.class)
                                         .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data.getPaymentFormData())
                                 , RequestCodes.REQ_CODE_ACTIVITY.getCode()
