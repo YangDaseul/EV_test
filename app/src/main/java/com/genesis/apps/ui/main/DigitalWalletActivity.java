@@ -141,7 +141,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                                 if(result.data.getPayInfo() != null &&
                                         (!StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
                                     // 신용카드 등록 후 서비스 이용 가능 안내 팝업 표시
-                                    MiddleDialog.dialogCommonTwoButton(
+                                    MiddleDialog.dialogEvCretPntLackInfo(
                                             this,
                                             R.string.pay01_p03_1,
                                             String.format(getString(R.string.pay01_p03_2), StringUtil.getPriceString(result.data.getStcMbrInfo().getMinCretPnt())),
