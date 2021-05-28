@@ -34,6 +34,7 @@
     <string name="sm_evsb01_p01_5">오후</string>
     <string name="sm_evsb01_p01_6">예약하기</string>
     <string name="sm_evsb01_p01_7">예약 가능한 날짜가 없습니다.</string>
+    <string name="sm_evsb01_p01_8">예약 가능 시간이 없습니다.</string>
     <string name="sm_evsb01_p02_1">충전소 예약이\n완료되었습니다.</string>
     <string name="sm_evsb01_p02_2">예약 정보</string>
     <string name="sm_evsb01_p02_3">예약일시</string>
