@@ -111,6 +111,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     public void onPause() {
         super.onPause();
         isShow = false;
+        unRegisterBroadcastReceiver();
     }
 
     @Override
@@ -234,15 +235,16 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
                 @Override
                 public void onPreparePaymentComplete() {
                     // 인증 완료되어 결제를 진행할 수 있는 상태가 됨. 여기에서 진동 및 애니메이션 재시작
-                    SnackBarUtil.show(getActivity(), "인증 완료");
                     animSlideDown(me.lStcCard);
                 }
 
                 @Override
                 public void onPreparePaymentFail() {
                     // 인증이 정상적으로 완료되지 않음. 진동 및 애니메이션 종료, 안내 후 NFC 화면 종료 등의 처리 필요.
-                    SnackBarUtil.show(getActivity(), "인증 실패");
-                    finishNfcPaymt();
+
+                    MiddleDialog.dialogCommonOneButton(getActivity(), R.string.pay01_p06_1, getString(R.string.pay01_p06_2), () -> {
+                        finishNfcPaymt();
+                    });
                 }
             });
 
