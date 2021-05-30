@@ -13,14 +13,13 @@ import com.genesis.apps.comm.model.api.gra.DTW_1004;
 import com.genesis.apps.comm.model.api.gra.DTW_1007;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
-import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.model.repo.DTWRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.PayInfoVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
-import com.genesis.apps.comm.model.repo.DTWRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,59 +104,22 @@ class DTWViewModel extends ViewModel {
     }
 
     /**
-     * 에스트래픽 회원 여부
-     *
-     * @return
-     */
-    public boolean isStcMbrYn() {
-        return isValidDTW1001() &&
-                RES_DTW_1001.getValue().data.getStcMbrInfo() != null &&
-                StringUtil.isValidString(RES_DTW_1001.getValue().data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
-    }
-
-    /**
-     * 에스트래픽 비번 설정 여부
-     *
-     * @return
-     */
-    public boolean isStcPwdYn() {
-        return isValidDTW1001() &&
-                RES_DTW_1001.getValue().data.getStcMbrInfo() != null &&
-                StringUtil.isValidString(RES_DTW_1001.getValue().data.getStcMbrInfo().getPwdYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
-    }
-
-    /**
-     * 에스트래픽 충전 카드(선불교통카드) 사용 가능 여부
-     *
-     * @return
-     */
-    public boolean isStcCardUseYn() {
-        return isValidDTW1001() &&
-                RES_DTW_1001.getValue().data.getStcMbrInfo() != null &&
-                StringUtil.isValidString(RES_DTW_1001.getValue().data.getStcMbrInfo().getStcCardUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) &&
-                StringUtil.isValidInteger(RES_DTW_1001.getValue().data.getStcMbrInfo().getCretPnt()) >= StringUtil.isValidInteger(RES_DTW_1001.getValue().data.getStcMbrInfo().getMinCretPnt());
-    }
-
-    /**
-     * 미수금 여부
-     *
-     * @return
-     */
-    public boolean isUnpayYn() {
-        return isValidDTW1001() &&
-                RES_DTW_1001.getValue().data.getStcMbrInfo() != null &&
-                StringUtil.isValidString(RES_DTW_1001.getValue().data.getStcMbrInfo().getUnpayYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
-    }
-
-    /**
      * 간편결제 가입 여부
      *
      * @return
      */
-    public boolean isPsySignInYn() {
-        return isValidDTW1001() &&
-                RES_DTW_1001.getValue().data.getPayInfo() != null &&
-                StringUtil.isValidString(RES_DTW_1001.getValue().data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+    public boolean isPayInfo() {
+        boolean isJoin = false;
+        if (isValidDTW1001() && RES_DTW_1001.getValue().data.getPayInfo() != null) {
+            try {
+                PayInfoVO payInfoVO = RES_DTW_1001.getValue().data.getPayInfo();
+                // TODO : 회원가입상태가 y고 연동된 카드수가 1개 이상이면 Y, 등록 카드 갯수도 체크할지 확인 필요!!
+                isJoin = VariableType.COMMON_MEANS_YES.equalsIgnoreCase(StringUtil.isValidString(payInfoVO.getSignInYn()));
+            } catch (Exception e) {
+                isJoin = false;
+            }
+        }
+        return isJoin;
     }
 
 

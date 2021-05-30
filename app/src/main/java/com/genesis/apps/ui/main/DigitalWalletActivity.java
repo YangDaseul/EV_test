@@ -62,6 +62,12 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     public void moveViewpager(int pgIndex) {
         if(ui.vpContents != null && viewpagerAdapter != null)
             ui.vpContents.setCurrentItem(pgIndex, true);
+
+        if (pgIndex == 0) {
+            // 간편결제 가입 여부 확인, 미가입자인 경우
+            if (checkEasyPayInfo())
+                showEasyPayInfoDialog();
+        }
     }
 
     private void initData() {
@@ -158,7 +164,7 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                         }
 
                         // 미수금 여부 확인, 미수금이 있는 경우
-                        if (dtwViewModel.isUnpayYn()) {
+                        if (result.data.getStcMbrInfo() != null && StringUtil.isValidString(result.data.getStcMbrInfo().getUnpayYn()).equalsIgnoreCase(COMMON_MEANS_YES)) {
                             MiddleDialog.dialogServiceRemoteOneButton(this, R.string.pay01_p04_1, R.string.pay01_p04_2, () -> {
                                 // 미수금 결제 화면으로 이동
                                 startActivitySingleTop(new Intent(this, UnpaidPayRequestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
@@ -177,9 +183,9 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                             initViewpagerAdapter(1);
                         } else {
                             // 간편결제 가입 여부 확인, 미가입자인 경우
-                            if(result.data.getPayInfo() != null && !StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                            if (checkEasyPayInfo())
                                 showEasyPayInfoDialog();
-                            }
+
                             //  EV 충전 카드 정보가 없는 경우
                             initViewpagerAdapter(0);
                         }
@@ -209,7 +215,11 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode()) {
+        if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CARD_CHANGE.getCode()) {
+            // 간편결제카드 관리 변동 사항 있을 때
+            String userAgentString = new WebView(this).getSettings().getUserAgentString();
+            dtwViewModel.reqDTW1001(new DTW_1001.Request(APPIAInfo.PAY01.getId(), mainVehicle.getVin(), userAgentString));
+        } else if (resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode()) {
             exitPage(new Intent(), ResultCodes.REQ_CODE_UNPAID_PAYMT_CANCEL.getCode());
         }
     }
@@ -243,4 +253,9 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
             lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP, COMMON_MEANS_YES);
         }
     }
+
+    private boolean checkEasyPayInfo() {
+        return !VariableType.COMMON_MEANS_YES.equalsIgnoreCase(lgnViewModel.getDbGlobalDataRepository().select(KeyNames.KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP))&&!dtwViewModel.isPayInfo();
+    }
+
 }
