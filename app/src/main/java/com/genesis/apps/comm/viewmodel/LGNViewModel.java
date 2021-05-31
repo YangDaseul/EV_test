@@ -1,5 +1,15 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
+
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.api.gra.LGN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
@@ -21,6 +31,7 @@ import com.genesis.apps.comm.model.vo.TopicVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.ResultCallback;
 import com.google.common.util.concurrent.FutureCallback;
@@ -34,13 +45,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
@@ -51,7 +55,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TY
 public @Data
 class LGNViewModel extends ViewModel {
 
-
+    private LoginInfoDTO loginInfoDTO;
     private final LGNRepo repository;
     private final STORepo stoRepo;
     private final DBVehicleRepository dbVehicleRepository;
@@ -97,8 +101,10 @@ class LGNViewModel extends ViewModel {
             DBVehicleRepository dbVehicleRepository,
             DBGlobalDataRepository dbGlobalDataRepository,
             DBUserRepo dbUserRepo,
+            LoginInfoDTO loginInfoDTO,
             @Assisted SavedStateHandle savedStateHandle)
     {
+        this.loginInfoDTO = loginInfoDTO;
         this.repository = repository;
         this.stoRepo = stoRepo;
         this.dbVehicleRepository = dbVehicleRepository;
@@ -177,6 +183,7 @@ class LGNViewModel extends ViewModel {
                         &&dbVehicleRepository.setVehicleList(data.getCtrctVhclList(), MAIN_VEHICLE_TYPE_CV)
                         &&dbVehicleRepository.setVehicle(data.getDftVhclInfo(), userType)
                         &&dbUserRepo.setUserVO(userVO)
+                        &&updateUserInfo((userVO!=null ? userVO.getCustNm() : "") , (userVO!=null ? userVO.getCelphNo() : ""))
                         &&(!isFirstLogin || updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_YES));
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -309,5 +316,23 @@ class LGNViewModel extends ViewModel {
 
     public void removeDBTable(){
         dbUserRepo.clearUserInfo();
+    }
+
+    public boolean updateUserInfo(String name, String phone){
+        try{
+            if(loginInfoDTO!=null
+                    &&loginInfoDTO.getProfile()!=null
+                    &&!TextUtils.isEmpty(name)
+                    &&!TextUtils.isEmpty(phone))
+            {
+                loginInfoDTO.getProfile().setName(name);
+                loginInfoDTO.getProfile().setMobileNum(phone);
+                loginInfoDTO.updateLoginInfo(loginInfoDTO);
+            }
+        }catch (Exception ignore){
+
+        }
+
+        return true;
     }
 }
