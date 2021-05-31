@@ -93,7 +93,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
         // 픽업 주소 표시
         String address = null;
         if (resData.getLocationList() != null && resData.getLocationList().size() > 0)
-            address = StringUtil.isValidString(resData.getLocationList().get(0).getAddress()) + " " + StringUtil.isValidString(resData.getLocationList().get(0).getAddressDetail());
+            address = StringUtil.isValidString(resData.getLocationList().get(0).getAddress()) + " " + StringUtil.isValidString(resData.getLocationList().get(0).getAddressDetail()) + " " + StringUtil.isValidString(resData.getLocationList().get(0).getBuildingName());
 
         me.lPickupAddr.setMsg(address);
 
