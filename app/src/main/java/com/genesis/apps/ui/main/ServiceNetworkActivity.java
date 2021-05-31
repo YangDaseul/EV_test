@@ -697,19 +697,20 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
                                             .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC)
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectChargeStcInfo.getSid())
-                                            .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat())
-                                            .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()),
+                                            .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat()+"")
+                                            .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()+""),
                                     RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                                     VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         }
+                        break;
                     case PAGE_TYPE_EVCHARGE: {
                         // 충전소 찾기
                         if(selectedChargeEptInfo != null && initAddressVO != null) {
                             startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeStationDetailActivity.class)
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_SPID, selectedChargeEptInfo.getSpid())
                                             .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, selectedChargeEptInfo.getCsid())
-                                            .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat())
-                                            .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()),
+                                            .putExtra(KeyNames.KEY_NAME_LAT, initAddressVO.getCenterLat()+"")
+                                            .putExtra(KeyNames.KEY_NAME_LOT, initAddressVO.getCenterLon()+""),
                                     RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                                     VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         }
