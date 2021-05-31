@@ -1,8 +1,6 @@
 package com.genesis.apps.ui.main;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +17,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.util.DeviceUtil;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
@@ -36,13 +33,9 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.straffic.cardemullib.CardService;
 import com.straffic.ev.util.Constant;
 
-import org.json.JSONException;
-
 public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalletPaymtBinding> {
 
     private DTWViewModel dtwViewModel;
-    private DigitalWalletActivity activity;
-    private boolean isShow = false;
 
     private String creditCardNo;
 
@@ -71,6 +64,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
 
     private void initViewModel(){
         me.setLifecycleOwner(getViewLifecycleOwner());
+        me.setFragment(this);
 
         dtwViewModel = new ViewModelProvider(getActivity()).get(DTWViewModel.class);
 
@@ -85,9 +79,6 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
                         me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
                         this.creditCardNo = StringUtil.isValidString(result.data.getStcMbrInfo().getStcCardNo());
                         me.tvCreditCardNo.setText(StringRe2j.replaceAll(creditCardNo, getString(R.string.card_original), getString(R.string.card_mask)));
-
-                        // NFC로 충전기에 카드 번호 전송
-//                        sendCardInfo(creditCardNo);
 
                         break;
                     }
@@ -104,13 +95,16 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
 
     @Override
     public void onClickCommon(View v) {
-
+        switch (v.getId()) {
+            case R.id.btn_finish_nfc:
+                finishNfcPaymt();
+                break;
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        isShow = false;
         unRegisterBroadcastReceiver();
     }
 
@@ -152,32 +146,44 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
      * NFC 결제 화면 종료
      */
     private void finishNfcPaymt() {
+        animSlidUpDown(false);
         ((DigitalWalletActivity) getActivity()).moveViewpager(0);
     }
 
-    AnimatorSet slideDownAniSet = new AnimatorSet();
+    /**
+     * EV 충전 카드 애니메이션 처리
+     *
+     * @param down
+     */
+    private void animSlidUpDown(boolean down) {
 
-    //TODO : 애니메이션 효과 변경 필요
-    private void animSlideDown(View view) {
-        if(isShow)
-            return;
+        me.lStcCard.setTag(down);
 
+        int toMargin = ((ConstraintLayout.LayoutParams) me.lStcCard.getLayoutParams()).topMargin;
+        int targetMargin = (int) DeviceUtil.dip2Pixel(getContext(), 125);
+        ValueAnimator valAnim = ValueAnimator.ofInt(toMargin, (down ? toMargin + targetMargin : toMargin - targetMargin));
 
-        int targetY = (int) DeviceUtil.dip2Pixel(getContext(), 100);
+        valAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int val = (int) animation.getAnimatedValue();
 
-        ValueAnimator downAni = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, targetY);
-        ValueAnimator alphaAni = ObjectAnimator.ofFloat(view, "alpha", 0.5f, 1.0f);
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) me.lStcCard.getLayoutParams();
+                params.topMargin = val;
+                me.lStcCard.setLayoutParams(params);
+            }
+        });
 
-        downAni.addListener(new Animator.AnimatorListener() {
+        valAnim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                me.tvInfoTxt.setVisibility(View.GONE);
-                VibratorUtil.doVibratorLong(((SubActivity)getActivity()).getApplication());
+                if(down)
+                    VibratorUtil.doVibratorLong(((SubActivity)getActivity()).getApplication());
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                me.tvInfoTxt.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -191,11 +197,8 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
             }
         });
 
-        slideDownAniSet.playTogether(downAni, alphaAni);
-        slideDownAniSet.setDuration(500);
-        slideDownAniSet.start();
-
-        isShow = true;
+        valAnim.setDuration(down ? 400 : 0);
+        valAnim.start();
     }
 
 
@@ -235,7 +238,8 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
                 @Override
                 public void onPreparePaymentComplete() {
                     // 인증 완료되어 결제를 진행할 수 있는 상태가 됨. 여기에서 진동 및 애니메이션 재시작
-                    animSlideDown(me.lStcCard);
+                    if (me.lStcCard.getTag() == null || !(boolean) me.lStcCard.getTag())
+                        animSlidUpDown(true);
                 }
 
                 @Override
