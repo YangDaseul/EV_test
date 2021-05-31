@@ -32,6 +32,12 @@ public class VibratorUtil {
         vib.vibrate(pattern,-1);
     }
 
+    public static Vibrator doVibratorRepeat(Application context) {
+        Vibrator vib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {0, 500, 1000};
+        vib.vibrate(pattern, 1);
+        return vib;
+    }
 
     public static View makeMeShake(View view, int duration, int offset) {
         Animation anim = new TranslateAnimation(-offset,offset,0,0);

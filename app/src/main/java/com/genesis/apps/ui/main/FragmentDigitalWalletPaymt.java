@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -105,6 +106,10 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     @Override
     public void onPause() {
         super.onPause();
+
+        if(vibrator != null )
+            vibrator.cancel();
+
         unRegisterBroadcastReceiver();
     }
 
@@ -150,6 +155,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         ((DigitalWalletActivity) getActivity()).moveViewpager(0);
     }
 
+    Vibrator vibrator = null;
     /**
      * EV 충전 카드 애니메이션 처리
      *
@@ -178,7 +184,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
             @Override
             public void onAnimationStart(Animator animation) {
                 if(down)
-                    VibratorUtil.doVibratorLong(((SubActivity)getActivity()).getApplication());
+                    vibrator = VibratorUtil.doVibratorRepeat(((SubActivity)getActivity()).getApplication());
             }
 
             @Override
