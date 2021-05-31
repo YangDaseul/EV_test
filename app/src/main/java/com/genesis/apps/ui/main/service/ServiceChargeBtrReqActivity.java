@@ -705,6 +705,9 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             setViewAddr(addressVO);
         } else if(resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
             exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode()) {
+            // 픽업앤충전 서비스 예약 실패되어 화면 종료 시
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FAIL.getCode());
         }
     }
 
