@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -626,7 +627,12 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
         } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
             // 블루월넛 결제 완료 시
-            chbViewModel.reqCHB1027(new CHB_1027.Request(APPIAInfo.SM_CGRV02.getId(), mainVehicle.getVin()));
+            showProgressDialog(true);
+
+            new Handler().postDelayed(() -> {
+                chbViewModel.reqCHB1027(new CHB_1027.Request(APPIAInfo.SM_CGRV02.getId(), mainVehicle.getVin()));
+            }, 2000);
+
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
             // 픽업앤충전 서비스 예약 완료되어 화면 종료 시
             exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
