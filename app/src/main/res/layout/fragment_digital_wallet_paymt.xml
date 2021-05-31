@@ -7,6 +7,9 @@
         <variable
             name="btnListener"
             type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.FragmentDigitalWalletPaymt" />
 
     </data>
 
@@ -140,7 +143,7 @@
             style="@style/ViewBottomOkBtn"
             android:layout_margin="20dp"
             android:text="@string/digital_wallet02_4"
-            android:onClick="@{(view)->btnListener.onSingleClick(view)}"
+            android:onClick="@{(view)->fragment.onClickCommon(view)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

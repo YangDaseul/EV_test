@@ -114,7 +114,7 @@ class DTWViewModel extends ViewModel {
             try {
                 PayInfoVO payInfoVO = RES_DTW_1001.getValue().data.getPayInfo();
                 // TODO : 회원가입상태가 y고 연동된 카드수가 1개 이상이면 Y, 등록 카드 갯수도 체크할지 확인 필요!!
-                isJoin = VariableType.COMMON_MEANS_YES.equalsIgnoreCase(StringUtil.isValidString(payInfoVO.getSignInYn()));
+                isJoin = VariableType.COMMON_MEANS_YES.equalsIgnoreCase(StringUtil.isValidString(payInfoVO.getSignInYn())) && StringUtil.isValidInteger(payInfoVO.getCardCount()) > 0;
             } catch (Exception e) {
                 isJoin = false;
             }
