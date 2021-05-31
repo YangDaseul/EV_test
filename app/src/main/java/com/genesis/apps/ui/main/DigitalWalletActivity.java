@@ -255,4 +255,24 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
         return !VariableType.COMMON_MEANS_YES.equalsIgnoreCase(lgnViewModel.getDbGlobalDataRepository().select(KeyNames.KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP))&&!dtwViewModel.isPayInfo();
     }
 
+    @Override
+    public void onBackPressed() {
+        exit();
+    }
+
+    @Override
+    public void onBackButton(){
+        exit();
+    }
+
+    private void exit() {
+        if (ui.vpContents != null && viewpagerAdapter != null) {
+            if (ui.vpContents.getCurrentItem() != 0) {
+                moveViewpager(0);
+                return;
+            }
+        }
+
+        finish();
+    }
 }

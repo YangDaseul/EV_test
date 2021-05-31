@@ -106,6 +106,10 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     @Override
     public void onPause() {
         super.onPause();
+
+        if(vibrator != null )
+            vibrator.cancel();
+
         unRegisterBroadcastReceiver();
     }
 
@@ -147,10 +151,6 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
      * NFC 결제 화면 종료
      */
     private void finishNfcPaymt() {
-
-        if(vibrator != null )
-            vibrator.cancel();
-
         animSlidUpDown(false);
         ((DigitalWalletActivity) getActivity()).moveViewpager(0);
     }
