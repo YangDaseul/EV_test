@@ -57,6 +57,15 @@ public class BottomChargerReserveDialog extends BaseBottomDialog<DialogBottomCha
         // 날짜 표시
         ui.tvDate.setText(DateUtil.getCurrentDate(DateUtil.DATE_FORMAT_yyyy_mm_dd_dot_E));
 
+        if (datas == null || datas.size() == 0) {
+            // 표시할 날짜 데이터가 없다면 예약 가능 날짜 없음을 안내하는 UI 표시.
+            ui.tvGuideNoTime.setVisibility(View.VISIBLE);
+            ui.rgAmPm.setVisibility(View.GONE);
+            ui.line0.setVisibility(View.GONE);
+            ui.rvTime.setVisibility(View.GONE);
+            return;
+        }
+
         adapter = new ChargeReserveTimeListAdapter(onSingleClickListener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         ui.rvTime.setLayoutManager(layoutManager);
@@ -70,8 +79,18 @@ public class BottomChargerReserveDialog extends BaseBottomDialog<DialogBottomCha
             ui.rb1.setChecked(true);
             setAmPm(true);
         } else {
-            ui.rb0.setChecked(true);
-            setAmPm(false);
+            // 현재 시간이 오전인 경우, 오전 데이터가 있는지 체크
+            List<ReserveDtVO> amTimes = getTimeList(false);
+            if (amTimes != null && amTimes.size() > 0) {
+                // 오전 시간이 있다면 표시
+                ui.rb0.setChecked(true);
+                setAmPm(false);
+            } else {
+                // 오전 시간이 없다면 오전 버튼 비활성, 오후 버튼 표시.
+                ui.rb0.setVisibility(View.GONE);
+                ui.rb1.setChecked(true);
+                setAmPm(true);
+            }
         }
         ui.rgAmPm.setOnCheckedChangeListener(this);
         ui.tvBtnReserve.setOnClickListener((view) -> {
@@ -107,31 +126,42 @@ public class BottomChargerReserveDialog extends BaseBottomDialog<DialogBottomCha
         this.datas = datas;
     }
 
-    public void setAmPm(boolean isPm) {
+    private boolean setAmPm(boolean isPm) {
         if (datas == null) {
-            return;
+            return false;
         }
-        // 정오 시간 객체 생성.
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        List<ReserveDtVO> timeList = null;
-        if (isPm) {
-            // 오후
-            timeList = this.datas.stream().filter(it -> it.isAfter(calendar)).collect(Collectors.toList());
-        } else {
-            // 오전
-            timeList = this.datas.stream().filter(it -> it.isBefore(calendar)).collect(Collectors.toList());
-        }
+
+        List<ReserveDtVO> timeList = getTimeList(isPm);
         if (timeList != null) {
             setEnabledBtn(false);
             adapter.clearSelectedItem();
             adapter.setRows(timeList);
             adapter.notifyDataSetChanged();
+            return true;
+        }
+        return false;
+    }
+
+    private List<ReserveDtVO> getTimeList(boolean isPm) {
+        if (datas == null) {
+            return null;
+        }
+
+        // 정오 시간 객체 생성.
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+
+        if (isPm) {
+            // 오후
+            return datas.stream().filter(it -> it.isAfter(calendar)).collect(Collectors.toList());
+        } else {
+            // 오전
+            return datas.stream().filter(it -> it.isBefore(calendar)).collect(Collectors.toList());
         }
     }
 
-    public void setEnabledBtn(boolean isEnabled) {
+    private void setEnabledBtn(boolean isEnabled) {
         ui.tvBtnReserve.setEnabled(isEnabled);
 
         if (isEnabled) {

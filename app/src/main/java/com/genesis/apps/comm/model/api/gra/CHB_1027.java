@@ -13,18 +13,18 @@ import lombok.EqualsAndHashCode;
 public class CHB_1027 extends BaseData {
     /**
      * @brief CHB_1027 요청 항목
-     * @see #orderId    주문ID
+     * @see #vin    차대번호
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("orderId")
-        private String orderId;
+        @SerializedName("vin")
+        private String vin;
 
-        public Request(String menuId, String orderId) {
-            this.orderId = orderId;
+        public Request(String menuId, String vin) {
+            this.vin = vin;
             setData(APIInfo.GRA_CHB_1027.getIfCd(), menuId);
         }
     }

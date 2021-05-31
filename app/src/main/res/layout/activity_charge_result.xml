@@ -152,7 +152,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm) +` / ` + (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_HH_mm))}"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm)}"
                         app:title="@{@string/sm_evsb01_p02_3}" />
 
                     <!--충전소-->
@@ -182,7 +182,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_chg_name"
                         app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{(data.daddr ?? ``)+`&#160;`+(data.daddrDtl ?? ``)}"
+                        app:msg="@{(data.daddr ?? ``)+` `+(data.daddrDtl ?? ``)}"
                         app:title="@{@string/sm_evsb01_p02_5}" />
 
                     <!--충전기-->

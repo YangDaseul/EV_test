@@ -507,6 +507,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private void dialogExit() {
+        clearKeypad();
         MiddleDialog.dialogInsightInputCancel(this, () -> {
             finish();
             closeTransition();

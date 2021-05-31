@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,6 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                         // 제네시스 멤버십 카드 정보 표시
                         String cardNo = result.data.getBlueCardInfo().getBlueCardNo();
                         me.tvCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(cardNo), getString(R.string.card_original), getString(R.string.card_mask)));
-                        Log.d("LJEUN", "cardIsncSubspDt : " + result.data.getBlueCardInfo().getCardIsncSubspDt());
 
                         // 바코드 표시
                         me.ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -92,7 +90,9 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                             }
                         });
 
+
                         // EV 충전 정보  표시
+                        // 에스트래픽 회원 여부 확인, 회원인 경우
                         if (result.data.getStcMbrInfo() != null && StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
 
                             me.lStcCardBottom.setVisibility(View.VISIBLE);
@@ -102,11 +102,12 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
 
                             // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
                             // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
-                            if (!dtwViewModel.isStcCardUseYn() &&
-                                    (result.data.getPayInfo() != null && (!result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
+                            if (StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) < StringUtil.isValidInteger(result.data.getStcMbrInfo().getMinCretPnt()) &&
+                                    (result.data.getPayInfo() != null &&
+                                            (!StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
 
                                 // 버튼 분기 처리
-                                if(!result.data.getPayInfo().getSignInYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                                if(!StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
                                     me.btnEasypay.setText(R.string.pay01_3);
                                 else
                                     me.btnEasypay.setText(R.string.pay01_4);

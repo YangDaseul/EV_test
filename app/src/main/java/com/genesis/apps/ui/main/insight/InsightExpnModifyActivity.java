@@ -478,6 +478,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void dialogExit(){
+        clearKeypad();
         MiddleDialog.dialogInsightModifyCancel(this, () -> {
             finish();
             closeTransition();

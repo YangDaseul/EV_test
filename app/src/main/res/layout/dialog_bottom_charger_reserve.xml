@@ -62,6 +62,27 @@
             app:layout_constraintStart_toStartOf="@id/tv_guide"
             app:layout_constraintTop_toBottomOf="@id/tv_guide" />
 
+        <!--예약 가능 시간이 없는 안내 문구-->
+        <TextView
+            android:id="@+id/tv_guide_no_time"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/x_f8f8f8"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:text="@string/sm_evsb01_p01_8"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reserve_time_title"
+            tools:text="@string/sm_evsb01_p01_8"
+            tools:visibility="visible" />
+
         <!--오전 오후-->
         <RadioGroup
             android:id="@+id/rg_am_pm"
@@ -73,7 +94,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_reserve_time_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_guide_no_time">
 
             <RadioButton
                 android:id="@+id/rb_0"
