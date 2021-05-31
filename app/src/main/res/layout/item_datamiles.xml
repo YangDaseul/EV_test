@@ -35,23 +35,43 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:letterSpacing="-0.01"
-            android:paddingBottom="30dp"
             android:text="@string/gm01_datamiles_title"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_datamiles_title" />
 
 
-
-        <include
+        <TextView
             android:id="@+id/tv_datamiles_more"
-            layout="@layout/item_btn_underline_mark_gold"
-            android:layout_width="wrap_content"
+            style="@style/TextBasic"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:btnNm="@{@string/gm01_more}"
+            android:background="@drawable/ripple_bg_000000"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:text="@string/gm01_more"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_datamiles_title"
+            app:drawableEndCompat="@drawable/btn_arrow_open_r_w" />
+
+<!--        <include-->
+<!--            android:id="@+id/tv_datamiles_more"-->
+<!--            layout="@layout/item_btn_underline_mark_gold"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            app:btnNm="@{@string/gm01_more}"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
         <!--안전 운전 점수-->
 
@@ -60,13 +80,14 @@
             android:id="@+id/l_datamiles_driving_score_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_datamiles_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_datamiles_more"
             tools:visibility="visible">
 
             <!--타이틀 : 안전운전 점수-->
@@ -394,6 +415,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_datamiles_driving_score_container"
+            app:layout_goneMarginTop="30dp"
             tools:visibility="visible">
 
             <!--타이틀 : 소모품 현황-->
@@ -512,10 +534,11 @@
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             android:visibility="gone"
+            app:layout_goneMarginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_datamiles_expenables_container"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <!--타이틀 : 차량 진단-->
             <TextView
@@ -582,6 +605,7 @@
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             android:visibility="gone"
+            app:layout_goneMarginTop="30dp"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
