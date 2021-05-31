@@ -47,6 +47,7 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
         getDataFromIntent();
         setObserver();
         initView();
+        requestSTC1005("1");
     }
 
     private void initView() {
@@ -84,9 +85,11 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                 }
                 break;
             case R.id.tv_chg_name://충전소 클릭
+
                 if(reserveHisVO!=null){
                     startActivitySingleTop(new Intent(this, ChargeStationDetailActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveHisVO.getSid()),
+                                    .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveHisVO.getSid())
+                                    .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
 //                                    .putExtra(KeyNames.KEY_NAME_LAT, "lat")
 //                                    .putExtra(KeyNames.KEY_NAME_LOT, "lot"),
                             RequestCodes.REQ_CODE_ACTIVITY.getCode(),
@@ -188,7 +191,6 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
     @Override
     protected void onResume() {
         super.onResume();
-        requestSTC1005("1");
     }
 
     private void requestSTC1005(String pageNo) {
