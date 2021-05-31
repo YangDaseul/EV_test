@@ -36,6 +36,7 @@ import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.ResultCallback;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
@@ -299,6 +300,43 @@ class LGNViewModel extends ViewModel {
         dbUserRepo.insertTopicList(oriList);
     }
 
+    public void unSubscribeTopic(){
+        try {
+            //기존에 db에 등록된 토픽 확인 및 구독 해제
+            List<TopicVO> topicList = new ArrayList<>();
+            topicList.addAll(getTopicList());
+            for (TopicVO oriTopic : topicList) {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(oriTopic.getTopicNm());
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    public void updateTopic(List<String> receiveTopicList){
+        unSubscribeTopic();
+        subscribeTopic(receiveTopicList);
+    }
+
+    public void subscribeTopic(List<String> receiveTopicList){
+        try {
+            if(receiveTopicList==null) receiveTopicList = new ArrayList<>();
+
+            //기본 TOPIC 등록 (전체 수신)
+            receiveTopicList.add(VariableType.TOPIC_ALL);
+            //db에 신규 토픽 등록
+            insertTopicList(receiveTopicList);
+            //db에 신규 등록된 토픽을 로드
+            List<TopicVO> newTopicList = new ArrayList<>();
+            newTopicList.addAll(getTopicList());
+            for (TopicVO newTopic : newTopicList) {
+                FirebaseMessaging.getInstance().subscribeToTopic(newTopic.getTopicNm());
+            }
+        }catch (Exception e){
+
+        }
+    }
+
     public boolean updateGlobalDataToDB(String keyName, String value) {
         boolean isUpdate=false;
         try {
@@ -315,6 +353,7 @@ class LGNViewModel extends ViewModel {
     }
 
     public void removeDBTable(){
+        unSubscribeTopic();
         dbUserRepo.clearUserInfo();
     }
 

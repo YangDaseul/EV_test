@@ -1,7 +1,6 @@
 package com.genesis.apps.comm.model.constants;
 
 public class VariableType {
-    public static final boolean isHardCoding = true;
     public static final Double[] DEFAULT_POSITION={37.463936, 127.042953};
     public static final int ACTIVITY_TRANSITION_ANIMATION_NONE = 0;
     public static final int ACTIVITY_TRANSITION_ANIMATION_ZOON = 1;
@@ -10,6 +9,8 @@ public class VariableType {
 
     public static final String COMMON_MEANS_YES = "Y";
     public static final String COMMON_MEANS_NO = "N";
+
+    public static final String TOPIC_ALL="myg_app_all";
 
     public static final String KEY_NAME_TERM_VO="termVO";
     public static final String KEY_NAME_LOGIN_AUTH_UUID="authUuid";

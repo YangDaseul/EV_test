@@ -32,6 +32,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -194,10 +195,10 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                                         if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
                                             MiddleDialog.dialogDuplicateLogin(IntroActivity.this, () -> {
                                                 lgnViewModel.reqLGN0004(new LGN_0004.Request(APPIAInfo.INT01.getId()));
-                                            }, goToMain);
+                                            }, () -> lgnViewModel.reqLGN0007(new LGN_0007.Request(APPIAInfo.INT01.getId())));
 
                                         }else{
-                                            goToMain.run();
+                                            lgnViewModel.reqLGN0007(new LGN_0007.Request(APPIAInfo.INT01.getId()));
                                         }
                                     }
                                     @Override
@@ -246,12 +247,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getTopicList()!=null) {
-                        subscribeTopic(lgnViewModel, result.data.getTopicList());
-                    }
-                    goToMain.run();
-                    break;
                 default:
+                    lgnViewModel.updateTopic((result.data!=null&&result.data.getTopicList()!=null) ? result.data.getTopicList() : new ArrayList<>());
                     goToMain.run();
                     break;
             }

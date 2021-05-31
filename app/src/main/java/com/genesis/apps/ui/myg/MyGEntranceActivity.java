@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
-import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -27,8 +29,6 @@ import com.genesis.apps.ui.main.ServiceJoinActivity;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -77,45 +77,22 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
 
     @Override
     public void setObserver() {
-        lgnViewModel.getRES_LGN_0007().observe(this, result -> {
-            switch (result.status){
-                case LOADING:
-
-                    break;
-                case SUCCESS:
-                    if(result.data!=null&&result.data.getTopicList()!=null){
-                        subscribeTopic(lgnViewModel, result.data.getTopicList());
-//                        try {
-//                            //기존에 db에 등록된 토픽 확인 및 구독 해제
-//                            List<TopicVO> topicList = new ArrayList<>();
-//                            topicList.addAll(lgnViewModel.getTopicList());
-//                            for (TopicVO oriTopic : topicList) {
-//                                FirebaseMessaging.getInstance().unsubscribeFromTopic(oriTopic.getTopicNm());
-//                            }
-//                        }catch (Exception e){
+//        lgnViewModel.getRES_LGN_0007().observe(this, result -> {
+//            switch (result.status){
+//                case LOADING:
 //
-//                        }
-//
-//                        try {
-//                            //db에 신규 토픽 등록
-//                            lgnViewModel.insertTopicList(result.data.getTopicList());
-//                            //db에 신규 등록된 토픽을 로드
-//                            List<TopicVO> newTopicList = new ArrayList<>();
-//                            newTopicList.addAll(lgnViewModel.getTopicList());
-//                            for (TopicVO newTopic : newTopicList) {
-//                                FirebaseMessaging.getInstance().subscribeToTopic(newTopic.getTopicNm());
-//                            }
-//                        }catch (Exception e){
-//
-//                        }
-                    }
-                    restart();
-                    break;
-                default:
-                    restart();
-                    break;
-            }
-        });
+//                    break;
+//                case SUCCESS:
+//                    if(result.data!=null&&result.data.getTopicList()!=null){
+//                        subscribeTopic(lgnViewModel, result.data.getTopicList());
+//                    }
+//                    restart();
+//                    break;
+//                default:
+//                    restart();
+//                    break;
+//            }
+//        });
 
 
         lgnViewModel.getRES_LGN_0001().observe(this, result -> {
@@ -141,7 +118,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                             @Override
                             public void onSuccess(Object retv) {
                                 if (((Boolean) retv)) {
-                                    lgnViewModel.reqLGN0007(new LGN_0007.Request(APPIAInfo.INT01.getId()));
+                                    restart();
                                 } else {
                                     ga.clearLoginInfo();
                                     SnackBarUtil.show(MyGEntranceActivity.this, "데이터가 저장되지 않았습니다.\n잠시 후 다시 시도해 주세요.");
