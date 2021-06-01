@@ -63,6 +63,7 @@ public class BottomChargerReserveDialog extends BaseBottomDialog<DialogBottomCha
             ui.rgAmPm.setVisibility(View.GONE);
             ui.line0.setVisibility(View.GONE);
             ui.rvTime.setVisibility(View.GONE);
+            setEnabledBtn(false);
             return;
         }
 
