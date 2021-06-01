@@ -96,4 +96,5 @@ class BookingVO extends BaseData {
 
     private WorkerVO workerVO;
     private OrderVO orderVO;
+    private VendorVO vendorVO;
 }
