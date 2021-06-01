@@ -19,4 +19,17 @@ class ImageVO extends BaseData {
     @Expose
     @SerializedName("image")
     private String image;
+    @Expose
+    @SerializedName("image2")
+    private int image2;
+    @Expose
+    @SerializedName("image3")
+    private int image3;
+    @Expose
+    @SerializedName("link1")
+    private String link1;
+    @Expose
+    @SerializedName("link2")
+    private String link2;
+
 }

@@ -303,6 +303,11 @@ public class VariableType {
     public static final String SERVICE_CHARGE_BTR_CODE_FINISH = "5000"; //이용완료
     public static final String SERVICE_CHARGE_BTR_CODE_CANCEL = "6000"; //예약취소
 
+    //튜토리얼 종류
+    public static final int TUTORIAL_TYPE_HOME=0;
+    public static final int TUTORIAL_TYPE_DIGITAL_WALLET=1;
+    public static final int TUTORIAL_TYPE_CHARGE=2;
+
 
     /**
      * 원격 진단 안내 여부 결과 코드.

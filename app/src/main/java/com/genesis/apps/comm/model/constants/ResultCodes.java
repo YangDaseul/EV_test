@@ -46,10 +46,11 @@ public enum ResultCodes {
     REQ_CODE_UNPAID_PAYMT_FINISH(64,"미수금 결제 완료"),
     REQ_CODE_UNPAID_PAYMT_CANCEL(65,"미수금 결제 취소"),
 
+    REQ_CODE_TUTORIAL_DIGITAL_WALLET(80,"디지털월렛 튜토리얼 종료"),
+
     REQ_CODE_PAYMENT_SUCC(1001,"결제 성공"),
     REQ_CODE_PAYMENT_FAIL(1002,"결제 실패"),
-    REQ_CODE_PAYMENT_CANCEL(1003,"결제 취소")
-    ;
+    REQ_CODE_PAYMENT_CANCEL(1003,"결제 취소");
 
     private int code;
     private String description;

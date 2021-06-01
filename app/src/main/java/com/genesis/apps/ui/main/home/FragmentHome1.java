@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -44,7 +43,6 @@ import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
-import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -59,6 +57,7 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.TutorialActivity;
 import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -719,6 +718,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 initViewBanner(true);
                 initializePlayer();
                 ((MainActivity) getActivity()).setTab(dayCd);
+                ((SubActivity) getActivity()).hadTutorial(lgnViewModel.getMainVehicleFromDB().isEVonlyOV(), lgnViewModel.hadTutorial(VariableType.TUTORIAL_TYPE_HOME), VariableType.TUTORIAL_TYPE_HOME);
             }
             setViewVehicle();
             //날씨 효과가 있을 경우 중복이지만 onResume에서 한번더 호출 진행 (0005받기 전까지 대기 화면이 이질적으로 보임)
@@ -726,7 +726,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             //LGN-0005와 중복되지만 하->상 이동 시 바로 변경하기 위한 처리
             SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
             setViewWeather();
-            setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
+            setIndicator(lgnViewModel.getMainVehicleSimplyFromDB().getCustGbCd());
             goneQuickMenu();
             ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
             clearKeyPad();

@@ -11,14 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
@@ -28,6 +24,7 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.intro.PermissionsActivity;
+import com.genesis.apps.ui.main.TutorialActivity;
 import com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
@@ -35,6 +32,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -398,6 +400,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }catch (Exception e){
 
         }
+    }
+
+    public boolean hadTutorial(boolean isEvOnlyOV, boolean hadTutorial, int type){
+        if(!hadTutorial&&isEvOnlyOV){
+            startActivitySingleTop(new Intent(this, TutorialActivity.class)
+                    .putExtra(KeyNames.KEY_NAME_TUTORIAL_TYPE, type), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+        }
+        return !hadTutorial&&isEvOnlyOV;
     }
 
 }
