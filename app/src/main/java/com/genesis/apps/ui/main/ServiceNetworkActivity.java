@@ -187,6 +187,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                                     list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
                                     break;
                                 case PAGE_TYPE_EVCHARGE_STC:
+                                    setPositionChargeStationStc(stcViewModel.getRES_STC_1001().getValue().data.getSearchList(),
+                                            (stcViewModel.getChargeStcInfoVO(makerList.get(0).getId())), true);
+                                    break;
                                 case PAGE_TYPE_EVCHARGE: {
                                     setPositionChargeStation(eptViewModel.getRES_EPT_1001().getValue().data.getChgList()
                                             , (eptViewModel.getChargeEptInfoVO(makerList.get(0).getId())), true);
