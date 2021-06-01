@@ -144,13 +144,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         switch (v.getId()) {
             case R.id.tv_btn_reserve:
                 try {
-                    /*
                     if (mainVehicleVO == null || TextUtils.isEmpty(mainVehicleVO.getVin()) || lgnViewModel.getUserInfoFromDB().getCustGbCd().equals(VariableType.MAIN_VEHICLE_TYPE_NV)) {
                         // 계약상태여서 차대번호가 없거나 미 보유 고객인 경우 스낵바 알림 메시지 노출
                         SnackBarUtil.show(ChargeStationDetailActivity.this, getString(R.string.sm01_snack_bar));
                         return;
                     }
-                     */
 
                     Object tag = v.getTag();
                     selectedSid = null;
