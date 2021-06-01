@@ -90,6 +90,7 @@ public class TutorialActivity extends SubActivity<ActivityTutorialBinding> {
         ui.vpTutorial.setAdapter(adapter);
         ui.indicator.setViewPager(ui.vpTutorial);
         adapter.setRows(imageList);
+        ui.indicator.createIndicators(imageList.size(), 0);
         ui.vpTutorial.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
