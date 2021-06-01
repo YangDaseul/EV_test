@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -29,10 +30,13 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityBluewalnutWebBinding;
+import com.google.android.gms.common.util.Base64Utils;
 
 import java.net.URISyntaxException;
 
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @AndroidEntryPoint
 public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBinding> {
@@ -48,7 +52,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
 
     private PymtFormVO pymtFormVO;  // 결제 요청 폼 데이터
     private String pageType;  // 페이지 타입
-
+    private String redirectUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +110,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
+                            this.redirectUrl = decodeUrl(StringUtil.isValidString(result.data.getRedirectUrl()));
                         }
                     }
                     break;
@@ -147,6 +152,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
+                            this.redirectUrl = decodeUrl(StringUtil.isValidString(result.data.getRedirectUrl()));
                         }
                     }
                     break;
@@ -229,6 +235,8 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                 bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, data.getPostData().getBytes());
             } catch (Exception e) {
 
+            } finally {
+                this.redirectUrl = decodeUrl(StringUtil.isValidString(pymtFormVO.getRedirectUrl()));
             }
         }
 
@@ -251,7 +259,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         public void onPageFinished(String url) {
             Log.d(TAG, "onPageFinished:" + url);
             if (url.startsWith("about:blank")) exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
-//            if (url.contains("/api/v1/dkc/carlife/c/payment/redirect/")) finish();
+            if (url.equals(redirectUrl)) exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
             if (isClearHistory) {
                 clearHistory();
                 setClearHistory(false);
@@ -271,6 +279,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
 
         @Override
         public void onCloseWindow(WebView window) {
+            Log.d(TAG, "onCloseWindow()");
             exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
         }
     };
@@ -400,4 +409,11 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         return false;
     }
 
+    private String decodeUrl(String str) {
+        if (TextUtils.isEmpty(str))
+            return null;
+
+        byte[] decoded = Base64Utils.decodeUrlSafe(str);
+        return new String(decoded, UTF_8);
+    }
 }
