@@ -9,6 +9,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.EPT_1002;
@@ -48,12 +54,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
-
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.genesis.apps.comm.model.constants.VariableType.CHARGE_STATION_TYPE_EPT;
 import static com.genesis.apps.comm.model.constants.VariableType.CHARGE_STATION_TYPE_STC;
@@ -144,11 +144,13 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         switch (v.getId()) {
             case R.id.tv_btn_reserve:
                 try {
+                    /*
                     if (mainVehicleVO == null || TextUtils.isEmpty(mainVehicleVO.getVin()) || lgnViewModel.getUserInfoFromDB().getCustGbCd().equals(VariableType.MAIN_VEHICLE_TYPE_NV)) {
                         // 계약상태여서 차대번호가 없거나 미 보유 고객인 경우 스낵바 알림 메시지 노출
                         SnackBarUtil.show(ChargeStationDetailActivity.this, getString(R.string.sm01_snack_bar));
                         return;
                     }
+                     */
 
                     Object tag = v.getTag();
                     selectedSid = null;
@@ -746,21 +748,38 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
     private void showSelectReserveDate(List<ReserveDtVO> dateList) {
         try {
+            // 현재 시간 객체.
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 1);
             List<ReserveDtVO> reservableList = dateList.stream().filter(it -> it.isAfter(calendar) && "Y".equalsIgnoreCase(it.getReservYn())).collect(Collectors.toList());
-            if (reservableList.size() > 0) {
-                // 예약 가능한 시간대가 있을경우에만 예약 팝업 표시.
-                BottomChargerReserveDialog dialog = new BottomChargerReserveDialog(ChargeStationDetailActivity.this, R.style.BottomSheetDialogTheme);
-                dialog.setDatas(reservableList);
-                dialog.setEventListener((this::reqReserveCharger));
-                dialog.show();
-                return;
-            }
+            BottomChargerReserveDialog dialog = new BottomChargerReserveDialog(ChargeStationDetailActivity.this, R.style.BottomSheetDialogTheme);
+            dialog.setAmDatas(getTimeData(reservableList, false));
+            dialog.setPmDatas(getTimeData(reservableList, true));
+            dialog.setEventListener((this::reqReserveCharger));
+            dialog.show();
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }
         SnackBarUtil.show(ChargeStationDetailActivity.this, getString(R.string.sm_evsb01_p01_7));
+    }
+
+    private List<ReserveDtVO> getTimeData(List<ReserveDtVO> timeData, boolean isPm) {
+        if(timeData == null) {
+            return new ArrayList<>();
+        }
+
+        // 정오 시간 객체 생성.
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+
+        if (isPm) {
+            // 오후
+            return timeData.stream().filter(it -> it.isAfter(calendar)).collect(Collectors.toList());
+        } else {
+            // 오전
+            return timeData.stream().filter(it -> it.isBefore(calendar)).collect(Collectors.toList());
+        }
     }
 
     /**
