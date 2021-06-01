@@ -180,6 +180,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.myg.MyGTerms0014Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.myg.MyGMenuActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"

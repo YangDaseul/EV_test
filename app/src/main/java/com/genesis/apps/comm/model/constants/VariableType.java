@@ -21,6 +21,7 @@ public class VariableType {
     public static final String TERM_SERVICE_JOIN_GRA0004 = "GRA0004"; //제네시스 멤버십 가입 약관
     public static final String TERM_SERVICE_JOIN_GRA0005 = "GRA0005"; //광고성 정보 수신 동의(선택)
     public static final String TERM_SERVICE_JOIN_GRA0013 = "GRA0013"; //개인정보 수집/이용(선택약관)
+    public static final String TERM_SERVICE_JOIN_GRA0014 = "GRA0014"; //위치정보서비스 이용 약관
 
     public static final String TERM_SERVICE_JOIN_MYP0001 = "MYP0001"; //개인정보수집및이용
     public static final String TERM_SERVICE_JOIN_MYP0002 = "MYP0002"; //개인정보취급위탁에대한동의
