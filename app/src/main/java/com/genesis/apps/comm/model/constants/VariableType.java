@@ -304,6 +304,10 @@ public class VariableType {
     public static final String SERVICE_CHARGE_BTR_CODE_FINISH = "5000"; //이용완료
     public static final String SERVICE_CHARGE_BTR_CODE_CANCEL = "6000"; //예약취소
 
+    public static final String SERVICE_CHARGE_BTR_WORKER_TYPE_PICKUP = "PKUP"; //픽업 기사
+    public static final String SERVICE_CHARGE_BTR_WORKER_TYPE_SERVICE = "ECHG"; // EV 충전 기사
+    public static final String SERVICE_CHARGE_BTR_WORKER_TYPE_DELIVERY = "DLVR"; // 딜리버리 기사
+
     //튜토리얼 종류
     public static final int TUTORIAL_TYPE_HOME=0;
     public static final int TUTORIAL_TYPE_DIGITAL_WALLET=1;
