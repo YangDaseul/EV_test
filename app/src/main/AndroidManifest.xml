@@ -247,6 +247,11 @@
         <!-- android:exported="false" -->
         <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" /> -->
         <activity
+            android:name=".ui.main.TutorialActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.home.BtrServiceInfoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"

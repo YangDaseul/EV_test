@@ -208,7 +208,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 }finally {
                     if(vehicleVO!=null&&vehicleVO.isEV()){
                         if(vehicleVO.isEVonlyOV()){
-                            startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                            if(!hadTutorial(true, lgnViewModel.hadTutorial(VariableType.TUTORIAL_TYPE_DIGITAL_WALLET), VariableType.TUTORIAL_TYPE_DIGITAL_WALLET)){
+                                startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                            }
                         }else{
                             SnackBarUtil.show(this, "차량 인도 후 사용 가능합니다.");
                         }
@@ -422,6 +424,15 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     return;
                 }
             }
+        } else if (resultCode == ResultCodes.REQ_CODE_TUTORIAL_DIGITAL_WALLET.getCode()) {
+            startActivitySingleTop(new Intent(this, DigitalWalletActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+            return;
+//                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+//                    if (fragment instanceof FragmentContents) {
+//                        fragment.onActivityResult(requestCode, resultCode, data);
+//                        return;
+//                    }
+//                }
         }
 
     }

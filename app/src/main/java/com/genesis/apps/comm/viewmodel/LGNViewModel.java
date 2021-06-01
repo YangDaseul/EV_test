@@ -303,6 +303,16 @@ class LGNViewModel extends ViewModel {
         return isUpdate;
     }
 
+    public boolean hadTutorial(int type){
+        String isWatch="";
+        try{
+            isWatch = selectGlobalDataFromDB(KeyNames.KEY_NAME_TUTORIAL_TYPE+type);
+        }catch (Exception ignore){
+            isWatch = "";
+        }
+        return VariableType.COMMON_MEANS_YES.equalsIgnoreCase(isWatch);
+    }
+
     public String selectGlobalDataFromDB(String keyName){
         return dbGlobalDataRepository.select(keyName);
     }

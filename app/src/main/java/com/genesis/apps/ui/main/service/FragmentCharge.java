@@ -68,6 +68,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     private final int EVENT_TYPE_BTR = 1;
     private final int EVENT_TYPE_SOS = 2;
     private int eventType = 0;
+    private boolean isTutorial=false;
 
     public static FragmentCharge newInstance(int position) {
         FragmentCharge fragmentCharge = new FragmentCharge();
@@ -258,6 +259,11 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         setViewBatteryStatus();
         if(vehicleVO!=null&&!TextUtils.isEmpty(vehicleVO.getVin()))
             sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM01.getId(), vehicleVO.getVin()));
+
+        if(!isTutorial){
+            isTutorial=true;
+            ((SubActivity) getActivity()).hadTutorial(vehicleVO.isEVonlyOV(), lgnViewModel.hadTutorial(VariableType.TUTORIAL_TYPE_CHARGE), VariableType.TUTORIAL_TYPE_CHARGE);
+        }
     }
 
     @Override
