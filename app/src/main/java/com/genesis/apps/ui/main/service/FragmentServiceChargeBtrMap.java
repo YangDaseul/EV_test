@@ -23,6 +23,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentMapBinding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomInfoBar2Binding;
@@ -92,6 +93,11 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
 
     private void initView() {
         me.pmvMapView.initMap();
+
+        if(ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(StringUtil.isValidString(data.getStatus())))
+            me.btnPosRefresh.setVisibility(View.GONE);
+        else
+            me.btnPosRefresh.setVisibility(View.VISIBLE);
 
         me.btnMyPosition.setOnClickListener(onSingleClickListener);
         me.btnPosRefresh.setOnClickListener(onSingleClickListener);
