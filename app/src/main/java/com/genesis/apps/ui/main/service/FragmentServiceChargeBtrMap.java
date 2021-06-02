@@ -20,9 +20,11 @@ import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentMapBinding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomInfoBar2Binding;
@@ -93,6 +95,11 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
     private void initView() {
         me.pmvMapView.initMap();
 
+        if(ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(StringUtil.isValidString(data.getStatus())))
+            me.btnPosRefresh.setVisibility(View.GONE);
+        else
+            me.btnPosRefresh.setVisibility(View.VISIBLE);
+
         me.btnMyPosition.setOnClickListener(onSingleClickListener);
         me.btnPosRefresh.setOnClickListener(onSingleClickListener);
 
@@ -103,6 +110,16 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
     }
 
     private void reqDriverPos() {
+        if (data != null && ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(StringUtil.isValidString(data.getStatus()))) {
+            if (data.getLocationList() != null && data.getLocationList().size() > 0 && data.getLocationList().get(0).getLatitude() > 0 && data.getLocationList().get(0).getLongitude() > 0) {
+                me.pmvMapView.initMap(data.getLocationList().get(0).getLatitude(), data.getLocationList().get(0).getLongitude(), ((GpsBaseActivity) getActivity()).DEFAULT_ZOOM);
+                drawMarkerItem(data.getLocationList().get(0).getLatitude(), data.getLocationList().get(0).getLongitude());
+            } else {
+                me.pmvMapView.initMap(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1], ((GpsBaseActivity) getActivity()).DEFAULT_ZOOM);
+            }
+            return;
+        }
+
         if (mainVehicle != null && data != null && !TextUtils.isEmpty(data.getOrderId()))
             chbViewModel.reqCHB1022(new CHB_1022.Request(APPIAInfo.SM_CGRV04_03.getId(), data.getOrderId(), mainVehicle.getVin()));
     }
@@ -169,31 +186,20 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
         chbViewModel.getRES_CHB_1022().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
                         // TODO 업데이트 처리
                         if(result.data.getLatitude() > 0 && result.data.getLongitude() > 0) {
-                            me.pmvMapView.initMap(result.data.getLatitude(), result.data.getLongitude(), ((GpsBaseActivity)getActivity()).DEFAULT_ZOOM);
+                            me.pmvMapView.setMapCenterPoint(new PlayMapPoint(result.data.getLatitude(), result.data.getLongitude()), 500);
                             drawMarkerItem(result.data.getLatitude(), result.data.getLongitude());
+                            break;
                         }
-                        break;
                     }
                 default:
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.service_charge_btr_err_16);
-                        }
-                        SnackBarUtil.show(getActivity(), serverMsg);
-                        ((SubActivity) getActivity()).showProgressDialog(false);
-                    }
+                    me.pmvMapView.setMapCenterPoint(new PlayMapPoint(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]), 500);
+                    drawMarkerItem(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                     break;
             }
         });
@@ -239,7 +245,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
 
             Log.d(LOG_TAG, "test :: findMyLocation :: location=" + location);
             this.getActivity().runOnUiThread(() -> {
-                me.pmvMapView.initMap(location.getLatitude(), location.getLongitude(), ((GpsBaseActivity)getActivity()).DEFAULT_ZOOM);
+                me.pmvMapView.setMapCenterPoint(new PlayMapPoint(location.getLatitude(), location.getLongitude()), 500);
             });
 
         }, 5000, GpsBaseActivity.GpsRetType.GPS_RETURN_FIRST, false);

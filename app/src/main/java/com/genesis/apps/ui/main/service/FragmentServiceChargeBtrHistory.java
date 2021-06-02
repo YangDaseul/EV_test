@@ -214,6 +214,7 @@ public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentService
                         if(result.data.getWorkerCount() > 0)
                             item.setWorkerVO(result.data.getWorkerList().get(0));
                         item.setOrderVO(result.data.getOrderInfo());
+                        item.setVendorVO(result.data.getVendorInfo());
 
                         adapter.eventAccordion(currSelectPos);
                         ((SubActivity) getActivity()).showProgressDialog(false);

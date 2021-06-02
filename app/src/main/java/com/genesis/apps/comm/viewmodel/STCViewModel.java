@@ -15,8 +15,11 @@ import com.genesis.apps.comm.model.api.gra.STC_1006;
 import com.genesis.apps.comm.model.api.gra.STC_2001;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.STCRepo;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -112,6 +115,19 @@ class STCViewModel extends ViewModel {
         }finally {
             es.shutDownExcutor();
         }
+    }
+
+    public ReserveVo getChargeStcInfoVO(String csid){
+
+        if(RES_STC_1001.getValue()!=null&&RES_STC_1001.getValue().data!=null&&RES_STC_1001.getValue().data.getSearchList()!=null) {
+            for (ReserveVo item : RES_STC_1001.getValue().data.getSearchList()) {
+                if (StringUtil.isValidString(item.getSid()).equalsIgnoreCase(StringUtil.isValidString(csid))) {
+                    return item;
+                }
+            }
+        }
+
+        return null;
     }
 
 //    public List<VehicleVO> getVehicleListEV() throws ExecutionException, InterruptedException{

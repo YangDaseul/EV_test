@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.BookingVO;
@@ -23,8 +22,6 @@ import com.genesis.apps.databinding.ItemServiceChargeBtrHistoryBottomBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
-
-import java.util.List;
 
 
 public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<BookingVO> {
@@ -147,8 +144,12 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
                 if(item.getWorkerVO() != null) {
                     // 담당 기사 표시
                     getBinding().lDriverNm.setMsg(String.format(getContext().getString(R.string.service_charge_btr_word_09), item.getWorkerVO().getWorkerName()));
-                    // 고객센터 번호 연결
-                    getBinding().btnChargeBtrTel.btnNm.setTag(item.getWorkerVO().getWorkerHpNo());
+                    if(item.getVendorVO() != null && !TextUtils.isEmpty(item.getVendorVO().getVendorCSTelNo())) {
+                        // 고객센터 번호 연결
+                        getBinding().btnChargeBtrTel.btnNm.setTag(item.getVendorVO().getVendorCSTelNo());
+                        getBinding().btnChargeBtrTel.lWhole.setVisibility(View.VISIBLE);
+                    } else
+                        getBinding().btnChargeBtrTel.lWhole.setVisibility(View.GONE);
                 }
 
                 if(item.getOrderVO() != null) {

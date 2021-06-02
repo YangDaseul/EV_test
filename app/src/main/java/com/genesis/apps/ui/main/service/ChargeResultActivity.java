@@ -12,11 +12,8 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.ReserveInfo;
 import com.genesis.apps.databinding.ActivityChargeResultBinding;
-import com.genesis.apps.databinding.ActivityServiceRepair4ResultBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 /**
@@ -36,14 +33,23 @@ public class ChargeResultActivity extends SubActivity<ActivityChargeResultBindin
         setObserver();
     }
 
+    @Override
+    public void onBackPressed() {
+        startChargeReserveHistoryActivity();
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onBackButton() {
+        startChargeReserveHistoryActivity();
+        super.onBackPressed();
+    }
 
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_confirm://다음
-                startActivitySingleTop(new Intent(this, ChargeReserveHistoryActivity.class),
-                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startChargeReserveHistoryActivity();
                 super.onBackPressed();
                 break;
             case R.id.btn_call:
@@ -78,6 +84,12 @@ public class ChargeResultActivity extends SubActivity<ActivityChargeResultBindin
                 exitPage("신청 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }
+    }
+
+    private void startChargeReserveHistoryActivity() {
+        startActivitySingleTop(new Intent(this, ChargeReserveHistoryActivity.class),
+                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 }

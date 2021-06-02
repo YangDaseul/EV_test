@@ -117,10 +117,10 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
 
     private void setFragment(String stusCd) {
 
-        if (ChargeBtrStatus.STATUS_1000.getStusCd().equalsIgnoreCase(stusCd) ||
-                ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(stusCd)) {
+        if (ChargeBtrStatus.STATUS_1000.getStusCd().equalsIgnoreCase(stusCd)) {
             setStatusFragment(0);
-        } else if (ChargeBtrStatus.STATUS_2000.getStusCd().equalsIgnoreCase(stusCd) ||
+        } else if (ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(stusCd) ||
+                ChargeBtrStatus.STATUS_2000.getStusCd().equalsIgnoreCase(stusCd) ||
                 ChargeBtrStatus.STATUS_3000.getStusCd().equalsIgnoreCase(stusCd) ||
                 ChargeBtrStatus.STATUS_4000.getStusCd().equalsIgnoreCase(stusCd)) {
             setStatusFragment(1);

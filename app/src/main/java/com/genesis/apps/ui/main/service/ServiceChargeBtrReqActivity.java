@@ -204,9 +204,9 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 , inOutCd
                 , addressVO.getCenterLat()
                 , addressVO.getCenterLon()
-                , getAddress(addressVO)[0]
+                , ui.tvAddrInfo2.getText().toString()
                 , ui.etAddrDtl.getText().toString().trim()
-                , addressVO.getCname());
+                , ui.tvAddrInfo1.getText().toString());
 
         // 픽업앤충전 신청 전문 요청
         chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),

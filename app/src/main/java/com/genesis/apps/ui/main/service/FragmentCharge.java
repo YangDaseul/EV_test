@@ -158,6 +158,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                         if (result.data.getChbStus() != null) {
                             switch (StringUtil.isValidString(result.data.getChbStus().getStatus())) {
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_RESERVATION://예약완료
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_SVC_BEFORE://서비스 시작전
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_PICKUP://픽업 중
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_SERVICE://서비스 중
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_DELIVERY://딜리버리 중

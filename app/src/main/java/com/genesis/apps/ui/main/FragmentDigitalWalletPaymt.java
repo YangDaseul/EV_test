@@ -166,9 +166,13 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         me.lStcCard.setTag(down);
 
         int toMargin = ((ConstraintLayout.LayoutParams) me.lStcCard.getLayoutParams()).topMargin;
-        int targetMargin = (int) DeviceUtil.dip2Pixel(getContext(), 125);
-        ValueAnimator valAnim = ValueAnimator.ofInt(toMargin, (down ? toMargin + targetMargin : toMargin - targetMargin));
+        int targetMargin = down ? (int) DeviceUtil.dip2Pixel(getContext(), 125) : (int) DeviceUtil.dip2Pixel(getContext(), 30);
 
+        if (toMargin == targetMargin)
+            return;
+
+
+        ValueAnimator valAnim = ValueAnimator.ofInt(toMargin, targetMargin);
         valAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -183,8 +187,8 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         valAnim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                if(down)
-                    vibrator = VibratorUtil.doVibratorRepeat(((SubActivity)getActivity()).getApplication());
+                if (down)
+                    vibrator = VibratorUtil.doVibratorRepeat(((SubActivity) getActivity()).getApplication());
             }
 
             @Override

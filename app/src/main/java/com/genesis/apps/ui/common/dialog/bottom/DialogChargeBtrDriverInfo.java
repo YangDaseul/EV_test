@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
+import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.carlife.MembershipVO;
 import com.genesis.apps.comm.model.vo.carlife.OptionVO;
@@ -21,6 +22,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.DialogBottomChargeBtrDriverInfoBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -64,13 +66,28 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
         /**
          * 기사 정보
          */
-        if(data.getWorkerList() != null && data.getWorkerList().size() > 0) {
-            WorkerVO workerVO = data.getWorkerList().get(0);
+        String targetType = null;
+        switch (ChargeBtrStatus.findCode(StringUtil.isValidString(data.getStatus()))) {
+            case STATUS_1500:
+            case STATUS_2000:
+                targetType = VariableType.SERVICE_CHARGE_BTR_WORKER_TYPE_PICKUP;
+                break;
+            case STATUS_3000:
+                targetType = VariableType.SERVICE_CHARGE_BTR_WORKER_TYPE_SERVICE;
+                break;
+            case STATUS_4000:
+                targetType = VariableType.SERVICE_CHARGE_BTR_WORKER_TYPE_DELIVERY;
+                break;
+        }
+
+        WorkerVO workerVO = getWorkerInfo(data.getWorkerList(), targetType);
+        if(workerVO != null) {
             // 기사님 이름 표시
             ui.lWorkerNm.setMsg(StringUtil.isValidString(workerVO.getWorkerName()));
             // 기사님 전화번호 표시
             ui.lControlTel.setMsg(PhoneNumberUtils.formatNumber(StringUtil.isValidString(workerVO.getWorkerHpNo()), Locale.getDefault().getCountry()));
         }
+
         // 업체 정보 표시
         if (data.getVendorInfo() != null)
             ui.lAllocNm.setMsg(StringUtil.isValidString(data.getVendorInfo().getVendorName()));
@@ -145,6 +162,33 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
 
         // 결제 금액 표시
         ui.lPaymtAmt.setMsg(StringUtil.getPriceString(data.getOrderInfo().getEstimatedPaymentAmount()));
+    }
+
+    /**
+     * 기사 정보 가져오기
+     *
+     * @param list
+     * @param type
+     * @return
+     */
+    private WorkerVO getWorkerInfo(List<WorkerVO> list, String type) {
+        WorkerVO result = null;
+
+        if (list != null && list.size() > 0) {
+            if(!TextUtils.isEmpty(type)) {
+                for (WorkerVO vo : list) {
+                    if (StringUtil.isValidString(vo.getWorkerType()).equalsIgnoreCase(type)) {
+                        result = vo;
+                        break;
+                    }
+                }
+            }
+
+            if (result == null)
+                result = list.get(0);
+        }
+
+        return result;
     }
 
     public CHB_1021.Response getData() {
