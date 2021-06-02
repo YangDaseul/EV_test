@@ -87,7 +87,7 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
             // 기사님 전화번호 표시
             ui.lControlTel.setMsg(PhoneNumberUtils.formatNumber(StringUtil.isValidString(workerVO.getWorkerHpNo()), Locale.getDefault().getCountry()));
             ui.lControlTel.lWhole.setTag(workerVO.getWorkerHpNo());
-        } 
+        }
 
         // 업체 정보 표시
         if (data.getVendorInfo() != null)
@@ -99,7 +99,7 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
         // 픽업 주소 표시
         String address = null;
         if (data.getLocationList() != null && data.getLocationList().size() > 0)
-            address = StringUtil.isValidString(data.getLocationList().get(0).getAddress()) + " " + StringUtil.isValidString(data.getLocationList().get(0).getAddressDetail());
+            address = StringUtil.isValidString(data.getLocationList().get(0).getAddress()) + " " + StringUtil.isValidString(data.getLocationList().get(0).getAddressDetail()) + " " + StringUtil.isValidString(data.getLocationList().get(0).getBuildingName());
 
         ui.lPickupAddr.setMsg(address);
 
