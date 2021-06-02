@@ -133,7 +133,10 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_my_position:
-                reqMyLocation();
+                if (ChargeBtrStatus.STATUS_1500.getStusCd().equalsIgnoreCase(StringUtil.isValidString(data.getStatus())))
+                    reqDriverPos();
+                else
+                    ((FragmentServiceChargeBtrStatus) getParentFragment()).reqAplctStatusGet(mainVehicle);
                 break;
             case R.id.btn_pos_refresh:
                 reqDriverPos();

@@ -150,9 +150,7 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
                     if(item.getVendorVO() != null && !TextUtils.isEmpty(item.getVendorVO().getVendorCSTelNo())) {
                         // 고객센터 번호 연결
                         getBinding().btnChargeBtrTel.btnNm.setTag(item.getVendorVO().getVendorCSTelNo());
-                        getBinding().btnChargeBtrTel.lWhole.setVisibility(View.VISIBLE);
-                    } else
-                        getBinding().btnChargeBtrTel.lWhole.setVisibility(View.GONE);
+                    }
                 }
 
                 if(item.getOrderVO() != null) {
