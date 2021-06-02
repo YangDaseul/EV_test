@@ -68,12 +68,12 @@ public class CreditUseListAdapter extends BaseRecyclerViewAdapter2<CreditPointVO
                 case MyGCreditUseListActivity.TRANS_TYPE_CODE_USE:
                     textColor = R.color.x_996449;
                     textMsg = R.string.mg_member04_6;
-                    amount = StringUtil.isValidString(item.getSeCreditAmount());
+                    amount = StringUtil.isValidString(item.getUseCreditAmount());
                     break;
                 case MyGCreditUseListActivity.TRANS_TYPE_CODE_CANCEL:
                     textColor = R.color.x_ce2d2d;
                     textMsg = R.string.mg_member04_7;
-                    amount = StringUtil.isValidString(item.getSeCreditAmount());
+                    amount = StringUtil.isValidString(item.getUseCreditAmount());
                     cancelLine = Paint.STRIKE_THRU_TEXT_FLAG;
                     break;
                 default:
