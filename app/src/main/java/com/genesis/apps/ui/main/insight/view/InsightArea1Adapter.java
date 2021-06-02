@@ -137,9 +137,9 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                 return;
 //            Log.v("image","image position:"+item.getCurrentPos() + "    view position:"+pos  );
             List<ImageVO> list = new ArrayList<>();
-            if(!TextUtils.isEmpty(item.getImgUri1())) list.add(new ImageVO(item.getImgUri1(),0,0,"",""));
-            if(!TextUtils.isEmpty(item.getImgUri2())) list.add(new ImageVO(item.getImgUri2(),0,0,"",""));
-            if(!TextUtils.isEmpty(item.getImgUri3())) list.add(new ImageVO(item.getImgUri3(),0,0,"",""));
+            if(!TextUtils.isEmpty(item.getImgUri1())) list.add(new ImageVO(item.getImgUri1(),0,0,0,"","",""));
+            if(!TextUtils.isEmpty(item.getImgUri2())) list.add(new ImageVO(item.getImgUri2(),0,0,0,"","",""));
+            if(!TextUtils.isEmpty(item.getImgUri3())) list.add(new ImageVO(item.getImgUri3(),0,0,0,"","",""));
 
             if(list.size()>0){
                 insightImageHorizontalAdapter.setRows(list);
