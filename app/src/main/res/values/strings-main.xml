@@ -173,7 +173,7 @@
     <string name="sm_cg_sm02_9">신청 내역</string>
     <string name="sm_cg_sm02_10">픽업앤충전 신청</string>
     <string name="sm_cg_sm02_11">찾아가는 충전 서비스</string>
-    <string name="sm_cg_sm02_12">고객님이 원하는 곳으로\n방문하여 7KW를 무상으로\n충전해 드립니다.</string>
+    <string name="sm_cg_sm02_12">고객님이 원하는 곳으로\n방문하여 7kWh를 무상으로\n충전해 드립니다.</string>
     <string name="sm_cg_sm02_13">전화 신청</string>
     <string name="sm_cg_sm02_14">앱으로 신청</string>
     <string name="sm_cg_sm02_19">신청 가능한 잔여 횟수가 없습니다.</string>
