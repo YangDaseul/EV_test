@@ -66,7 +66,7 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
         } finally {
             //소유차량인 고객
             if (vehicleVO != null)
-                chbViewModel.reqCHB1021(new CHB_1021.Request(APPIAInfo.SM_CGRV04_02.getId(), vehicleVO.getVin()));
+                reqAplctStatusGet(vehicleVO);
         }
     }
 
@@ -113,6 +113,10 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                     break;
             }
         });
+    }
+
+    public void reqAplctStatusGet(VehicleVO vehicleVO) {
+        chbViewModel.reqCHB1021(new CHB_1021.Request(APPIAInfo.SM_CGRV04_02.getId(), vehicleVO.getVin()));
     }
 
     private void setFragment(String stusCd) {

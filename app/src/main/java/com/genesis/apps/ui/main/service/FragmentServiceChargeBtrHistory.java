@@ -139,9 +139,8 @@ public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentService
 
     @Override
     public void onRefresh() {
-        if (mainVehicle != null) {
+        if (mainVehicle != null)
             requestCHB1023(currPgNo);
-        }
     }
 
     private void setViewModel() {
