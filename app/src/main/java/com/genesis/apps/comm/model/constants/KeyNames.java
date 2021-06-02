@@ -107,6 +107,7 @@ public interface KeyNames {
     String KEY_NAME_CHG_NAME = "chgName";
     String KEY_NAME_CHG_ADDR = "chgAddr";
     String KEY_STATION_TYPE = "stationType";
+    String KEY_IS_SHOW_DIST = "isShowDist";
 
     String KEY_NAME_CHARGE_TYPE = "chargeType";
 

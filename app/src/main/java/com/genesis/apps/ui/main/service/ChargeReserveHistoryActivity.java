@@ -89,7 +89,8 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                 if(reserveHisVO!=null){
                     startActivitySingleTop(new Intent(this, ChargeStationDetailActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_CHARGE_STATION_CSID, reserveHisVO.getSid())
-                                    .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC),
+                                    .putExtra(KeyNames.KEY_STATION_TYPE, VariableType.CHARGE_STATION_TYPE_STC)
+                                    .putExtra(KeyNames.KEY_IS_SHOW_DIST, false),
 //                                    .putExtra(KeyNames.KEY_NAME_LAT, "lat")
 //                                    .putExtra(KeyNames.KEY_NAME_LOT, "lot"),
                             RequestCodes.REQ_CODE_ACTIVITY.getCode(),

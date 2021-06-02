@@ -43,6 +43,7 @@ public class TutorialHorizontalAdapter extends BaseRecyclerViewAdapter2<ImageVO>
             super(itemView);
             getBinding().ivTutorial1.setOnClickListener(onSingleClickListener);
             getBinding().ivTutorial2.setOnClickListener(onSingleClickListener);
+            getBinding().ivTutorial3.setOnClickListener(onSingleClickListener);
         }
 
         @Override
@@ -54,8 +55,10 @@ public class TutorialHorizontalAdapter extends BaseRecyclerViewAdapter2<ImageVO>
         public void onBindView(ImageVO item, final int pos) {
             setImage(item.getImage2(), getBinding().ivTutorial1);
             setImage(item.getImage3(), getBinding().ivTutorial2);
+            setImage(item.getImage4(), getBinding().ivTutorial3);
             setListener(item.getLink1(), getBinding().ivTutorial1);
             setListener(item.getLink2(), getBinding().ivTutorial2);
+            setListener(item.getLink3(), getBinding().ivTutorial3);
         }
 
         @Override

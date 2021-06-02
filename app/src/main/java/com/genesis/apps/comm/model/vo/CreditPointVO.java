@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * @see #useCreditDate 포인트적립/사용일시
  * YYYYMMDDHH24MISS
  * @see #addCreditAmount 포인트적립금액
- * @see #seCreditAmount 포인트사용금액
+ * @see #useCreditAmount 포인트사용금액
  * @see #balanceAmount 포인트잔액
  * @see #divCd 구분코드
  *  - 01 : 적립  : 적립금액 > 0 경우
@@ -40,8 +40,8 @@ class CreditPointVO extends BaseData {
     @SerializedName("addCreditAmount")
     private String addCreditAmount;
     @Expose
-    @SerializedName("seCreditAmount")
-    private String seCreditAmount;
+    @SerializedName("useCreditAmount")
+    private String useCreditAmount;
     @Expose
     @SerializedName("balanceAmount")
     private String balanceAmount;

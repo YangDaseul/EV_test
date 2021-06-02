@@ -87,6 +87,11 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
      */
     private String lot;
 
+    /**
+     * 충전소 거리 표시 여부.
+     */
+    private boolean isShowDist = true;
+
     // 조회된 충전소 정보 - E-PIT
     private ChargeEptInfoVO chargeEptInfoVO;
     // 조회된 충전소 정보 - 에스트레픽
@@ -439,6 +444,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
         lat = getIntent.getStringExtra(KeyNames.KEY_NAME_LAT);
         lot = getIntent.getStringExtra(KeyNames.KEY_NAME_LOT);
         stationType = getIntent.getIntExtra(KeyNames.KEY_STATION_TYPE, CHARGE_STATION_TYPE_EPT);
+        isShowDist = getIntent.getBooleanExtra(KeyNames.KEY_IS_SHOW_DIST, true);
     }
 
     @Override
@@ -656,7 +662,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
         return String.format(Locale.getDefault(), getString(R.string.sm_evss04_20),
                 TextUtils.isEmpty(chgName) ? "" : chgName,
-                TextUtils.isEmpty(dist) ? "" : BR + dist,
+                TextUtils.isEmpty(dist) || !isShowDist ? "" : BR + dist,    // 거리 값이 없거나 isShowDist 값이 false라면 미표시.
                 TextUtils.isEmpty(totalAddress) ? "" : BR + totalAddress);
     }
 
