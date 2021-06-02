@@ -177,7 +177,7 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
         int discountPoint = creditBalance > contentsVO.getProductPrice() ? contentsVO.getProductPrice() : 0;
         ui.tvCreditPoint.setContent(discountPoint > 0 ? StringUtil.getDiscountString(discountPoint) : getString(R.string.service_charge_btr_word_30));
         ui.tvCreditPoint.lWhole.setTag(discountPoint);
-        ui.tvCreditPointBalance.setText(String.format(Locale.getDefault(), getString(R.string.service_charge_btr_word_41), StringUtil.getPriceString(creditBalance)));
+        ui.tvCreditPointBalance.setText(StringUtil.getPriceString(creditBalance));
         ui.tvCreditPointInfo.setText(String.format(getString(R.string.service_charge_btr_msg_04), StringUtil.getPriceString(contentsVO.getProductPrice())));
 
         ui.lCreditPointInfo.setVisibility(View.VISIBLE);
