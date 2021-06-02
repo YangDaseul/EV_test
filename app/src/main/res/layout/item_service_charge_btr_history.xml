@@ -143,7 +143,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
-                app:msg="@{data.getAddress() + (!TextUtils.isEmpty(data.getAddressDetail()) ? data.getAddressDetail() : ``)}"
+                app:msg="@{(data.getAddress() ?? ``) + ` ` + (data.getAddressDetail() ?? ``) + ` ` + (data.getBuildingName() ?? ``)}"
                 app:title="@{@string/service_charge_btr_word_03}" />
 
 

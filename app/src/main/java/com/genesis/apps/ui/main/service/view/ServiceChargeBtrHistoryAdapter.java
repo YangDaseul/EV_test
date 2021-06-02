@@ -122,9 +122,12 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
 
             // 예약 상품 표시 (충전 or 충전, 세차)
             if(item.getOptionNameList() != null) {
-                String serviceNm = getContext().getString(R.string.service_charge_btr_word_05);
+                String serviceNm = null;
                 for(String optNm : item.getOptionNameList()) {
-                    serviceNm += ", " + optNm;
+                    if(TextUtils.isEmpty(serviceNm))
+                        serviceNm = optNm;
+                    else
+                        serviceNm += ", " + optNm;
                 }
                 getBinding().lOptionInfo.setMsg(serviceNm);
             }
