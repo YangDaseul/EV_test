@@ -55,8 +55,8 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
             ui.btnCall.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    if (data.getWorkerList().size() > 0 && data.getWorkerList().get(0) != null && !TextUtils.isEmpty(data.getWorkerList().get(0).getWorkerHpNo()))
-                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + data.getWorkerList().get(0).getWorkerHpNo())));
+                    if (ui.lControlTel.lWhole.getTag() != null && ui.lControlTel.lWhole.getTag() instanceof String)
+                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + ui.lControlTel.lWhole.getTag())));
                 }
             });
         }
@@ -86,7 +86,8 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
             ui.lWorkerNm.setMsg(StringUtil.isValidString(workerVO.getWorkerName()));
             // 기사님 전화번호 표시
             ui.lControlTel.setMsg(PhoneNumberUtils.formatNumber(StringUtil.isValidString(workerVO.getWorkerHpNo()), Locale.getDefault().getCountry()));
-        }
+            ui.lControlTel.lWhole.setTag(workerVO.getWorkerHpNo());
+        } 
 
         // 업체 정보 표시
         if (data.getVendorInfo() != null)
