@@ -31,13 +31,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseListBinding> {
-//    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 20;
     public static final String TRANS_TYPE_CODE_ALL="00";
     public static final String TRANS_TYPE_CODE_SAVE="01";
     public static final String TRANS_TYPE_CODE_USE="02";
@@ -68,6 +70,8 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                         mdlNm,
                         transStrDt,
                         transEndDt,
+                        ""+ pageNo,
+                        "" + PAGE_SIZE,
                         getTransTypCd()));
     }
 
@@ -75,18 +79,18 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
         adapter = new CreditUseListAdapter();
 //        ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
-//        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                //2021-03-15 park 해당 페이지는 스크롤뷰와 리사이클러뷰가 묶여있기 때문에 리사이클러뷰의 canScrollVertically 사용 불가함으로
-//                //스크롤뷰의 전체 크기 중 현재 포지션으로 위치 확인
-//                if ((ui.sc.getChildAt(0).getBottom() - ui.sc.getHeight())<=ui.sc.getScrollY()&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
-//                    if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
-//                        reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), adapter.getPageNo() + 1);
-//                }
-//            }
-//        });
+        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //2021-03-15 park 해당 페이지는 스크롤뷰와 리사이클러뷰가 묶여있기 때문에 리사이클러뷰의 canScrollVertically 사용 불가함으로
+                //스크롤뷰의 전체 크기 중 현재 포지션으로 위치 확인
+                if ((ui.sc.getChildAt(0).getBottom() - ui.sc.getHeight())<=ui.sc.getScrollY()&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
+                    if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+                        reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), selectVehicleVO.getVin(), selectVehicleVO.getCarCd(), selectVehicleVO.getCarNm(), adapter.getPageNo() + 1);
+                }
+            }
+        });
         ui.r1.performClick();
         setDateAuto(ui.r1);
     }

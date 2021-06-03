@@ -62,17 +62,17 @@ public class CreditUseListAdapter extends BaseRecyclerViewAdapter2<CreditPointVO
             switch (StringUtil.isValidString(item.getDivCd())){
                 case MyGCreditUseListActivity.TRANS_TYPE_CODE_SAVE:
                     textColor = R.color.x_262626;
-                    textMsg = R.string.mg_member04_4;
+                    textMsg = R.string.mg_member04_14;
                     amount = StringUtil.isValidString(item.getAddCreditAmount());
                     break;
                 case MyGCreditUseListActivity.TRANS_TYPE_CODE_USE:
                     textColor = R.color.x_996449;
-                    textMsg = R.string.mg_member04_6;
+                    textMsg = R.string.mg_member04_16;
                     amount = StringUtil.isValidString(item.getUseCreditAmount());
                     break;
                 case MyGCreditUseListActivity.TRANS_TYPE_CODE_CANCEL:
                     textColor = R.color.x_ce2d2d;
-                    textMsg = R.string.mg_member04_7;
+                    textMsg = R.string.mg_member04_17;
                     amount = StringUtil.isValidString(item.getUseCreditAmount());
                     cancelLine = Paint.STRIKE_THRU_TEXT_FLAG;
                     break;
@@ -80,6 +80,7 @@ public class CreditUseListAdapter extends BaseRecyclerViewAdapter2<CreditPointVO
                     //처리안함
                     return;
             }
+            getBinding().tvRemindUnit.setText(R.string.mg_member04_15);
             getBinding().tvPoint.setText(StringUtil.getDigitGroupingString(TextUtils.isEmpty(amount) ? "0" : amount));
             getBinding().tvPoint.setPaintFlags(cancelLine==0 ? 0 : (getBinding().tvPoint.getPaintFlags()|cancelLine));
             getBinding().tvPoint.setTextColor(getContext().getColor(textColor));
@@ -87,7 +88,6 @@ public class CreditUseListAdapter extends BaseRecyclerViewAdapter2<CreditPointVO
             getBinding().tvUnit.setText(textMsg);
             getBinding().tvRemindPoint.setText(StringUtil.getDigitGroupingString(StringUtil.isValidString(item.getBalanceAmount())));
             getBinding().tvAsnnm.setText(StringUtil.isValidString(item.getChgName()));
-            //TODO 날짜 데이터 포맷 확인 필요
             getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getUseCreditDate()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
         }
 
