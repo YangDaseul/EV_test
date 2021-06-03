@@ -107,6 +107,8 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
                         .asBitmap()
                         .load(item.getCardImageUrl())
                         .format(DecodeFormat.PREFER_RGB_565)
+                        .error(R.drawable.no_img) // 대체 이미지
+                        .placeholder(R.drawable.no_img) // 에러시 대체 이미지
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(binding.ivCardThumb);
             }
