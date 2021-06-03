@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Class Name : CardManageActivity
  * 결제수단관리 화면 Activity.
- *
+ * <p>
  * 기능
  * 1. 결제 카드 삭제.
  * 2. 결제 카드 주사용 등록.
@@ -164,7 +164,7 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                 case SUCCESS: {
                     showProgressDialog(false);
                     if (result.data != null) {
-                        if(StringUtil.isValidString(result.data.getSignInYN()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                        if (StringUtil.isValidString(result.data.getSignInYN()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
                             updateCardList(result.data.getCardList());
                         } else {
                             setMemeberRegUI(true);
@@ -202,11 +202,14 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                     showProgressDialog(false);
                     if (result.data != null && CHB_1016.Response.RETURN_CODE_SUCC.equals(result.data.getRtCd())) {
                         // 주카드 등록 성공 - 카드 목록 갱신
-                        if (currCardDelReqType != null && currCardDelReqType == CardDeleteReqTy.MAIN_CARD_DELETE_AND_CHANGE && !TextUtils.isEmpty(targetDelCardId))
+                        if (currCardDelReqType != null && currCardDelReqType == CardDeleteReqTy.MAIN_CARD_DELETE_AND_CHANGE && !TextUtils.isEmpty(targetDelCardId)) {
+                            // 주카드 등록후 삭제 진행할 경우
                             chbViewModel.reqCHB1017(new CHB_1017.Request(APPIAInfo.SM_CGRV02_P01.getId(), targetDelCardId));
-                        else
+                        } else {
+                            // 주카드만 등록한 경우
+                            SnackBarUtil.show(this, getString(R.string.pay03_10));
                             getCardList();
-
+                        }
                         break;
                     }
                 }
@@ -239,6 +242,13 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                     if (result.data != null && CHB_1017.Response.RETURN_CODE_SUCC.equals(result.data.getRtCd())) {
                         targetDelCardId = null;
                         // 카드 삭제 성공 - 카드 목록 갱신
+                        if (currCardDelReqType == CardDeleteReqTy.MAIN_CARD_DELETE_AND_CHANGE) {
+                            // 주카드 삭제를 위해 다음 카드 등록 후 카드 삭제할 경우
+                            SnackBarUtil.show(this, getString(R.string.pay03_11));
+                        } else {
+                            // 그외 카드를 삭제할 경우
+                            SnackBarUtil.show(this, getString(R.string.pay03_12));
+                        }
                         getCardList();
 
                         break;
@@ -331,7 +341,7 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         }
         updateCardCount(adapter.getItemCount());
 
-        if(init) init = false;
+        if (init) init = false;
     }
 
     /**
