@@ -103,11 +103,11 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                             // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
                             // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
                             if (StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) < StringUtil.isValidInteger(result.data.getStcMbrInfo().getMinCretPnt()) &&
-                                    (result.data.getPayInfo() != null &&
-                                            (!StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0))) {
+                                    (result.data.getPayInfo() == null ||
+                                            !StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
 
                                 // 버튼 분기 처리
-                                if(!StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                                if(result.data.getPayInfo() == null || !StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
                                     me.btnEasypay.setText(R.string.pay01_3);
                                 else
                                     me.btnEasypay.setText(R.string.pay01_4);

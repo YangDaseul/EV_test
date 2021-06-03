@@ -141,8 +141,8 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                             if (StringUtil.isValidInteger(result.data.getStcMbrInfo().getCretPnt()) < StringUtil.isValidInteger(result.data.getStcMbrInfo().getMinCretPnt())) {
                                 // 간편결제 등록 카드 유무 확인,
                                 // 간편결제 미 가입자나 등록된 카드가 없는 경우
-                                if(result.data.getPayInfo() != null &&
-                                        (!StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0)) {
+                                if(result.data.getPayInfo() == null ||
+                                        !StringUtil.isValidString(result.data.getPayInfo().getSignInYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES) || StringUtil.isValidInteger(result.data.getPayInfo().getCardCount()) == 0) {
                                     // 신용카드 등록 후 서비스 이용 가능 안내 팝업 표시
                                     MiddleDialog.dialogEvCretPntLackInfo(
                                             this,
