@@ -295,8 +295,7 @@ class LGNViewModel extends ViewModel {
     public boolean updateGlobalDataToDB(String keyName, String value) {
         boolean isUpdate=false;
         try {
-            dbGlobalDataRepository.update(keyName, value);
-            isUpdate=true;
+            isUpdate = dbGlobalDataRepository.update(keyName, value);
         }catch (Exception e){
             isUpdate=false;
         }
