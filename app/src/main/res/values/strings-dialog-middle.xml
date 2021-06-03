@@ -178,6 +178,8 @@
     <string name="pay01_p05_2">NFC 결제를 위해 NFC를\n켜 주시기 바랍니다.\n\nNFC가 꺼진 경우 NFC 결제가\n불가능합니다.</string>
     <string name="pay01_p06_1">NFC 결제 안내</string>
     <string name="pay01_p06_2">유효하지 않은 EV 충전 카드입니다.\n제네시스 고객센터로 연락 바랍니다.</string>
+    <string name="pay01_p00_1">안내</string>
+    <string name="pay01_p00_2">NFC 지원이 되지 않는 단말입니다.</string>
 
     <string name="sm_evss01_p05_1">간편결제 가입 안내</string>
     <string name="sm_evss01_p05_2">보다 편리한 충전 서비스를\n이용하기 위해 간편결제\n가입 및 카드 등록을 진행하세요.\n\n등록된 카드를 통해 충전 서비스\n이용 시 빠른 결제가 가능합니다.\n\n간편결제 가입 및 카드 등록을\n진행하시겠습니까?</string>

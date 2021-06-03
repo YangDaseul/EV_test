@@ -139,8 +139,9 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            // TODO : NFC 미지원 단말 안내 필요?
-            finishNfcPaymt();
+            MiddleDialog.dialogCommonOneButton(getActivity(), R.string.pay01_p00_1, getString(R.string.pay01_p00_2), () -> {
+                finishNfcPaymt();
+            });
         } catch (Exception e) {
             e.printStackTrace();
             finishNfcPaymt();
@@ -247,6 +248,8 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
             CardService.setOnPreparePaymentCompleteListener(new CardService.OnPreparePaymentCompleteListener() {
                 @Override
                 public void onPreparePaymentComplete() {
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+
                     // 인증 완료되어 결제를 진행할 수 있는 상태가 됨. 여기에서 진동 및 애니메이션 재시작
                     if (me.lStcCard.getTag() == null || !(boolean) me.lStcCard.getTag())
                         animSlidUpDown(true);
@@ -254,8 +257,9 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
 
                 @Override
                 public void onPreparePaymentFail() {
-                    // 인증이 정상적으로 완료되지 않음. 진동 및 애니메이션 종료, 안내 후 NFC 화면 종료 등의 처리 필요.
+                    ((SubActivity) getActivity()).showProgressDialog(false);
 
+                    // 인증이 정상적으로 완료되지 않음. 진동 및 애니메이션 종료, 안내 후 NFC 화면 종료 등의 처리 필요.
                     MiddleDialog.dialogCommonOneButton(getActivity(), R.string.pay01_p06_1, getString(R.string.pay01_p06_2), () -> {
                         finishNfcPaymt();
                     });
@@ -317,14 +321,13 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
      */
     private void sendCardInfo(String cardNo) {
         Log.d("LJEUN", "mbrspCardNo : " + cardNo);
-
+        ((SubActivity) getActivity()).showProgressDialog(true);
         try {
             CardService.preparePayment(getActivity(), cardNo, "GE");
-        }  catch (Exception e) {
+        } catch (Exception e) {
+            ((SubActivity) getActivity()).showProgressDialog(false);
             e.printStackTrace();
-            MiddleDialog.dialogCommonOneButton(getActivity(), R.string.pay01_p06_1, getString(R.string.pay01_p06_2), () -> {
-                finishNfcPaymt();
-            });
+            finishNfcPaymt();
         }
     }
 }
