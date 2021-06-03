@@ -189,6 +189,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
         chbViewModel.getRES_CHB_1022().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
+                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
                     ((SubActivity) getActivity()).showProgressDialog(false);
@@ -201,11 +202,26 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
                         }
                     }
                 default:
-                    me.pmvMapView.setMapCenterPoint(new PlayMapPoint(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]), 500);
-                    drawMarkerItem(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.service_charge_btr_err_16);
+                        }
+                        SnackBarUtil.show(getActivity(), serverMsg);
+
+                        me.pmvMapView.setMapCenterPoint(new PlayMapPoint(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]), 500);
+                        drawMarkerItem(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
+
+                        ((SubActivity) getActivity()).showProgressDialog(false);
+                    }
                     break;
             }
         });
+
     }
 
     private void updateBottomView(String stusCd) {

@@ -14,6 +14,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -25,9 +26,10 @@ import com.genesis.apps.ui.main.service.view.ServiceChargeBtrStatusViewpagerAdap
 
 public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceChargeBtrStatusBinding> {
 
-
     private final int PAGE_NUM = 2;
     private CHBViewModel chbViewModel;
+
+    private boolean init = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -129,11 +131,12 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                 ChargeBtrStatus.STATUS_4000.getStusCd().equalsIgnoreCase(stusCd)) {
             setStatusFragment(1);
         } else {
-            ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(false);
+            if(init)
+                ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrTab(VariableType.SERVICE_CHARGE_BTR_HIST_TAB_ID);
             me.lEmpty.lWhole.setVisibility(View.VISIBLE);
         }
 
-        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).setInit(false);
+        this.init = false;
     }
 
     private void setStatusFragment(int index) {

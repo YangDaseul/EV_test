@@ -9,6 +9,7 @@
         <import type="com.genesis.apps.comm.util.DateUtil" />
 
         <import type="com.genesis.apps.comm.util.StringUtil" />
+        <import type="android.text.TextUtils" />
 
         <variable
             name="data"
@@ -165,7 +166,7 @@
                     android:text="@string/pay04_pay01_5"
                     android:textColor="@color/x_111111"
                     android:textSize="14dp"
-                    android:visibility="@{StringUtil.isValidString(data.getUsedCretPnt()).equalsIgnoreCase(`0`) ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{TextUtils.isEmpty(data.getUsedCretPnt()) || data.getUsedCretPnt().equalsIgnoreCase(`0`) ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_chg_paymt_tit"
                     tools:visibility="visible" />
@@ -181,7 +182,7 @@
                     android:text="@{StringUtil.getDiscountString(data.getUsedCretPnt() ?? `0`)}"
                     android:textColor="@color/x_000000"
                     android:textSize="14dp"
-                    android:visibility="@{StringUtil.isValidString(data.getUsedCretPnt()).equalsIgnoreCase(`0`) ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{TextUtils.isEmpty(data.getUsedCretPnt()) || data.getUsedCretPnt().equalsIgnoreCase(`0`) ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_chg_credit_tit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_chg_credit_tit"

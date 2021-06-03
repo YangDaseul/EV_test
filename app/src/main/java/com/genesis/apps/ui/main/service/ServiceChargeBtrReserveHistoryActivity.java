@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrHistoryBinding;
@@ -29,8 +30,17 @@ public class ServiceChargeBtrReserveHistoryActivity extends GpsBaseActivity<Acti
     private final int TAB_ID_HIST = 1;// 이력
     private final int[] TAB_ID_LIST = {R.string.sm_r_rsv05_2, R.string.sm_r_rsv05_3};
 
-    private boolean init = true;
     private CHBViewModel chbViewModel;
+
+    private boolean isAfterBackground = false;
+
+    public boolean isAfterBackground() {
+        return isAfterBackground;
+    }
+
+    public void setAfterBackground(boolean isAfterBackground) {
+        this.isAfterBackground = isAfterBackground;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,17 @@ public class ServiceChargeBtrReserveHistoryActivity extends GpsBaseActivity<Acti
         setViewModel();
         setObserver();
         initView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isAfterBackground = true;
     }
 
     private void initView() {
@@ -69,14 +90,9 @@ public class ServiceChargeBtrReserveHistoryActivity extends GpsBaseActivity<Acti
 
     }
 
-    public void setInit(boolean init) {
-        this.init = init;
-    }
-
-    public void moveChargeBtrHistTab(boolean reqCancel) {
-        Log.d("LJEUN", "ServiceChargeBtrReserveHistoryActivity :: reqCancel(" + reqCancel + "), init=" + init);
-        if(reqCancel || init)
-            ui.tlTabs.getTabAt(TAB_ID_HIST).view.performClick();
+    public void moveChargeBtrTab(int tabId) {
+        Log.d("LJEUN", "moveChargeBtrTab :: tabId(" + tabId + ")");
+        ui.tlTabs.getTabAt(tabId).view.performClick();
     }
 
     @Override
@@ -102,7 +118,7 @@ public class ServiceChargeBtrReserveHistoryActivity extends GpsBaseActivity<Acti
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
                         SnackBarUtil.show(this, getString(R.string.service_charge_btr_popup_msg_01));
-                        moveChargeBtrHistTab(true);
+                        moveChargeBtrTab(VariableType.SERVICE_CHARGE_BTR_HIST_TAB_ID);
                         showProgressDialog(false);
                         break;
                     }
@@ -123,32 +139,6 @@ public class ServiceChargeBtrReserveHistoryActivity extends GpsBaseActivity<Acti
             }
         });
 
-        chbViewModel.getRES_CHB_1022().observe(this, result -> {
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
-                        break;
-                    }
-                default:
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.service_charge_btr_err_16);
-                        }
-                        SnackBarUtil.show(this, serverMsg);
-                        showProgressDialog(false);
-                    }
-                    break;
-            }
-        });
     }
     @Override
     public void getDataFromIntent() {

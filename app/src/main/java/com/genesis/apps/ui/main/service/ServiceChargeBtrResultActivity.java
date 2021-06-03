@@ -50,7 +50,7 @@ public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceC
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_confirm:
-                exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
+                exit();
                 break;
             default:
                 break;
@@ -77,14 +77,18 @@ public class ServiceChargeBtrResultActivity extends SubActivity<ActivityServiceC
     }
 
     @Override
+    public void onBackPressed() {
+        exit();
+    }
+
+    @Override
     public void onBackButton() {
-        onBackPressed();
+        exit();
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void exit() {
+        exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
     }
 
 }
