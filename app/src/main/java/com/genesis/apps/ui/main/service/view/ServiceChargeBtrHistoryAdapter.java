@@ -146,7 +146,7 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
             if(selectedItems.get(pos)){
                 if(item.getWorkerVO() != null) {
                     // 담당 기사 표시
-                    getBinding().lDriverNm.setMsg(String.format(getContext().getString(R.string.service_charge_btr_word_09), item.getWorkerVO().getWorkerName()));
+                    getBinding().lDriverNm.setMsg(StringUtil.isValidString(item.getWorkerVO().getWorkerName()));
                     if(item.getVendorVO() != null && !TextUtils.isEmpty(item.getVendorVO().getVendorCSTelNo())) {
                         // 고객센터 번호 연결
                         getBinding().btnChargeBtrTel.btnNm.setTag(item.getVendorVO().getVendorCSTelNo());
