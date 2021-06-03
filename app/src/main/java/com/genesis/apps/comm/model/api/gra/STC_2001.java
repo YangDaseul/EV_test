@@ -53,15 +53,23 @@ public class STC_2001 extends BaseData {
         @SerializedName("endDt")
         private String endDt;
         @Expose
+        @SerializedName("pgNo")
+        private String pgNo;
+        @Expose
+        @SerializedName("pgCnt")
+        private String pgCnt;
+        @Expose
         @SerializedName("divCd")
         private String divCd;
 
-        public Request(String menuId, String vin, String carCd, String carNm, String startDt, String endDt, String divCd) {
+        public Request(String menuId, String vin, String carCd, String carNm, String startDt, String endDt, String pgNo, String pgCnt, String divCd) {
             this.vin = vin;
             this.carCd = carCd;
             this.carNm = carNm;
             this.startDt = startDt;
             this.endDt = endDt;
+            this.pgNo = pgNo;
+            this.pgCnt = pgCnt;
             this.divCd = divCd;
             setData(APIInfo.GRA_STC_2001.getIfCd(), menuId);
         }

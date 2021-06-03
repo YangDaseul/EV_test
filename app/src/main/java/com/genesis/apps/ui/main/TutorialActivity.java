@@ -168,10 +168,11 @@ public class TutorialActivity extends SubActivity<ActivityTutorialBinding> {
     }
 
     private void exitTutorial(){
-        lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_TUTORIAL_TYPE+type, VariableType.COMMON_MEANS_YES);
-        if(type==VariableType.TUTORIAL_TYPE_DIGITAL_WALLET) setResult(ResultCodes.REQ_CODE_TUTORIAL_DIGITAL_WALLET.getCode());
-        finish();
-        closeTransition();
+        if(lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_TUTORIAL_TYPE+type, VariableType.COMMON_MEANS_YES)) {
+            if (type == VariableType.TUTORIAL_TYPE_DIGITAL_WALLET) setResult(ResultCodes.REQ_CODE_TUTORIAL_DIGITAL_WALLET.getCode());
+            finish();
+            closeTransition();
+        }
     }
 
     @Override

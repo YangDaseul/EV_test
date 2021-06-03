@@ -182,6 +182,11 @@
     <string name="mg_member04_11">6개월</string>
     <string name="mg_member04_12">조회</string>
     <string name="mg_member04_13">포인트 사용 내역이 없습니다.</string>
+    <string name="mg_member04_14">원&#160;&#160;적립</string>
+    <string name="mg_member04_15">원&#160;&#160;잔여</string>
+    <string name="mg_member04_16">원&#160;&#160;사용</string>
+    <string name="mg_member04_17">원&#160;&#160;취소</string>
+
 
     <string name="mg_member03_1">카드 비밀번호 변경</string>
     <string name="mg_member03_2">기존 비밀번호를 입력해 주세요.</string>
