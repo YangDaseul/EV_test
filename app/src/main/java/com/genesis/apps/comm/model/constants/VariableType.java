@@ -483,6 +483,9 @@ public class VariableType {
 
     public static final String SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF = "STRFF";  // 멤버십 구분 코드, 에스트래픽
 
+    public static final int SERVICE_CHARGE_BTR_STUS_TAB_ID = 0;  // 픽업앤충전 현황/예약 탭
+    public static final int SERVICE_CHARGE_BTR_HIST_TAB_ID = 1;  // 픽업앤충전 이력 탭
+
     public static final String EASY_PAY_WEBVIEW_TYPE_MEMBER_REG = "REG_MEMBER";
     public static final String EASY_PAY_WEBVIEW_TYPE_CARD_REG = "REG_CARD";
 

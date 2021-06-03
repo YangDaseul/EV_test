@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,10 +138,27 @@ public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentService
         }
     }
 
+    private void initScrollPosition() {
+        try {
+            me.rv.scrollToPosition(0);
+        } catch (Exception e) {
+
+        }
+    }
+
     @Override
     public void onRefresh() {
-        if (mainVehicle != null)
-            requestCHB1023(currPgNo);
+        if (mainVehicle != null) {
+
+            // 이력 탭 눌러서 인입 시 이력 데이터 조회, scrollview 상단으로 이동
+            if (!((ServiceChargeBtrReserveHistoryActivity) getActivity()).isAfterBackground()) {
+                initScrollPosition();
+                requestCHB1023(currPgNo);
+            }
+            // APP 백그라운드로 내려갔다 올라왔을 때 이력 데이터 업데이트 안함.
+            else
+                ((ServiceChargeBtrReserveHistoryActivity) getActivity()).setAfterBackground(false);
+        }
     }
 
     private void setViewModel() {
