@@ -15,6 +15,8 @@
 
         <import type="android.telephony.PhoneNumberUtils" />
 
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
         <import type="java.util.Locale" />
 
         <variable
@@ -84,6 +86,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_driver">
                     <!-- "전화번호" -->
+<!--                    app:msg="@{PhoneNumberUtils.formatNumber(data.getSosDriverVO().getControlTel(), Locale.getDefault().getCountry())}"-->
                     <include
                         android:id="@+id/l_control_tel"
                         layout="@layout/item_rpar_status"
@@ -93,7 +96,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:msg="@{PhoneNumberUtils.formatNumber(data.getSosDriverVO().getControlTel(), Locale.getDefault().getCountry())}"
+                        app:msg="@{StringUtil.getNameMask(data.getSosDriverVO().getControlTel())}"
                         app:title="@{@string/sm_emgc03_p01_2}" />
 
                     <!-- "차량정보" -->

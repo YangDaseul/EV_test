@@ -19,7 +19,7 @@
             android:id="@+id/tv_service_drive_status_driver"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
             android:textSize="14dp"
-            android:text="@{StringUtil.maskingDriverName(activity.serviceReqData.getDriverNm())}"
+            android:text="@{StringUtil.getNameMask(activity.serviceReqData.getDriverNm())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +32,7 @@
             android:textColor="@color/x_4d4d4d"
             android:textSize="14dp"
             android:layout_marginStart="15dp"
-            android:text="@{activity.serviceReqData.getDriverMdn()}"
+            android:text="@{StringUtil.getPhoneMask(activity.serviceReqData.getDriverMdn())}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_status_driver"
             app:layout_constraintStart_toEndOf="@id/tv_service_drive_status_driver"
             tools:text="123-4556-8987" />
