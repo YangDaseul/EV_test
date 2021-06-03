@@ -139,32 +139,6 @@ public class ServiceChargeBtrReserveHistoryActivity extends GpsBaseActivity<Acti
             }
         });
 
-        chbViewModel.getRES_CHB_1022().observe(this, result -> {
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
-                        break;
-                    }
-                default:
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.service_charge_btr_err_16);
-                        }
-                        SnackBarUtil.show(this, serverMsg);
-                        showProgressDialog(false);
-                    }
-                    break;
-            }
-        });
     }
     @Override
     public void getDataFromIntent() {
