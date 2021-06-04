@@ -199,7 +199,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(PI)) {
                     startActivitySingleTop(new Intent(this, ServiceReviewActivity.class)
                             .putExtra(KeyNames.KEY_NAME_REVIEW_PI, PI)
-                            .putExtra(KeyNames.KEY_NAME_REVIEW_ID, APPIAInfo.findCode(id)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            .putExtra(KeyNames.KEY_NAME_REVIEW_ID, id), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }else{
                     SnackBarUtil.show(this, "평가번호가 존재하지 않습니다.");
                 }
