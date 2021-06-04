@@ -83,9 +83,12 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
         WorkerVO workerVO = getWorkerInfo(data.getWorkerList(), targetType);
         if(workerVO != null) {
             // 기사님 이름 표시
-            ui.lWorkerNm.setMsg(StringUtil.isValidString(workerVO.getWorkerName()));
+            //ui.lWorkerNm.setMsg(StringUtil.isValidString(workerVO.getWorkerName()));
+            ui.lWorkerNm.setMsg(StringUtil.getNameMask(StringUtil.isValidString(workerVO.getWorkerName())));
+
             // 기사님 전화번호 표시
-            ui.lControlTel.setMsg(PhoneNumberUtils.formatNumber(StringUtil.isValidString(workerVO.getWorkerHpNo()), Locale.getDefault().getCountry()));
+            //ui.lControlTel.setMsg(PhoneNumberUtils.formatNumber(StringUtil.isValidString(workerVO.getWorkerHpNo()), Locale.getDefault().getCountry()));
+            ui.lControlTel.setMsg(StringUtil.getPhoneMask(StringUtil.isValidString(workerVO.getWorkerHpNo())));
             ui.lControlTel.lWhole.setTag(workerVO.getWorkerHpNo());
         }
 
