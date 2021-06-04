@@ -138,6 +138,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt"
                 tools:visibility="visible"/>
 
+            <TextView
+                android:id="@+id/tv_charge_credit_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/tm01_13"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tv_prvs_mth_amt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible"/>
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart"
                 android:layout_width="0dp"
@@ -146,7 +163,7 @@
                 app:layout_constraintDimensionRatio="1.5:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_prvs_mth_amt" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_charge_credit_info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

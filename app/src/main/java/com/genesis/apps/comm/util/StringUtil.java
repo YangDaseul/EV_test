@@ -2,6 +2,8 @@ package com.genesis.apps.comm.util;
 
 import android.text.TextUtils;
 
+import com.google.re2j.Pattern;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -104,19 +106,54 @@ public class StringUtil {
         return retv;
     }
 
+    /**
+     * @brief 폰 번호 마스킹
+     * 0101111111 or 010-1111-1111 구조를 아래와 같이 마스킹 처리
+     * 010-xxxx-1111 (가운데 숫자는 3자리 예외처리 됨)
+     *
+     * @param input 마스킹 처리할 폰번호
+     * @return 마스킹 처리된 번호
+     */
+    public static String getPhoneMask(String input){
+        if(!TextUtils.isEmpty(input)){
+            return Pattern.compile(StringRe2j.PHONE_ORIGINAL).matcher(input).replaceAll(StringRe2j.PHONE_MASK);
+        }else{
+            return input;
+        }
+    }
 
     /**
-     * 기사 이름 마스킹 처리
-     *
-     * @param name
-     * @return
+     * @brief 이름 마스킹
+     * 아래 정책으로 마스킹 처리
+     * 김가나다라 —> 김***라
+     * 김가나다 —> 김**다
+     * 김경희 —> 김*희
+     * 김경 —> 김*
+     * 김 - > *
+     * @param name 마스킹 처리할 이름
+     * @return 마스킹된 이름
      */
-    public static String maskingDriverName(String name) {
+    public static String getNameMask(String name){
         if (TextUtils.isEmpty(name))
-            return null;
+            return "";
 
         StringBuffer stringBuffer = new StringBuffer(name);
-        stringBuffer.setCharAt(1, '*');
+        final int nameLength = name.length();
+
+        switch (nameLength){
+            case 1:
+            case 2:
+                //성+이름이 2글자 이내일 경우에는 마지막 글자를 마스킹 처리
+                stringBuffer.setCharAt(nameLength-1, '*');
+                break;
+            default:
+                //성+이름이 3글자 이상인 경우 첫글자와 마지막글자를 제외한 나머지를 마스킹 처리
+                for(int target=1; target<nameLength-1; target++){
+                    stringBuffer.setCharAt(target, '*');
+                }
+                break;
+        }
+
         return stringBuffer.toString();
     }
 }

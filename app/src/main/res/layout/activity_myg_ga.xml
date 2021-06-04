@@ -11,6 +11,8 @@
 
         <import type="android.text.TextUtils" />
 
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
         <import type="android.telephony.PhoneNumberUtils" />
 
         <import type="java.util.Locale" />
@@ -50,6 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="50dp">
+
+
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -130,6 +134,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/line_1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
+
 
                     <include
                         android:id="@+id/l_phone"

@@ -4,6 +4,9 @@ import com.google.re2j.Pattern;
 
 public class StringRe2j {
 
+    public static final String PHONE_ORIGINAL = "^(\\d{3})-?(\\d{3,4})-?(\\d{4})$";
+    public static final String PHONE_MASK = "$1-****-$3";
+
     private StringRe2j() {
         throw new IllegalStateException("Utility class");
     }

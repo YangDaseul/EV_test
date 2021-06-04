@@ -2,7 +2,7 @@
 <resources>
     <!--데이터 마일스 : 공통-->
     <string name="gm01_datamiles_title">드라이빙 데이터</string>
-    <string name="gm01_more">자세히 보기</string>
+    <string name="gm01_more">나의 드라이빙 데이터 확인하기</string>
     <string name="gm01_update">업데이트</string>
 
     <!--데이터 마일스 : 안전운전 점수-->

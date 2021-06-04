@@ -741,7 +741,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                 //렌트/리스 실운행자 등록
                                 openRentRis();
                             } else {
-                                //중고차 등록
+                                //차량 등록
                                 openRent();
                             }
                         }

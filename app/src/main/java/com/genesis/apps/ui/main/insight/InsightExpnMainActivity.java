@@ -231,8 +231,10 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     private void initViewEV() {
         if(selectVehicle!=null&&selectVehicle.isEV()){
             ui.lMembership.setVisibility(View.GONE);
+            ui.tvChargeCreditInfo.setVisibility(View.VISIBLE);
         }else{
             ui.lMembership.setVisibility(View.VISIBLE);
+            ui.tvChargeCreditInfo.setVisibility(View.GONE);
         }
     }
 
@@ -581,8 +583,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             totalAmt = parsingStringToInt(item.getEtcSumAmt()) +
                     (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgSumAmt()) : parsingStringToInt(item.getRefulSumAmt())) +
                     parsingStringToInt(item.getRparSumAmt()) +
-                    parsingStringToInt(item.getCarWshSumAmt()) +
-                    (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgCretSumAmt()) : 0);
+                    parsingStringToInt(item.getCarWshSumAmt());
 
             currentAmt = StringUtil.getDigitGroupingString((Integer.toString(totalAmt)));
         } catch (Exception e) {

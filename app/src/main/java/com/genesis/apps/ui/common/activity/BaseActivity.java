@@ -199,7 +199,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(PI)) {
                     startActivitySingleTop(new Intent(this, ServiceReviewActivity.class)
                             .putExtra(KeyNames.KEY_NAME_REVIEW_PI, PI)
-                            .putExtra(KeyNames.KEY_NAME_REVIEW_ID, APPIAInfo.findCode(id)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            .putExtra(KeyNames.KEY_NAME_REVIEW_ID, id), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }else{
                     SnackBarUtil.show(this, "평가번호가 존재하지 않습니다.");
                 }
@@ -305,34 +305,6 @@ public class BaseActivity extends AppCompatActivity {
         System.runFinalization();
         System.exit(0);
     }
-
-
-    public void subscribeTopic(LGNViewModel lgnViewModel, List<String> receiveTopicList){
-        try {
-            //기존에 db에 등록된 토픽 확인 및 구독 해제
-            List<TopicVO> topicList = new ArrayList<>();
-            topicList.addAll(lgnViewModel.getTopicList());
-            for (TopicVO oriTopic : topicList) {
-                FirebaseMessaging.getInstance().unsubscribeFromTopic(oriTopic.getTopicNm());
-            }
-        }catch (Exception e){
-
-        }
-
-        try {
-            //db에 신규 토픽 등록
-            lgnViewModel.insertTopicList(receiveTopicList);
-            //db에 신규 등록된 토픽을 로드
-            List<TopicVO> newTopicList = new ArrayList<>();
-            newTopicList.addAll(lgnViewModel.getTopicList());
-            for (TopicVO newTopic : newTopicList) {
-                FirebaseMessaging.getInstance().subscribeToTopic(newTopic.getTopicNm());
-            }
-        }catch (Exception e){
-
-        }
-    }
-
 
     public boolean isPermissions() {
         // 최초에 실행해서 권한 팝업으로 이동

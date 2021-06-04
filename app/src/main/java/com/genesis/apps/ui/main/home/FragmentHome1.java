@@ -771,17 +771,28 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         VehicleVO vehicleVO;
         try {
             vehicleVO = (vehicle == null) ? lgnViewModel.getMainVehicleFromDB() : vehicle;
+            if (vehicle == null
+                    || TextUtils.isEmpty(vehicle.getCustGbCd())
+                    || vehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)
+                    || vehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_NV)) {
+                me.tvCarCode.setText("GENESIS");
+                me.tvCarCode.setTextSize(TypedValue.COMPLEX_UNIT_DIP,56);
+                me.tvGenesis.setVisibility(View.INVISIBLE);
+                me.tvCarVrn.setVisibility(View.GONE);
+            } else {
+                me.tvCarCode.setTextSize(TypedValue.COMPLEX_UNIT_DIP,70);
+                me.tvGenesis.setVisibility(View.VISIBLE);
+                if (vehicleVO != null) {
+                    me.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
+                    //2021-02-19 요건으로 제거됨
+//                  me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()), ""));
 
-            if (vehicleVO != null) {
-                me.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
-                //2021-02-19 요건으로 제거됨
-//                me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()), ""));
-
-                if (TextUtils.isEmpty(vehicleVO.getCarRgstNo())) {
-                    me.tvCarVrn.setVisibility(View.GONE);
-                } else {
-                    me.tvCarVrn.setVisibility(View.VISIBLE);
-                    me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
+                    if (TextUtils.isEmpty(vehicleVO.getCarRgstNo())) {
+                        me.tvCarVrn.setVisibility(View.GONE);
+                    } else {
+                        me.tvCarVrn.setVisibility(View.VISIBLE);
+                        me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
+                    }
                 }
             }
         } catch (Exception e) {
@@ -1051,7 +1062,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case GM_CARLST_01://렌트/리스 실운행자 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-            case GM_CARLST_03://중고차 등록
+            case GM_CARLST_03://내 차 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_03.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST01://MY 차고

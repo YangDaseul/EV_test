@@ -58,7 +58,7 @@
     <string name="gm_carlst_01_p05_1">취소 안내</string>
     <string name="gm_carlst_01_p05_2">렌트/리스 실운행자 차량등록을 취소하시겠습니까?</string>
 
-    <string name="gm_carlst_03_p01_1">중고차 등록 알림</string>
+    <string name="gm_carlst_03_p01_1">차량 등록 안내</string>
     <string name="gm_carlst_03_p01_2">·확인 가능한 시간은 평일 08:00 ~ 18:00입니다.</string>
     <string name="gm_carlst_03_p01_3">·개인명의 자동차의 주명의자(대표자) 본인만 등록 할 수 있습니다.\n(공동 명의자는 등록 할 수 없습니다.)</string>
     <string name="gm_carlst_03_p01_4">·개인사업자 및 법인 및 단체 고객님께서는 \'법인\회원에 먼저 가입해 주세요.</string>

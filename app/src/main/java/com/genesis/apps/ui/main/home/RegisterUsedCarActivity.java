@@ -37,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * @author hjpark
- * @brief 중고차 등록
+ * @brief 내 차 등록
  */
 
 @AndroidEntryPoint

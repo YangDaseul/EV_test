@@ -113,18 +113,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:fontFamily="@font/regular_genesissansheadglobal"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
                 android:gravity="center"
                 android:text="@string/sm_cw_req_02"
-                android:textColor="@color/x_262626"
+                android:textColor="@color/x_000000"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="@id/iv_car_wash_item_img"
                 app:layout_constraintTop_toTopOf="@id/iv_car_wash_item_img"
                 tools:visibility="visible" />
 
         </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

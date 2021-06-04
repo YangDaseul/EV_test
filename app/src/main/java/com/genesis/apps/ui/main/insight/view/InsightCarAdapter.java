@@ -145,6 +145,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             ArrayList<BarEntry> values = new ArrayList<>();
             XAxis xAxis = getBinding().chart.getXAxis();
             if(isEv) {
+                getBinding().tvChargeCreditInfo.setVisibility(View.VISIBLE);
                 xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
                 xAxis.setValueFormatter(new EvAxisValueFormatter());
                 values.add(new BarEntry(0, getValue(item.getChgAmt())));
@@ -153,6 +154,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 values.add(new BarEntry(3, getValue(item.getCarWshAmt())));
                 values.add(new BarEntry(4, getValue(item.getEtcAmt())));
             }else{
+                getBinding().tvChargeCreditInfo.setVisibility(View.GONE);
                 xAxis.setLabelCount(AxisValueFormatter.xNames.length);
                 xAxis.setValueFormatter(new AxisValueFormatter());
                 values.add(new BarEntry(0, getValue(item.getOilAmt())));

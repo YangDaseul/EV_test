@@ -87,6 +87,7 @@ import com.genesis.apps.ui.myg.MyGOilTermActivity;
 import com.genesis.apps.ui.myg.MyGPrivilegeApplyActivity;
 import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
 import com.genesis.apps.ui.myg.MyGTerms0013Activity;
+import com.genesis.apps.ui.myg.MyGTerms0014Activity;
 import com.genesis.apps.ui.myg.MyGTerms1000Activity;
 import com.genesis.apps.ui.myg.MyGTerms2000Activity;
 import com.genesis.apps.ui.myg.MyGTermsActivity;
@@ -166,10 +167,10 @@ public enum APPIAInfo {
     GM_CARLST_01_P04("GM_CARLST_01_P04", null, VariableType.QUICK_MENU_CODE_NONE, "신청 초기화 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     GM_CARLST_01_P05("GM_CARLST_01_P05", null, VariableType.QUICK_MENU_CODE_NONE, "신청 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    GM_CARLST_02("GM_CARLST_02", LeasingCarHistActivity.class, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실운행자 등록 내역",VariableType.QUICK_MENU_CATEGORY_NONE,""),
-    GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, VariableType.QUICK_MENU_CODE_NV, "중고차 등록",VariableType.QUICK_MENU_CATEGORY_HOME,""),
-    GM_CARLST_03_P01("GM_CARLST_03_P01", null, VariableType.QUICK_MENU_CODE_NONE, "중고차 안내사항",VariableType.QUICK_MENU_CATEGORY_NONE,""),
-    GM_CARLST_04("GM_CARLST_04", null, VariableType.QUICK_MENU_CODE_NONE, "차량 상세",VariableType.QUICK_MENU_CATEGORY_NONE,""),
+    GM_CARLST_02("GM_CARLST_02", LeasingCarHistActivity.class, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실운행자 등록 내역",VariableType.QUICK_MENU_CATEGORY_NONE, ""),
+    GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, VariableType.QUICK_MENU_CODE_NV, "내 차 등록",VariableType.QUICK_MENU_CATEGORY_HOME, ""),
+    GM_CARLST_03_P01("GM_CARLST_03_P01", null, VariableType.QUICK_MENU_CODE_NONE, "중고차 안내사항",VariableType.QUICK_MENU_CATEGORY_NONE, ""),
+    GM_CARLST_04("GM_CARLST_04", null, VariableType.QUICK_MENU_CODE_NONE, "차량 상세",VariableType.QUICK_MENU_CATEGORY_NONE, ""),
 
     TM01("TM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 2 Insight (로그인/차량보유)",VariableType.QUICK_MENU_CATEGORY_NONE,""),
     TM02("TM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 2 Insight (로그인/예약대기)",VariableType.QUICK_MENU_CATEGORY_NONE,""),
@@ -398,7 +399,8 @@ public enum APPIAInfo {
     MG_MENU01("MG_MENU01", MyGTerms1000Activity.class, VariableType.QUICK_MENU_CODE_NV, "이용약관",VariableType.QUICK_MENU_CATEGORY_MYG,""),
     MG_MENU02("MG_MENU02", MyGTerms2000Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보처리방침",VariableType.QUICK_MENU_CATEGORY_MYG,""),
     MG_MENU03("MG_MENU03", MyGTermsActivity.class, VariableType.QUICK_MENU_CODE_NV, "오픈소스 라이선스",VariableType.QUICK_MENU_CATEGORY_MYG,""),
-    MG_MENU04("MG_MENU04", MyGTerms0013Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보 수집·이용 약관",VariableType.QUICK_MENU_CATEGORY_MYG,""),
+    MG_MENU04("MG_MENU04", MyGTerms0013Activity.class, VariableType.QUICK_MENU_CODE_NONE, "개인정보 수집 이용·약관",VariableType.QUICK_MENU_CATEGORY_NONE,""),
+    MG_MENU05("MG_MENU05", MyGTerms0014Activity.class, VariableType.QUICK_MENU_CODE_NV, "위치기반서비스 이용약관",VariableType.QUICK_MENU_CATEGORY_MYG,""),
     MG_VERSION01("MG_VERSION01", MyGVersioniActivity.class, VariableType.QUICK_MENU_CODE_NV, "버전 정보",VariableType.QUICK_MENU_CATEGORY_MYG,"");
 
     private String id;

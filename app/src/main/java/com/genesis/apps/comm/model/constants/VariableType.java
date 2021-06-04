@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import static com.genesis.apps.comm.model.constants.ChargerTypeSTT.SLOW_SPEED;
 
 public class VariableType {
-    public static final boolean isHardCoding = true;
     public static final Double[] DEFAULT_POSITION={37.463936, 127.042953};
     public static final int ACTIVITY_TRANSITION_ANIMATION_NONE = 0;
     public static final int ACTIVITY_TRANSITION_ANIMATION_ZOON = 1;
@@ -25,6 +24,8 @@ public class VariableType {
 
     public static final String COMMON_MEANS_YES = "Y";
     public static final String COMMON_MEANS_NO = "N";
+
+    public static final String TOPIC_ALL="myg_app_all";
 
     public static final String KEY_NAME_TERM_VO="termVO";
     public static final String KEY_NAME_LOGIN_AUTH_UUID="authUuid";
@@ -35,6 +36,7 @@ public class VariableType {
     public static final String TERM_SERVICE_JOIN_GRA0004 = "GRA0004"; //제네시스 멤버십 가입 약관
     public static final String TERM_SERVICE_JOIN_GRA0005 = "GRA0005"; //광고성 정보 수신 동의(선택)
     public static final String TERM_SERVICE_JOIN_GRA0013 = "GRA0013"; //개인정보 수집/이용(선택약관)
+    public static final String TERM_SERVICE_JOIN_GRA0014 = "GRA0014"; //위치정보서비스 이용 약관
 
     public static final String TERM_SERVICE_JOIN_MYP0001 = "MYP0001"; //개인정보수집및이용
     public static final String TERM_SERVICE_JOIN_MYP0002 = "MYP0002"; //개인정보취급위탁에대한동의
