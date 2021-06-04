@@ -121,7 +121,6 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCharge
         });
         ui.calendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DateUtil.DATE_FORMAT_yyyy_MM_KOREA, Locale.getDefault())));
 
-        // TODO 세차 옵션 추가 필요
         if (optionVO != null && StringUtil.isValidString(optionVO.getOptionCode()).equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_OPT_CD_2)) {
             ui.lOptionGroup.setVisibility(View.VISIBLE);
             ui.tvCarwashPrice.setText("+" + StringUtil.getPriceString(optionVO.getOptionPrice()));
@@ -167,9 +166,14 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCharge
         if (TextUtils.isEmpty(selectedDay)) {
             if (getBookingDateVOList() != null && getBookingDateVOList().size() > 0) {
 
-                BookingDateVO firstDate = getBookingDateVOList().stream().min(Comparator.comparingInt(data -> Integer.parseInt(data.getBookingDate()))).orElse(null);
-                selectedDay = firstDate.getBookingDate();
+                List<BookingDateVO> sorted = getBookingDateVOList().stream().sorted(Comparator.comparingInt(data -> Integer.parseInt(data.getBookingDate()))).collect(Collectors.toList());
 
+                for (BookingDateVO vo : sorted) {
+                    if (!checkWeekendDay(vo)) {
+                        selectedDay = vo.getBookingDate();
+                        break;
+                    }
+                }
             }
         }
 
@@ -312,4 +316,29 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCharge
         }
     }
 
+    /**
+     * 주말(토,일) 여부
+     *
+     * @param bookingDateVO
+     * @return
+     */
+    private boolean checkWeekendDay(BookingDateVO bookingDateVO) {
+
+        boolean isWeekend = false;
+
+        if (bookingDateVO != null && !TextUtils.isEmpty(bookingDateVO.getBookingDate())) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(DateUtil.getDefaultDateFormat(bookingDateVO.getBookingDate(), DateUtil.DATE_FORMAT_yyyyMMdd));
+
+            switch (cal.get(Calendar.DAY_OF_WEEK)) {
+                case Calendar.SUNDAY:
+                case Calendar.SATURDAY:
+                    isWeekend = true;
+                    break;
+            }
+        }
+
+        return isWeekend;
+
+    }
 }
