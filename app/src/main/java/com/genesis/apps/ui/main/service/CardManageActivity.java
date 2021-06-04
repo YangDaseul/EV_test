@@ -51,6 +51,11 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
     private CardManageListAdapter adapter;
 
+    /**
+     * 주카드 설정 요청한 카드 정보.
+     */
+    private PaymtCardVO favoritPaymtCard;
+
     private String targetDelCardId = null;
     private CardDeleteReqTy currCardDelReqType;  // 현재 카드 삭제 요청 타입
 
@@ -208,7 +213,13 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
                         } else {
                             // 주카드만 등록한 경우
                             SnackBarUtil.show(this, getString(R.string.pay03_10));
-                            getCardList();
+                            if(favoritPaymtCard != null
+                                    && chbViewModel.getRES_CHB_1015().getValue() != null
+                            && chbViewModel.getRES_CHB_1015().getValue().data != null
+                            && chbViewModel.getRES_CHB_1015().getValue().data.getCardList() != null) {
+                                chbViewModel.getRES_CHB_1015().getValue().data.getCardList().forEach(it -> it.setMainCardYN(it == favoritPaymtCard ? "Y" : "N"));
+                                updateCardList(chbViewModel.getRES_CHB_1015().getValue().data.getCardList());
+                            }
                         }
                         break;
                     }
@@ -445,6 +456,7 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
      * @param vo 주사용 설정할 카드 정보 데이터.
      */
     private void setFavoritCard(PaymtCardVO vo) {
+        favoritPaymtCard = vo;
         chbViewModel.reqCHB1016(new CHB_1016.Request(APPIAInfo.SM_CGRV02_P01.getId(), vo.getCardId()));
     }
 } // end of class CardManageActivity
