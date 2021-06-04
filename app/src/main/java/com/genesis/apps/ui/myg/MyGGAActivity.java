@@ -22,11 +22,14 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygGaBinding;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -41,6 +44,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     public GA ga;
 
     private MYPViewModel mypViewModel;
+    private LGNViewModel lgnViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
     @Override
@@ -165,7 +170,9 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         switch (v.getId()){
             case R.id.btn_logout://로그아웃
                 MiddleDialog.dialogLogout(this, getString(R.string.dialog_common_10), getString(R.string.dialog_msg_1), () -> {
+                    lgnViewModel.unSubscribeTopic();
                     if(mypViewModel.clearUserInfo()) {
+                        lgnViewModel.subscribeTopic(new ArrayList<>());
                         ga.clearLoginInfo();
                         exitApp();
                     }else{
@@ -276,7 +283,9 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     SnackBarUtil.show(this, "본인인증이 정상적으로 진행되지 않았습니다.\n잠시 후 다시 시도해 주세요.");
             }
         }else if(resultCode == Activity.RESULT_OK && requestCode == RequestCodes.REQ_CODE_RELEASE.getCode()){
+            lgnViewModel.unSubscribeTopic();
             if(mypViewModel.clearUserInfo()) {
+                lgnViewModel.subscribeTopic(new ArrayList<>());
                 ga.clearLoginInfo();
                 exitApp();
             }else{

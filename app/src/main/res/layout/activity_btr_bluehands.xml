@@ -171,18 +171,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_btr">
 
+<!--                    app:msg="@{data.getBtlrNm() ?? `&#45;&#45;`}"-->
                     <include
                         android:id="@+id/l_name"
                         layout="@layout/item_rpar_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:title="@{@string/gm_bt02_2}"
-                        app:msg="@{data.getBtlrNm() ?? `--`}"
+                        app:msg="@{StringUtil.getNameMask(data.getBtlrNm())}"
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
 
+
+<!--                    app:msg="@{PhoneNumberUtils.formatNumber(StringUtil.isValidString(data.getCelphNo()), Locale.getDefault().getCountry())}"-->
                     <include
                         android:id="@+id/l_phone"
                         layout="@layout/item_rpar_status"
@@ -190,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         app:title="@{@string/gm_bt02_3}"
-                        app:msg="@{PhoneNumberUtils.formatNumber(StringUtil.isValidString(data.getCelphNo()), Locale.getDefault().getCountry())}"
+                        app:msg="@{StringUtil.getPhoneMask(data.getCelphNo())}"
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

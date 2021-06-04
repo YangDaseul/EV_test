@@ -8,7 +8,7 @@
     <string name="sm_cw_find_06">해당 시도에 소낙스 서비스점이 없습니다.</string>
     <string name="sm_cw_find_07">인근 다른 시도 서비스점을 이용해 주세요.</string>
 
-    <string name="sm_cw_history_01">세차 신청 내역</string>
+    <string name="sm_cw_history_01">서비스 신청 내역</string>
     <string name="sm_cw_history_02">· 신청한 소낙스 서비스점에서 전화를 드린 후, 세차 예약 확정됩니다.</string>
     <string name="sm_cw_history_03">현장 결제</string>
     <string name="sm_cw_history_04">통화하기</string>

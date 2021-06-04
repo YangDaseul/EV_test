@@ -112,11 +112,9 @@ public class LGN_0001 extends BaseData {
         @Expose
         @SerializedName("custNm")
         private String custNm;
-
         @Expose
         @SerializedName("celphNo")
         private String celphNo;
-
         @Expose
         @SerializedName("ownVhclList")
         private List<VehicleVO> ownVhclList;

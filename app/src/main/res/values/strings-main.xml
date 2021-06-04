@@ -37,7 +37,7 @@
     <string name="gm02_8">로그인</string>
 
     <string name="gm03_1">렌트/리스\n실운행자 등록</string>
-    <string name="gm03_2">중고차 등록</string>
+    <string name="gm03_2">내 차 등록</string>
     <string name="gm03_3">견적 내기</string>
     <string name="gm03_4">BTO</string>
 
@@ -146,7 +146,7 @@
     <string name="sm01_car_wash_2">기다릴 필요 없어요.\n간펀하게 세차장 검색하고 예약하세요.</string>
     <string name="sm01_car_wash_3">특가</string>
     <string name="sm01_car_wash_4">세차 서비스 가격 안내</string>
-    <string name="sm01_car_wash_5">세차 신청</string>
+    <string name="sm01_car_wash_5">서비스 예약 신청</string>
     <string name="sm01_car_wash_6">서비스 가격표</string>
 
     <string name="sm_cw02_1">소낙스 제휴 서비스</string>
