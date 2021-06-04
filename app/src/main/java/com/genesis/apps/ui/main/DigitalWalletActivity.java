@@ -116,7 +116,8 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") && result.data.getBlueCardInfo() != null) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000") &&
+                            result.data.getBlueCardInfo() != null && !TextUtils.isEmpty(result.data.getBlueCardInfo().getBlueCardNo())) {
 
                         // 에스트래픽 회원 여부 확인, 회원인 경우
                         if (result.data.getStcMbrInfo() != null && StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
@@ -196,9 +197,13 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                         if(viewpagerAdapter == null)
                             initViewpagerAdapter(0);
+
+                        if(result.data.getRtCd().equalsIgnoreCase("0000"))
+                            return;
+
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
             }
