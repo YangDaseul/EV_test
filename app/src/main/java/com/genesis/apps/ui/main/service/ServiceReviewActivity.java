@@ -73,18 +73,19 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     }
 
     private void reqEval() {
+        final String evlScnUri = "genesisapp://menu?id=%s&PI=%s";
         switch (APPIAInfo.findCode(ID)) {
             case SM_REVIEW01_P01:
                 //세차
-                wshViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(), "genesisapp://menu?id=%s&PI=%s", ID, PI)));
+                wshViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(),evlScnUri, ID, PI)));
                 break;
             case SM_REVIEW01_P03:
                 //대리운전
-                ddsViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(), "genesisapp://menu?id=%s&PI=%s", ID, PI)));
+                ddsViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(),evlScnUri, ID, PI)));
                 break;
             case SM_REVIEW01_P04:
                 //픽업앤충전
-                chbViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(), "genesisapp://menu?id=%s&PI=%s", ID, PI)));
+                chbViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(),evlScnUri, ID, PI)));
                 break;
             default:
                 exitPage("서비스 세부사항을 확인할 수 없습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
