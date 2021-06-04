@@ -107,6 +107,8 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
     public void onPause() {
         super.onPause();
 
+        ((SubActivity) getActivity()).showProgressDialog(false);
+
         if(vibrator != null )
             vibrator.cancel();
 
@@ -325,7 +327,6 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         try {
             CardService.preparePayment(getActivity(), cardNo, "GE");
         } catch (Exception e) {
-            ((SubActivity) getActivity()).showProgressDialog(false);
             e.printStackTrace();
             finishNfcPaymt();
         }
