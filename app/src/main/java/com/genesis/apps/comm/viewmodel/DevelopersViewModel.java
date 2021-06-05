@@ -286,14 +286,23 @@ class DevelopersViewModel extends ViewModel {
             List<CarConnectVO> targetList = new ArrayList<>();
             if(list!=null&&list.size()>0) {
                 for(VehicleVO vehicleVO : list) {
-                    CheckJoinCCS.Response response = repository.REQ_CHECK_JOIN_CCS(new CheckJoinCCS.Request(userId, vehicleVO.getVin()));
-                    if (response != null) {
-                        try {
-                            if (!TextUtils.isEmpty(response.getCarId()) && response.isMaster()) {
-                                targetList.add(new CarConnectVO(vehicleVO.getVin(), "", response.getCarId(), 2, "genesis"));
+                    String carId = "";
+                    try {
+                        carId = dbVehicleRepository.getCarConnect(vehicleVO.getVin()).getCarId();
+                    }catch (Exception e){
+                        carId = null;
+                    }
+                    if(TextUtils.isEmpty(carId)) {
+                        //carId가 없는 경우에만 developers 가입 절차 진행
+                        CheckJoinCCS.Response response = repository.REQ_CHECK_JOIN_CCS(new CheckJoinCCS.Request(userId, vehicleVO.getVin()));
+                        if (response != null) {
+                            try {
+                                if (!TextUtils.isEmpty(response.getCarId()) && response.isMaster()) {
+                                    targetList.add(new CarConnectVO(vehicleVO.getVin(), "", response.getCarId(), 2, "genesis"));
+                                }
+                            } catch (Exception ignore) {
+                                ignore.printStackTrace();
                             }
-                        } catch (Exception ignore) {
-                            ignore.printStackTrace();
                         }
                     }
                 }
@@ -336,22 +345,25 @@ class DevelopersViewModel extends ViewModel {
     private void updateCarIdToLocal(List<CarConnectVO> targetList, String userId, String accessToken) {
         if (targetList != null && targetList.size() > 0 && !TextUtils.isEmpty(userId)) {
             CarId.Response carIdResLast = repository.REQ_SYNC_CAR_ID(new CarId.Request(userId));
-            if (carIdResLast != null && carIdResLast.getCars() != null && carIdResLast.getCars().size() > 0) {
-                for (int i = 0; i < targetList.size(); i++) {
-                    for (CarVO carVO : carIdResLast.getCars()) {
-                        if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
-                            targetList.get(i).setCarId(carVO.getCarId());
-                            try {
-                                targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId(), accessToken), false));
-                            } catch (Exception ignore) {
 
+            if(carIdResLast != null) { //네트워크 통신 장애 시에는 carid를 갱신하지 않음
+                if (carIdResLast.getCars() != null && carIdResLast.getCars().size() > 0) {
+                    for (int i = 0; i < targetList.size(); i++) {
+                        for (CarVO carVO : carIdResLast.getCars()) {
+                            if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
+                                targetList.get(i).setCarId(carVO.getCarId());
+                                try {
+                                    targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId(), accessToken), false));
+                                } catch (Exception ignore) {
+
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
+                dbVehicleRepository.insertOrUpdateCarConnect(targetList);
             }
-            dbVehicleRepository.insertOrUpdateCarConnect(targetList);
         }
     }
 

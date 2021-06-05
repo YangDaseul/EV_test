@@ -279,6 +279,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     }
                     break;
                 default:
+                    //4043올수있는지 확인 필요
                     setViewDevelopers();
                     break;
             }
@@ -299,6 +300,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     }
                 default:
+                    if(result.data!=null&&"4043".equalsIgnoreCase(result.data.getErrCode())){
+//                        developersViewModel.updateCarConnectResult()
+                    }
 //                    me.tvDistancePossible.setText("--km");
                     break;
             }
@@ -765,6 +769,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void setViewDevelopers() {
         me.tvDeveloperAgreements.setVisibility(View.GONE);
         me.lDistance.setVisibility(View.GONE);
+        me.btnLocation.lWhole.setVisibility(View.GONE);
         VehicleVO vehicleVO;
         try {
             vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
@@ -778,12 +783,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     break;
                 case STAT_DISAGREEMENT:
                     //동의되지 않은 경우
+                    me.btnLocation.lWhole.setVisibility(View.GONE);
                     me.lDistance.setVisibility(View.GONE);
                     me.tvDeveloperAgreements.setVisibility(View.VISIBLE);
                     break;
                 case STAT_DISABLE:
                 default:
                     //ccs 사용불가상태
+                    me.btnLocation.lWhole.setVisibility(View.GONE);
                     me.lDistance.setVisibility(View.GONE);
                     me.tvDeveloperAgreements.setVisibility(View.GONE);
                     break;
@@ -797,6 +804,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void reqCarInfoToDevelopers(String carId) {
         me.lDistance.setVisibility(View.VISIBLE);
         me.tvDeveloperAgreements.setVisibility(View.GONE);
+        me.btnLocation.lWhole.setVisibility(View.VISIBLE);
         developersViewModel.reqDte(new Dte.Request(carId));
         developersViewModel.reqOdometer(new Odometer.Request(carId));
         developersViewModel.reqOdometers(new Odometers.Request(carId, developersViewModel.getDateYyyyMMdd(-1), developersViewModel.getDateYyyyMMdd(0)));
@@ -833,13 +841,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.btnMyCar.lWhole.setVisibility(View.GONE);
         }
 
-        //내 차 위치 노출 처리
-        CarConnectVO carConnectVO = developersViewModel.getCarConnectVO(vehicleVO.getVin());
-        if (carConnectVO != null && !TextUtils.isEmpty(carConnectVO.getCarId()) && carConnectVO.isResult()) {//GCS 미가입 차 일 경우 미노출
-            me.btnLocation.lWhole.setVisibility(View.VISIBLE);
-        } else {
-            me.btnLocation.lWhole.setVisibility(View.GONE);
-        }
+//        //내 차 위치 노출 처리
+//        CarConnectVO carConnectVO = developersViewModel.getCarConnectVO(vehicleVO.getVin());
+//        if (carConnectVO != null && !TextUtils.isEmpty(carConnectVO.getCarId()) && carConnectVO.isResult()) {//GCS 미가입 차 일 경우 미노출
+//            me.btnLocation.lWhole.setVisibility(View.VISIBLE);
+//        } else {
+//            me.btnLocation.lWhole.setVisibility(View.GONE);
+//        }
     }
 
 
