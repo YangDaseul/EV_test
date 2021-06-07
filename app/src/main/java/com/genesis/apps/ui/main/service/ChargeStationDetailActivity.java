@@ -8,6 +8,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
@@ -126,6 +127,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     private STCViewModel stcViewModel;
 
     private EvChargeStatusFragment evChargeStatusFragment;
+
+    private BottomChargerReserveDialog bottomChargerReserveDialog;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -381,10 +384,12 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                     STC_1004.Response data = result.data;
                     if (data != null && "0000".equalsIgnoreCase(data.getRtCd()) && data.getReservInfo() != null) {
                         // 충전소 예약 완료 - 충전오 예약 내역으로 이동.
-                        startActivitySingleTop(new Intent(ChargeStationDetailActivity.this, ChargeResultActivity.class)
-                                        .putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, data.getReservInfo()),
-                                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                                VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                        if (bottomChargerReserveDialog != null && bottomChargerReserveDialog.isShowing()) {
+                            bottomChargerReserveDialog.dismiss();
+                            bottomChargerReserveDialog = null;
+                        }
+                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, data.getReservInfo()),
+                                ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode());
                         break;
                     }
                 }
@@ -396,8 +401,8 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
                         e.printStackTrace();
                     } finally {
                         showProgressDialog(false);
-                        SnackBarUtil.show(ChargeStationDetailActivity.this,
-                                TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        Toast.makeText(ChargeStationDetailActivity.this,
+                                TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, Toast.LENGTH_LONG).show();
                     }
                     break;
                 }
@@ -752,14 +757,18 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
 
     private void showSelectReserveDate(List<ReserveDtVO> dateList) {
         try {
+            if (bottomChargerReserveDialog != null && bottomChargerReserveDialog.isShowing()) {
+                bottomChargerReserveDialog.dismiss();
+                bottomChargerReserveDialog = null;
+            }
             // 현재 시간 객체.
             Calendar calendar = Calendar.getInstance();
             List<ReserveDtVO> reservableList = dateList.stream().filter(it -> it.isAfter(calendar) && "Y".equalsIgnoreCase(it.getReservYn())).collect(Collectors.toList());
-            BottomChargerReserveDialog dialog = new BottomChargerReserveDialog(ChargeStationDetailActivity.this, R.style.BottomSheetDialogTheme);
-            dialog.setAmDatas(getTimeData(reservableList, false));
-            dialog.setPmDatas(getTimeData(reservableList, true));
-            dialog.setEventListener((this::reqReserveCharger));
-            dialog.show();
+            bottomChargerReserveDialog = new BottomChargerReserveDialog(ChargeStationDetailActivity.this, R.style.BottomSheetDialogTheme);
+            bottomChargerReserveDialog.setAmDatas(getTimeData(reservableList, false));
+            bottomChargerReserveDialog.setPmDatas(getTimeData(reservableList, true));
+            bottomChargerReserveDialog.setEventListener(this::reqReserveCharger);
+            bottomChargerReserveDialog.show();
             return;
         } catch (Exception e) {
             e.printStackTrace();
@@ -768,7 +777,7 @@ public class ChargeStationDetailActivity extends GpsBaseActivity<ActivityChargeS
     }
 
     private List<ReserveDtVO> getTimeData(List<ReserveDtVO> timeData, boolean isPm) {
-        if(timeData == null) {
+        if (timeData == null) {
             return new ArrayList<>();
         }
 

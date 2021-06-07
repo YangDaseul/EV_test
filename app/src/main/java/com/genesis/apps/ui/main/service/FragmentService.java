@@ -182,7 +182,6 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
         } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()&&data!=null) {
             //충전소 예약 완료 시 페이지 이동
-            //TODO 2021-04-23 PARK 충전소 예약 완료 시 해당 로직을 정상적으로 수행하는지 점검 필요 (TO.김기만C)
             ReserveInfo reserveInfo = (ReserveInfo) data.getSerializableExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO);
             if (reserveInfo != null) {
                 ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ChargeResultActivity.class).putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, reserveInfo)

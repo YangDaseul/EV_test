@@ -199,6 +199,9 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
 
                 }
             }
+        } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
+            // 충전소 예약 완료
+            exitPage(data, resultCode);
         }
     }
 
