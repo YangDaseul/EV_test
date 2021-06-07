@@ -141,10 +141,10 @@ public class DialogCalendarChargeBtr extends BaseBottomDialog<DialogBottomCharge
     private void initDecorator() {
         selectedDayDecorator = new SelectedDayDecorator(0, ContextCompat.getColor(getContext(), R.color.x_ffffff));
         highlightWeekendsDecorator = new HighlightWeekendsDecorator(isRemoveWeekends);
+        ui.calendarView.addDecorator(highlightWeekendsDecorator);
         if (isRemoveWeekends) {
             ui.calendarView.addDecorator(removeWeekendsDecorator);
         }
-        ui.calendarView.addDecorator(highlightWeekendsDecorator);
 
         if (getBookingDateVOList() != null) {
             rejectDecorator = new Reject2Decorator(getBookingDateVOList(), ContextCompat.getColor(getContext(), R.color.x_33000000), false);
