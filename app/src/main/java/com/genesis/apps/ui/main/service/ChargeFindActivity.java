@@ -269,11 +269,11 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      * Method - Private
      ****************************************************************************************************/
     private void initialize() {
-        EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
+//        EvChargeStatusFragment evChargeStatusFragment = EvChargeStatusFragment.newInstance();
         inputChargePlaceFragment = InputChargePlaceFragment.newInstance(null);
         inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
         getSupportFragmentManager().beginTransaction()
-                .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
+//                .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
                 .commitAllowingStateLoss();
 
@@ -286,7 +286,9 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
         try {
             mainVehicleVO = reqViewModel.getMainVehicle();
-            setViewBatteryStatus();
+
+            // 현업의 요청으로 "충전소 찾기" 화면의 배터리 정보, 주행가능 거리 영역 삭제.
+//            setViewBatteryStatus();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -429,6 +431,8 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      * 정보 제공 동의 유무에 따라서 FRAGMENT VISIBLE/GONE 결정
      * (top margin 제거 목적)
      */
+    /*
+    현업의 요청으로 "충전소 찾기" 화면의 배터리 정보, 주행가능 거리 영역 삭제.
     private void setViewBatteryStatus() {
         try {
             if (mainVehicleVO != null) {
@@ -451,6 +455,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
         }
     }
+     */
 
     @Override
     public void onBackPressed() {
