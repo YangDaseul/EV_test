@@ -250,6 +250,9 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
                 }
             }
+        } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
+            // 충전소 예약 완료 인 경우 그대로 종료
+            exitPage(data, resultCode);
         }
     }
 

@@ -1161,6 +1161,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 lgnViewModel.setPosition(37.463936, 127.042953);
                 lgnViewModel.setMyPosition(37.463936, 127.042953);
             }
+        } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
+            // 충전소 예약 완료
+            exitPage(data, resultCode);
         }
 
 
