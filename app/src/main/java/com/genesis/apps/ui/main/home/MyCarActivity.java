@@ -444,13 +444,20 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             ui.tvPartHomeCnt.setText(cnt);
         }
 
-        if(!TextUtils.isEmpty(itemDate)){
-            ui.tvItemDate.setVisibility(View.VISIBLE);
-            ui.tvItemDate.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_28), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+        if (("HI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd()) || "GI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd())) ||
+                ("EQ900".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()) || "G90".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()))) {
+            ui.tvTitleType.setText(R.string.gm_carlst_04_31);
+            if(!TextUtils.isEmpty(itemDate))
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_29), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+            else
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_29), "--"));
         }else{
-            ui.tvItemDate.setVisibility(View.GONE);
+            ui.tvTitleType.setText(R.string.gm_carlst_04_32);
+            if(!TextUtils.isEmpty(itemDate))
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_30), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+            else
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_30), "--"));
         }
-
 //        reqPrivilegeDataToServer();
     }
     //3월 통합테스트 결과에 따라 히든처리 (프리빌리지 레이아웃)

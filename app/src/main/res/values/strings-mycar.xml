@@ -175,6 +175,11 @@
     <string name="gm_carlst_04_26">계약 중</string>
     <string name="gm_carlst_04_27">옵션</string>
     <string name="gm_carlst_04_28">(유효기간 : %s까지)</string>
+    <string name="gm_carlst_04_29">- 유효기간 : %s 까지\n- 보증 주행거리 : 12만Km</string>
+    <string name="gm_carlst_04_30">- 유효기간 : %s 까지\n- 보증 주행거리 : 6만Km</string>
+    <string name="gm_carlst_04_31">EQ900, G90</string>
+    <string name="gm_carlst_04_32">그 외</string>
+    <string name="gm_carlst_04_33">· 기간 혹은 주행거리 중 선도래 시 종료</string>
 
     <string name="gm_carlst_03_0">차량 인증</string>
     <string name="gm_carlst_03_1">내 차 등록</string>
