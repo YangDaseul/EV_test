@@ -38,12 +38,14 @@
                 android:orientation="vertical">
 
                 <!--충전 잔량 및 주행가능 거리-->
+                <!--
+                현업의 요청으로 배터리 정보 및 주행가능 거리 삭제.
                 <FrameLayout
                     android:id="@+id/vg_ev_status_constainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"/>
-
+-->
                 <!--충전소 검색 입력 영역-->
                 <FrameLayout
                     android:id="@+id/vg_input_charge_place"
