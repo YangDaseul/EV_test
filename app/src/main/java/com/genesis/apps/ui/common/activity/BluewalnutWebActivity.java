@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -53,6 +54,8 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
     private PymtFormVO pymtFormVO;  // 결제 요청 폼 데이터
     private String pageType;  // 페이지 타입
     private String redirectUrl;
+
+    private String payTrxId = null;     // 결제 요청 트랜잭션 아이디, 미수금 결제 시 채널 주문번호(mOid)로 변경 필요.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +191,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         try {
             if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
                 super.onBackPressed();
-                exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
+                exit();
             }
         } catch (Exception e) {
             super.onBackPressed();
@@ -236,6 +239,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
             } catch (Exception e) {
 
             } finally {
+                this.payTrxId = pymtFormVO.getMOid();
                 this.redirectUrl = decodeUrl(StringUtil.isValidString(pymtFormVO.getRedirectUrl()));
             }
         }
@@ -258,8 +262,8 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         @Override
         public void onPageFinished(String url) {
             Log.d(TAG, "onPageFinished:" + url);
-            if (url.startsWith("about:blank")) exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
-            if (url.equals(redirectUrl)) exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
+            if (url.startsWith("about:blank")) exit();
+            if (url.equals(redirectUrl)) exit();
             if (isClearHistory) {
                 clearHistory();
                 setClearHistory(false);
@@ -280,7 +284,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         @Override
         public void onCloseWindow(WebView window) {
             Log.d(TAG, "onCloseWindow()");
-            exitPage(new Intent(), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
+            exit();
         }
     };
 
@@ -415,5 +419,9 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
 
         byte[] decoded = Base64Utils.decodeUrlSafe(str);
         return new String(decoded, UTF_8);
+    }
+
+    private void exit() {
+        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_PAY_TRXID, StringUtil.isValidString(this.payTrxId)), ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode());
     }
 }

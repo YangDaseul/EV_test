@@ -231,7 +231,7 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("0000")) {
                         showProgressDialog(false);
                         startActivitySingleTop(new Intent(this, UnpaidPayResultActivity.class)
                                         .putExtra(KeyNames.KEY_NAME_CONTENTS_VO, result.data)
@@ -283,7 +283,12 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
             chbViewModel.reqCHB1015(new CHB_1015.Request(APPIAInfo.SM_CGRV02.getId()));
         } else if (resultCode == ResultCodes.REQ_CODE_BLUEWALNUT_PAYMENT_FINISH.getCode()) {
             // 블루월넛 결제 완료 시
-            dtwViewModel.reqDTW1007(new DTW_1007.Request(APPIAInfo.PAY04_PAY01.getId(), ui.getData().getPayTrxId()));
+            String payTrxId = data.getStringExtra(KeyNames.KEY_NAME_PAY_TRXID);
+            if(!TextUtils.isEmpty(payTrxId))
+                    dtwViewModel.reqDTW1007(new DTW_1007.Request(APPIAInfo.PAY04_PAY01.getId(), payTrxId));
+            else
+                SnackBarUtil.show(this, getString(R.string.r_flaw06_p02_snackbar_1));
+
         } else if(resultCode == ResultCodes.REQ_CODE_UNPAID_PAYMT_FINISH.getCode()) {
             // 미수금 결제 완료되어 화면 종료 시
             exitPage(new Intent(), ResultCodes.REQ_CODE_UNPAID_PAYMT_FINISH.getCode());
