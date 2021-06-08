@@ -341,6 +341,7 @@
                         android:fontFamily="@font/light_genesissansheadglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6dp"
+                        android:includeFontPadding="false"
                         android:maxLines="1"
                         android:text="@string/gm_carlst_04_5"
                         android:textColor="@color/x_000000"
@@ -350,11 +351,73 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:visibility="gone"/>
 
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_insurance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:paddingTop="30dp"
+                        android:paddingBottom="30dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:background="@color/x_f8f8f8"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1">
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_title_type"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--                            android:letterSpacing="-0.02"-->
+<!--                            android:lineSpacingExtra="9dp"-->
+<!--                            android:textColor="@color/x_000000"-->
+<!--                            android:textSize="14dp"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            tools:text="EQ900, G90"/>-->
+
+                        <TextView
+                            android:id="@+id/tv_insurance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="9dp"
+                            android:textColor="@color/x_4d4d4d"
+                            android:textSize="14dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="@string/gm_carlst_04_29"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_insurance_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:maxLines="1"
+                        android:text="@string/gm_carlst_04_33"
+                        android:textColor="@color/x_666666"
+                        android:textSize="14dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toBottomOf="@+id/l_insurance" />
+
+
                     <TextView
                         android:id="@+id/tv_title_mobility_care_2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="40dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/light_genesissansheadglobal"
                         android:letterSpacing="-0.01"
@@ -363,29 +426,28 @@
                         android:text="@string/gm_carlst_04_6"
                         android:textColor="@color/x_000000"
                         android:textSize="18dp"
-                        app:layout_goneMarginTop="0dp"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_item_date"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_1" />
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_insurance_info" />
 
-                    <TextView
-                        android:id="@+id/tv_item_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="17dp"
-                        android:maxLines="1"
-                        android:textColor="@color/x_000000"
-                        android:textSize="13dp"
-                        tools:text="(유효기간 : 2021.11.11까지)"
-                        tools:visibility="visible"
-                        app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintStart_toEndOf="@+id/tv_title_mobility_care_2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_title_mobility_care_2"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_title_mobility_care_2"/>
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_item_date"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                        android:letterSpacing="-0.01"-->
+<!--                        android:lineSpacingExtra="17dp"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:textColor="@color/x_000000"-->
+<!--                        android:textSize="13dp"-->
+<!--                        tools:text="(유효기간 : 2021.11.11까지)"-->
+<!--                        tools:visibility="visible"-->
+<!--                        app:layout_constraintHorizontal_bias="1"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/tv_title_mobility_care_2"-->
+<!--                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/tv_title_mobility_care_2"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/tv_title_mobility_care_2"/>-->
 
 
                     <ImageView

@@ -91,18 +91,19 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //        initBarcode();
     }
 
-    private void initBarcode() {
-        String custGbCd = "";
-        try {
-            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
-                cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.GM01.getId()));
-            }
-        }
-    }
+//    private void initBarcode() {
+//        String custGbCd = "";
+//        try {
+//            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+//                cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.GM01.getId()));
+//            }
+//        }
+//    }
+
 
     private void setBarcode() {
         String custGbCd = "";
@@ -379,8 +380,8 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()
                 || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()
                 || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()
-                || resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()
-                || resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()) {
+//                || resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentService) {
                     fragment.onActivityResult(requestCode, resultCode, data);

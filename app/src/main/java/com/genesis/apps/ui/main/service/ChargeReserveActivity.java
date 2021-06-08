@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
+import com.genesis.apps.comm.model.vo.ReserveInfo;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -200,8 +201,14 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 }
             }
         } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
-            // 충전소 예약 완료
-            exitPage(data, resultCode);
+            // 충전소 예약 완료인 경우 완료 화면 표시.
+            ReserveInfo reserveInfo = (ReserveInfo) data.getSerializableExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO);
+            if (reserveInfo != null) {
+                startActivitySingleTop(new Intent(ChargeReserveActivity.this, ChargeResultActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, reserveInfo)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
         }
     }
 

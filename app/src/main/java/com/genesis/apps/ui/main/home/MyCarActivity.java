@@ -387,10 +387,22 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         }
     }
 
+    private void initCouponCnt(){
+        String cnt = "0 " + getString(R.string.gm_carlst_04_16);
+        ui.tvPartEngineOilCnt.setText(cnt);
+        ui.tvPartAirConditionerFilterCnt.setText(cnt);
+        ui.tvPartBreakPadCnt.setText(cnt);
+        ui.tvPartWiperCnt.setText(cnt);
+        ui.tvPartBreakCnt.setText(cnt);
+        ui.tvPartHomeCnt.setText(cnt);
+        ui.tvPartIceCnt.setText(cnt);
+    }
+
     private void setViewCoupon(List<CouponVO> list) {
 
         int totalCnt = 0;//추후 잔여횟수가 없습니다. 등을 표시할 때 사용 가능
         String itemDate="";
+        initCouponCnt();
         if (list != null && list.size() > 0) {
             for (CouponVO couponVO : list) {
                 try {
@@ -438,16 +450,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 }
             }
 
-        } else {
-            String cnt = "0 " + getString(R.string.gm_carlst_04_16);
-            ui.tvPartEngineOilCnt.setText(cnt);
-            ui.tvPartAirConditionerFilterCnt.setText(cnt);
-            ui.tvPartBreakPadCnt.setText(cnt);
-            ui.tvPartWiperCnt.setText(cnt);
-            ui.tvPartBreakCnt.setText(cnt);
-            ui.tvPartHomeCnt.setText(cnt);
-            ui.tvPartIceCnt.setText(cnt);
-        }
+        } 
 
         if(getCurrentVehicleVO().isEV()){
             ui.lPartEngine.setVisibility(View.GONE);
@@ -461,13 +464,19 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 //            ui.tvTitleMobilityCare1.setVisibility(View.VISIBLE);
         }
 
-        if(!TextUtils.isEmpty(itemDate)){
-            ui.tvItemDate.setVisibility(View.VISIBLE);
-            ui.tvItemDate.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_28), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
-        }else{
-            ui.tvItemDate.setVisibility(View.GONE);
-        }
 
+        if (("HI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd()) || "GI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd())) ||
+                ("EQ900".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()) || "G90".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()))) {
+            if(!TextUtils.isEmpty(itemDate))
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_29), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+            else
+                ui.tvInsurance.setText(R.string.gm_carlst_04_34);
+        }else{
+            if(!TextUtils.isEmpty(itemDate))
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_30), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+            else
+                ui.tvInsurance.setText(R.string.gm_carlst_04_35);
+        }
 //        reqPrivilegeDataToServer();
     }
     //3월 통합테스트 결과에 따라 히든처리 (프리빌리지 레이아웃)
