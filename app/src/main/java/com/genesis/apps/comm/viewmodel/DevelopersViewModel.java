@@ -721,7 +721,13 @@ class DevelopersViewModel extends ViewModel {
     public boolean needUpdateCarId(){
         try{
             if("4043".equalsIgnoreCase(getRES_CAR_AGREEMENTS().getValue().data.getErrCode())){
-                return true;
+                try {
+                    //4043을 받은 경우 주 이용 차량의 carId를 제거진행
+                    dbVehicleRepository.updateCarConnectCarId("", getMainVehicleSimplyFromDB().getVin());
+                    return true;
+                }catch (Exception e){
+
+                }
             }
         }catch (Exception ignore){
 
