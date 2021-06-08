@@ -467,17 +467,15 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
         if (("HI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd()) || "GI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd())) ||
                 ("EQ900".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()) || "G90".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()))) {
-            ui.tvTitleType.setText(R.string.gm_carlst_04_31);
             if(!TextUtils.isEmpty(itemDate))
                 ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_29), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
             else
-                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_29), "--"));
+                ui.tvInsurance.setText(R.string.gm_carlst_04_34);
         }else{
-            ui.tvTitleType.setText(R.string.gm_carlst_04_32);
             if(!TextUtils.isEmpty(itemDate))
                 ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_30), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
             else
-                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_30), "--"));
+                ui.tvInsurance.setText(R.string.gm_carlst_04_35);
         }
 //        reqPrivilegeDataToServer();
     }
