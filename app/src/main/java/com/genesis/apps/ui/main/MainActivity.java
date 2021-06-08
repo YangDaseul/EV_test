@@ -20,6 +20,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -86,21 +87,37 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         setViewModel();
         setObserver();
         initView();
-        initBarcode();
+//        initBarcode();
     }
 
-    private void initBarcode() {
+//    private void initBarcode() {
+//        String custGbCd = "";
+//        try {
+//            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+//                cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.GM01.getId()));
+//            }
+//        }
+//    }
+
+    private void setBarcode() {
         String custGbCd = "";
+        VehicleVO vehicleVO = null;
         try {
             custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
-                cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.GM01.getId()));
+                ui.lGnb.setUseBarcode(true);
             }
         }
     }
+
 
     private void initView() {
         pagerAdapter = new MainViewpagerAdapter(this, pageNum);
@@ -287,6 +304,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         Log.e("onResume", "onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
+        setBarcode();
     }
 
     public String getCustGbCd() {
