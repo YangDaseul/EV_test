@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
@@ -17,6 +21,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
+import com.genesis.apps.comm.model.vo.ReserveInfo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -33,9 +38,6 @@ import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_EMPTY;
@@ -251,8 +253,14 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 }
             }
         } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {
-            // 충전소 예약 완료 인 경우 그대로 종료
-            exitPage(data, resultCode);
+            // 충전소 예약 완료인 경우 완료 화면 표시.
+            ReserveInfo reserveInfo = (ReserveInfo) data.getSerializableExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO);
+            if (reserveInfo != null) {
+                startActivitySingleTop(new Intent(ChargeFindActivity.this, ChargeResultActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, reserveInfo)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
         }
     }
 
