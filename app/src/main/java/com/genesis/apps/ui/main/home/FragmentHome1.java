@@ -41,6 +41,7 @@ import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
+import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -269,18 +270,34 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if (result.data != null) {
+                    if (result.data != null && result.data.getData() != null) {
                         try {
                             developersViewModel.updateCarConnectResult(result.data.getData().getResult() != 0, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
                             setViewDevelopers();
+                            break;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    break;
                 default:
-                    //4043올수있는지 확인 필요
-                    setViewDevelopers();
+                    if(developersViewModel.needUpdateCarId()){
+                        ((MainActivity) getActivity()).showProgressDialog(true);
+                        developersViewModel.checkVehicleCarId(new ResultCallback() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                ((MainActivity) getActivity()).showProgressDialog(false);
+                                setViewDevelopers();
+                            }
+
+                            @Override
+                            public void onError(Object e) {
+                                ((MainActivity) getActivity()).showProgressDialog(false);
+                                setViewDevelopers();
+                            }
+                        });
+                    }else{
+                        setViewDevelopers();
+                    }
                     break;
             }
         });
@@ -300,9 +317,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     }
                 default:
-                    if(result.data!=null&&"4043".equalsIgnoreCase(result.data.getErrCode())){
-//                        developersViewModel.updateCarConnectResult()
-                    }
 //                    me.tvDistancePossible.setText("--km");
                     break;
             }

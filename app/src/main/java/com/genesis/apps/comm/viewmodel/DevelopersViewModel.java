@@ -25,6 +25,7 @@ import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.CarVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -91,6 +92,7 @@ class DevelopersViewModel extends ViewModel {
         }
     } // end of enum class SEST
 
+    private LoginInfoDTO loginInfoDTO;
     private final DevelopersRepo repository;
     private final SavedStateHandle savedStateHandle;
 
@@ -116,10 +118,12 @@ class DevelopersViewModel extends ViewModel {
     DevelopersViewModel(
             DevelopersRepo repository,
             DBVehicleRepository dbVehicleRepository,
+            LoginInfoDTO loginInfoDTO,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
         this.savedStateHandle = savedStateHandle;
         this.dbVehicleRepository = dbVehicleRepository;
+        this.loginInfoDTO = loginInfoDTO;
         RES_DTC = repository.RES_DTC;
         RES_REPLACEMENTS = repository.RES_REPLACEMENTS;
         RES_TARGET = repository.RES_TARGET;
@@ -244,10 +248,19 @@ class DevelopersViewModel extends ViewModel {
     /**
      * @brief Developers에 소유 차량에 대한 carId 확인 요청
      */
-    public void checkVehicleCarId(String userId, String accessToken, ResultCallback callback) {
+    public void checkVehicleCarId(ResultCallback callback) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             try {
+                String userId="";
+                String accessToken="";
+                try{
+                    userId = loginInfoDTO.getProfile().getId();
+                    accessToken = loginInfoDTO.getAccessToken();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 if (!TextUtils.isEmpty(accessToken)&&!TextUtils.isEmpty(userId)) {
                     List<CarConnectVO> targetList = checkJoinCCS(userId);
                     if(targetList!=null&&targetList.size()>0){
@@ -705,5 +718,15 @@ class DevelopersViewModel extends ViewModel {
 //        }
 //    }
 
+    public boolean needUpdateCarId(){
+        try{
+            if("4043".equalsIgnoreCase(getRES_CAR_AGREEMENTS().getValue().data.getErrCode())){
+                return true;
+            }
+        }catch (Exception ignore){
+
+        }
+        return false;
+    }
 
 }

@@ -181,15 +181,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         @Override
                         public void onSuccess(Object retv) {
                             if (((Boolean) retv)) {
-                                String userId="";
-                                String accessToken="";
-                                try{
-                                    userId = loginInfoDTO.getProfile().getId();
-                                    accessToken = loginInfoDTO.getAccessToken();
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                developersViewModel.checkVehicleCarId(userId, accessToken, new ResultCallback() {
+                                developersViewModel.checkVehicleCarId(new ResultCallback() {
                                     @Override
                                     public void onSuccess(Object object) {
                                         if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
