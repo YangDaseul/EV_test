@@ -387,10 +387,21 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         }
     }
 
+    private void initCouponCnt(){
+        String cnt = "0 " + getString(R.string.gm_carlst_04_16);
+        ui.tvPartEngineOilCnt.setText(cnt);
+        ui.tvPartAirConditionerFilterCnt.setText(cnt);
+        ui.tvPartBreakPadCnt.setText(cnt);
+        ui.tvPartWiperCnt.setText(cnt);
+        ui.tvPartBreakCnt.setText(cnt);
+        ui.tvPartHomeCnt.setText(cnt);
+    }
+
     private void setViewCoupon(List<CouponVO> list) {
 
         int totalCnt = 0;//추후 잔여횟수가 없습니다. 등을 표시할 때 사용 가능
         String itemDate="";
+        initCouponCnt();
         if (list != null && list.size() > 0) {
             for (CouponVO couponVO : list) {
                 try {
@@ -434,14 +445,6 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 }
             }
 
-        } else {
-            String cnt = "0 " + getString(R.string.gm_carlst_04_16);
-            ui.tvPartEngineOilCnt.setText(cnt);
-            ui.tvPartAirConditionerFilterCnt.setText(cnt);
-            ui.tvPartBreakPadCnt.setText(cnt);
-            ui.tvPartWiperCnt.setText(cnt);
-            ui.tvPartBreakCnt.setText(cnt);
-            ui.tvPartHomeCnt.setText(cnt);
         }
 
         if (("HI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd()) || "GI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd())) ||
