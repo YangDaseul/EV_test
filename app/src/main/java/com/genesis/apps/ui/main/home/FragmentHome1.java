@@ -670,6 +670,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             if (!animationDrawable.isRunning()) animationDrawable.start();
         } else {
             animationDrawable.stop();
+            me.btnEvBattery.setBackground(null);
+            me.btnEvBattery.setImageResource(dayCd==VariableType.HOME_TIME_DAY ? R.drawable.loading_battery_b : R.drawable.loading_battery_w);
         }
         me.btnEvBattery.setEnabled(!isShow);
         me.tvEvBattery.setEnabled(!isShow);
