@@ -239,17 +239,38 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                 lgnViewModel.setMyPosition(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
                 searchChargeStation(VariableType.DEFAULT_POSITION[0], VariableType.DEFAULT_POSITION[1]);
             }
-        }else if(resultCode== ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode()){
+        } else if(resultCode== ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode()){
             if(data!=null){
+                ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
+                boolean isChangeAddress=false;
+                boolean isChangeFilter=false;
+
                 try {
-                    ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
                     filterList.addAll(data.getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO));
                     if(filterList!=null&&filterList.size()>0){
                         inputChargePlaceFragment.updateFilter(filterList);
-                        onFilterChanged(inputChargePlaceFragment.getCurrentType(), filterList);
+                        isChangeFilter=true;
                     }
                 }catch (Exception e){
 
+                }
+
+                try{
+                    AddressVO addressVO = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+                    if (addressVO != null) {
+                        //둘중에 하나라도 좌표값이 다르면
+                        if(addressVO.getCenterLat()!=lgnViewModel.getPositionValue().get(0)||addressVO.getCenterLon()!=lgnViewModel.getPositionValue().get(1)){
+                            inputChargePlaceFragment.eventSearchAddress();
+                            onAddressSelected(addressVO);
+                            isChangeAddress=true;
+                        }
+                    }
+                }catch (Exception e){
+
+                }
+
+                if(!isChangeAddress&&isChangeFilter){
+                    onFilterChanged(inputChargePlaceFragment.getCurrentType(), filterList);
                 }
             }
         } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {

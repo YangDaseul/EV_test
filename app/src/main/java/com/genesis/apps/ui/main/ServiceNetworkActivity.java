@@ -7,12 +7,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.WebView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -34,12 +40,14 @@ import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.ReserveVo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
@@ -65,13 +73,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
@@ -87,6 +88,7 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
  */
 public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding> implements SearchAddressHMNFragment.AddressSelectListener {
 
+    private MapViewModel mapViewModel;
     private BTRViewModel btrViewModel;
     private LGNViewModel lgnViewModel;
     private PUBViewModel pubViewModel;
@@ -106,6 +108,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     private List<ChargeSearchCategoryVO> searchCategoryList;
     private AddressVO initAddressVO;
+    private Intent evReturnData=new Intent();
 
     public final static int PAGE_TYPE_BTR = 0;//버틀러 변경
     public final static int PAGE_TYPE_RENT = 1;//렌트리스 등록
@@ -149,6 +152,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 ui.btnMyPosition.setVisibility(View.GONE);
                 ui.btnMyPosition2.setOnClickListener(onSingleClickListener);
                 ui.btnCarPosition.setOnClickListener(onSingleClickListener);
+                ui.btnResearch.setVisibility(View.VISIBLE);
+                ui.btnResearch.setOnClickListener(onSingleClickListener);
                 ui.lMapOverlayTitle.btnSearch.setVisibility(View.GONE);
                 ui.lMapOverlayTitle.btnSearchList.setVisibility(View.GONE);
                 break;
@@ -158,6 +163,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case PAGE_TYPE_SERVICE:
             case PAGE_TYPE_REPAIR:
             default: {
+                ui.btnResearch.setVisibility(View.GONE);
                 ui.rgLocation.setVisibility(View.GONE);
                 ui.ivBtnFilter.setVisibility(View.GONE);
                 ui.btnMyPosition.setVisibility(View.VISIBLE);
@@ -279,6 +285,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
         btrViewModel = new ViewModelProvider(this).get(BTRViewModel.class);
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
         pubViewModel = new ViewModelProvider(this).get(PUBViewModel.class);
@@ -289,6 +296,29 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     @Override
     public void setObserver() {
+
+        mapViewModel.getPlayMapGeoItem().observe(this, result -> {
+
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null){
+                        initAddressVO.setAddrRoad(result.data.addrRoad);
+                        initAddressVO.setAddr(result.data.addr);
+                        initAddressVO.setCenterLat(ui.pmvMapView.getMapCenterLatitude());
+                        initAddressVO.setCenterLon(ui.pmvMapView.getMapCenterLongitude());
+                        lgnViewModel.setPosition(initAddressVO.getCenterLat(), initAddressVO.getCenterLon());
+                    }
+                    break;
+                default:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
+
 
         lgnViewModel.getPosition().observe(this, doubles -> {
             ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM_WIDE);
@@ -617,7 +647,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     searchCategoryList = adapter.getItems();
                     ArrayList<ChargeSearchCategoryVO> list = new ArrayList<>();
                     list.addAll(searchCategoryList);
-                    setResult(ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode(), new Intent().putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, list));
+                    evReturnData.putParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO, list);
+                    setResult(ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode(), evReturnData);
                     reqSearchChargeStation(lgnViewModel.getPosition().getValue().get(0), lgnViewModel.getPosition().getValue().get(1), adapter.getItems());
                 })
                 .build();
@@ -808,6 +839,11 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 });
 
                 break;
+            case R.id.btn_research:
+                //이 지역 재검색
+                mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(ui.pmvMapView.getMapCenterLatitude(),ui.pmvMapView.getMapCenterLongitude(),0));
+                break;
+
 //            case R.id.btn_my_position_2: {
 //                // EV충전소 찾기 > 내 위치 기준 조회.
 //                reqMyLocation();
@@ -1505,7 +1541,16 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         if (fragments != null && fragments.size() > 0) {
             hideFragment(fragments.get(0));
         } else {
+            if(pageType==PAGE_TYPE_EVCHARGE||pageType==PAGE_TYPE_EVCHARGE_STC){
+                evReturnData.putExtra(KeyNames.KEY_NAME_ADDR, initAddressVO);
+                setResult(ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode(), evReturnData);
+            }
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onBackButton() {
+        onBackPressed();
     }
 }

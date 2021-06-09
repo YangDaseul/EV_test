@@ -203,6 +203,10 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         }
     }
 
+    public void eventSearchAddress() {
+        me.rbBtnSearch.performClick();
+    }
+
     public void setGuideErrorMsg() {
         me.tvGuideLocationError.setVisibility(View.VISIBLE);
         switch (currentType) {
