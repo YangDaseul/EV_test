@@ -62,7 +62,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     private ChargeReserveHistoryListAdapter reserveHistoryListAdapter;
     private ChargeSTCPlaceListAdapter adapter;
 
-    private String reservYn = "Y";
+    private String reservYn = "N";
     private String superSpeedYn = "Y";
     private String highSpeedYn = "Y";
     private String slowSpeedYn = "Y";

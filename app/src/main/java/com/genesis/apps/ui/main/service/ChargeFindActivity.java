@@ -57,7 +57,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     private ChargePlaceListAdapter adapter;
 
-    private String reservYn=VariableType.COMMON_MEANS_YES;
+    private String reservYn=VariableType.COMMON_MEANS_NO;
     private String chgCd;
     private ArrayList<String> chgSpeedList = new ArrayList<>();
     private ArrayList<String> payTypeList = new ArrayList<>();
