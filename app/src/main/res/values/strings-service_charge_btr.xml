@@ -103,11 +103,11 @@
     <string name="service_charge_btr_word_12">충전금액</string>
     <string name="service_charge_btr_word_13">탁송금액</string>
     <string name="service_charge_btr_word_14">세차금액</string>
-    <string name="service_charge_btr_word_15">포인트사용</string>
+    <string name="service_charge_btr_word_15">크레딧사용</string>
     <string name="service_charge_btr_word_16">결제금액</string>
     <string name="service_charge_btr_word_17">예약 내역</string>
     <string name="service_charge_btr_word_18">선결제</string>
-    <string name="service_charge_btr_word_19">충전 크레딧</string>
+    <string name="service_charge_btr_word_19">충전금액</string>
     <string name="service_charge_btr_word_20">기사 정보</string>
     <string name="service_charge_btr_word_21">전화번호</string>
     <string name="service_charge_btr_word_22">업체정보</string>

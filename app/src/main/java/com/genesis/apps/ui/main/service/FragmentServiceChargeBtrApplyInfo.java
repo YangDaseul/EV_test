@@ -112,7 +112,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
         String useCreditPoint = null;
         if(resData.getOrderInfo().getMembershipList() != null && resData.getOrderInfo().getMembershipList().size() > 0) {
             for(MembershipVO vo : resData.getOrderInfo().getMembershipList()) {
-                if(!vo.getMembershipCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF)) {
+                if(vo.getMembershipCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF)) {
                     useCreditPoint = StringUtil.getDiscountString(vo.getMembershipUsePoint());
                     continue;
                 }
