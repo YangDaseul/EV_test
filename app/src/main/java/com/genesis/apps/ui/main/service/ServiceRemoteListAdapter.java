@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -222,7 +223,6 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
         @Override
         public void onBindView(RemoteHistoryVO item, int pos, SparseBooleanArray selectedItems) {
             STATUS status = getStatusByCode(item.getAplyStusCd());
-            FLT_CODE_CATEGORY fltCodeCategory = getFltCodeCategoryByCode(item.getFltCd());
             ItemServiceRemoteBinding binding = getBinding();
 
             binding.tvServiceRemoteDate.setText(
@@ -305,9 +305,14 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
                 binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
             }
 
-            if (fltCodeCategory != null) {
-                binding.tvServiceRemoteDetailDesc.setText(fltCodeCategory.messageResId);
+            if(TextUtils.isEmpty(item.getTmpAcptCd())||TextUtils.isEmpty(item.getRcptCd())){
+                //둘중에 하나라도 값이 비어있으면 예약취소 버튼 비활성화
+                binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
+                binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
+                binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
             }
+
+            binding.tvServiceRemoteDetailDesc.setText(StringUtil.isValidString(item.getFltStmt()));
         }
 
         /****************************************************************************************************
