@@ -161,21 +161,52 @@
 
 
                     <TextView
-                        android:id="@+id/tv_charge_credit_info"
-                        android:layout_width="0dp"
+                        android:id="@+id/tv_charge_credit_info_1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:fontFamily="@font/regular_genesissansheadglobal"
                         android:includeFontPadding="false"
                         android:lineSpacingExtra="6dp"
-                        android:text="@string/tm01_13"
-                        android:textColor="@color/x_666666"
+                        android:letterSpacing="-0.01"
+                        android:textColor="@color/x_262626"
                         android:textSize="14dp"
                         android:visibility="gone"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        tools:visibility="visible"/>
+                        tools:visibility="visible"
+                        tools:text="카드 결제 : 123,123원"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_charge_credit_info_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:lineSpacingExtra="6dp"
+                        android:letterSpacing="-0.01"
+                        android:textColor="@color/x_262626"
+                        android:textSize="14dp"
+                        android:visibility="gone"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_charge_credit_info_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:drawableEndCompat="@drawable/btn_arrow_open_r"
+                        tools:visibility="visible"
+                        tools:text="충전 크레딧 사용 : 122,123원" />
+
+
 
 
                     <com.github.mikephil.charting.charts.BarChart
@@ -187,7 +218,7 @@
                         app:layout_constraintDimensionRatio="1.5:1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_charge_credit_info" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_charge_credit_info_2" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

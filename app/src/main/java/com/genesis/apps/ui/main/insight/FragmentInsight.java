@@ -140,10 +140,12 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                         list.add(current);
 //                        }
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
+                        insightCarAdapter.setStMbrYn(result.data.getStMbrYn());
                     }else{
                         list.add(new ISTAmtVO("0", "0", "0", "0", "0","0","0"));
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY);
                     }
+                    insightCarAdapter.setStMbrYn(result.data!=null ? result.data.getStMbrYn() : VariableType.COMMON_MEANS_NO);
                     insightCarAdapter.setEv(mainVehicleInfo!=null&&mainVehicleInfo.isEV());
                     insightCarAdapter.setRows(list);
                     insightCarAdapter.notifyDataSetChanged();

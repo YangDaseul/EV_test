@@ -45,7 +45,6 @@ public class IST_1002 extends BaseData {
         @SerializedName("evCd")
         private String evCd;
 
-
         public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd, String vin, String evCd){
             this.lgrCatAreaCd = lgrCatAreaCd;
             this.smlCatAreaCd = smlCatAreaCd;
@@ -70,5 +69,8 @@ public class IST_1002 extends BaseData {
         @Expose
         @SerializedName("prvsMthAmt")
         private List<ISTAmtVO> prvsMthAmt;
+        @Expose
+        @SerializedName("stMbrYn")
+        private String stMbrYn;
     }
 }

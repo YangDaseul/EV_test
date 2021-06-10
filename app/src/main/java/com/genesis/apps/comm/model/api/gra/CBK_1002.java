@@ -99,6 +99,9 @@ public class CBK_1002 extends BaseData {
         @SerializedName("etcSumAmt")
         private String etcSumAmt;
         @Expose
+        @SerializedName("stMbrYn")
+        private String stMbrYn;
+        @Expose
         @SerializedName("expnList")
         private List<ExpnVO> expnList;
 
