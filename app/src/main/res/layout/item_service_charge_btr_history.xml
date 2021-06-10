@@ -313,36 +313,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:title="@{@string/service_charge_btr_word_12}" />
 
-                    <!-- 포인트 사용 -->
-                    <include
-                        android:id="@+id/l_credit_point"
-                        layout="@layout/item_rpar_status"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        app:isRight="@{true}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_advance_paymt"
-                        app:title="@{@string/service_charge_btr_word_15}" />
-
-                    <!-- 포인트사용-충전 크레딧 포인트 표시 -->
-                    <TextView
-                        android:id="@+id/txt_credit_point"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="115dp"
-                        android:background="@color/x_ffffff"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:text="@string/service_charge_btr_word_19"
-                        android:textColor="@color/x_262626"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/l_credit_point"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/l_credit_point" />
-
                     <!-- 탁송 금액 -->
                     <include
                         android:id="@+id/l_delivery_paymt"
@@ -353,7 +323,7 @@
                         app:isRight="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
+                        app:layout_constraintTop_toBottomOf="@+id/l_advance_paymt"
                         app:title="@{@string/service_charge_btr_word_13}" />
 
                     <!-- 세차 금액 -->
@@ -370,6 +340,35 @@
                         app:layout_constraintTop_toBottomOf="@+id/l_delivery_paymt"
                         app:title="@{@string/service_charge_btr_word_14}" />
 
+                    <!-- 크레딧 사용 -->
+                    <include
+                        android:id="@+id/l_credit_point"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isRight="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
+                        app:title="@{@string/service_charge_btr_word_15}" />
+
+                    <!-- 크레딧 사용-충전금액 포인트 표시 -->
+                    <TextView
+                        android:id="@+id/txt_credit_point"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="115dp"
+                        android:background="@color/x_ffffff"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/service_charge_btr_word_19"
+                        android:textColor="@color/x_262626"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_credit_point"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/l_credit_point" />
 
                     <!-- 최종 결제 금액 -->
                     <include
@@ -383,7 +382,7 @@
                         app:titColor="@{@color/x_996449}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_car_wash_paymt"
+                        app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
                         app:title="@{@string/service_charge_btr_word_16}" />
 
                     <!-- 결제금액-취소 표시 -->

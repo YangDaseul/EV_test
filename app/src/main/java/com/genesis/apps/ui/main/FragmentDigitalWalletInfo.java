@@ -96,9 +96,9 @@ public class FragmentDigitalWalletInfo extends SubFragment<FragmentDigitalWallet
                         if (result.data.getStcMbrInfo() != null && StringUtil.isValidString(result.data.getStcMbrInfo().getStcMbrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
 
                             me.lStcCardBottom.setVisibility(View.VISIBLE);
-                            me.tvCreditPoint.setText(StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt()));
+                            me.tvCreditPoint.setText(String.format(getString(R.string.digital_wallet02_6), StringUtil.getPriceString(result.data.getStcMbrInfo().getCretPnt())));
                             String creditCardNo = result.data.getStcMbrInfo().getStcCardNo();
-                            me.tvCreditCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask)));
+                            me.tvCreditCardNo.setText(String.format(getString(R.string.digital_wallet02_7), StringRe2j.replaceAll(StringUtil.isValidString(creditCardNo), getString(R.string.card_original), getString(R.string.card_mask))));
 
                             // 크레딧 사용 제한 안내 (선불교통카드 사용 불가) 표시
                             // EV 충전 크레딧 사용 불가(=부족) && ( 간편결제 미회원 || 등록된 결제카드 0개 )
