@@ -25,6 +25,7 @@ import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.CarVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -91,6 +92,7 @@ class DevelopersViewModel extends ViewModel {
         }
     } // end of enum class SEST
 
+    private LoginInfoDTO loginInfoDTO;
     private final DevelopersRepo repository;
     private final SavedStateHandle savedStateHandle;
 
@@ -116,10 +118,12 @@ class DevelopersViewModel extends ViewModel {
     DevelopersViewModel(
             DevelopersRepo repository,
             DBVehicleRepository dbVehicleRepository,
+            LoginInfoDTO loginInfoDTO,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
         this.savedStateHandle = savedStateHandle;
         this.dbVehicleRepository = dbVehicleRepository;
+        this.loginInfoDTO = loginInfoDTO;
         RES_DTC = repository.RES_DTC;
         RES_REPLACEMENTS = repository.RES_REPLACEMENTS;
         RES_TARGET = repository.RES_TARGET;
@@ -244,10 +248,19 @@ class DevelopersViewModel extends ViewModel {
     /**
      * @brief Developers에 소유 차량에 대한 carId 확인 요청
      */
-    public void checkVehicleCarId(String userId, String accessToken, ResultCallback callback) {
+    public void checkVehicleCarId(ResultCallback callback) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             try {
+                String userId="";
+                String accessToken="";
+                try{
+                    userId = loginInfoDTO.getProfile().getId();
+                    accessToken = loginInfoDTO.getAccessToken();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 if (!TextUtils.isEmpty(accessToken)&&!TextUtils.isEmpty(userId)) {
                     List<CarConnectVO> targetList = checkJoinCCS(userId);
                     if(targetList!=null&&targetList.size()>0){
@@ -286,14 +299,23 @@ class DevelopersViewModel extends ViewModel {
             List<CarConnectVO> targetList = new ArrayList<>();
             if(list!=null&&list.size()>0) {
                 for(VehicleVO vehicleVO : list) {
-                    CheckJoinCCS.Response response = repository.REQ_CHECK_JOIN_CCS(new CheckJoinCCS.Request(userId, vehicleVO.getVin()));
-                    if (response != null) {
-                        try {
-                            if (!TextUtils.isEmpty(response.getCarId()) && response.isMaster()) {
-                                targetList.add(new CarConnectVO(vehicleVO.getVin(), "", response.getCarId(), 2, "genesis"));
+                    String carId = "";
+                    try {
+                        carId = dbVehicleRepository.getCarConnect(vehicleVO.getVin()).getCarId();
+                    }catch (Exception e){
+                        carId = null;
+                    }
+                    if(TextUtils.isEmpty(carId)) {
+                        //carId가 없는 경우에만 developers 가입 절차 진행
+                        CheckJoinCCS.Response response = repository.REQ_CHECK_JOIN_CCS(new CheckJoinCCS.Request(userId, vehicleVO.getVin()));
+                        if (response != null) {
+                            try {
+                                if (!TextUtils.isEmpty(response.getCarId()) && response.isMaster()) {
+                                    targetList.add(new CarConnectVO(vehicleVO.getVin(), "", response.getCarId(), 2, "genesis"));
+                                }
+                            } catch (Exception ignore) {
+                                ignore.printStackTrace();
                             }
-                        } catch (Exception ignore) {
-                            ignore.printStackTrace();
                         }
                     }
                 }
@@ -336,22 +358,25 @@ class DevelopersViewModel extends ViewModel {
     private void updateCarIdToLocal(List<CarConnectVO> targetList, String userId, String accessToken) {
         if (targetList != null && targetList.size() > 0 && !TextUtils.isEmpty(userId)) {
             CarId.Response carIdResLast = repository.REQ_SYNC_CAR_ID(new CarId.Request(userId));
-            if (carIdResLast != null && carIdResLast.getCars() != null && carIdResLast.getCars().size() > 0) {
-                for (int i = 0; i < targetList.size(); i++) {
-                    for (CarVO carVO : carIdResLast.getCars()) {
-                        if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
-                            targetList.get(i).setCarId(carVO.getCarId());
-                            try {
-                                targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId(), accessToken), false));
-                            } catch (Exception ignore) {
 
+            if(carIdResLast != null) { //네트워크 통신 장애 시에는 carid를 갱신하지 않음
+                if (carIdResLast.getCars() != null && carIdResLast.getCars().size() > 0) {
+                    for (int i = 0; i < targetList.size(); i++) {
+                        for (CarVO carVO : carIdResLast.getCars()) {
+                            if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
+                                targetList.get(i).setCarId(carVO.getCarId());
+                                try {
+                                    targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId(), accessToken), false));
+                                } catch (Exception ignore) {
+
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
+                dbVehicleRepository.insertOrUpdateCarConnect(targetList);
             }
-            dbVehicleRepository.insertOrUpdateCarConnect(targetList);
         }
     }
 
@@ -693,5 +718,22 @@ class DevelopersViewModel extends ViewModel {
 //        }
 //    }
 
+    public boolean needUpdateCarId(String errCode, ResultCallback callback){
+        try{
+            if("4043".equalsIgnoreCase(errCode)||"4101".equalsIgnoreCase(errCode)){
+                try {
+                    //4043을 받은 경우 주 이용 차량의 carId를 제거진행
+                    dbVehicleRepository.updateCarConnectCarId("", getMainVehicleSimplyFromDB().getVin());
+                    checkVehicleCarId(callback);
+                    return true;
+                }catch (Exception e){
+
+                }
+            }
+        }catch (Exception ignore){
+
+        }
+        return false;
+    }
 
 }
