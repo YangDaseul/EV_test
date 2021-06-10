@@ -62,7 +62,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     private ChargeReserveHistoryListAdapter reserveHistoryListAdapter;
     private ChargeSTCPlaceListAdapter adapter;
 
-    private String reservYn = "Y";
+    private String reservYn = "N";
     private String superSpeedYn = "Y";
     private String highSpeedYn = "Y";
     private String slowSpeedYn = "Y";
@@ -167,9 +167,12 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
             }
         } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_FILTER_APPLY.getCode()) {
             if (data != null) {
+                ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
+                boolean isChangeAddress=false;
+                boolean isChangeFilter=false;
+
                 try {
                     ArrayList<ChargeSearchCategoryVO> receiveFilterList = data.getParcelableArrayListExtra(KeyNames.KEY_NAME_FILTER_INFO);
-                    ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
                     for (ChargeSearchCategoryVO filterItem : receiveFilterList) {
                         if (filterItem.getComponentType() == ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE) {
                             filterList.add(filterItem);
@@ -194,10 +197,28 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                     }
                     if (filterList != null && filterList.size() > 0) {
                         inputChargePlaceFragment.updateFilter(filterList);
-                        onFilterChanged(inputChargePlaceFragment.getCurrentType(), filterList);
+                        isChangeFilter=true;
                     }
                 } catch (Exception e) {
 
+                }
+
+                try{
+                    AddressVO addressVO = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+                    if (addressVO != null) {
+                        //둘중에 하나라도 좌표값이 다르면
+                        if(addressVO.getCenterLat()!=lgnViewModel.getPositionValue().get(0)||addressVO.getCenterLon()!=lgnViewModel.getPositionValue().get(1)){
+                            inputChargePlaceFragment.eventSearchAddress();
+                            onAddressSelected(addressVO);
+                            isChangeAddress=true;
+                        }
+                    }
+                }catch (Exception e){
+
+                }
+
+                if(!isChangeAddress&&isChangeFilter) {
+                    onFilterChanged(inputChargePlaceFragment.getCurrentType(), filterList);
                 }
             }
         } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()) {

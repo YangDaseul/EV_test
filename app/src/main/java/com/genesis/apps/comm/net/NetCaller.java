@@ -274,7 +274,13 @@ public class NetCaller {
                 return new NetResult(NetStatusCode.ERR_EXCEPTION_HTTP, R.string.error_msg_2, null);
             } catch (Exception e1) {
                 e1.printStackTrace();
-                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, null);
+                String body=null;
+                try{
+                    body = ((NetException) e1).getBody();
+                }catch (Exception e){
+                    body = null;
+                }
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, body);
             }
 
         }), new FutureCallback<NetResult>() {

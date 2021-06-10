@@ -181,15 +181,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         @Override
                         public void onSuccess(Object retv) {
                             if (((Boolean) retv)) {
-                                String userId="";
-                                String accessToken="";
-                                try{
-                                    userId = loginInfoDTO.getProfile().getId();
-                                    accessToken = loginInfoDTO.getAccessToken();
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                developersViewModel.checkVehicleCarId(userId, accessToken, new ResultCallback() {
+                                developersViewModel.checkVehicleCarId(new ResultCallback() {
                                     @Override
                                     public void onSuccess(Object object) {
                                         if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
@@ -482,6 +474,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             if(!isExit) {
                 if (isPushData()) {
                     startActivitySingleTop(getPushIntent(MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                } else if (isDeepData()) {
+                    startActivitySingleTop(getDeepIntent(MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 } else {
                     startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }

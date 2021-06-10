@@ -144,6 +144,21 @@
         <!--            android:orientation="horizontal"-->
         <!--            app:layout_constraintGuide_percent="0.5"/>-->
 
+
+        <!-- gps 버튼 -->
+        <ImageView
+            android:id="@+id/btn_research"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ripple_bg_ffffff_round_05"
+            android:src="@drawable/ic_car_search"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
         <include
             android:id="@+id/l_popup"
             layout="@layout/item_service_network_popup"

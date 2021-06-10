@@ -200,7 +200,13 @@ public class DevelopersRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_ODOMETER.setValue(NetUIResponse.error(e.getMseeage(), null));
+                Odometer.Response response;
+                try {
+                    response = new Gson().fromJson(e.getData().toString(), Odometer.Response.class);
+                }catch (Exception e2){
+                    response = null;
+                }
+                RES_ODOMETER.setValue(NetUIResponse.error(e.getMseeage(), response));
             }
 
             @Override
@@ -379,6 +385,32 @@ public class DevelopersRepo {
         netCaller.reqDataFromAnonymous(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
+//                object="{\n" +
+//                        "  \"batteryPlugin\": 2,\n" +
+//                        "  \"batteryCharge\": \"true\",\n" +
+//                        "  \"soc\": 50,\n" +
+//                        "  \"dte\": {\n" +
+//                        "    \"type\": 0,\n" +
+//                        "    \"distance\": {\n" +
+//                        "      \"value\": 265,\n" +
+//                        "      \"unit\": 1\n" +
+//                        "    }\n" +
+//                        "  },\n" +
+//                        "  \"targetSOC\": {\n" +
+//                        "    \"plugType\": 0,\n" +
+//                        "    \"targetSOClevel\": 100\n" +
+//                        "  },\n" +
+//                        "  \"remainTime\": {\n" +
+//                        "    \"value\": 450,\n" +
+//                        "    \"unit\": 1\n" +
+//                        "  },\n" +
+//                        "  \"engine\": \"false\",\n" +
+//                        "  \"ign3\": \"true\",\n" +
+//                        "  \"airCtrl\": \"false\",\n" +
+//                        "  \"acc\": \"false\",\n" +
+//                        "  \"timestamp\": \"20210610113042\",\n" +
+//                        "  \"msgId\": \"ddc5702c-4859-4f3f-908b-3b071d4872bf\"\n" +
+//                        "}";
                 RES_EV_STATUS.setValue(NetUIResponse.success(new Gson().fromJson(object, EvStatus.Response.class)));
             }
 

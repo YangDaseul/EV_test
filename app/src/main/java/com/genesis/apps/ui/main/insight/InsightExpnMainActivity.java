@@ -36,6 +36,7 @@ import com.genesis.apps.databinding.ActivityInsightExpnMainBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.myg.MyGCreditUseListActivity;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -45,6 +46,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.errorprone.annotations.Var;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -117,6 +119,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     public void onClickCommon(View v) {
 
         switch (v.getId()) {
+            case R.id.tv_charge_credit_info_2:
+                startActivitySingleTop(new Intent(this, MyGCreditUseListActivity.class).putExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO, ""), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
             case R.id.btn_modify:
                 ExpnVO item = (ExpnVO) v.getTag(R.id.insight_expn_vo);
                 if (item != null) {
@@ -231,10 +236,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     private void initViewEV() {
         if(selectVehicle!=null&&selectVehicle.isEV()){
             ui.lMembership.setVisibility(View.GONE);
-            ui.tvChargeCreditInfo.setVisibility(View.VISIBLE);
         }else{
             ui.lMembership.setVisibility(View.VISIBLE);
-            ui.tvChargeCreditInfo.setVisibility(View.GONE);
         }
     }
 
@@ -364,10 +367,12 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                             setViewEmpty();
                             adapter.notifyDataSetChanged();
                             showProgressDialog(false);
+                            setViewCreditInfo(result.data);
                         }
                         break;
                     }
                 default:
+                    setViewCreditInfo(null);
                     setViewEmpty();
                     adapter.notifyDataSetChanged();
                     showProgressDialog(false);
@@ -402,6 +407,27 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     break;
             }
         });
+    }
+
+    private void setViewCreditInfo(CBK_1002.Response data) {
+        try {
+            if (selectVehicle.isEV()&&VariableType.COMMON_MEANS_YES.equalsIgnoreCase(StringUtil.isValidString(data.getStMbrYn()))) {
+                String cardAmt = StringUtil.getPriceString(parsingStringToInt(data.getEtcSumAmt()) + parsingStringToInt(data.getChgSumAmt()) + parsingStringToInt(data.getRparSumAmt()) + parsingStringToInt(data.getCarWshSumAmt()));
+                String chgCretSum = StringUtil.getPriceString(parsingStringToInt(data.getChgCretSumAmt()));
+                ui.tvChargeCreditInfo1.setVisibility(View.VISIBLE);
+                ui.tvChargeCreditInfo2.setVisibility(View.VISIBLE);
+                ui.tvChargeCreditInfo1.setText(String.format(Locale.getDefault(), getString(R.string.tm01_13), cardAmt));
+                ui.tvChargeCreditInfo2.setText(String.format(Locale.getDefault(), getString(R.string.tm01_14), chgCretSum));
+            } else {
+                ui.tvChargeCreditInfo1.setVisibility(View.GONE);
+                ui.tvChargeCreditInfo1.setText("");
+                ui.tvChargeCreditInfo2.setVisibility(View.GONE);
+                ui.tvChargeCreditInfo2.setText("");
+            }
+        }catch (Exception e){
+            ui.tvChargeCreditInfo1.setText(String.format(Locale.getDefault(), getString(R.string.tm01_13), "0원"));
+            ui.tvChargeCreditInfo2.setText(String.format(Locale.getDefault(), getString(R.string.tm01_14), "0원"));
+        }
     }
 
     private void setViewEmpty() {
@@ -583,7 +609,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             totalAmt = parsingStringToInt(item.getEtcSumAmt()) +
                     (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgSumAmt()) : parsingStringToInt(item.getRefulSumAmt())) +
                     parsingStringToInt(item.getRparSumAmt()) +
-                    parsingStringToInt(item.getCarWshSumAmt());
+                    parsingStringToInt(item.getCarWshSumAmt()) +
+                    (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgCretSumAmt()) : 0);
 
             currentAmt = StringUtil.getDigitGroupingString((Integer.toString(totalAmt)));
         } catch (Exception e) {

@@ -16,7 +16,8 @@
     <string name="tm01_10">기사님 위치 보기</string>
     <string name="tm01_11">차계부를 이용하여\n나만의 차량 비용을 기록해 보세요.</string>
     <string name="tm01_12">긴급출동 서비스</string>
-    <string name="tm01_13">※ 충전 크레딧 제외 금액</string>
+    <string name="tm01_13">카드 결제 : %s</string>
+    <string name="tm01_14">충전 크레딧 사용 : %s</string>
 
     <string name="tm_exps01_1">차계부</string>
     <string name="tm_exps01_2">입력</string>

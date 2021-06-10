@@ -74,8 +74,8 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_manage);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initialize();
 
@@ -287,6 +287,13 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
 
     @Override
     public void getDataFromIntent() {
+        try {
+            if (!chbViewModel.getMainVehicleFromDB().isEV()){
+                exitPage("",0);
+            }
+        }catch (Exception e){
+
+        }
 
     }
 

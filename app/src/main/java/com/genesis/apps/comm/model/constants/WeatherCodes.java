@@ -57,9 +57,9 @@ public enum WeatherCodes {
             batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][0];
         }else if(soc<=30){
             batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][1];
-        }else if(soc<=50){
+        }else if(soc<=60){
             batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][2];
-        }else if(soc<=80){
+        }else if(soc<=99){
             batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][3];
         }else{
             batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][4];

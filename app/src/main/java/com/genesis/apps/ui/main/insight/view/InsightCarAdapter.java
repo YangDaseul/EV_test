@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.CBK_1002;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
@@ -28,6 +30,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Locale;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -41,6 +44,11 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
     public static final int TYPE_EMPTY2 = 2;
     private int VIEW_TYPE = TYPE_CAR;
     private static boolean isEv=false;
+    private static String stMbrYn;
+
+    public void setStMbrYn(String stMbrYn) {
+        InsightCarAdapter.stMbrYn = stMbrYn;
+    }
 
     public int getViewType() {
         return VIEW_TYPE;
@@ -114,7 +122,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 //            getBinding().chart.getAxisRight().setAxisMaximum(Float.parseFloat(item.getTotUseAmt())*120/100);
 //            getBinding().chart.getAxisLeft().setAxisMaximum(Float.parseFloat(item.getTotUseAmt())*120/100);
 
-
+            setViewCreditInfo(item);
             getBinding().lCarExpnGraph.setOnClickListener(onSingleClickListener);
             getBinding().chart.setOnClickListener(onSingleClickListener);
 
@@ -145,7 +153,6 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             ArrayList<BarEntry> values = new ArrayList<>();
             XAxis xAxis = getBinding().chart.getXAxis();
             if(isEv) {
-                getBinding().tvChargeCreditInfo.setVisibility(View.VISIBLE);
                 xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
                 xAxis.setValueFormatter(new EvAxisValueFormatter());
                 values.add(new BarEntry(0, getValue(item.getChgAmt())));
@@ -154,7 +161,6 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 values.add(new BarEntry(3, getValue(item.getCarWshAmt())));
                 values.add(new BarEntry(4, getValue(item.getEtcAmt())));
             }else{
-                getBinding().tvChargeCreditInfo.setVisibility(View.GONE);
                 xAxis.setLabelCount(AxisValueFormatter.xNames.length);
                 xAxis.setValueFormatter(new AxisValueFormatter());
                 values.add(new BarEntry(0, getValue(item.getOilAmt())));
@@ -298,6 +304,37 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 //            span.setSpan(new CustomTypefaceSpan(typeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
+        private void setViewCreditInfo(ISTAmtVO item) {
+            try {
+                if (isEv&&VariableType.COMMON_MEANS_YES.equalsIgnoreCase(StringUtil.isValidString(stMbrYn))) {
+                    String cardAmt = StringUtil.getPriceString(parsingStringToInt(item.getEtcAmt()) + parsingStringToInt(item.getChgAmt()) + parsingStringToInt(item.getRparAmt()) + parsingStringToInt(item.getCarWshAmt()));
+                    String chgCretSum = StringUtil.getPriceString(parsingStringToInt(item.getCretAmt()));
+                    getBinding().tvChargeCreditInfo1.setVisibility(View.VISIBLE);
+                    getBinding().tvChargeCreditInfo2.setVisibility(View.VISIBLE);
+                    getBinding().tvChargeCreditInfo1.setText(String.format(Locale.getDefault(), getContext().getString(R.string.tm01_13), cardAmt));
+                    getBinding().tvChargeCreditInfo2.setText(String.format(Locale.getDefault(), getContext().getString(R.string.tm01_14), chgCretSum));
+                } else {
+                    getBinding().tvChargeCreditInfo1.setVisibility(View.GONE);
+                    getBinding().tvChargeCreditInfo1.setText("");
+                    getBinding().tvChargeCreditInfo2.setVisibility(View.GONE);
+                    getBinding().tvChargeCreditInfo2.setText("");
+                }
+            }catch (Exception e){
+                getBinding().tvChargeCreditInfo1.setText(String.format(Locale.getDefault(), getContext().getString(R.string.tm01_13), "0원"));
+                getBinding().tvChargeCreditInfo2.setText(String.format(Locale.getDefault(), getContext().getString(R.string.tm01_14), "0원"));
+            }
+        }
+
+        private int parsingStringToInt(String value) {
+            int retv = 0;
+            try {
+                retv = Integer.parseInt(StringUtil.isValidString(value));
+            } catch (Exception e) {
+                retv = 0;
+            }
+            return retv;
+        }
+
         @Override
         public void onBindView(ISTAmtVO item, int pos, SparseBooleanArray selectedItems) {
 
@@ -322,7 +359,6 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             }
             return maxValue;
         }
-
     }
 
     private static class ItemInsightCarEmpty extends BaseViewHolder<ISTAmtVO, ItemInsightCarEmptyBinding> {

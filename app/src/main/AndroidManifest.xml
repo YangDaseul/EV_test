@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.genesis.apps">
 
+    <queries>
+        <package android:name="com.obigo.genesis" />
+        <package android:name="com.genesis.icp" />
+        <package android:name="com.genesis.builtincam.kr" />
+        <package android:name="com.genesis.digitalcarkey" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -46,17 +53,16 @@
 
         <activity
             android:name=".ui.common.activity.DeepLinkActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout"
-            android:exported="false"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:label="@string/app_name">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="genesisapp" />
+                <data android:scheme="genesisapp" android:host="menu"/>
+                <data android:scheme="genesisapps" android:host="menu" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
