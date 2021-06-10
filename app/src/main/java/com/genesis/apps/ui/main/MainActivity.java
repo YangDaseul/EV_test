@@ -323,6 +323,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         super.onResume();
         Log.e("onResume", "onReusme Mainactivity");
         checkPushCode();
+        checkDeepCode();
         reqNewNotiCnt();
         setBarcode();
     }

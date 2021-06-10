@@ -18,10 +18,10 @@ public class DeepLinkActivity extends BaseActivity {
 
         if(!isForeground()) {
             //push notification
-            if (!isExcuteApp && isPushData()) {
-                startActivity(getPushIntent(IntroActivity.class));
+            if (!isExcuteApp && isDeepData()) {
+                startActivity(getDeepIntent(IntroActivity.class));
             } else {
-                checkPushCode();
+                checkDeepCode();
             }
         }else{
             //foreground notification

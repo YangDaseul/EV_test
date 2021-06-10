@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.genesis.apps.comm.model.constants.KeyNames.DEEP_VO;
 import static com.genesis.apps.comm.model.constants.KeyNames.NOTIFICATION_ID;
 import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 
@@ -53,6 +54,9 @@ public class BaseActivity extends AppCompatActivity {
     public int notificationId;
     public boolean isForeground=false;
     public Intent intent = null;
+
+    //About DEEP
+    public String deep;
 
     @Override
     protected void onDestroy() {
@@ -124,6 +128,55 @@ public class BaseActivity extends AppCompatActivity {
         }
         return isPush;
     }
+
+    public Intent getDeepIntent(Class className){
+        intent = new Intent(this, className).putExtra(DEEP_VO, deep);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        return intent;
+    }
+
+    public boolean isDeepData() {
+        boolean isDeep=false;
+        try {
+            deep = getIntent().getDataString();
+            if(TextUtils.isEmpty(deep)){
+                deep = getIntent().getStringExtra(DEEP_VO);
+            }
+            if(!TextUtils.isEmpty(deep)) isDeep=true;
+        }catch (Exception e){
+
+        }
+        return isDeep;
+    }
+
+    public void checkDeepCode() {
+        if (isDeepData()) {
+            String url="";
+            try {
+                if(!TextUtils.isEmpty(deep)) {
+                    url = deep;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (TextUtils.isEmpty(url))
+                url = "";
+
+            moveToNativePage(url, false);
+
+//            //링크는 있는데 바디가 있을 경우 푸쉬를 클릭 한 이후에 특정 메뉴 아이디로 이동.
+//            if(TextUtils.isEmpty(body)&&!TextUtils.isEmpty(url)){
+//                moveToPage(url, pushVO.getData().getMsgLnkCd(),false);
+//            }else{
+//                //그 외에는 알림센터로 이동
+//                //바디는 사용하지 않음
+//                moveToNativePage(url, true);
+//            }
+
+            this.getIntent().removeExtra(DEEP_VO);
+        }
+    }
+
 
     public void checkPushCode() {
         if (isPushData()) {

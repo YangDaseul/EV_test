@@ -135,7 +135,7 @@ public enum APPIAInfo {
     PAY01_AOS02("PAY01_AOS02", null, VariableType.QUICK_MENU_CODE_NONE, "주 사용카드 변경", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY01_AOS03("PAY01_AOS03", null, VariableType.QUICK_MENU_CODE_NONE, "맴버쉽 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY02("PAY02", null, VariableType.QUICK_MENU_CODE_NONE, "맴버십 바코드", VariableType.QUICK_MENU_CATEGORY_NONE,""),
-    PAY03("PAY03", null, VariableType.QUICK_MENU_CODE_NONE, "결제 수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
+    PAY03("PAY03", CardManageActivity.class, VariableType.QUICK_MENU_CODE_NONE, "결제 수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     PAY04_PAY01("PAY04_PAY01", null, VariableType.QUICK_MENU_CODE_NONE, "미수금 결제", VariableType.QUICK_MENU_CATEGORY_NONE, ""),
     PAY05_PSW01("PAY05_PSW01", null, VariableType.QUICK_MENU_CODE_NONE, "선불 교통카드 비밀번호 등록", VariableType.QUICK_MENU_CATEGORY_NONE, ""),
 

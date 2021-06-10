@@ -474,6 +474,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             if(!isExit) {
                 if (isPushData()) {
                     startActivitySingleTop(getPushIntent(MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                } else if (isDeepData()) {
+                    startActivitySingleTop(getDeepIntent(MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 } else {
                     startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
