@@ -168,4 +168,8 @@ public class DBVehicleRepository {
         databaseHolder.getDatabase().carConnectDao().updateResult(result, carId);
     }
 
+    public void updateCarConnectCarId(String carId, String vin){
+        databaseHolder.getDatabase().carConnectDao().updateCarId(carId, vin);
+    }
+
 }
