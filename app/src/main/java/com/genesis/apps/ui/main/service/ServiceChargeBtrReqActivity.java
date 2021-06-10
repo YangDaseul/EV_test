@@ -97,9 +97,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }catch (Exception e){
             e.printStackTrace();
         }finally{
-            initPhoneNumber();
-            initCarRgstNo();
-            selectKeyDeliveryCd();
+            initData();
             initConstraintSets();
             initEditView();
         }
@@ -110,24 +108,21 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
     }
 
-    private void initCarRgstNo() {
+    private void initData() {
 
+        // 차량 번호 표시
         String carRegNo = mainVehicle.getCarRgstNo();
 
-        if (!TextUtils.isEmpty(carRegNo)) {
+        if(TextUtils.isEmpty(carRegNo)) {
+            ui.etCarRegNo.requestFocus();
+        }else {
             ui.etCarRegNo.setText(carRegNo);
             ui.etCarRegNo.setSelection(ui.etCarRegNo.length());
-            //checkValidCarRegNo 에서는 포커스를 제거하거나 키보드를 내리는 부분을 넣지않음. 최초로 뷰 활성화 시에만 유효
-            ui.etCarRegNo.clearFocus();
-            SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
-//                    ui.tvMsg.setVisibility(View.GONE);
-            ///////////////////////////////
+
             checkValidCarRegNo();
         }
-    }
 
-    private void initPhoneNumber() {
-
+        // 핸드폰번호 표시
         String phoneNumber = loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "" ;
 
         if(TextUtils.isEmpty(phoneNumber)){
@@ -135,7 +130,12 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }else{
             ui.etCelPhNo.setText(PhoneNumberUtils.formatNumber(phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()));
             ui.etCelPhNo.setSelection(ui.etCelPhNo.length());
+
+            checkValidPhoneNumber();
         }
+
+        if(!TextUtils.isEmpty(carRegNo) && !TextUtils.isEmpty(phoneNumber))
+            selectKeyDeliveryCd();
     }
 
     private void startMapView(){
@@ -346,7 +346,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             }
 
             if (pos == 1) {
-//                startMapView();
+                clearKeypad();
             } else if (pos == 2) {
                 ui.etAddrDtl.requestFocus();
             } else if(pos == 3){
@@ -378,7 +378,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 ui.tvTitleKeyDeliveryCd.setVisibility(View.VISIBLE);
                 Paris.style(ui.tvKeyDeliveryCd).apply(R.style.CommonSpinnerItemEnable);
                 ui.tvKeyDeliveryCd.setText(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC.equals(keyTransferType) ? R.string.service_charge_btr_txt_12 : R.string.service_charge_btr_txt_11);
-                checkValidKeyDeliveryCd();
+                isValid();
             }
         });
         selectKeyDeliveryDialog.show();
@@ -520,6 +520,8 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             ui.lCarRegNo.setError(getString(R.string.service_charge_btr_err_07));
             return false;
         }else{
+            ui.etCarRegNo.setSelection(ui.etCarRegNo.length());
+            ui.etCarRegNo.clearFocus();
             ui.lCarRegNo.setError(null);
             return true;
         }
@@ -536,9 +538,10 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             doTransition(1);
             return true;
         } else {
-            Paris.style(ui.tvKeyDeliveryCd).apply(R.style.CommonSpinnerItemError);
-            ui.tvErrorKeyDeliveryCd.setVisibility(View.VISIBLE);
-            ui.tvErrorKeyDeliveryCd.setText(R.string.service_charge_btr_err_04);
+//            Paris.style(ui.tvKeyDeliveryCd).apply(R.style.CommonSpinnerItemError);
+//            ui.tvErrorKeyDeliveryCd.setVisibility(View.VISIBLE);
+//            ui.tvErrorKeyDeliveryCd.setText(R.string.service_charge_btr_err_04);
+            selectKeyDeliveryCd();
             return false;
         }
     }
@@ -551,6 +554,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private boolean checkValidAddr(){
         String addr = ui.tvAddrInfo1.getText().toString().trim() + ui.tvAddrInfo2.getText().toString().trim();
         if(TextUtils.isEmpty(addr)){
+            clearKeypad();
             Paris.style(ui.tvAddr).apply(R.style.CommonInputItemError);
             ui.tvErrorAddr.setVisibility(View.VISIBLE);
             ui.tvErrorAddr.setText(getString(R.string.service_charge_btr_err_01));
