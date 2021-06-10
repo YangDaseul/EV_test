@@ -718,12 +718,13 @@ class DevelopersViewModel extends ViewModel {
 //        }
 //    }
 
-    public boolean needUpdateCarId(){
+    public boolean needUpdateCarId(String errCode, ResultCallback callback){
         try{
-            if("4043".equalsIgnoreCase(getRES_CAR_AGREEMENTS().getValue().data.getErrCode())){
+            if("4043".equalsIgnoreCase(errCode)||"4101".equalsIgnoreCase(errCode)){
                 try {
                     //4043을 받은 경우 주 이용 차량의 carId를 제거진행
                     dbVehicleRepository.updateCarConnectCarId("", getMainVehicleSimplyFromDB().getVin());
+                    checkVehicleCarId(callback);
                     return true;
                 }catch (Exception e){
 

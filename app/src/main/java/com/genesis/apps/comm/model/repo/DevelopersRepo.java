@@ -198,7 +198,13 @@ public class DevelopersRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_ODOMETER.setValue(NetUIResponse.error(e.getMseeage(), null));
+                Odometer.Response response;
+                try {
+                    response = new Gson().fromJson(e.getData().toString(), Odometer.Response.class);
+                }catch (Exception e2){
+                    response = null;
+                }
+                RES_ODOMETER.setValue(NetUIResponse.error(e.getMseeage(), response));
             }
 
             @Override

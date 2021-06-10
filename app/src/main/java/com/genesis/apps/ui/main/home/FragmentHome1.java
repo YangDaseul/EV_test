@@ -273,31 +273,32 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     if (result.data != null && result.data.getData() != null) {
                         try {
                             developersViewModel.updateCarConnectResult(result.data.getData().getResult() != 0, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
-                            setViewDevelopers();
+                            setViewDevelopers(false);
                             break;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 default:
-                    if(developersViewModel.needUpdateCarId()){
-                        ((MainActivity) getActivity()).showProgressDialog(true);
-                        developersViewModel.checkVehicleCarId(new ResultCallback() {
-                            @Override
-                            public void onSuccess(Object object) {
-                                ((MainActivity) getActivity()).showProgressDialog(false);
-                                setViewDevelopers();
-                            }
-
-                            @Override
-                            public void onError(Object e) {
-                                ((MainActivity) getActivity()).showProgressDialog(false);
-                                setViewDevelopers();
-                            }
-                        });
-                    }else{
-                        setViewDevelopers();
-                    }
+                    setViewDevelopers(false);
+//                    if(developersViewModel.needUpdateCarId()){
+//                        ((MainActivity) getActivity()).showProgressDialog(true);
+//                        developersViewModel.checkVehicleCarId(new ResultCallback() {
+//                            @Override
+//                            public void onSuccess(Object object) {
+//                                ((MainActivity) getActivity()).showProgressDialog(false);
+//                                setViewDevelopers();
+//                            }
+//
+//                            @Override
+//                            public void onError(Object e) {
+//                                ((MainActivity) getActivity()).showProgressDialog(false);
+//                                setViewDevelopers();
+//                            }
+//                        });
+//                    }else{
+//                        setViewDevelopers();
+//                    }
                     break;
             }
         });
@@ -318,6 +319,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     }
                 default:
 //                    me.tvDistancePossible.setText("--km");
+
+
                     break;
             }
         });
@@ -336,6 +339,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     }
                 default:
+                    try {
+                        developersViewModel.needUpdateCarId(result.data.getErrCode(), new ResultCallback() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                setViewDevelopers(true);
+                            }
+                            @Override
+                            public void onError(Object e) {
+                                setViewDevelopers(true);
+                            }
+                        });
+                    }catch (Exception e){
+
+                    }
 //                    me.tvDistanceTotal.setText("--km");
                     break;
             }
@@ -756,7 +773,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         String accessToken = loginInfoDTO.getAccessToken();
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         if(TextUtils.isEmpty(carId)){
-                            setViewDevelopers();
+                            setViewDevelopers(false);
                         }else {
                             developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId, accessToken));
                         }
@@ -780,7 +797,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         }
     }
 
-    private void setViewDevelopers() {
+    private void setViewDevelopers(boolean isInit) {
         me.tvDeveloperAgreements.setVisibility(View.GONE);
         me.lDistance.setVisibility(View.GONE);
         me.btnLocation.lWhole.setVisibility(View.GONE);
@@ -793,8 +810,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             switch (developersViewModel.checkCarInfoToDevelopers(vehicleVO.getVin(), userId)) {
                 case STAT_AGREEMENT:
                     //동의한경우
-                    reqCarInfoToDevelopers(carId);
-                    break;
+                    if(!isInit) {
+                        reqCarInfoToDevelopers(carId);
+                        break;
+                    }
                 case STAT_DISAGREEMENT:
                     //동의되지 않은 경우
                     me.btnLocation.lWhole.setVisibility(View.GONE);
