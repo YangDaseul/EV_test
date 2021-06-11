@@ -162,7 +162,7 @@ public class ServiceChargeBtrHistoryAdapter extends BaseRecyclerViewAdapter2<Boo
                     String useCreditPoint = null;
                     if(item.getOrderVO().getMembershipList() != null && item.getOrderVO().getMembershipList().size() > 0) {
                         for(MembershipVO vo : item.getOrderVO().getMembershipList()) {
-                            if(!vo.getMembershipCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF)) {
+                            if(vo.getMembershipCode().equalsIgnoreCase(VariableType.SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF)) {
                                 useCreditPoint = StringUtil.getDiscountString(vo.getMembershipUsePoint());
                                 break;
                             }

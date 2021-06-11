@@ -115,12 +115,13 @@
                     android:id="@+id/tv_credit_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="18dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    tools:text="700,000원"
+                    android:lineSpacingExtra="2dp"
+                    tools:text="보유 크레딧\n700,000원"
                     android:textColor="@color/x_000000"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toTopOf="@id/tv_credit_card_no"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -128,13 +129,14 @@
                     android:id="@+id/tv_credit_card_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    tools:text="5555-5555-5555-5555"
+                    android:lineSpacingExtra="2dp"
+                    tools:text="충전 회원 정보\n5555-5555-5555-5555"
                     android:textColor="@color/x_000000"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/btn_modify_pw"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
@@ -151,8 +153,8 @@
                     android:text="@string/digital_wallet02_2"
                     android:textColor="@color/x_000000"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_credit_point"
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
