@@ -46,7 +46,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.google.errorprone.annotations.Var;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -318,7 +317,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         });
 
         cbkViewModel.getRES_CBK_1002().observe(this, result -> {
-
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -372,7 +370,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                         break;
                     }
                 default:
-                    setViewCreditInfo(null);
+                    setViewCreditInfo(result.data);
                     setViewEmpty();
                     adapter.notifyDataSetChanged();
                     showProgressDialog(false);

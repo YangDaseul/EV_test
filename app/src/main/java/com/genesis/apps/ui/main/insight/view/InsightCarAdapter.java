@@ -6,8 +6,10 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.CBK_1002;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.util.StringUtil;
@@ -31,9 +33,6 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Locale;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 
 public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
