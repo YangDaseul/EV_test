@@ -291,6 +291,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                             if (isMoreSearchListReq) {
                                 // 충전소 목록을 추가로 요청한 경우.
                                 pageNo++;
+                            }else{
+                                searchList.clear();
                             }
                             searchList.addAll(result.data.getSearchList());
                         }
@@ -490,6 +492,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
         if (lat == VariableType.DEFAULT_POSITION[0] && lot == VariableType.DEFAULT_POSITION[1]) {
             inputChargePlaceFragment.setGuideErrorMsg();
         }
+        pageNo=1;
         getChargeStation(lat, lot, pageNo);
     }
 
