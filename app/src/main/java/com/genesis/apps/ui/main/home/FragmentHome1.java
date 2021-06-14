@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -37,7 +38,6 @@ import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
@@ -58,7 +58,6 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.TutorialActivity;
 import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -396,7 +395,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    setProgressBattery(true);
+                    setEnableBattery(true);
                     break;
                 case SUCCESS:
                     if (result.data != null) {
@@ -458,7 +457,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.tvEvBattery.setText(soc < 0 ? "- %" : (int)soc + "%");
         me.tvEvBattery.setTextColor(getContext().getColor((!batteryCharge&&soc>-1&&soc<=30 ? R.color.x_ce2d2d :  WeatherCodes.getTextColorResource(dayCd))));
         me.tvEvBatteryTime.setText((batteryCharge&&!TextUtils.isEmpty(time)) ? (String.format(Locale.getDefault(), getString(R.string.gm01_ev_1), time)) : "");
-        setProgressBattery(false);
+        setEnableBattery(false);
     }
 
     private void initViewBanner(boolean isUpdate){
@@ -687,31 +686,58 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.tv_ev_battery:
             case R.id.tv_ev_battery_time:
                 try {
+                    setEnableBattery(true);
+                    stopProgressBattery();
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
                     if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
+                        startProgressBattery();
                         String carId = developersViewModel.getCarId(vehicleVO.getVin());
                         requestEvStatus(vehicleVO, carId);
+                    }else{
+                        setEnableBattery(false);
                     }
                 } catch (Exception e) {
-
+                    setEnableBattery(false);
                 }
                 break;
         }
     }
 
-    private void setProgressBattery(boolean isShow){
+//    private void setProgressBattery(boolean isShow){
+//        AnimationDrawable animationDrawable = (AnimationDrawable) me.btnEvBattery.getDrawable();
+//        if (isShow) {
+//            if (!animationDrawable.isRunning()) animationDrawable.start();
+//        } else {
+//            animationDrawable.stop();
+//            me.btnEvBattery.setBackground(null);
+//            me.btnEvBattery.setImageResource(dayCd==VariableType.HOME_TIME_DAY ? R.drawable.loading_battery_b : R.drawable.loading_battery_w);
+//        }
+//        me.btnEvBattery.setEnabled(!isShow);
+//        me.tvEvBattery.setEnabled(!isShow);
+//        me.ivEvBattery.setEnabled(!isShow);
+//    }
+
+    private void stopProgressBattery(){
         AnimationDrawable animationDrawable = (AnimationDrawable) me.btnEvBattery.getDrawable();
-        if (isShow) {
-            if (!animationDrawable.isRunning()) animationDrawable.start();
-        } else {
-            animationDrawable.stop();
-            me.btnEvBattery.setBackground(null);
-            me.btnEvBattery.setImageResource(dayCd==VariableType.HOME_TIME_DAY ? R.drawable.loading_battery_b : R.drawable.loading_battery_w);
-        }
+        animationDrawable.stop();
+        me.btnEvBattery.setBackground(null);
+        me.btnEvBattery.setImageResource(dayCd == VariableType.HOME_TIME_DAY ? R.drawable.loading_battery_b : R.drawable.loading_battery_w);
+    }
+
+    private void startProgressBattery(){
+        new Handler().postDelayed(() -> {
+            AnimationDrawable animationDrawable = (AnimationDrawable) me.btnEvBattery.getDrawable();
+            animationDrawable.setOneShot(true);
+            animationDrawable.start();
+        }, 100);
+    }
+
+    private void setEnableBattery(boolean isShow){
         me.btnEvBattery.setEnabled(!isShow);
         me.tvEvBattery.setEnabled(!isShow);
         me.ivEvBattery.setEnabled(!isShow);
     }
+
 
     private void requestEvStatus(VehicleVO vehicleVO, String carId){
         try {

@@ -32,6 +32,7 @@ import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.SpidCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.BtrVO;
@@ -117,6 +118,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public final static int PAGE_TYPE_EVCHARGE = 4;//충전소 찾기
     public final static int PAGE_TYPE_EVCHARGE_STC = 5; // 충전소 예약(에스트래픽)
     private int pageType = 0;
+    private boolean isReSearchCharge=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -321,7 +323,11 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
 
         lgnViewModel.getPosition().observe(this, doubles -> {
-            ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM_WIDE);
+            if(!isReSearchCharge) {
+                ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM_WIDE);
+            }else{
+                isReSearchCharge=false;
+            }
 
             switch (pageType) {
                 case PAGE_TYPE_BTR:
@@ -841,6 +847,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 break;
             case R.id.btn_research:
                 //이 지역 재검색
+                isReSearchCharge=true;
                 mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(ui.pmvMapView.getMapCenterLatitude(),ui.pmvMapView.getMapCenterLongitude(),0));
                 break;
 
@@ -1010,18 +1017,18 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         ui.pmvMapView.addMarkerItem(markerId, markerItem);
     }
 
-    /**
-     * 기존 마커를 변경하는 함수.
-     *
-     * @param markerId 변경할 마커 ID
-     * @param x        변경할 위도
-     * @param y        변경할 경도
-     * @param iconId   변경할 마커 이미지 Resource ID
-     */
-    private void modifyMarkerItem(String markerId, double x, double y, int iconId) {
-        ui.pmvMapView.removeMarkerItem(markerId);
-        drawMarkerItem(markerId, x, y, iconId);
-    }
+//    /**
+//     * 기존 마커를 변경하는 함수.
+//     *
+//     * @param markerId 변경할 마커 ID
+//     * @param x        변경할 위도
+//     * @param y        변경할 경도
+//     * @param iconId   변경할 마커 이미지 Resource ID
+//     */
+//    private void modifyMarkerItem(String markerId, double x, double y, int iconId) {
+//        ui.pmvMapView.removeMarkerItem(markerId);
+//        drawMarkerItem(markerId, x, y, iconId);
+//    }
 
 
     private void reqMyLocation() {
@@ -1367,14 +1374,17 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         try {
             if(!isSelect) {
                 for (ChargeEptInfoVO item : list) {
+
+                    SpidCodes spidCodes = SpidCodes.findCode(StringUtil.isValidString(item.getSpid()));
+
                     drawMarkerItem(item.getCsid(),
                             Double.parseDouble(item.getLat()),
                             Double.parseDouble(item.getLot()),
-                            StringUtil.isValidString(item.getCsid()).equalsIgnoreCase(StringUtil.isValidString(selectItemVo.getCsid())) ? R.drawable.ic_pin_carcenter : R.drawable.ic_pin);
+                            StringUtil.isValidString(item.getCsid()).equalsIgnoreCase(StringUtil.isValidString(selectItemVo.getCsid())) ? spidCodes.getPinLarge() : spidCodes.getPinSmall());
                 }
             }else{
-                if (beforeChargeEptInfoVO != null) modifyMarkerItemCharge(beforeChargeEptInfoVO, R.drawable.ic_pin);
-                if (selectItemVo != null) modifyMarkerItemCharge(selectItemVo, R.drawable.ic_pin_carcenter);
+                if (beforeChargeEptInfoVO != null) modifyMarkerItemCharge(beforeChargeEptInfoVO,  SpidCodes.findCode(StringUtil.isValidString(beforeChargeEptInfoVO.getSpid())).getPinSmall());
+                if (selectItemVo != null) modifyMarkerItemCharge(selectItemVo, SpidCodes.findCode(StringUtil.isValidString(selectItemVo.getSpid())).getPinLarge());
             }
             ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(Double.parseDouble(selectItemVo.getLat()), Double.parseDouble(selectItemVo.getLot())), 500);
         } catch (Exception e) {
@@ -1426,11 +1436,11 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     drawMarkerItem(item.getSid(),
                             Double.parseDouble(item.getLat()),
                             Double.parseDouble(item.getLot()),
-                            StringUtil.isValidString(item.getSid()).equalsIgnoreCase(StringUtil.isValidString(selectItemVo.getSid())) ? R.drawable.ic_pin_carcenter : R.drawable.ic_pin);
+                            StringUtil.isValidString(item.getSid()).equalsIgnoreCase(StringUtil.isValidString(selectItemVo.getSid())) ? SpidCodes.ST.getPinLarge() : SpidCodes.ST.getPinSmall());
                 }
             }else{
-                if (beforeChargeEptInfoVO != null) modifyMarkerItemCharge(beforeChargeEptInfoVO, R.drawable.ic_pin);
-                if (selectItemVo != null) modifyMarkerItemCharge(selectItemVo, R.drawable.ic_pin_carcenter);
+                if (beforeChargeEptInfoVO != null) modifyMarkerItemCharge(beforeChargeEptInfoVO, SpidCodes.ST.getPinSmall());
+                if (selectItemVo != null) modifyMarkerItemCharge(selectItemVo, SpidCodes.ST.getPinLarge());
             }
             ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(Double.parseDouble(selectItemVo.getLat()), Double.parseDouble(selectItemVo.getLot())), 500);
         } catch (Exception e) {

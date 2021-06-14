@@ -22,4 +22,24 @@
     <item
         android:drawable="@drawable/btn_refreshify_06_b"
         android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_02_b"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_03_b"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_04_b"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_05_b"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_06_b"
+        android:duration="100" />
 </animation-list>
