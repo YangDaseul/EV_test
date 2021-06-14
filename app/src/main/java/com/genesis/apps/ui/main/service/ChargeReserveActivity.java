@@ -55,7 +55,7 @@ import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_A
  * @author Ki-man Kim
  * @since 2021-05-14
  */
-public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserveBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener, NestedScrollView.OnScrollChangeListener {
+public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserveBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private final ArrayList<ChargeSearchCategoryVO> selectedFilterList = new ArrayList<>();
@@ -68,7 +68,8 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     private String slowSpeedYn = "Y";
 
     private int pageNo = 1;
-    private final String MAX_PAGE_CNT = "10";
+    private final String FIXED_PAGE_NO = "1";
+    private final String MAX_PAGE_CNT = "50";
     /**
      * 충전소 목록 추가 검색 요청 플래그 변수.
      */
@@ -288,12 +289,11 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                     showProgressDialog(false);
                     if (result.data != null && (RETURN_CODE_SUCC.equalsIgnoreCase(result.data.getRtCd()) || RETURN_CODE_EMPTY.equalsIgnoreCase(result.data.getRtCd()))) {
                         if (result.data.getSearchList() != null && result.data.getSearchList().size() > 0) {
-                            if (isMoreSearchListReq) {
-                                // 충전소 목록을 추가로 요청한 경우.
-                                pageNo++;
-                            }else{
-                                searchList.clear();
-                            }
+//                            if (isMoreSearchListReq) {
+//                                // 충전소 목록을 추가로 요청한 경우.
+//                                pageNo++;
+//                            }
+                            searchList.clear();
                             searchList.addAll(result.data.getSearchList());
                         }
                         updateChargeList(searchList);
@@ -329,21 +329,24 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
     /****************************************************************************************************
      * Override Method - {@link NestedScrollView.OnScrollChangeListener}
      ****************************************************************************************************/
-    @Override
-    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        // 리뷰 목록이 표시중이지 않거나 이미 데이테를 요청 중일 때는 넘어감
-        if (isMoreSearchListReq) {
-            return;
-        }
-
-        if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-            List<Double> position = lgnViewModel.getPositionValue();
-            if (position != null && position.size() > 1) {
-                isMoreSearchListReq = true;
-                getChargeStation(position.get(0), position.get(1), pageNo + 1);
-            }
-        }
-    }
+    // 2021.06.14 이상우K 요청사항, 충전소 조회 시 페이징 처리 제거하고 한페이지에 50개 조회 요청하도록 고정 처리, 추가 페이지 조회 없음!
+//    @Override
+//    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//        // 리뷰 목록이 표시중이지 않거나 이미 데이테를 요청 중일 때는 넘어감
+//        if (isMoreSearchListReq) {
+//            return;
+//        }
+//
+//        if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+//            List<Double> position = lgnViewModel.getPositionValue();
+//            if (position != null && position.size() > 1) {
+//                if(position.size() >= Integer.parseInt(MAX_PAGE_CNT))
+//                    isMoreSearchListReq = true;
+//
+//                getChargeStation(position.get(0), position.get(1), pageNo + 1);
+//            }
+//        }
+//    }
 
     /****************************************************************************************************
      * Override Method - {@link InputChargePlaceFragment.FilterChangeListener}
@@ -414,7 +417,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
                 .commitAllowingStateLoss();
 
-        ui.vgNsv.setOnScrollChangeListener(ChargeReserveActivity.this);
+//        ui.vgNsv.setOnScrollChangeListener(ChargeReserveActivity.this);
 
         LinearLayoutManager reserveHistoryListLayoutManager = new LinearLayoutManager(ChargeReserveActivity.this);
         reserveHistoryListLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -506,7 +509,7 @@ public class ChargeReserveActivity extends GpsBaseActivity<ActivityChargeReserve
                 superSpeedYn,
                 highSpeedYn,
                 slowSpeedYn,
-                String.valueOf(pageNo),
+                FIXED_PAGE_NO,
                 MAX_PAGE_CNT
         ));
     }

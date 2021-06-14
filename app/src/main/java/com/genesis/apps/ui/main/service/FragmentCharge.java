@@ -337,7 +337,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             case R.id.l_service_charge_reservation_list:
                 if(sosViewModel.getRES_SOS_3001().getValue() != null) {
                     SOS_3001.Response data = sosViewModel.getRES_SOS_3001().getValue().data;
-                    if (data.getChbStus() != null) {
+                    if (data != null && data.getChbStus() != null) {
                         if ("Y".equalsIgnoreCase(data.getChbStus().getStMbrYn())) {
                             // 에스트레픽 회원인 경우 - 충전소 예약 목록 화면으로 이동.
                             ((BaseActivity) getActivity()).startActivitySingleTop(

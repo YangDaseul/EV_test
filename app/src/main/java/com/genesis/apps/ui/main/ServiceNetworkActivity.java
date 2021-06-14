@@ -1140,7 +1140,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     chgSpeed.contains(ChargeSearchCategorytype.HIGH_SPEED.getCode()) ? "Y" : null,
                     chgSpeed.contains(ChargeSearchCategorytype.SLOW_SPEED.getCode()) ? "Y" : null,
                     "1",
-                    "10"
+                    "50"
             ));
         }
     }
