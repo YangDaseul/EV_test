@@ -63,6 +63,10 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
     /****************************************************************************************************
      * Override Method - Event
      ****************************************************************************************************/
+    /**
+     *
+     * @param v 
+     */
     @Override
     public void onClickCommon(View v) {
         int id = v.getId();
@@ -207,6 +211,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
             }
         });
     }
+
 
     @Override
     public void getDataFromIntent() {
