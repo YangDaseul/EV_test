@@ -15,6 +15,70 @@
         android:layout_height="92dp"
         android:background="@drawable/bg_ffffff_underline_e5e5e5">
 
+        <ImageView
+            android:id="@+id/iv_btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/btn_minus"
+            android:contentDescription="@null"
+            android:onClick="@{(view) -> listener.onSingleClick(view)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingStart="20dp"
+            android:paddingEnd="15dp"/>
+
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="67.6dp"
+            android:layout_height="42dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_btn_delete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/card_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현대카드"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textStyle="normal"
+            android:textSize="14dp"
+            android:textColor="@color/x_000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="17dp"
+            app:layout_constraintTop_toTopOf="@id/card_image"
+            app:layout_constraintStart_toEndOf="@+id/card_image"
+            android:layout_marginStart="7.4dp"/>
+
+        <TextView
+            android:id="@+id/card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textStyle="normal"
+            android:textSize="14dp"
+            android:textColor="@color/x_262626"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="76dp"
+            android:text="1234 5678 4321 9876"
+            app:layout_constraintStart_toStartOf="@id/card_name"
+            app:layout_constraintTop_toBottomOf="@+id/card_name"
+            android:layout_marginTop="8dp"/>
+
+        <ImageView
+            android:id="@+id/btn_star"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/selector_ic_test_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@null"
+            android:onClick="@{ (view) -> listener.onSingleClick(view)}"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
