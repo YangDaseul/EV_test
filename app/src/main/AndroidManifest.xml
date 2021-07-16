@@ -19,8 +19,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-<!--    <uses-permission android:name="android.permission.RECORD_AUDIO" />-->
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" /> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -31,15 +30,15 @@
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher_genesis"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_genesis_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:largeHeap="true"
         android:windowSoftInputMode="stateHidden"
         tools:replace="android:allowBackup,android:name">
-
+        <activity android:name=".ui.main.service.CardManageTestActivity"></activity>
         <activity
             android:name=".ui.intro.IntroActivity"
             android:label="@string/app_name"
@@ -50,19 +49,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.common.activity.DeepLinkActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="genesisapp" android:host="menu"/>
-                <data android:scheme="genesisapps" android:host="menu" />
+
+                <data
+                    android:host="menu"
+                    android:scheme="genesisapp" />
+                <data
+                    android:host="menu"
+                    android:scheme="genesisapps" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -87,8 +90,8 @@
             android:name=".ui.main.contents.ContentsSearchActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.main.contents.ContentsDetailWebActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -589,7 +592,7 @@
             android:name=".ui.main.service.CarWashRequestActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceDriveReqActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -630,17 +633,20 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
-        <activity android:name=".ui.main.service.ChargeFindActivity"
+        <activity
+            android:name=".ui.main.service.ChargeFindActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
-        <activity android:name=".ui.main.service.ChargeReserveActivity"
+        <activity
+            android:name=".ui.main.service.ChargeReserveActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
-        <activity android:name=".ui.main.service.ChargeStationDetailActivity"
+        <activity
+            android:name=".ui.main.service.ChargeStationDetailActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -683,12 +689,11 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.service.CardManageActivity"
+        <activity
+            android:name=".ui.main.service.CardManageActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".ui.main.service.ServiceChargeBtrReqActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -696,66 +701,60 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" /> <!-- 픽업앤충전 서비스 신청 -->
-
         <activity
             android:name=".ui.main.service.ServiceChargeBtrInfoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 픽업앤충전 서비스 안내 -->
-
+            android:screenOrientation="portrait" /> <!-- 픽업앤충전 서비스 안내 -->
         <activity
             android:name=".ui.main.service.ServiceChargeBtrCheckActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 픽업앤충전 결제 정보 확인 -->
-
+            android:screenOrientation="portrait" /> <!-- 픽업앤충전 결제 정보 확인 -->
         <activity
             android:name=".ui.main.service.ServiceChargeBtrResultActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 픽업앤충전 신청 완료 -->
-
+            android:screenOrientation="portrait" /> <!-- 픽업앤충전 신청 완료 -->
         <activity
             android:name=".ui.main.service.ServiceChargeBtrFailActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 픽업앤충전 신청 실패 -->
-
+            android:screenOrientation="portrait" /> <!-- 픽업앤충전 신청 실패 -->
         <activity
             android:name=".ui.main.service.ServiceChargeBtrReserveHistoryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 픽업앤충전 예약 현황/내역 -->
+            android:screenOrientation="portrait" /> <!-- 픽업앤충전 예약 현황/내역 -->
         <activity
             android:name=".ui.common.activity.BluewalnutWebActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 간편결제 웹뷰 -->
-
+            android:screenOrientation="portrait" /> <!-- 간편결제 웹뷰 -->
         <activity
             android:name=".ui.main.DigitalWalletActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 디지털 월렛 -->
+            android:screenOrientation="portrait" /> <!-- 디지털 월렛 -->
         <activity
             android:name=".ui.main.UnpaidPayRequestActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 미수금 결제 요청 -->
+            android:screenOrientation="portrait" /> <!-- 미수금 결제 요청 -->
         <activity
             android:name=".ui.main.UnpaidPayResultActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- 미수금 결제 완료 -->
+            android:screenOrientation="portrait" /> <!-- 미수금 결제 완료 -->
         <activity
             android:name=".ui.main.EvChargeCardPasswordActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /><!-- EV 충전 카드 비밀번호 설정 -->
-
+            android:screenOrientation="portrait" /> <!-- EV 충전 카드 비밀번호 설정 -->
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />
+
         <service android:name=".fcm.FirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

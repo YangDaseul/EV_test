@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/service_charge_btr_04}"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_name"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tabBackground="@drawable/selector_tab_repair_image_test_bg"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@+id/tabs_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

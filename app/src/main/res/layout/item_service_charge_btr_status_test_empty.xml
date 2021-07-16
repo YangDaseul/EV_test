@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:text="@string/service_charge_btr_err_11"
+            android:background="@color/x_f8f8f8"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textStyle="normal"
+            android:textSize="18dp"
+            android:textColor="@color/x_262626"
+            android:letterSpacing="=0.01"
+            android:lineSpacingExtra="10dp"
+            android:gravity="center"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
