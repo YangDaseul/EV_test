@@ -30,6 +30,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.service.CardManageActivity;
+import com.genesis.apps.ui.main.service.CardManageTestActivity;
 
 import java.util.List;
 
@@ -99,7 +100,8 @@ public class UnpaidPayRequestActivity extends SubActivity<ActivityUnpaidPayReque
         switch (v.getId()) {
             case R.id.btn_card_reg:
             case R.id.btn_card_mgmt:
-                startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                //startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                startActivitySingleTop(new Intent(this, CardManageTestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
             case R.id.l_selected_paymt_card:
                 showDialogCardList(dtwViewModel.getPaymtCardList());

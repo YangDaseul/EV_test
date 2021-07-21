@@ -229,7 +229,8 @@ public class ServiceChargeBtrCheckActivity extends SubActivity<ActivityServiceCh
             case R.id.btn_card_reg:
             case R.id.btn_card_mgmt:
                 // 결제수단관리 페이지로 연결(간편결제 가입/카드등록 분기 처리)
-                startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                //startActivitySingleTop(new Intent(this, CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                startActivitySingleTop(new Intent(this, CardManageTestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
             case R.id.l_selected_paymt_card:
                 if(contentsVO.getCardList().size() > 1)

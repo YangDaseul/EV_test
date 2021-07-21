@@ -40,6 +40,7 @@ import com.genesis.apps.ui.main.insight.InsightExpnModifyActivity;
 import com.genesis.apps.ui.main.service.CarWashHistoryActivity;
 import com.genesis.apps.ui.main.service.CarWashSearchActivity;
 import com.genesis.apps.ui.main.service.CardManageActivity;
+import com.genesis.apps.ui.main.service.CardManageTestActivity;
 import com.genesis.apps.ui.main.service.ChargeFindActivity;
 import com.genesis.apps.ui.main.service.ChargeReserveHistoryActivity;
 import com.genesis.apps.ui.main.service.MaintenanceReserveActivity;
@@ -332,7 +333,8 @@ public enum APPIAInfo {
     SM_CGRV02("SM_CGRV02", null, VariableType.QUICK_MENU_CODE_NONE, "결제 정보 확인", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_CGRV03("SM_CGRV03", null, VariableType.QUICK_MENU_CODE_NONE, "픽업앤충전 서비스 신청 완료", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_CGRV01_P04("SM_CGRV01_P04", null, VariableType.QUICK_MENU_CODE_NONE, "픽업앤충전 서비스 소개 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
-    SM_CGRV02_P01("SM_CGRV02_P01", CardManageActivity.class, VariableType.QUICK_MENU_CODE_NONE, "결제수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
+    //SM_CGRV02_P01("SM_CGRV02_P01", CardManageActivity.class, VariableType.QUICK_MENU_CODE_NONE, "결제수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
+    SM_CGRV02_P01("SM_CGRV02_P01", CardManageTestActivity.class, VariableType.QUICK_MENU_CODE_NONE, "결제수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
     SM_CGRV04_01("SM_CGRV04_01", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 현황/예약 정보 없음", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
     SM_CGRV04_02("SM_CGRV04_02", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 현황/예약 예약완료", VariableType.QUICK_MENU_CATEGORY_NONE,""),

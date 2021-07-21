@@ -302,7 +302,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 public void onSingleClick(View v) {
                     setSimplePayInfo((Boolean)v.getTag(R.id.item));
                     // 결제수단관리 페이지로 연결
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                    //((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CardManageActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CardManageTestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 }
             }, new OnSingleClickListener() {
                 @Override

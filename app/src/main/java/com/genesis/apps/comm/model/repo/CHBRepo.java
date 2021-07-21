@@ -326,6 +326,9 @@ public class CHBRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CHB_1015.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1015.Response.class)));
+
+//                더미 데이터 테스트 코드
+//                RES_CHB_1015.setValue(NetUIResponse.success(TestCode.CHB_1015));
             }
 
             @Override
