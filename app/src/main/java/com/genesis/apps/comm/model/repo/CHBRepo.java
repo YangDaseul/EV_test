@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.api.gra.CHB_1027;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -353,7 +354,8 @@ public class CHBRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_CHB_1016.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1016.Response.class)));
+//                RES_CHB_1016.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1016.Response.class)));
+                RES_CHB_1016.setValue(NetUIResponse.success(TestCode.CHB_1016));
             }
 
             @Override
